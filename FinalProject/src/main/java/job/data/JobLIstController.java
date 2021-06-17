@@ -11,13 +11,13 @@ import job.data.JobMapper;
 public class JobLIstController {
 	  @Autowired
 	   JobMapper mapper;
-	   @GetMapping({"/","/list"})
-	   public ModelAndView list() {
+	   @GetMapping({"/","/index"})
+	   public ModelAndView index() {
 	      ModelAndView mview =new ModelAndView();
 	      //총 개수
 	      int totalCount=mapper.getTotalCount();
 	      mview.addObject("totalCount",totalCount);
-	      mview.setViewName("list");
+	      mview.setViewName("index");
 	      return mview;
 	   }
 

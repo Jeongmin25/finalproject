@@ -9,17 +9,36 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<style type="text/css">
+	div.entire{
+	border: 1px solid black;
+     min-width: 1000px;
+   max-width: 1000px;
+   margin: auto;
+   padding: 10px;
+   height: 100vh;
+	}
+	
+	div.nav {
+	height: 100px;
+	border: 1px solid black;
+	}
+	
+	div.body {
+	margin-top : 50px;
+	border: 1px solid black;
+	height: 600px;
+	}
+</style>
 </head>
 <body>
-	<c:if test="${totalCount==0}">
-		<div class="alert alert-info">
-			<h2>저장된 상품 정보가 없음</h2>
+	<div class="entire">
+		<div class="nav">
+			<jsp:include page="layout/nav.jsp" />
 		</div>
-	</c:if>
-	<c:if test="${totalCount>0}">
-		<div class="alert alert-info">
-			<h2>총 ${totalCount}개의 상품</h2>
+		<div class="body">
+			<jsp:include page="layout/body.jsp" />
 		</div>
-	</c:if>
+	</div>
 </body>
 </html>
