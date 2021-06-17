@@ -21,6 +21,5 @@
 			<h2>총 ${totalCount}개의 상품</h2>
 		</div>
 	</c:if>
-	<h3>안녕하세요</h3>
 </body>
 </html>
