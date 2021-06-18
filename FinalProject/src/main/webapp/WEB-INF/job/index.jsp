@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/index.css" />
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <style type="text/css">
-	div.entire{
+		div.entire{
 	border: 1px solid black;
      min-width: 1000px;
    max-width: 1000px;
@@ -22,6 +21,7 @@
 	div.nav {
 	height: 100px;
 	border: 1px solid black;
+	z-index: 1;
 	}
 	
 	div.body {
@@ -29,9 +29,11 @@
 	border: 1px solid black;
 	height: 600px;
 	}
+	
 </style>
 </head>
 <body>
+
 	<div class="entire">
 		<div class="nav">
 			<jsp:include page="layout/nav.jsp" />
