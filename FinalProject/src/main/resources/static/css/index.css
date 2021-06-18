@@ -20,23 +20,25 @@ div.logo>img {
 ul.navcategory ul {
 	list-style: none;
 	padding: 0;
-	font-size: 30px;
+	font-size: 50px;
 	background-color: white;
 	display: none;
 }
 
 div#nav {
 	width: 800px;
-	padding: 0px;
+	padding-left: 100px;
+
+	
 }
 
 div#nav>nav {
 	position: absolute;
-	top: 35px;
-	left: 450px;
+	top: 5%;
+	left: 35%;
 	background-color: white;
 	border: none;
-	font-size: 20pt;
+	font-size: 10pt;
 	text-align: center;
 	height: 60px;
 }
@@ -48,7 +50,7 @@ ul.navcategory {
 ul.navcategory ul {
 	list-style: none;
 	 padding: 0;
-   margin: auto;
+   	margin: auto;
 	background-color: white;
 	display: none;
 }
@@ -59,7 +61,8 @@ ul.navcategory li:hover ul {
 
 ul.navcategory ul>li>a {
 	color: #021B80;
-	font-size: 25px;
+	font-size: 10px;
+	
 }
 
 div.container-fluid {
