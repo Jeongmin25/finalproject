@@ -95,3 +95,10 @@ ul>li>a:hover {
 	text-decoration: none;
 	cursor: pointer;
 }
+
+ul.navcategory li#login>a{
+	font-size: 10pt;
+	margin-left: 80px;
+	
+}
+
