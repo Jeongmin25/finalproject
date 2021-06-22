@@ -9,8 +9,14 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <style type="text/css">
+body *{
+	margin-left: 20px;
+}
+	textarea.intro:focus{
+		outline: none;
+	}
 	div.explanation{
-		background-color: #eee
+		background-color: #F3F9FE
 	}
 	
 	button.add{
@@ -18,6 +24,7 @@
 		border: none;
 		font-weight: bold;
 		font-size: 1.1em;
+		background-color: white;
 	}
 	
 	input.day{
@@ -34,10 +41,91 @@
 	}
 	
 	input:focus{outline: none;}
+	
+	span.skillblock{
+		border-radius: 100px;
+		width: 100px;
+		height: 30px;
+		background-color: #eee;
+		font-size: 0.9em;
+		margin-right: 10px;
+		line-height: 30px;
+	}
+	
+	select.sel{
+		width: 150px;
+		height: 30px;
+		padding-left: 10px;
+		font-size: 15px;
+		color: gray;
+		border-style: none;
+		border-radius: 3px;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		/*background: url('select-arrow.png') no-repeat 95% 50%;  화살표 아이콘 추가 */
+		margin-left: 10px;
+	}
+	
+	select.sel:focus{
+		outline: none;
+	}
+	
+	
+	* { box-sizing: border-box; }
+body {
+  font: 16px Arial;
+}
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+#myInput {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
 </style>
 <script type="text/javascript">
 window.onload = function() {
 	
+	skills=[];
 	
 
 	
@@ -98,8 +186,8 @@ window.onload = function() {
 		var td3=document.createElement("td");
 		var startday=document.createElement("input");
 		var endday=document.createElement("input");
-		var company=document.createElement("input");
-		var depart=document.createElement("input");
+		var school=document.createElement("input");
+		var major=document.createElement("input");
 		var spanx=document.createElement("span");
 		
 		//객체 속성,css지정
@@ -110,13 +198,13 @@ window.onload = function() {
 		endday.setAttribute("placeholder","YYYY-MM");
 		endday.setAttribute("class","day");
 
-		company.style.border="none";
-		company.style.fontWeight="bold";
-		company.setAttribute("placeholder","학교명");
+		school.style.border="none";
+		school.style.fontWeight="bold";
+		school.setAttribute("placeholder","학교명");
 		
-		depart.style.border="none";
-		depart.style.fontSize="0.9em";
-		depart.setAttribute("placeholder","전공 및 학위");
+		major.style.border="none";
+		major.style.fontSize="0.9em";
+		major.setAttribute("placeholder","전공 및 학위");
 		
 		//객체에 삽입
 		var addedu=document.getElementById("addedu");
@@ -127,26 +215,250 @@ window.onload = function() {
 		td1.appendChild(startday);
 		td1.appendChild(endday);
 		
-		td2.appendChild(company);
+		td2.appendChild(school);
 		
-		td3.appendChild(depart);
+		td3.appendChild(major);
 		td3.appendChild(spanx);
 			
 	}
+	
+	//기술 추가 이벤트
+	document.getElementById('btnskilladd').onclick=function(){
+		var skill=document.getElementById('myInput').value;
+		var skill_span=document.createElement("span");
+		//skill_span.setAttribute("class","skillblock");
+		//skill_span.setAttribute("class","glyphicon glyphicon-remove");
+		skill_span.innerHTML=skill;
+		document.getElementById('skill').appendChild(skill_span);
+		skill_span.classList.add('skillblock','glyphicon','glyphicon-remove');
+
+		
+		
+	}
+	
+	
+	//수상 및 경력 추가버튼을 클릭시 이벤트
+	document.getElementById("btnaddaward").onclick=function(){
+		//객체 생성
+		var tr=document.createElement("tr");
+		var td1=document.createElement("td");
+		var td2=document.createElement("td");
+		var td3=document.createElement("td");
+		var startday=document.createElement("input");
+		var endday=document.createElement("input");
+		var activity=document.createElement("input");
+		var detail=document.createElement("input");
+		var spanx=document.createElement("span");
+		
+		//객체 속성,css지정
+		spanx.setAttribute("class","glyphicon glyphicon-remove");
+		
+		startday.setAttribute("placeholder","YYYY-MM");
+		startday.setAttribute("class","day");
+		endday.setAttribute("placeholder","YYYY-MM");
+		endday.setAttribute("class","day");
+
+		activity.style.border="none";
+		activity.style.fontWeight="bold";
+		activity.setAttribute("placeholder","활동명");
+		
+		detail.style.border="none";
+		detail.style.fontSize="0.9em";
+		detail.setAttribute("placeholder","세부사항");
+		
+		//객체에 삽입
+		var addaward =document.getElementById('addaward');
+		addaward.appendChild(tr);
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		tr.appendChild(td3);
+		td1.appendChild(startday);
+		td1.appendChild(endday);
+		td2.appendChild(activity);
+		td3.appendChild(detail);
+		td3.appendChild(spanx);
+	}
+	
+	//링크 추가 이벤트
+	document.getElementById('btnaddlink').onclick=function(){
+		//객체 생성
+		var tr=document.createElement("tr");
+		var td1=document.createElement("td");
+		var td2=document.createElement("td");
+		var link=document.createElement("input");
+		var spanx=document.createElement("span");
+		
+		//객체 속성,css지정
+		spanx.setAttribute("class","glyphicon glyphicon-remove");
+		tr.setAttribute("width","200px");
+		link.style.border="none";
+		link.style.fontWeight="bold";
+		link.setAttribute("placeholder","http://");
+		
+		//객체에 삽입
+		var addlink =document.getElementById('addlink');
+		addlink.appendChild(tr);
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		td1.appendChild(link);
+		td2.appendChild(spanx);
+	}
+	
+	//외국어 추가 이벤트
+	document.getElementById('btnaddfore').onclick=function(){
+		//객체를 생성하고, option값을 select 에 삽입
+		var fore=["영어","중국어 북경어","중국어 광동어","일본어","한국어","독일어","스페인어","프랑스어","네덜란드어","노르웨이어","덴마크어"];
+		var level=["유창","비지니스회화","일상회화"];
+		var sel1=document.createElement("select");
+		sel1.setAttribute("width","100px");
+		fore.forEach(function(elt, i, array) {
+			var block=document.createElement("option");
+			block.setAttribute("value",elt);
+			block.innerHTML=elt;
+			sel1.appendChild(block);
+		});
+		
+		var sel2=document.createElement("select");
+		sel2.setAttribute("width","100px");
+		level.forEach(function(elt, i, array) {
+			var block=document.createElement("option");
+			block.setAttribute("value",elt);
+			block.innerHTML=elt;
+			sel2.appendChild(block);
+		});
+		
+		var span=document.createElement("span");
+		span.setAttribute("class","glyphicon glyphicon-remove");
+		
+		//스타일 지정
+		sel1.setAttribute("class","sel");
+		sel2.setAttribute("class","sel");
+		
+		//객체 삽입
+		document.getElementById('selfore').appendChild(sel1);
+		document.getElementById('selfore').appendChild(sel2);
+		document.getElementById('selfore').appendChild(span);
+	}
+
 }	
 
+//스킬 검색
+//컬럼명은 skill_name
 function searchskill() {
-	var autoInput=document.getElementById('autoInput').innerHTML;
-	alert(autoInput);
-	$.ajax({
+	var autoInput=document.getElementById('myInput').value;
+	//alert(autoInput);
+	 $.ajax({
 		type:"get",
 		url:"http://api.dataatwork.org/v1/skills/normalize?skill_name="+autoInput,
-		data:{"skill_name":autoInput},
 		dataType:"json",
 		success:function(data){
-			alert(data.length);
+			$.each(data, function(i, elt) {
+				skills[i]=elt.skill_name;
+			});
+			autocomplete(document.getElementById("myInput"), skills); 
+			
 		}
-	});
+
+
+});
+}
+
+//자동 완성 기능
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        e.preventDefault();
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+/*execute a function when someone clicks in the document:*/
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
 }
 
 </script>
@@ -182,13 +494,6 @@ function searchskill() {
 <button type="button" class="add" id="btnaddcarer">+ 추가</button>
 <br><br>
 <table id="addcarer">
-	<tr>
-		<td>
-			<input name="startday" style="border: none;font-size: 0.8em;" placeholder="YYYY-MM">-<input name="endday" style="border: none;font-size: 0.8em;" placeholder="YYYY-MM">
-		</td>
-		<td><input style="border: none;font-weight: bold;" placeholder="회사명" name="company"></td>
-		<td><input style="border: none;font-size: 0.9em;" placeholder="부서명/직책" name="depart"><span class="glyphicon glyphicon-remove"></span></td>
-	</tr>
 </table>
 </div>
 <br><br>
@@ -205,7 +510,7 @@ function searchskill() {
 </table>
 </div>
 
-<div class="skill">
+<div class="skill" id="skill">
 <h5>스킬</h5>
 <hr>
 <div class="explanation">
@@ -213,11 +518,52 @@ function searchskill() {
 	<h6>• 데이터 분석 툴이나 협업 툴 등의 사용해본 경험이 있으신 툴들도 추가해보세요.</h6>
 </div>
 <br><br>
-<input type="text" style="border: none;" placeholder="보유 스킬을 검색해주세요" id="autoInput" onkeyup="searchskill()">
-<table id="addedu">
-</table>
+<form autocomplete="off" >
+  <div class="autocomplete" style="width:300px;">
+	<input type="text" style="border: none;" placeholder="보유 스킬을 검색해주세요" id="myInput" onkeyup="searchskill()">
+ </div>
+ <button type="button" class="btn btn-info" id="btnskilladd">추가</button><br><br>
+</form>
 </div>
 <br><br>
+
+<div class="award" id="award">
+<h5>수상 및 기타</h5>
+<hr>
+<div class="explanation">
+	<h6>• 수상 이력, 직무 관련 자격증, 수료한 교육이나 참석한 외부활동 등이 있다면 간략히 작성해주세요.</h6>
+	<h6>• 지원하는 회사에서 요구하는 경우가 아니라면 운전면허증과 같은 자격증은 생략하는 것이 좋습니다!</h6>
+</div>
+<br><br>
+<button type="button" class="add" id="btnaddaward">+ 추가</button>
+<table id="addaward"></table>
+</div>
+<br><br>
+
+<div class="fore" id="fore">
+<h5>외국어</h5>
+<hr>
+<div class="explanation">
+	<h6>• 외국어 자격증을 보유한 경우 작성해주세요. </h6>
+	<h6>• 활용 가능한 외국어가 있다면, 어느정도 수준인지 레벨을 선택해주세요.</h6>
+</div>
+<br><br>
+<button type="button" class="add" id="btnaddfore">+ 추가</button>
+<br>
+<div id="selfore"></div>
+</div>
+<br><br>
+
+<div class="link" id="link">
+<h5>링크</h5>
+<hr>
+<div class="explanation">
+	<h6>• 깃헙, 노션으로 작성한 포트폴리오, 구글 드라이브 파일 등 업무 성과를 보여줄 수 있는 링크가 있다면 작성해주세요.</h6>
+</div>
+<br><br>
+<button type="button" class="add" id="btnaddlink">+ 추가</button>
+<table id="addlink"></table>
+</div>
 </form>
 </body>
 </html>
