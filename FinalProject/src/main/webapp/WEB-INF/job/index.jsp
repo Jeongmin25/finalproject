@@ -15,7 +15,6 @@
    max-width: 1000px;
    margin: auto;
    padding: 10px;
-   height: 100vh;
 	}
 	
 	div.nav {
@@ -27,7 +26,6 @@
 	div.body {
 	margin-top : 50px;
 	border: 1px solid black;
-	height: 600px;
 	}
 	
 </style>
