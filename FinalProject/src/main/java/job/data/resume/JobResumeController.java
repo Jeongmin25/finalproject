@@ -25,7 +25,8 @@ public class JobResumeController {
 		public String insertresume(
 				@ModelAttribute ResumeDto resume,
 				@ModelAttribute AwardDto award,
-				@ModelAttribute CarerDto carer
+				@ModelAttribute CarerDto carer,
+				@ModelAttribute EducationDto education
 
 				) {
 		   //resume insert하고, num_r값 가져오기
@@ -36,35 +37,48 @@ public class JobResumeController {
 		   //award 활동명, 세부사항, 날짜 ,를 기준으로 나눠서 받아 입력
 		   award.setNum_r(num_r);
 		   
-			   String act[]=award.getActivity().split(",");
-			   String detail[]=award.getDetail().split(",");
-			   String start[]=award.getA_startday().split(",");
-			   String end[]=award.getA_endday().split(",");
-		
-			   for(int i=0;i<act.length;i++) {
-				   award.setA_endday(end[i]);
-				   award.setActivity(start[i]);
-				   award.setActivity(act[i]);
-				   award.setDetail(detail[i]);
-				   mapper.insertAward(award);
-			   }
+		   String act[]=award.getActivity().split(",");
+		   String detail[]=award.getDetail().split(",");
+		   String start[]=award.getA_startday().split(",");
+		   String end[]=award.getA_endday().split(",");
+	
+		   for(int i=0;i<act.length;i++) {
+			   award.setA_endday(end[i]);
+			   award.setActivity(start[i]);
+			   award.setActivity(act[i]);
+			   award.setDetail(detail[i]);
+			   mapper.insertAward(award);
+		   }
 		   
-			   
-		   if(carer!=null) {
-			   //carer 회사명, 부서, 날짜를 ,를 기준으로 나눠받아 입력
-			   carer.setNum_r(num_r);
-			   String company[]=carer.getCompany().split(",");
-			   String depart[]=carer.getDepartment().split(",");
-			   String c_start[]=carer.getC_startday().split(",");
-			   String c_end[]=carer.getC_endday().split(",");
-			   
-			   for(int i=0;i<company.length;i++) {
-				   carer.setC_endday(c_end[i]);
-				   carer.setC_startday(c_start[i]);
-				   carer.setCompany(company[i]);
-				   carer.setDepartment(depart[i]);
-				   mapper.insertCarer(carer);
-			   }
+		
+		   //carer 회사명, 부서, 날짜를 ,를 기준으로 나눠받아 입력
+		   carer.setNum_r(num_r);
+		   String company[]=carer.getCompany().split(",");
+		   String depart[]=carer.getDepartment().split(",");
+		   String c_start[]=carer.getC_startday().split(",");
+		   String c_end[]=carer.getC_endday().split(",");
+		   
+		   for(int i=0;i<company.length;i++) {
+			   carer.setC_endday(c_end[i]);
+			   carer.setC_startday(c_start[i]);
+			   carer.setCompany(company[i]);
+			   carer.setDepartment(depart[i]);
+			   mapper.insertCarer(carer);
+		   }
+		   
+		 //education 학교명, 전공, 날짜를 ,를 기준으로 나눠받아 입력
+		   education.setNum_r(num_r);
+		   String school[]=education.getSchool().split(",");
+		   String major[]=education.getMajor().split(",");
+		   String e_start[]=education.getE_startday().split(",");
+		   String e_end[]=education.getE_endday().split(",");
+		   
+		   for(int i=0;i<school.length;i++) {
+			   education.setE_endday(e_end[i]);
+			   education.setE_startday(e_start[i]);
+			   education.setSchool(school[i]);
+			   education.setMajor(major[i]);
+			   mapper.insertEducation(education);
 		   }
 		   
 

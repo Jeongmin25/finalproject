@@ -211,16 +211,20 @@ window.onload = function() {
 		
 		startday.setAttribute("placeholder","YYYY-MM");
 		startday.setAttribute("class","day");
+		startday.setAttribute("name","e_startday");
 		endday.setAttribute("placeholder","YYYY-MM");
 		endday.setAttribute("class","day");
+		endday.setAttribute("name","e_endday");
 
 		school.style.border="none";
 		school.style.fontWeight="bold";
 		school.setAttribute("placeholder","학교명");
+		school.setAttribute("name","school");
 		
 		major.style.border="none";
 		major.style.fontSize="0.9em";
 		major.setAttribute("placeholder","전공 및 학위");
+		major.setAttribute("name","major");
 		
 		//객체에 삽입
 		var addedu=document.getElementById("addedu");

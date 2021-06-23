@@ -16,5 +16,7 @@
 	<insert id="insertCarer" parameterType="carer">
 		insert into carer (company,department,endday,startday,num_r) values (#{company, jdbcType=VARCHAR},#{department, jdbcType=VARCHAR},#{c_endday, jdbcType=VARCHAR},#{c_startday, jdbcType=VARCHAR},#{num_r})
 	</insert>
-
+	<insert id="insertEducation" parameterType="education">
+		insert into education (school,major,endday,startday,num_r) values (#{school, jdbcType=VARCHAR},#{major, jdbcType=VARCHAR},#{e_endday, jdbcType=VARCHAR},#{e_startday, jdbcType=VARCHAR},#{num_r})
+	</insert>
 </mapper>

@@ -12,4 +12,5 @@ public interface ResumeMapper {
 	public int getInsertNum();
 	public void insertAward(AwardDto adto);
 	public void insertCarer(CarerDto cdto);
+	public void insertEducation(EducationDto edto);
 }
