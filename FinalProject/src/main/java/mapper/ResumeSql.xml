@@ -7,4 +7,11 @@
 	<insert id="insertResume" parameterType="resume">
 		insert into resume (intro,skill,link,nowdate) values (#{intro},#{skill},#{link},now())
 	</insert>
+	<select id="getInsertNum" resultType="int">
+		select LAST_INSERT_ID()
+	</select>
+	<insert id="insertAward" parameterType="award">
+		insert into award (activity,detail,endday,startday,num_r) values (#{activity},#{detail},#{a_endday},#{a_startday},#{num_r})
+	</insert>
+
 </mapper>

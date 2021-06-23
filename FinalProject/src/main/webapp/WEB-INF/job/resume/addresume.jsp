@@ -274,16 +274,20 @@ window.onload = function() {
 		
 		startday.setAttribute("placeholder","YYYY-MM");
 		startday.setAttribute("class","day");
+		startday.setAttribute("name","a_startday");
 		endday.setAttribute("placeholder","YYYY-MM");
 		endday.setAttribute("class","day");
+		endday.setAttribute("name","a_endday");
 
 		activity.style.border="none";
 		activity.style.fontWeight="bold";
 		activity.setAttribute("placeholder","활동명");
+		activity.setAttribute("name","activity");
 		
 		detail.style.border="none";
 		detail.style.fontSize="0.9em";
 		detail.setAttribute("placeholder","세부사항");
+		detail.setAttribute("name","detail");
 		
 		//객체에 삽입
 		var addaward =document.getElementById('addaward');

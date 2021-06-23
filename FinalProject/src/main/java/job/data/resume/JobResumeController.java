@@ -23,21 +23,31 @@ public class JobResumeController {
 	   
 	   @PostMapping("/insertresume")
 		public String insertresume(
-				@ModelAttribute ResumeDto resume
+				@ModelAttribute ResumeDto resume,
+				@ModelAttribute AwardDto award
 
 				) {
-			//resume 정보 삽입
-			
-		  System.out.println(resume.getSkill());
-		  System.out.println(resume.getLink());
-			
-			//|를 기준으로 컬럼에 담기
-			
-			//담은 것 다시 dto에 담아주기
-			
-			//insert하기
-		
+		   //resume insert하고, num_r값 가져오기
 		   mapper.insertResume(resume);
+		   int num_r= mapper.getInsertNum();
+		   
+		   
+		   //award 활동명, 세부사항, 날짜 ,를 기준으로 나눠서 받아 입력
+		   award.setNum_r(num_r);
+		   String act[]=award.getActivity().split(",");
+		   String detail[]=award.getDetail().split(",");
+		   String start[]=award.getA_startday().split(",");
+		   String end[]=award.getA_endday().split(",");
+		   
+		   for(int i=0;i<act.length;i++) {
+			   award.setA_endday(end[i]);
+			   award.setActivity(start[i]);
+			   award.setActivity(act[i]);
+			   award.setDetail(detail[i]);
+			   mapper.insertAward(award);
+		   }
+			
+			
 		  
 			
 			return "index";
