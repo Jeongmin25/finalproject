@@ -160,16 +160,20 @@ window.onload = function() {
 	
 	startday.setAttribute("placeholder","YYYY-MM");
 	startday.setAttribute("class","day");
+	startday.setAttribute("name","c_startday");
 	endday.setAttribute("placeholder","YYYY-MM");
 	endday.setAttribute("class","day");
+	endday.setAttribute("name","c_endday");
 
 	company.style.border="none";
 	company.style.fontWeight="bold";
 	company.setAttribute("placeholder","회사명");
+	company.setAttribute("name","company");
 	
 	depart.style.border="none";
 	depart.style.fontSize="0.9em";
 	depart.setAttribute("placeholder","부서명/직책");
+	depart.setAttribute("name","department");
 	
 	//객체에 삽입
 	var addcarer=document.getElementById("addcarer");

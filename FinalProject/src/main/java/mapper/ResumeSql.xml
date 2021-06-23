@@ -11,7 +11,10 @@
 		select LAST_INSERT_ID()
 	</select>
 	<insert id="insertAward" parameterType="award">
-		insert into award (activity,detail,endday,startday,num_r) values (#{activity},#{detail},#{a_endday},#{a_startday},#{num_r})
+		insert into award (activity,detail,endday,startday,num_r) values (#{activity, jdbcType=VARCHAR},#{detail, jdbcType=VARCHAR},#{a_endday, jdbcType=VARCHAR},#{a_startday, jdbcType=VARCHAR},#{num_r})
+	</insert>
+	<insert id="insertCarer" parameterType="carer">
+		insert into carer (company,department,endday,startday,num_r) values (#{company, jdbcType=VARCHAR},#{department, jdbcType=VARCHAR},#{c_endday, jdbcType=VARCHAR},#{c_startday, jdbcType=VARCHAR},#{num_r})
 	</insert>
 
 </mapper>
