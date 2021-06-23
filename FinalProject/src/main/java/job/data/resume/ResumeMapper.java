@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ResumeMapper {
 
 	public int getTotalCount();
+	public void insertResume(ResumeDto dto);
 }

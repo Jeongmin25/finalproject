@@ -4,4 +4,7 @@
 	<select id="getTotalCount" resultType="int">
 		select count(*) from resume
 	</select>
+	<insert id="insertResume" parameterType="resume">
+		insert into resume (intro,skill,link,nowdate) values (#{intro},#{skill},#{link},now())
+	</insert>
 </mapper>

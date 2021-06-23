@@ -71,6 +71,18 @@ body *{
 		outline: none;
 	}
 	
+	button.submit_resume{
+		background-color: #021B80;
+		color: white;
+		border-radius: 40px;
+		width: 100px;
+		height: 40px;
+		line-height: 30px;
+		border: 0px solid black;
+		
+	}
+	
+	
 	
 	* { box-sizing: border-box; }
 body {
@@ -226,10 +238,17 @@ window.onload = function() {
 	document.getElementById('btnskilladd').onclick=function(){
 		var skill=document.getElementById('myInput').value;
 		var skill_span=document.createElement("span");
+		var hidden=document.createElement("input");
 		//skill_span.setAttribute("class","skillblock");
 		//skill_span.setAttribute("class","glyphicon glyphicon-remove");
+		hidden.setAttribute("type","hidden");
+		hidden.setAttribute("value",skill);
+		hidden.setAttribute("name","skill");
 		skill_span.innerHTML=skill;
+		skill_span.setAttribute("name","skill");
+		skill_span.setAttribute("value",skill);
 		document.getElementById('skill').appendChild(skill_span);
+		document.getElementById('skill').appendChild(hidden);
 		skill_span.classList.add('skillblock','glyphicon','glyphicon-remove');
 
 		
@@ -297,6 +316,7 @@ window.onload = function() {
 		
 		//객체에 삽입
 		var addlink =document.getElementById('addlink');
+		link.setAttribute("name","link");
 		addlink.appendChild(tr);
 		tr.appendChild(td1);
 		tr.appendChild(td2);
@@ -464,7 +484,7 @@ document.addEventListener("click", function (e) {
 </script>
 </head>
 <body>
-<form action="">
+<form action="insertresume" method="post">
 <h2>이름</h2>
 <br><br>
 <h5>이름</h5>
@@ -518,12 +538,12 @@ document.addEventListener("click", function (e) {
 	<h6>• 데이터 분석 툴이나 협업 툴 등의 사용해본 경험이 있으신 툴들도 추가해보세요.</h6>
 </div>
 <br><br>
-<form autocomplete="off" >
+
   <div class="autocomplete" style="width:300px;">
 	<input type="text" style="border: none;" placeholder="보유 스킬을 검색해주세요" id="myInput" onkeyup="searchskill()">
  </div>
  <button type="button" class="btn btn-info" id="btnskilladd">추가</button><br><br>
-</form>
+
 </div>
 <br><br>
 
@@ -549,7 +569,6 @@ document.addEventListener("click", function (e) {
 </div>
 <br><br>
 <button type="button" class="add" id="btnaddfore">+ 추가</button>
-<br>
 <div id="selfore"></div>
 </div>
 <br><br>
@@ -563,6 +582,9 @@ document.addEventListener("click", function (e) {
 <br><br>
 <button type="button" class="add" id="btnaddlink">+ 추가</button>
 <table id="addlink"></table>
+</div>
+<div class="botton" style="position: fixed; bottom: 10px;right: 10px;">
+   <button type="submit" class="submit_resume" >작성 완료</button>
 </div>
 </form>
 </body>
