@@ -26,7 +26,8 @@ public class JobResumeController {
 				@ModelAttribute ResumeDto resume,
 				@ModelAttribute AwardDto award,
 				@ModelAttribute CarerDto carer,
-				@ModelAttribute EducationDto education
+				@ModelAttribute EducationDto education,
+				@ModelAttribute ForeDto fore
 
 				) {
 		   //resume insert하고, num_r값 가져오기
@@ -79,6 +80,17 @@ public class JobResumeController {
 			   education.setSchool(school[i]);
 			   education.setMajor(major[i]);
 			   mapper.insertEducation(education);
+		   }
+		   
+		 //fore 언어, 레벨를 ,를 기준으로 나눠받아 입력
+		   fore.setNum_r(num_r);
+		   String lang[]=fore.getLang().split(",");
+		   String level[]=fore.getLevel().split(",");
+		   
+		   for(int i=0;i<school.length;i++) {
+			   fore.setLang(lang[i]);
+			   fore.setLevel(level[i]);
+			   mapper.insertFore(fore);
 		   }
 		   
 

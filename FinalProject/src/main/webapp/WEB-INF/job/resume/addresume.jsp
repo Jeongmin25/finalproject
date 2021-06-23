@@ -343,20 +343,25 @@ window.onload = function() {
 		var level=["유창","비지니스회화","일상회화"];
 		var sel1=document.createElement("select");
 		sel1.setAttribute("width","100px");
+		sel1.setAttribute("name","lang");
 		fore.forEach(function(elt, i, array) {
 			var block=document.createElement("option");
 			block.setAttribute("value",elt);
 			block.innerHTML=elt;
 			sel1.appendChild(block);
+			
 		});
 		
 		var sel2=document.createElement("select");
 		sel2.setAttribute("width","100px");
+		sel2.setAttribute("name","level");
 		level.forEach(function(elt, i, array) {
 			var block=document.createElement("option");
 			block.setAttribute("value",elt);
 			block.innerHTML=elt;
 			sel2.appendChild(block);
+			
+				
 		});
 		
 		var span=document.createElement("span");

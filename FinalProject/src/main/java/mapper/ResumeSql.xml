@@ -19,4 +19,7 @@
 	<insert id="insertEducation" parameterType="education">
 		insert into education (school,major,endday,startday,num_r) values (#{school, jdbcType=VARCHAR},#{major, jdbcType=VARCHAR},#{e_endday, jdbcType=VARCHAR},#{e_startday, jdbcType=VARCHAR},#{num_r})
 	</insert>
+	<insert id="insertFore" parameterType="fore">
+		insert into fore (lang,level,num_r) values (#{lang, jdbcType=VARCHAR},#{level, jdbcType=VARCHAR},#{num_r})
+	</insert>
 </mapper>
