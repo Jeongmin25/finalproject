@@ -22,4 +22,7 @@
 	<insert id="insertFore" parameterType="fore">
 		insert into fore (lang,level,num_r) values (#{lang, jdbcType=VARCHAR},#{level, jdbcType=VARCHAR},#{num_r})
 	</insert>
+	<select id="getDataOfResume" resultType="resume">
+		select * from resume order by num_r desc
+	</select>
 </mapper>

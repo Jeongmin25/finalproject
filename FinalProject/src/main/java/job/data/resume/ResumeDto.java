@@ -13,4 +13,5 @@ public class ResumeDto {
 	private String intro;
 	private String skill;
 	private String link;
+	private Timestamp nowdate;
 }

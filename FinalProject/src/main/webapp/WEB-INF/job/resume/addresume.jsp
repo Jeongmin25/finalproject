@@ -546,6 +546,7 @@ document.addEventListener("click", function (e) {
 <table id="addedu">
 </table>
 </div>
+<br><br>
 
 <div class="skill" id="skill">
 <h5>스킬</h5>
