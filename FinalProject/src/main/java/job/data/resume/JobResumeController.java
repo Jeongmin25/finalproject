@@ -106,6 +106,12 @@ public class JobResumeController {
 		   }
 		   
 
-			return "index";
+			return "index.jsp?go=resume/";
 		}
+	   
+	   @GetMapping("/delresume")
+	   public String delresume(String num_r) {
+		   mapper.delresume(num_r);
+		   return "redirect:index?go=resume/resumelist";
+	   }
 }
