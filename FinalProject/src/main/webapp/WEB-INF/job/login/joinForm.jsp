@@ -24,9 +24,6 @@
 	비밀번호<br/>
 	<input type="password" name="password" placeholder="비밀번호를 6자 이상 입력해주세요" style="width: 300px;"/> 
 	<br/><br/>
-	비밀번호 확인<br/>
-	<input type="password" name="password" placeholder="비밀번호를 다시한번 입력해주세요" style="width: 300px;"/> 
-	<br/><br/>
 	<button type="button" class="btn btn-primary" style="width: 150px;">회원가입</button>
 	</form>
 </body>

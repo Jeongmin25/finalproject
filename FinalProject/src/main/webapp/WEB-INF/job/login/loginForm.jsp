@@ -13,18 +13,18 @@
 <b>커리어 성장과 행복을 위한 여정 지금 +JOB에서 시작하세요 </b>
 <br/>
 <form action="" method="post">
-	<input type="hidden" name="username" placeholder="Username"/> 
+	<input type="text" name="username" placeholder="Username"/> 
 	<br/><br/>
 	<input type="email" name="email" placeholder="Email"/> 
 	<br/><br/>
 	<input type="password" name="password" placeholder="Password"/> 
 	<br/><br/>
 	<button type="button" class="btn btn-primary" style="width: 150px;">로그인</button>
-	<br/>
+<!-- 	<br/>
 	<br/>
 	<button type="button" class="btn btn-default" style="width: 150px;">구글로 시작하기</button>
 	<br/>
-	<button type="button" class="btn btn-default" style="width: 150px;">카카오로 시작하기</button>
+	<button type="button" class="btn btn-default" style="width: 150px;">카카오로 시작하기</button> -->
 	
 	
 	

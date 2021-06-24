@@ -18,7 +18,7 @@ import lombok.Data;
 public class UserAccountDto {
 	@Id // primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	private String username;
 	private String hp;
 	private String password; 

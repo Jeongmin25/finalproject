@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity //스프링 시큐리티 필터가 스프링 필터체인에 등록이된다.
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+// 위와같이 설정해주면, 이제 사이트 전체가 잠겨서, 비밀번호를 쳐야 접근할 수 있게 된다. 
+//원활한 프로젝트 진행을 위해 일단 페이지의 인증을 해제하자.
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception{

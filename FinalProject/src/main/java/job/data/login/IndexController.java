@@ -1,8 +1,9 @@
 package job.data.login;
 
-import org.apache.catalina.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -35,8 +36,9 @@ public class IndexController {
 		return "login/joinForm";  //조인폼으로 가면 회원가입할수있는 페이지뜨고
 	}
 	
-	@GetMapping("/join")
-	public @ResponseBody String join(User user) {
+	@PostMapping("/join")
+	public @ResponseBody String join(@ModelAttribute UserAccountDto user) {
+		System.out.println(user);
 		return "join"; //조인할때 실제로 회원가입 시킨다
 	}
 
