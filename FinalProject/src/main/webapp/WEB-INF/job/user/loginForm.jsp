@@ -12,14 +12,14 @@
 <h3>직장인을 위한 커리어 플랫폼, +JOB!</h3>
 <b>커리어 성장과 행복을 위한 여정 지금 +JOB에서 시작하세요 </b>
 <br/>
-<form action="" method="post">
+<form action="/" method="get">
 	<input type="text" name="username" placeholder="Username"/> 
 	<br/><br/>
 	<input type="email" name="email" placeholder="Email"/> 
 	<br/><br/>
 	<input type="password" name="password" placeholder="Password"/> 
 	<br/><br/>
-	<button type="button" class="btn btn-primary" style="width: 150px;">로그인</button>
+	<button type="submit" class="btn btn-primary" style="width: 150px;">로그인</button>
 <!-- 	<br/>
 	<br/>
 	<button type="button" class="btn btn-default" style="width: 150px;">구글로 시작하기</button>

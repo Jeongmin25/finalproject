@@ -8,16 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.ibatis.type.Alias;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Data;
 
-@Entity
 @Data
-@Table(name="userAccount")
+@Alias("user")
 public class UserAccountDto {
-	@Id // primary key
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String username;
 	private String hp;
@@ -26,5 +24,4 @@ public class UserAccountDto {
 	private String role; //ROLE_USER, ROLE_ADMIN
 	@CreationTimestamp
 	private Timestamp createDate;
-
 }

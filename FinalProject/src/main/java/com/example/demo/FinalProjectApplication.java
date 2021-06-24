@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan("job.data")
-@EntityScan("job.data")
-@EnableJpaRepositories("job.data")
+//@EntityScan("job.data")
+//@EnableJpaRepositories("job.data")
 public class FinalProjectApplication {
 
 	public static void main(String[] args) {
