@@ -1,6 +1,8 @@
 package job.data.login;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,8 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class IndexController {
 	
 	@Autowired
-	UserAccountDao dao;
-
+	UserAccountMapper mapper;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@GetMapping("/user")
 	public @ResponseBody String user() {
 		return "user";
@@ -32,18 +37,39 @@ public class IndexController {
 	//SecurityConfig파일을 추가하고나서 스프링시큐리티가 낚아채지 않음.
 	@GetMapping("/loginForm")
 	public String loginForm() {
-		return "login/loginForm";
+		return "user/loginForm";
 	}
 	
 	@GetMapping("/joinForm")
 	public String joinForm() {
-		return "login/joinForm";  //조인폼으로 가면 회원가입할수있는 페이지뜨고
+		return "user/joinForm";  //조인폼으로 가면 회원가입할수있는 페이지뜨고
 	}
 	
 	@PostMapping("/join")
-	public @ResponseBody String join(UserAccountDto username) {
-		System.out.println(username);
-		return "join"; //조인할때 실제로 회원가입 시킨다
+	public String join(@ModelAttribute UserAccountDto user) {
+		System.out.println(user);
+		user.setRole("ROLE_USER");//유저의 롤은 ROLE_USER로 강제 주입 //유저의 아이디는 오토인크리먼트로 자동으로 만들어질거임.
+		String rawPassword=user.getPassword();
+		String encPassword=bCryptPasswordEncoder.encode(rawPassword);
+		user.setPassword(encPassword);
+		
+		mapper.insertUserAccount(user);
+		
+		return "redirect:/index"; //조인할때 실제로 회원가입 시킨다
 	}
+	
+	
+//	@GetMapping("/user/idcheck")
+//	public @ResponseBody Map<String, Integer> idCheck(
+//			@RequestParam String id)
+//	{
+//		Map<String,Integer> map=new HashMap<String, Integer>();
+//		int count=1;
+//		System.out.println(count);
+//		map.put("count", count);
+//		return map;
+//	}
 
 }
+
+
