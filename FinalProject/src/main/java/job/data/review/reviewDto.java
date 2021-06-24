@@ -10,7 +10,7 @@ import lombok.Data;
 @Alias("review")
 public class reviewDto {
 
-	private String num;
+	private int num;
 	private String email;
 	private String empname;
 	private String prenow;
