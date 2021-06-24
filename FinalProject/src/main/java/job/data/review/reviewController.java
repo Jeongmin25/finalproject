@@ -20,11 +20,10 @@ public class reviewController {
 	@GetMapping("/addreview")
 	   public ModelAndView review() {
 	      ModelAndView mview =new ModelAndView();
+	      
 	      //총 개수
 	      int totalCount=mapper.getTotalCount();
-	
 	      mview.addObject("totalCount",totalCount);
-
 	      mview.setViewName("index.jsp?go=review/addreview");
 	      return mview;
 	   }
@@ -65,6 +64,10 @@ public class reviewController {
 		List<reviewDto> list=mapper.getReviewData();
 		mview.addObject("list",list);
 		
+		//empname에 해당하는 데이터 출력
+		List<reviewDto> empdata=mapper.getReviewDataOfEmp(empname);
+		mview.addObject("empdata",empdata);
+		
 		//평가 평균
 		float avgRating=mapper.avgRating(empname);
 		float avgCul=mapper.avgCul(empname);
@@ -78,6 +81,23 @@ public class reviewController {
 		mview.addObject("avgEnv",avgEnv);
 		mview.addObject("avgSal",avgSal);
 		mview.addObject("avgCeo",avgCeo);
+		mview.setViewName("index.jsp?go=review/reviewdetail");
+		return mview;
+	}
+	
+	@GetMapping("/insertlikes")
+	public ModelAndView likes(@RequestParam int num) {
+		ModelAndView mview =new ModelAndView();
+		//num값 저장
+		int number=num;
+		mview.addObject("number",num);
+		
+		//조회수 증가 insert
+		mapper.insertlikes(number);
+		
+		//num에 해당하는 데이터, 좋아요 수 출력
+		List<reviewDto> dataOfnumLikes=mapper.dataOfnumLikes(number);
+		mview.addObject("dataOfnumLikes",dataOfnumLikes);
 		mview.setViewName("index.jsp?go=review/reviewdetail");
 		return mview;
 	}

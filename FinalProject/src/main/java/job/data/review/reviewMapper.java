@@ -16,7 +16,7 @@ public interface reviewMapper {
 	public List<reviewDto> getReviewData();
 	
 	//review테이블 데이터 출력
-	public List<reviewDto> getReviewDataOfNum(String num, String empname);
+	public List<reviewDto> getReviewDataOfEmp(String empname);
 	
 	//review기업명 조회
 	public List<reviewDto> selectEmpname();
@@ -41,4 +41,10 @@ public interface reviewMapper {
 	
 	//기업명 별 리뷰개수
 	public int review0fEmp(String empname);
+	
+	//조회수 증가 insert
+	public void insertlikes(int num);
+	
+	//num에 해당하는 데이터, 좋아요 수 
+	public List<reviewDto> dataOfnumLikes(int num);
 }

@@ -18,9 +18,9 @@
 		select * from review
 	</select>
 	
-	<!--  num에 해당하는 데이터 출력-->
-	<select id="getReviewDataOfNum" resultType="review" parameterType="String">
-		select * from review where empname=#{empname} and num=#{num}
+	<!--  empname에 해당하는 데이터 출력-->
+	<select id="getReviewDataOfEmp" resultType="review" parameterType="String">
+		select * from review where empname=#{empname} order by writeday desc
 	</select>
 	
 	<!-- 기업명 조회 -->
@@ -63,4 +63,15 @@
 		select count(*) from review where empname=#{empname}
 	</select>
 	
+	<!-- num에 해당하는 조회수 증가 -->
+	<insert id="insertlikes" parameterType="int">
+		insert into likes (count) values (count+1) where num=#{num}
+	</insert>
+	
+	<!-- num에 해당하는 데이터, 좋아요 수 select-->
+	<select id="dataOfnumLikes" resultType="review" parameterType="int">
+		select * from review join likes on(review.#{num}=likes.#{num})
+	</select>
+	
+		
 </mapper>
