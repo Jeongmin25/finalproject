@@ -15,5 +15,6 @@ public interface ResumeMapper {
 	public void insertEducation(EducationDto edto);
 	public void insertFore(ForeDto fdto);
 	public List<ResumeDto> getDataOfResume();
+	public void delresume(String num_r);
 	
 }

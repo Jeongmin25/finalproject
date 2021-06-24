@@ -25,4 +25,13 @@
 	<select id="getDataOfResume" resultType="resume">
 		select * from resume order by num_r desc
 	</select>
+	<delete id="delresume" parameterType="String">
+	
+			set foreign_key_checks=0;
+		
+			delete from resume where num_r=#{num_r};
+	
+			SET foreign_key_checks = 1;
+		
+	</delete>
 </mapper>

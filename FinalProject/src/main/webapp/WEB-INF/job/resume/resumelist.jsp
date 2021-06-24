@@ -52,9 +52,6 @@
   	margin-bottom: 10px;
   }
   
-  div.popup{
-  /* 	display: none; */
-  }
   span.glyphicon-option-vertical:hover{
 	  	cursor: pointer;
    }
@@ -62,7 +59,13 @@
   	display: none;
   	border: 1px solid gray;
   	background-color: white;
+  	width: 130px;
   }
+  
+  div.popup *{
+  	color: #495057;
+  }
+  
   
  li a{
  	text-decoration: none;
@@ -72,17 +75,23 @@
 	background-color: #eee;
 	color: black;
 }
+
  
 </style>
 <script type="text/javascript">
+//선택한 이력서 num을 전역 변수로 설정
+var num_r;
+
 window.onload=function(){
 	
-	 var list=document.querySelectorAll("#vertical-menu");
+	//:를 클릭했을 때 다운로드, 삭제 poopup 띄우기
+	var list=document.querySelectorAll("#vertical-menu");
 	
-	for(i=0;i<list.length;i++){
+	for(var i=0;i<list.length;i++){
 		list[i].onclick=function(e){
 			var t= e.target.offsetTop;//상단 좌표
 			var l= e.target.offsetLeft;//좌측 좌표
+			num_r=e.target.getAttribute('num');
 			
 			var popup= document.getElementById("popup");
 			popup.style.zIndex="10";
@@ -90,9 +99,25 @@ window.onload=function(){
 			popup.style.top=t+10+"px";
 			popup.style.left=l-100+"px";
 			popup.style.display="block";
+			popup.setAttribute("num",num_r);
+			
+			
+			
+			
+			
 		}
 	} 
 }
+
+//각자 이력서 다운로드, 삭제 이벤트
+function godown(e){
+	location.href="downresume?num_r="+num_r;
+}
+
+function godel(e){
+	location.href="delresume?num_r="+num_r;
+}
+
 </script>
 </head>
 <body>
@@ -111,23 +136,25 @@ window.onload=function(){
 	<table class="resumelist" id="resumelist">
 		<tr>
 			<td align="left" style="width: 170px;height: 120px;">
-				<h4 style="color:#868e96;">${n.count }이름</h4>
+				<h4 style="color:#868e96;">이름</h4>
 				<h5 style="color:#adb5bd;"><fmt:formatDate value="${dto.nowdate }" pattern="yyyy.MM.dd"/></h5><br><br>
 			</td>
 		</tr>
 		<tr>
 			<td align="right" style="background-color: #F1F3EF">
-				<span class="glyphicon glyphicon-option-vertical" style="color:#868e96;" id="vertical-menu"></span>
+				<span class="glyphicon glyphicon-option-vertical" style="color:#868e96;" id="vertical-menu" num="${dto.num_r }"></span>
 			</td>
 		</tr>
 	</table>
-</c:forEach>
-<div class="popup" id="popup">
+	
+	<div class="popup" id="popup" >
 		<ul>
-			<li><a href="#">다운로드</a></li>
-			<li><a href="#">삭제</a></li>
+			<li onclick="godown()">다운로드</li>
+			<li onclick="godel()">삭제</li>
 		</ul>
 	</div>
+</c:forEach>
+	
 </div>
 </body>
 </html>
