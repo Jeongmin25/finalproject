@@ -16,7 +16,7 @@
 <form class="list form-inline">
 <h3>공고등록</h3>
 <br>
-<div class="addgonggo form-control" OnClick="location.href='writegonggo.jsp'">
+<div class="addgonggo form-control" OnClick="location.href='writeform'">
 	<div class="gonggoicon">
 	<span class="glyphicon glyphicon-file" ></span>
 	<p>공고 작성</p>
@@ -24,7 +24,8 @@
 </div>
 
 <c:forEach var="dto" items="${gonggolist}" varStatus="n">
-	<div class="gonggo-box form-control" OnClick="location.href='gonggodetail.jsp'">
+	<div class="gonggo-box form-control" OnClick="location.href='gonggodetail?num=${dto.num}'">
+		<input type="hidden" name="num" value="${dto.num}">
 		<h3>${dto.empsubject}</h3>
 		<br>
 		<b>마감일 : ${dto.deadline}</b>

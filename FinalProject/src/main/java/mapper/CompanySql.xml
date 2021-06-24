@@ -7,4 +7,7 @@
 	<select id="getAlldatas" resultType="company" >
 		select * from company order by num desc
 	</select>
+	<select id="getData" parameterType="String" resultType="company">
+		select * from company where num=#{num}
+	</select>
 </mapper>
