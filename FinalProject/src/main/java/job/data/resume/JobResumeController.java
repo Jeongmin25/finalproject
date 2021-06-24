@@ -1,5 +1,7 @@
 package job.data.resume;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,16 @@ import org.springframework.web.servlet.ModelAndView;
 public class JobResumeController {
 	 @Autowired
 	  ResumeMapper mapper;
+	 
+	 @GetMapping("/resumelist")
+	 public ModelAndView resumelist() {
+		 ModelAndView mview = new ModelAndView();
+		 mview.setViewName("index.jsp?go=resume/resumelist");
+		 //목록 가져오기
+		 List<ResumeDto> list=mapper.getDataOfResume();
+		 mview.addObject("list",list);
+		 return mview;
+	 }
 	 
 	 @GetMapping({"/addresume"})
 	   public ModelAndView index() {
