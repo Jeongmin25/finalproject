@@ -1,5 +1,6 @@
 package job.data.login;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,6 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class IndexController {
+	
+	@Autowired
+	UserAccountDao dao;
 
 	@GetMapping("/user")
 	public @ResponseBody String user() {
@@ -37,8 +41,8 @@ public class IndexController {
 	}
 	
 	@PostMapping("/join")
-	public @ResponseBody String join(@ModelAttribute UserAccountDto user) {
-		System.out.println(user);
+	public @ResponseBody String join(UserAccountDto username) {
+		System.out.println(username);
 		return "join"; //조인할때 실제로 회원가입 시킨다
 	}
 
