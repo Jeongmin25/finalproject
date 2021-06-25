@@ -1,6 +1,7 @@
 package job.data.resume;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
@@ -14,4 +15,9 @@ public class ResumeDto {
 	private String skill;
 	private String link;
 	private Timestamp nowdate;
+	private List<AwardDto> award;
+	private List<CarerDto> carer;
+	private List<EducationDto> education;
+	private List<ForeDto> fore;
+	
 }

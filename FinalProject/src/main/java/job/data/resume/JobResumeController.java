@@ -2,18 +2,23 @@ package job.data.resume;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+
 
 @Controller
 public class JobResumeController {
 	 @Autowired
 	  ResumeMapper mapper;
+	 
+	 @Autowired
+	 SqlSession sqlSession;
 	 
 	 @GetMapping("/resumelist")
 	 public ModelAndView resumelist() {
@@ -106,7 +111,7 @@ public class JobResumeController {
 		   }
 		   
 
-			return "index.jsp?go=resume/";
+			return "redirect:index?go=resume/addresume";
 		}
 	   
 	   @GetMapping("/delresume")
@@ -114,4 +119,32 @@ public class JobResumeController {
 		   mapper.delresume(num_r);
 		   return "redirect:index?go=resume/resumelist";
 	   }
+	   
+	   //num_r에 해당하는 데이터 반환
+	   @GetMapping("/resumedetail")
+	   public ModelAndView getResumeOneData(String num_r) {
+		   ModelAndView mview =new ModelAndView();
+		   ResumeDto dto=new ResumeDto();
+		   //resume 데이터를 받아온다
+		   dto= mapper.getResumeOneData(num_r);
+		   mview.addObject("dto", dto);
+		   
+		   //resumeDto에 멤버변수로 선언된 dto들을 list로 반환해서 값을 보낸다
+		   List<CarerDto>cdto=dto.getCarer();
+		   List<AwardDto>adto=dto.getAward();
+		   List<EducationDto>edto=dto.getEducation();
+		   List<ForeDto>fdto=dto.getFore();
+		   
+		   mview.addObject("cdto",cdto);
+		   mview.addObject("adto",adto);
+		   mview.addObject("edto",edto);
+		   mview.addObject("fdto",fdto);
+		   mview.addObject("num_r",dto.getNum_r());
+		   
+		  
+		   
+		   mview.setViewName("index.jsp?go=resume/resumedetail");
+		   return mview;
+	   }
+		   
 }

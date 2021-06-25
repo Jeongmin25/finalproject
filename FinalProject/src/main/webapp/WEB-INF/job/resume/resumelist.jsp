@@ -50,6 +50,11 @@
   	float: left;
   	margin-left: 10px;
   	margin-bottom: 10px;
+  	cursor: pointer;
+  }
+  
+  table.resumelist:hover{
+  	border: 1px solid gray;
   }
   
   span.glyphicon-option-vertical:hover{
@@ -100,11 +105,6 @@ window.onload=function(){
 			popup.style.left=l-100+"px";
 			popup.style.display="block";
 			popup.setAttribute("num",num_r);
-			
-			
-			
-			
-			
 		}
 	} 
 }
@@ -135,7 +135,7 @@ function godel(e){
 <c:forEach var="dto" items="${list }" varStatus="n">
 	<table class="resumelist" id="resumelist">
 		<tr>
-			<td align="left" style="width: 170px;height: 120px;">
+			<td align="left" style="width: 170px;height: 120px;" onclick="location.href='resumedetail?num_r=${dto.num_r}'">
 				<h4 style="color:#868e96;">이름</h4>
 				<h5 style="color:#adb5bd;"><fmt:formatDate value="${dto.nowdate }" pattern="yyyy.MM.dd"/></h5><br><br>
 			</td>
