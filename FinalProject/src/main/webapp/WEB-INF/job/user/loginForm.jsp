@@ -12,7 +12,12 @@
 <h3>직장인을 위한 커리어 플랫폼, +JOB!</h3>
 <b>커리어 성장과 행복을 위한 여정 지금 +JOB에서 시작하세요 </b>
 <br/>
-<form action="/" method="get">
+<!-- /login이 발동되면 스프링에서는 IOC컨테이너에서 
+UserDetailsService로 등록되어 있는 타입을 찾는다-> 그럼 PrincipalDetailsService을 찾고
+찾아지면 바로 loadUserByUsername 함수를 호출한다. (그때 넘어온 파라미터 username을 가지고옴)
+
+  -->
+<form action="/login" method="POST">
 	<input type="text" name="username" placeholder="Username"/> 
 	<br/><br/>
 	<input type="email" name="email" placeholder="Email"/> 
