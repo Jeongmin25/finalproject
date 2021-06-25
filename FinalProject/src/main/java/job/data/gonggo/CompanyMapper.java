@@ -11,6 +11,7 @@ public interface CompanyMapper {
 	public int getTotalCount();
 	public List<CompanyDto> getAlldatas();
 	public CompanyDto getData(String num);
+	public void insertGonggo(CompanyDto dto);
 }
 
 
