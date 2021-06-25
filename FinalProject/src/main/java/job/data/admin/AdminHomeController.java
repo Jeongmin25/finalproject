@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import admin.data.AdminMapper;
+//import admin.data.AdminMapper;
 
 @Controller
 public class AdminHomeController {
 	  @Autowired
 	   AdminMapper mapper;
 	  
-	  @GetMapping({"/","/admin"})
+	  @GetMapping({"/admin2"})
 		public String main()
 		{
 			return "index";
