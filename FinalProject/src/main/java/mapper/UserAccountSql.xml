@@ -5,11 +5,14 @@
 		select count(*) from user_account
 	</select>
 	
-	
 	<insert id="insertUserAccount" parameterType="user">
 	 	insert into user_account (username, hp, password, email, role, create_date)
 	 	values (#{username},#{hp},#{password},#{email}, #{role}, now())
 	</insert>
+	
+	<select id="findByUsername" parameterType="user" >
+		SELECT * FROM user_account WHERE username = #{username}
+	</select>
 </mapper>
 
 
