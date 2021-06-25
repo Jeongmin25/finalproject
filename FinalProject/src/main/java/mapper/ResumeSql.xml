@@ -26,12 +26,35 @@
 		select * from resume order by num_r desc
 	</select>
 	<delete id="delresume" parameterType="String">
-	
 			set foreign_key_checks=0;
-		
 			delete from resume where num_r=#{num_r};
-	
-			SET foreign_key_checks = 1;
-		
+			set foreign_key_checks = 1;
 	</delete>
+	
+	<!-- 이력서 출력을 위한 resultMap 선언 -->
+	<resultMap type="resume" id="resume-cmap">
+		<id property="num_r" column="NUM_R"/>
+		<result property="skill" column="SKILL"/>
+		<collection property="carer" ofType="carer" column="num_r=NUM_R" javaType="list" select="getCarerList"/>
+		<collection property="award" ofType="award" column="num_r=NUM_R" javaType="list" select="getAWwardList"/>
+		<collection property="education" ofType="education" column="num_r=NUM_R" javaType="list" select="getEducationList"/>
+		<collection property="fore" ofType="fore" column="num_r=NUM_R" javaType="list" select="getForeList"/>
+	</resultMap>
+	
+	
+	<select id="getResumeOneData" resultMap="resume-cmap">
+		select * from resume where num_r=#{num_r}
+	</select>
+	<select id="getCarerList" resultType="carer">
+		select * from carer where num_r=#{num_r}
+	</select>
+	<select id="getAWwardList" resultType="award">
+		select * from award where num_r=#{num_r}
+	</select>
+	<select id="getEducationList" resultType="education">
+		select * from education where num_r=#{num_r}
+	</select>
+	<select id="getForeList" resultType="fore">
+		select * from fore where num_r=#{num_r}
+	</select>
 </mapper>
