@@ -11,8 +11,7 @@
 <body>
 <h3>직장인을 위한 커리어 플랫폼, +JOB!</h3>
 <b>커리어 성장과 행복을 위한 여정 지금 +JOB에서 시작하세요 </b>
-<br/>
-<form action="/" method="get">
+<form action="/login" method="POST">
 	<input type="text" name="username" placeholder="Username"/> 
 	<br/><br/>
 	<input type="email" name="email" placeholder="Email"/> 
@@ -20,38 +19,11 @@
 	<input type="password" name="password" placeholder="Password"/> 
 	<br/><br/>
 	<button type="submit" class="btn btn-primary" style="width: 150px;">로그인</button>
-<!-- 	<br/>
-	<br/>
-	<button type="button" class="btn btn-default" style="width: 150px;">구글로 시작하기</button>
-	<br/>
-	<button type="button" class="btn btn-default" style="width: 150px;">카카오로 시작하기</button> -->
-	
-	
-	
-	
-	
-	 
-<!-- 	<table class="table table-bordered" style="width: 300px;">
-		<tr>
-			<th bgcolor="#ddd" width="150">이메일</th>
-			<td>
-				<input type="text" name="email" class="form-control"
-				style="width: 150px;" placeholder="email"
-				required="required">
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				위에는 서브밋, 아래는 버튼. 이벤트 줄꺼니까.
-				<button type="submit" class="btn btn-info"
-				style="width: 120px;">로그인</button>
-				<button type="button" class="btn btn-success"
-				style="width: 120px;"
-				onclick="location.href='login/gaipform'">회원가입</button>
-			</td>
-		</tr>
-	</table> -->
 </form>
+
+<br/>
+<!-- 구글로그인 경로는 마음대로 바꿀수있는 주소가 아님! -->
+<button type="button" class="btn btn-default" style="width: 150px" onclick="location.href='/oauth2/authorization/google'">구글 로그인</button>
 <br/>
 <a href="/joinForm">회원가입을 아직 하지 않으셨나요?</a>
 
