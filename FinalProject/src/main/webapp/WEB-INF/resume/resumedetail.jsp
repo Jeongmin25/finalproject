@@ -9,16 +9,45 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script type = "text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type = "text/javascript" src = "https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <style type="text/css">
 	form.resumedetail{
 		padding: 10px 0px 230px 230px;
 	}
+	div.fixbtn button{
+		background-color: #021B80;
+		color: white;
+		border-radius: 40px;
+		width: 100px;
+		height: 40px;
+		line-height: 30px;
+		border: 0px solid black;
+	}
 </style>
+<script type="text/javascript">
+window.onload=function(){
+	//pdf파일로 변환해주는 이벤트
+	$('#create_pdf').click(function() {
+		  //pdf_wrap을 canvas객체로 변환
+		  html2canvas($('#pdf_wrap')[0]).then(function(canvas) {
+		    var doc = new jsPDF('p', 'mm', 'a4'); //jspdf객체 생성
+		    var imgData = canvas.toDataURL('image/png'); //캔버스를 이미지로 변환
+		    doc.addImage(imgData, 'PNG', 0, 0); //이미지를 기반으로 pdf생성
+		    doc.save('이력서.pdf'); //pdf저장
+		  });
+		});
+}
+</script>
 </head>
 <body>
-<button type="button" onclick="location.href='updateresume'">수정하기</button>
-<button type="button" onclick="location.href='down'"><span class="glyphicon glyphicon-download-alt"></span></button>
+<div style="position: fixed; bottom: 10px;right: 200px;" class="fixbtn">
+<button type="button" onclick="location.href='updateresumeForm?num_r=${num_r}'">수정하기</button>
+<button type="button" id="create_pdf"><span class="glyphicon glyphicon-download-alt"></span></button>
+</div>
+
 <form action="#" class="resumedetail">
+<div id="pdf_wrap">
 	<h2>이름</h2>
 	<br><br>
 	<h5>이름</h5>
@@ -67,6 +96,7 @@
 			</td>
 		</tr>
 	</table>
+</div>
 </form>
 </body>
 </html>
