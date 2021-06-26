@@ -23,7 +23,7 @@ public class JobResumeController {
 	 @GetMapping("/resumelist")
 	 public ModelAndView resumelist() {
 		 ModelAndView mview = new ModelAndView();
-		 mview.setViewName("index.jsp?go=resume/resumelist");
+		 mview.setViewName("/resume/resumelist");
 		 //목록 가져오기
 		 List<ResumeDto> list=mapper.getDataOfResume();
 		 mview.addObject("list",list);
@@ -34,7 +34,7 @@ public class JobResumeController {
 	   public ModelAndView index() {
 	      ModelAndView mview =new ModelAndView();
 	     
-	      mview.setViewName("index.jsp?go=resume/addresume");
+	      mview.setViewName("/resume/addresume");
 	      return mview;
 	   }
 	   
@@ -111,13 +111,13 @@ public class JobResumeController {
 		   }
 		   
 
-			return "redirect:index?go=resume/addresume";
+			return "/resume/insertresume";
 		}
 	   
 	   @GetMapping("/delresume")
 	   public String delresume(String num_r) {
 		   mapper.delresume(num_r);
-		   return "redirect:index?go=resume/resumelist";
+		   return "/resume/resumelist";
 	   }
 	   
 	   //num_r에 해당하는 데이터 반환
@@ -143,7 +143,7 @@ public class JobResumeController {
 		   
 		  
 		   
-		   mview.setViewName("index.jsp?go=resume/resumedetail");
+		   mview.setViewName("/resume/resumedetail");
 		   return mview;
 	   }
 		   
