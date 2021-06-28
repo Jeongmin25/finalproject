@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import job.data.login.UserAccountDto;
+import lombok.Data;
 
 //시큐리티가 /login 주소 요청이 오면 낚아채서 로그인을 진행시킨다.
 // 로그인을, 진행이 완료가 되면 시큐리티 session을 만들어준다. (Security ContextHolder)
@@ -15,6 +16,7 @@ import job.data.login.UserAccountDto;
 
 //security session => authentication => userdetatils(PrincipalDetails)
 
+@Data
 public class PrincipalDetails implements UserDetails {
 
 	private UserAccountDto user; //콤포지션

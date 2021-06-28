@@ -134,7 +134,7 @@ function godel(e){
 </table>
 <c:forEach var="dto" items="${list }" varStatus="n">
 	<table class="resumelist" id="resumelist">
-		<tr>
+		<tr onclick="location.href='resumedetail?num_r=${dto.num_r}'">
 			<td align="left" style="width: 170px;height: 120px;">
 				<h4 style="color:#868e96;">이름</h4>
 				<h5 style="color:#adb5bd;"><fmt:formatDate value="${dto.nowdate }" pattern="yyyy.MM.dd"/></h5><br><br>

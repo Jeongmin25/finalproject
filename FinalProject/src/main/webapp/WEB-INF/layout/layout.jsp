@@ -7,14 +7,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/index.css" />
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
-<div class="layout nav">
+<div class="entire">
+<div class="nav">
 	<tiles:insertAttribute name="nav"/>
 </div>
-<div class="layout body">
+<div class="body">
 	<tiles:insertAttribute name="body"/>
+</div>
 </div>
 </body>
 </html>

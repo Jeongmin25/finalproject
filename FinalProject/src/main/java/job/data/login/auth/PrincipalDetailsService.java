@@ -12,25 +12,27 @@ import job.data.login.UserAccountDto;
 import job.data.login.UserAccountMapper;
 
 
-//@Service 
-//public class PrincipalDetailsService implements UserDetailsService{
-//	
-//	
-////	// 시큐리티 session(내부 Authentication(내부 UserDtaile))
-////	@Override
-////	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-////		System.out.println("username:"+username);
-////		
-////		mapper.findByUsername(username);
-////		
-////		if(mapper!= null ) {
-////			return new PrincipalDetails(mapper); //PrincipalDetails가 리턴될때 리턴된 값이 authentication에 들어간다
-////			
-////		}
-////		
-////		return null;
-////	}
-//	
-//	
-//
-//}
+@Service 
+public class PrincipalDetailsService implements UserDetailsService{
+	
+	
+	@Autowired
+	UserAccountMapper mapper;
+	
+	// 시큐리티 session(내부 Authentication(내부 UserDtaile))
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		//System.out.println("username:"+username);
+		
+		
+		UserAccountDto userEntity=mapper.findByUsername(username);
+		if(userEntity!= null ) {
+			return new PrincipalDetails(userEntity); //PrincipalDetails가 리턴될때 리턴된 값이 authentication에 들어간다
+		}
+		
+		return null;
+	}
+	
+	
+
+}

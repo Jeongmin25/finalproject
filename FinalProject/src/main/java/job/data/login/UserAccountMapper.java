@@ -11,5 +11,5 @@ public interface UserAccountMapper {
 	public void insertUserAccount(UserAccountDto dto);
 	
 	//@Select("SELECT * FROM user_account WHERE username = #{username}")
-	public List<UserAccountDto> findByUsername(String username);
+	public UserAccountDto findByUsername(String username);
 }

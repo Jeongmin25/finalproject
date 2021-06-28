@@ -11,7 +11,7 @@
 <body>
 <h3>회원가입</h3>
 <br/>
-<form action="/join" method="post">
+<form action="/join" method="POST">
 	이름<br/>
 	<input type="text" name="username" placeholder="이름을 입력해주세요" style="width: 300px;"/> 
 	<br/><br/>
