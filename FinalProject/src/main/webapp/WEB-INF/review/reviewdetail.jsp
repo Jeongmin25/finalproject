@@ -155,6 +155,16 @@ function drawBasic() {
 $(".btnlikes").click(function(){
 	var num=$(this).attr("num");
 	alert("num="+num);
+	
+    $.ajax({
+    	type:'get',
+        url:"insertlikes",
+        data: {"num":num},
+        success:function(data){
+        	alert("완료되었습니다.");
+        }
+	});
+
 	});
 </script>
 </html>

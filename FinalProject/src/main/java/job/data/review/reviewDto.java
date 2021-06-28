@@ -23,6 +23,7 @@ public class reviewDto {
 	private int env;
 	private int sal;
 	private int ceo;
+	private int likes;
 	private Timestamp writeday;
 	
 }
