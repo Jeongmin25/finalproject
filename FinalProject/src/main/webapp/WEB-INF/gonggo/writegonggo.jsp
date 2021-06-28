@@ -9,9 +9,12 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
+<form action="insert" method="post" enctype="multipart/form-data" >
 <h2>채용공고 작성</h2>
-<br>
-<b>직군/직무</b>
-<input type="search">
+<span>직군/직무</span>
+<input type="text" name="jobgroup" placeholder="직군 작성">
+<span>공고</span>
+<textarea rows="" cols=""></textarea>
+</form>
 </body>
 </html>
