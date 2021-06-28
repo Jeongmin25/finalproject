@@ -42,7 +42,7 @@ public class GonggoContoroller {
 	      mview.addObject("gonggolist",gonggolist);
 	      for(CompanyDto d:gonggolist)
 	    	  System.out.println(d.getDeadline());
-	      mview.setViewName("index.jsp?go=gonggo/gonggolist");
+	      mview.setViewName("/gonggo/gonggolist");
 	      return mview;
 	   }
 	   @GetMapping({"/gonggodetail"})
@@ -51,7 +51,7 @@ public class GonggoContoroller {
 		   ModelAndView mview=new ModelAndView();
 		   CompanyDto dto=mapper.getData(num);
 			mview.addObject("dto",dto);
-			mview.setViewName("index.jsp?go=gonggo/gonggodetail");
+			mview.setViewName("/gonggo/gonggodetail");
 			return mview;
 	   }
 	   
@@ -86,7 +86,7 @@ public class GonggoContoroller {
 	   @GetMapping({"/writeform"})
 	   public String from()
 	   {
-		   return "index.jsp?go=gonggo/writegonggo";
+		   return "/gonggo/writegonggo";
 	   }
 	   
 	   @PostMapping("/insert")
@@ -97,6 +97,13 @@ public class GonggoContoroller {
 		   
 		   Map<String, String> map=new HashMap<String, String>();
 		   return map;
+	   }
+	   
+	   @GetMapping("/delete")
+	   public String delete(@RequestParam String num)
+	   {
+		   mapper.deleteGonggo(num);
+		   return "redirect:gonggolist";
 	   }
 
 }

@@ -9,11 +9,14 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
+<form class="detail form form-control">
+<img src="${dto.empimg}">
 <span>${dto.empname}</span><br>
 ${dto.deadline}<br>
 ${dto.empcontent}<br>
 
 <button class="update" >공고 수정</button>
-<button class="delete">공고 삭제</button>
+<button type="button"class="delete" onclick="location.href='delete?num=${dto.num}'">공고 삭제</button>
+</form>
 </body>
 </html>
