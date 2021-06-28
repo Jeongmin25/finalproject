@@ -22,8 +22,6 @@ public class JobResumeController {
 	 @Autowired
 	  ResumeMapper mapper;
 	 
-	 @Autowired
-	 SqlSession sqlSession;
 	 
 	 @GetMapping("/resumelist")
 	 public ModelAndView resumelist() {
