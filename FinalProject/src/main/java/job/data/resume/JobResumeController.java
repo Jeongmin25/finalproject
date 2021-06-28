@@ -56,7 +56,7 @@ public class JobResumeController {
 		   mapper.insertResume(resume);
 		   int num_r= mapper.getInsertNum();
 		   
-		   
+		   String a=null;
 		   //award 활동명, 세부사항, 날짜 ,를 기준으로 나눠서 받아 입력
 		   award.setNum_r(num_r);
 		   
@@ -208,14 +208,17 @@ public class JobResumeController {
 		   String detail[]=award.getDetail().split(",");
 		   String start[]=award.getA_startday().split(",");
 		   String end[]=award.getA_endday().split(",");
-	
+		  
+		   
+		   mapper.delAward(num_r);
 		   for(int i=0;i<act.length;i++) {
 			   award.setA_endday(end[i]);
-			   award.setA_startday(end[i]);
-			   award.setActivity(start[i]);
+			   award.setA_startday(start[i]);
 			   award.setActivity(act[i]);
 			   award.setDetail(detail[i]);
-			   mapper.updateAward(award);
+			   
+			   mapper.insertAward(award);
+			   
 		   }
 		   
 		   //carer 회사명, 부서, 날짜를 ,를 기준으로 나눠받아 입력
@@ -225,14 +228,14 @@ public class JobResumeController {
 		   String c_start[]=carer.getC_startday().split(",");
 		   String c_end[]=carer.getC_endday().split(",");
 		   
-		   System.out.println(company.length);
+		   mapper.delCarer(num_r);
 		   for(int i=0;i<company.length;i++) {
 			   carer.setC_startday(c_start[i]);
 			   carer.setCompany(company[i]);
 			   carer.setDepartment(depart[i]);
 			   carer.setC_endday(c_end[i]);
-			   mapper.updateCarer(carer);
-		   }
+			   mapper.insertCarer(carer);
+				   }
 		   
 		 //education 학교명, 전공, 날짜를 ,를 기준으로 나눠받아 입력
 		   education.setNum_r(num_r);
@@ -240,29 +243,31 @@ public class JobResumeController {
 		   String major[]=education.getMajor().split(",");
 		   String e_start[]=education.getE_startday().split(",");
 		   String e_end[]=education.getE_endday().split(",");
-		   
+		  
+		   mapper.delEducation(num_r);
 		   for(int i=0;i<school.length;i++) {
 			   education.setE_endday(e_end[i]);
 			   education.setE_startday(e_start[i]);
 			   education.setSchool(school[i]);
 			   education.setMajor(major[i]);
-			   mapper.updateEducation(education);
+			   mapper.insertEducation(education);
 		   }
 		   
 		 //fore 언어, 레벨를 ,를 기준으로 나눠받아 입력
 		   fore.setNum_r(num_r);
 		   String lang[]=fore.getLang().split(",");
 		   String level[]=fore.getLevel().split(",");
-		   
+		
+		   mapper.delFore(num_r);
 		   for(int i=0;i<lang.length;i++) {
 			   fore.setLang(lang[i]);
 			   fore.setLevel(level[i]);
-			   mapper.updateFore(fore);
+			   mapper.insertFore(fore);
 		   }
 		   
 		   
 		   
-		   mview.setViewName("/resume/resumedetail");
+		   mview.setViewName("/resume/resumelist");
 
 			return mview;
 		}

@@ -23,6 +23,11 @@ public interface ResumeMapper {
 	public void updateCarer(CarerDto cdto);
 	public void updateEducation(EducationDto edto);
 	public void updateFore(ForeDto fdto);
+	//delete
+	public void delAward(int num_r);
+	public void delEducation(int num_r);
+	public void delFore(int num_r);
+	public void delCarer(int num_r);
 	
 	
 }

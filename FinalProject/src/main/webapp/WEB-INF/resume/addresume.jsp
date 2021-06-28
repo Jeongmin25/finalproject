@@ -175,6 +175,9 @@ window.onload = function() {
 	depart.setAttribute("placeholder","부서명/직책");
 	depart.setAttribute("name","department");
 	
+	//spanx.setAttribute("onclick","delspanx(this)");
+	spanx.setAttribute("id","spanx");
+	
 	//객체에 삽입
 	var addcarer=document.getElementById("addcarer");
 	addcarer.appendChild(tr);
@@ -208,6 +211,7 @@ window.onload = function() {
 		
 		//객체 속성,css지정
 		spanx.setAttribute("class","glyphicon glyphicon-remove");
+		spanx.setAttribute("onclick","delspanx()")
 		
 		startday.setAttribute("placeholder","YYYY-MM");
 		startday.setAttribute("class","day");
@@ -338,9 +342,14 @@ window.onload = function() {
 	
 	//외국어 추가 이벤트
 	document.getElementById('btnaddfore').onclick=function(){
+		var tr=document.createElement("tr");
+		var td1=document.createElement("td");
+		var td2=document.createElement("td");
+		
 		//객체를 생성하고, option값을 select 에 삽입
 		var fore=["영어","중국어 북경어","중국어 광동어","일본어","한국어","독일어","스페인어","프랑스어","네덜란드어","노르웨이어","덴마크어"];
 		var level=["유창","비지니스회화","일상회화"];
+		
 		var sel1=document.createElement("select");
 		sel1.setAttribute("width","100px");
 		sel1.setAttribute("name","lang");
@@ -372,9 +381,12 @@ window.onload = function() {
 		sel2.setAttribute("class","sel");
 		
 		//객체 삽입
-		document.getElementById('selfore').appendChild(sel1);
-		document.getElementById('selfore').appendChild(sel2);
-		document.getElementById('selfore').appendChild(span);
+		document.getElementById('selfore').appendChild(tr);
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		td1.appendChild(sel1);
+		td1.appendChild(sel2);
+		td2.appendChild(span);
 	}
 
 }	
@@ -399,6 +411,13 @@ function searchskill() {
 
 });
 }
+
+//삭제 이벤트
+$(document).on("click",".glyphicon-remove",function(e){
+	var spanx=e.target;
+	var tr=spanx.parentNode.parentNode;
+	tr.parentNode.removeChild(tr);
+});
 
 //자동 완성 기능
 function autocomplete(inp, arr) {
@@ -587,7 +606,7 @@ document.addEventListener("click", function (e) {
 </div>
 <br><br>
 <button type="button" class="add" id="btnaddfore">+ 추가</button>
-<div id="selfore"></div>
+<table id="selfore"></table>
 </div>
 <br><br>
 
