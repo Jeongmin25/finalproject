@@ -11,36 +11,42 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/gonggo.css" />
 <style type="text/css">
-div.bar{
-border-radius: 20px 20px;
-width: 100px;
-height: 40px;
-line-height: 30px;
-margin-right: 20px;
-text-align: center;
+h3.numdday{
+color: #021B80;
 font-size: 1.5em;
+margin-top : 5px;
+}
+h3.endday{
+font-size: 1.3em;
+margin-top: 0px;
+line-height: 0.8;
+color: gray;
+}
+
+div.circle{
+    border: 2px solid #021B80;
+    border-radius: 20px 20px;
+    font-size: 1.2em;
+    color: gray;
+    width: 100px;
+	margin-top: 25px;
+    margin-bottom: 0px;
+    margin-left: 35px;
 }
 </style>
 </head>
 <body>
 <form class="list form-inline">
-<div class="bar form-control">전체</div><div class="bar form-control">채용 중</div><div class="bar form-control">채용마감</div>
-
-
 
 <c:set var="now" value="<%=new java.util.Date()%>"/>
-
-<fmt:parseNumber value="${strPlanDate/ (1000*60*60*24)}" integerOnly="true" var="strDate"/>
-
+<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate"/>
 
 <br>
-<h2>오늘은:  ${now}</h2><br>
 
 <!-- <input type="hidden" name="empname" value="${dto.empname}"> -->
 <br>
 <h3>채용 중</h3>
-
-
+<br>
 <div class="addgonggo form-control" OnClick="location.href='writeform'">
 	<div class="gonggoicon">
 	<span class="glyphicon glyphicon-file" ></span>
@@ -49,26 +55,50 @@ font-size: 1.5em;
 </div>
 <c:forEach var="dto" items="${gonggolist}" varStatus="n">
 	<c:set var="deadline" value="${dto.deadline} "/>
-	<fmt:parseDate value="202112120000" pattern="yyyyMMddHHmm" var="endDate"/>
-	<fmt:formatDate value="${now}" pattern="yyyyMMddHHmm" var="nowDate"/>
-	<fmt:formatDate value="${endDate}" pattern="yyyyMMddHHmm" var="closeDate"/>
-	<%-- <fmt:formatDate value="${dto.deadline }" var="deadline" pattern="YYYY.MM.dd"/>
-	<c:set var="endPlanDate" value="${deadline}"/> --%>
+	<c:set var="end" value="${deadline.substring(0,4).concat(deadline.substring(5,7).concat(deadline.substring(8,10)))}"/>
+	<fmt:parseDate value="${end}" pattern="yyyyMMdd" var="endDate"/>
+	<fmt:formatDate value="${endDate}" pattern="yyyyMMdd" var="closeDate"/>
 
-	<c:if test="${closeDate>nowDate}">
+	<c:if test="${closeDate>=nowDate}">
 	<div class="gonggo-box form-control" OnClick="location.href='gonggodetail?num=${dto.num}'">
 		<input type="hidden" name="num" value="${dto.num}">
 		<h3>${dto.empsubject}</h3>
-		<br>
-		<b>마감일 :${deadline.substring(0,16)} </b>
-		
-		<!--<fmt:parseDate value='${dto.deadline}' var='issueDate1' pattern="yyyy-MM-dd" scope="page"/>
-		<fmt:formatDate var="endPlanDate"  type="date"  value="${issueDate1}" pattern="yyyy-MM-dd"/>-->
+	<c:set var="endday1" value="${deadline.substring(0,4)}"/>
+	<c:set var="endday2" value="${deadline.substring(5,7)}"/>
+	<c:set var="endday3" value="${deadline.substring(8,10)}"/>
+	<!-- 마감일이 30일보다 클 때 -->
+	<c:if test="${closeDate-nowDate>30}">
+	<div class="circle">마감일</div>
+	<h3 class="endday"><br>${endday1}년 ${endday2}월 ${endday3}일</h3>
+	</c:if>
+	<!-- 마감일이 30일보다 적을 때 -->
+	<c:if test="${closeDate-nowDate<=30}">
+	<p>마감일 : ${endday1}년 ${endday2}월 ${endday3}일</p>
+	<h3 class="numdday">D - ${closeDate-nowDate}</h3>
+	</c:if>
 	</div>
 	</c:if>
 </c:forEach>
-
-
+<hr>
+<!-- 마감 날짜가 현재 날짜를 지났을때 -->
+<h3>채용 마감</h3>
+<br>
+<c:forEach var="dto" items="${gonggolist}" varStatus="n">
+	<c:set var="deadline" value="${dto.deadline} "/>
+	<c:set var="end" value="${deadline.substring(0,4).concat(deadline.substring(5,7).concat(deadline.substring(8,10)))}"/>
+	<fmt:parseDate value="${end}" pattern="yyyyMMdd" var="endDate"/>
+	<fmt:formatDate value="${endDate}" pattern="yyyyMMdd" var="closeDate"/>
+	<c:if test="${closeDate<nowDate}">
+	<div class="gonggo-box form-control" OnClick="location.href='gonggodetail?num=${dto.num}'">
+		<input type="hidden" name="num" value="${dto.num}">
+		<h3>${dto.empsubject}</h3><br>
+		<c:set var="endday1" value="${deadline.substring(0,4)}"/>
+		<c:set var="endday2" value="${deadline.substring(5,7)}"/>
+		<c:set var="endday3" value="${deadline.substring(8,10)}"/>
+		<p>마감일 : ${endday1}년 ${endday2}월 ${endday3}일</p>
+	</div>
+	</c:if>
+</c:forEach>
 </form>
 </body>
 </html>
