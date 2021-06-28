@@ -24,8 +24,13 @@
 	</select>
 	
 	<!-- 기업명 조회 -->
-	<select id="selectEmpname" resultType="review">
-		select DISTINCT empname from review
+	<select id="selectEmpname" resultType="review" parameterType="HashMap">
+		select DISTINCT empname from review limit #{start},#{perpage}
+	</select>
+	
+	<!-- 기업명 개수(중복제외) -->
+	<select id="selectEmpnameCount" resultType="int">
+		select count(DISTINCT empname) from review
 	</select>
 
 	<!--  기업 총 평가 평균-->
@@ -65,7 +70,9 @@
 	
 	<!-- num에 해당하는 조회수 증가 -->
 	<insert id="insertlikes" parameterType="int">
-		insert into likes (count) values (count+1) where num=#{num}
+		insert into review (count) values (count+1) WHERE NOT EXISTS 
+		(SELECT num FROM likes WHERE num =#{num})
+
 	</insert>
 	
 	<!-- num에 해당하는 데이터, 좋아요 수 select-->
@@ -73,5 +80,9 @@
 		select * from review join likes on(review.#{num}=likes.#{num})
 	</select>
 	
+	<!-- 기업명 검색 -->
+	<select id="searchEmpname" resultType="review" parameterType="String">
+		SELECT * FROM review WHERE empname LIKE '%'#{word}'%'
+	</select>
 		
 </mapper>

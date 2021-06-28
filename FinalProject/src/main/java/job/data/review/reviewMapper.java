@@ -19,7 +19,10 @@ public interface reviewMapper {
 	public List<reviewDto> getReviewDataOfEmp(String empname);
 	
 	//review기업명 조회
-	public List<reviewDto> selectEmpname();
+	public List<reviewDto> selectEmpname(int start, int perpage);
+	
+	//review기업명 개수(중복제외)
+	public int selectEmpnameCount();
 	
 	//기업평가 평균
 	public float avgRating(String empname);
@@ -47,4 +50,7 @@ public interface reviewMapper {
 	
 	//num에 해당하는 데이터, 좋아요 수 
 	public List<reviewDto> dataOfnumLikes(int num);
+	
+	//기업명 검색
+	public List<reviewDto> searchEmpname(String word);
 }
