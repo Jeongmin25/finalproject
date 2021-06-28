@@ -45,12 +45,18 @@ public interface reviewMapper {
 	//기업명 별 리뷰개수
 	public int review0fEmp(String empname);
 	
-	//조회수 증가 insert
-	public void insertlikes(int num);
+	//기업명 검색
+	public List<reviewDto> searchEmpname(String empname);
+	
+	//조회수 증가 update
+	public void insertReviewOflikes(String num);
+	
+	//추천 누른 email 데이터 insert
+	public void insertlikes(String email, String num);
+	
+	//likes 추천했으면1 안했으면0 반환
+	public int countOflikes(String email, String num);
 	
 	//num에 해당하는 데이터, 좋아요 수 
-	public List<reviewDto> dataOfnumLikes(int num);
-	
-	//기업명 검색
-	public List<reviewDto> searchEmpname(String word);
+	public int countOfReviewLikes(String num);
 }

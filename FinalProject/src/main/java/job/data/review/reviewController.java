@@ -33,7 +33,7 @@ public class reviewController {
 	      //총 개수
 	      int totalCount=mapper.getTotalCount();
 	      mview.addObject("totalCount",totalCount);
-	      mview.setViewName("review/addreview");
+	      mview.setViewName("/review/addreview");
 	      return mview;
 	   }
 	
@@ -86,7 +86,7 @@ public class reviewController {
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("totalPage", totalPage);
 		 
-		mview.setViewName("review/reviewlist");
+		mview.setViewName("/review/reviewlist");
 		return mview;
 	}
 	
@@ -132,37 +132,47 @@ public class reviewController {
 		mview.addObject("avgEnv",avgEnv);
 		mview.addObject("avgSal",avgSal);
 		mview.addObject("avgCeo",avgCeo);
-		mview.setViewName("review/reviewdetail");
+		mview.setViewName("/review/reviewdetail");
 		return mview;
 	}
 	
 	@GetMapping("/insertlikes")
-	public ModelAndView likes(@RequestParam int num) {
+	public ModelAndView likes(@RequestParam String email,@RequestParam String num) {
 		ModelAndView mview =new ModelAndView();
 		
 		System.out.println("num:"+num);
-		//조회수 증가 insert
-		mapper.insertlikes(num);
 		
-		//num에 해당하는 데이터, 좋아요 수 출력
-		List<reviewDto> dataOfnumLikes=mapper.dataOfnumLikes(num);
-		mview.addObject("dataOfnumLikes",dataOfnumLikes);
-		mview.setViewName("review/reviewdetail");
+		//조회수 증가 insert
+		mapper.insertReviewOflikes(num);
+		
+		//추천 누른 id 데이터 추가
+		mapper.insertlikes(email, num);
+		
+		//추천했으면1 안했으면0 반환
+		int countOflikes=mapper.countOflikes(email, num);
+		
+		//num에 해당하는 좋아요 수 출력
+		int countOfReviewLikes=mapper.countOfReviewLikes(num);
+		
+		//저장
+		mview.addObject("countOflikes",countOflikes);
+		mview.addObject("countOfReviewLikes",countOfReviewLikes);
+		mview.setViewName("/review/reviewdetail");
 		return mview;
 	}
 	
 	
 	@GetMapping("/searchlist")
-	public String searchlist (@RequestParam String word, Model model) {
-		
-		System.out.println("word:"+word);
+	public ModelAndView searchlist (@RequestParam String empname) {
+		ModelAndView mview =new ModelAndView();
 		
 		//기업 단어 검색
-		List<reviewDto> searchlist=mapper.searchEmpname(word);
+		List<reviewDto> searchlist=mapper.searchEmpname(empname);
 		
 		//값 저장
-		model.addAttribute("searchlist", searchlist);
-		
-		return "redirect:review/searchlist";
+		mview.addObject("searchlist", searchlist);
+		mview.setViewName("/review/searchlist");
+		return mview;
 	}
+
 }
