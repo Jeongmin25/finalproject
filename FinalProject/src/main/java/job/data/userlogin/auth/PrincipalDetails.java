@@ -1,4 +1,4 @@
-package job.data.login.auth;
+package job.data.userlogin.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import job.data.login.UserAccountDto;
+import job.data.userlogin.UserAccountDto;
 import lombok.Data;
 
 //시큐리티가 /login 주소 요청이 오면 낚아채서 로그인을 진행시킨다.

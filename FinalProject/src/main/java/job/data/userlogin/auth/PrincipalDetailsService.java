@@ -1,4 +1,4 @@
-package job.data.login.auth;
+package job.data.userlogin.auth;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import job.data.login.UserAccountDto;
-import job.data.login.UserAccountMapper;
+import job.data.userlogin.UserAccountDto;
+import job.data.userlogin.UserAccountMapper;
 
 
 @Service 

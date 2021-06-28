@@ -1,4 +1,4 @@
-package job.data.login.oauth;
+package job.data.userlogin.oauth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,9 +8,9 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import job.data.login.UserAccountDto;
-import job.data.login.UserAccountMapper;
-import job.data.login.auth.PrincipalDetails;
+import job.data.userlogin.UserAccountDto;
+import job.data.userlogin.UserAccountMapper;
+import job.data.userlogin.auth.PrincipalDetails;
 
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {

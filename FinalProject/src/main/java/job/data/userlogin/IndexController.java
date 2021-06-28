@@ -1,4 +1,4 @@
-package job.data.login;
+package job.data.userlogin;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import job.data.login.auth.PrincipalDetails;
+import job.data.userlogin.auth.PrincipalDetails;
 
 @Controller
 public class IndexController {

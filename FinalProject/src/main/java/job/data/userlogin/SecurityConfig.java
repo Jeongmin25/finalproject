@@ -1,4 +1,4 @@
-package job.data.login;
+package job.data.userlogin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,8 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import job.data.login.auth.PrincipalDetailsService;
-import job.data.login.oauth.PrincipalOauth2UserService;
+import job.data.userlogin.auth.PrincipalDetailsService;
+import job.data.userlogin.oauth.PrincipalOauth2UserService;
 
 @Configuration
 @EnableWebSecurity //스프링 시큐리티 필터가 스프링 필터체인에 등록이된다.

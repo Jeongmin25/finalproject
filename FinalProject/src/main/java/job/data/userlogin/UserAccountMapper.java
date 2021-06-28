@@ -1,4 +1,4 @@
-package job.data.login;
+package job.data.userlogin;
 
 import java.util.List;
 
