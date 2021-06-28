@@ -10,4 +10,8 @@
 	<select id="getData" parameterType="String" resultType="company">
 		select * from company where num=#{num}
 	</select>
+	<insert id="insertGonggo" parameterType="company">
+		insert into company (empname,empsubject,empcontent,empimg,deadline,writeday) 
+		values (#{empname},#{empsubject},#{empcontent},#{empimg},#{deadline},now())
+	</insert>
 </mapper>

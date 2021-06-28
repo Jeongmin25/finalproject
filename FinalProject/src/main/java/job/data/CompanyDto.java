@@ -1,5 +1,6 @@
 package job.data;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 
 import org.apache.ibatis.type.Alias;
@@ -14,7 +15,7 @@ public class CompanyDto {
 	private String empsubject;
 	private String empcontent;
 	private String empimg;
-	private String deadline;
+	private Timestamp deadline;
 	private Timestamp writeday;
 	
 }

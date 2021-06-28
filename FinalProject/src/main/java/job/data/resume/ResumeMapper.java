@@ -17,5 +17,12 @@ public interface ResumeMapper {
 	public List<ResumeDto> getDataOfResume();
 	public void delresume(String num_r);
 	public ResumeDto getResumeOneData(String num_r);
+	//update
+	public void updateResume(ResumeDto rdto);
+	public void updateAward(AwardDto adto);
+	public void updateCarer(CarerDto cdto);
+	public void updateEducation(EducationDto edto);
+	public void updateFore(ForeDto fdto);
+	
 	
 }

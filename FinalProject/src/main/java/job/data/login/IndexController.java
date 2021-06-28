@@ -1,13 +1,22 @@
 package job.data.login;
 
 
+import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import job.data.login.auth.PrincipalDetails;
 
 @Controller
 public class IndexController {
@@ -18,21 +27,45 @@ public class IndexController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	@GetMapping("/test/login")
+	public @ResponseBody String testLogin(Authentication authentication, 
+			@AuthenticationPrincipal PrincipalDetails userDetails) { //DI(의존성 주입). @AuthenticationPrincipal을 통해서 세션정보에 접근할수 있음
+		System.out.println("/test/login ===================");
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		System.out.println("authentication:"+principalDetails.getUser());
+		
+		System.out.println("userDetails:"+userDetails.getUser());
+		return "세션 정보 확인하기";
+		
+	}
+	
+	@GetMapping("/test/oauth/login")
+	public @ResponseBody String testOAuthLogin(Authentication authentication, 
+			@AuthenticationPrincipal PrincipalDetails userDetails) { //DI(의존성 주입). @AuthenticationPrincipal을 통해서 세션정보에 접근할수 있음
+		System.out.println("/test/oauth/login ===================");
+		OAuth2User oauth2User = (OAuth2User)authentication.getPrincipal();
+		System.out.println("authentication:"+oauth2User.getAttributes());
+	
+		return "OAuth 세션 정보 확인하기";
+		
+	}
+	
+	
 	@GetMapping("/user")
 	public @ResponseBody String user() {
 		return "user";
 	}
 	
-	@GetMapping("/emp")
+	@GetMapping("/emp") //매니저로 로그인했을경우 이경로로 갔을때 이용가능함. 유저는 이용못하는 페이지
 	public @ResponseBody String emp() {
 		return "emp";
 	}
 	
-	@GetMapping("/admin")
+	@GetMapping("/admin") //어드민은 다 이용가능함
 	public @ResponseBody String admin() {
 		return "admin";
 	}
-	
+		
 	//스프링시큐리티가 해당주소를 낚아채버림. 나중에 수정예정
 	//SecurityConfig파일을 추가하고나서 스프링시큐리티가 낚아채지 않음.
 	@GetMapping("/loginForm")
@@ -53,9 +86,25 @@ public class IndexController {
 		String encPassword=bCryptPasswordEncoder.encode(rawPassword);
 		user.setPassword(encPassword);
 		
-		mapper.insertUserAccount(user);
+		mapper.insertUserAccount(user); //회원가입 잘됨. 비밀번호:123456
 		
-		return "redirect:/index"; //조인할때 실제로 회원가입 시킨다
+		return "redirect:layout"; //조인할때 실제로 회원가입 시킨다
+	}
+	
+	
+	
+	///----------여기는 그냥 연습용. 어드민 페이지 관리하는 사람쓰고 싶으면 쓸수있게.
+	
+	@Secured("ROLE_ADMIN") //매핑주소의 권한을 하나만 걸고싶을때는 @Secured를 사용
+	@GetMapping("/userinfo")
+	public @ResponseBody String info() {
+		return "개인정보";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')") //매핑주소의 권한을 여러개 걸고 싶을때는 @PreAuthorize("hasRole"())사용
+	@GetMapping("/userdata")
+	public @ResponseBody String data() {
+		return "데이터정보";
 	}
 	
 	
