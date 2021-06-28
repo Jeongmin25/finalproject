@@ -6,9 +6,11 @@ import org.apache.ibatis.type.Alias;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Alias("user")
+@NoArgsConstructor
 public class UserAccountDto {
 	private long id;
 	private String username;
@@ -20,6 +22,20 @@ public class UserAccountDto {
 	private String providerId;
 	private Timestamp createDate;
 	
+@Builder
+	public UserAccountDto(String username, String hp, String password, String email, String role,
+			String provider, String providerId, Timestamp createDate) {
+		super();
+		this.username = username;
+		this.hp = hp;
+		this.password = password;
+		this.email = email;
+		this.role = role;
+		this.provider = provider;
+		this.providerId = providerId;
+		this.createDate = createDate;
+	}
+	
 
-
+	
 }

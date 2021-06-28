@@ -7,12 +7,18 @@
 	
 	<insert id="insertUserAccount" parameterType="user">
 	 	insert into user_account (username, hp, password, email, role, provider, provider_id, create_date)
-	 	values (#{username},#{hp},#{password},#{email}, #{role}, #{provider}, #{provider_id}, now())
+	 	values (#{username},#{hp},#{password},#{email}, #{role}, #{provider}, #{providerId}, now())
 	</insert>
 	
 	<select id="findByUsername" parameterType="user" resultType="user">
 		SELECT * FROM user_account WHERE username = #{username}
 	</select>
+	
+	
+	<!-- <insert id="insertUserAccountGoogle" parameterType="user">
+	 	insert into user_account (username, password, email, role, provider, provider_id, create_date)
+	 	values (#{username},#{password},#{email}, #{role}, #{provider}, #{provider_id}, now())
+	</insert> -->
 </mapper>
 
 

@@ -20,12 +20,10 @@
 	<br/><br/>
 	<button type="submit" class="btn btn-primary" style="width: 150px;">로그인</button>
 </form>
-
-<br/>
+<br>
 <!-- 구글로그인 경로는 마음대로 바꿀수있는 주소가 아님! -->
 <button type="button" class="btn btn-default" style="width: 150px" onclick="location.href='/oauth2/authorization/google'">구글 로그인</button>
-<br/>
+<br/><br/>
 <a href="/joinForm">회원가입을 아직 하지 않으셨나요?</a>
-
 </body>
 </html>

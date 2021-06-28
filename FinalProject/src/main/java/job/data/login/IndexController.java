@@ -1,13 +1,11 @@
 package job.data.login;
 
 
-import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -20,12 +18,13 @@ import job.data.login.auth.PrincipalDetails;
 
 @Controller
 public class IndexController {
-	
-	@Autowired
-	UserAccountMapper mapper;
+
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	UserAccountMapper mapper;
 	
 	@GetMapping("/test/login")
 	public @ResponseBody String testLogin(Authentication authentication, 
@@ -41,18 +40,18 @@ public class IndexController {
 	
 	@GetMapping("/test/oauth/login")
 	public @ResponseBody String testOAuthLogin(Authentication authentication, 
-			@AuthenticationPrincipal PrincipalDetails userDetails) { //DI(의존성 주입). @AuthenticationPrincipal을 통해서 세션정보에 접근할수 있음
+			@AuthenticationPrincipal OAuth2User oauth) { //DI(의존성 주입). @AuthenticationPrincipal을 통해서 세션정보에 접근할수 있음
 		System.out.println("/test/oauth/login ===================");
 		OAuth2User oauth2User = (OAuth2User)authentication.getPrincipal();
 		System.out.println("authentication:"+oauth2User.getAttributes());
-	
+		System.out.println("oauth2User:"+oauth.getAttributes());
 		return "OAuth 세션 정보 확인하기";
 		
 	}
 	
 	
 	@GetMapping("/user")
-	public @ResponseBody String user() {
+	public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 		return "user";
 	}
 	
@@ -61,10 +60,10 @@ public class IndexController {
 		return "emp";
 	}
 	
-	@GetMapping("/admin") //어드민은 다 이용가능함
-	public @ResponseBody String admin() {
-		return "admin";
-	}
+//	@GetMapping("/admin") //어드민은 다 이용가능함
+//	public @ResponseBody String admin() {
+//		return "admin";
+//	}
 		
 	//스프링시큐리티가 해당주소를 낚아채버림. 나중에 수정예정
 	//SecurityConfig파일을 추가하고나서 스프링시큐리티가 낚아채지 않음.
