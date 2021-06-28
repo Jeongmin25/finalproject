@@ -12,6 +12,7 @@ public interface CompanyMapper {
 	public List<CompanyDto> getAlldatas();
 	public CompanyDto getData(String num);
 	public void insertGonggo(CompanyDto dto);
+	public void deleteGonggo(String num);
 }
 
 
