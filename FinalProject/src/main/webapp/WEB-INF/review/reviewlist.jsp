@@ -49,14 +49,21 @@
 	}
 	
 	div.empname{
-		width: 200px;
-		height: 30px;
+		width: 900px;
+		height: 100px;
 		padding-left: 20px;
 		margin-bottom: 10px;
 		border: 1px solid gray;
 		border-radius: 20px;
 		cursor: pointer;
 		font-size: 1.2em;
+	}
+	
+	a.empname{
+		font-size: 1.5em;
+		text-decoration: none;
+		color: #282828;
+		top: 20px;
 	}
 </style>
 <title>Insert title here</title>
@@ -74,10 +81,14 @@
 		<br>
 		<h4 style="color: gray;">앞으로 근무할 기업은 어떤 모습일까 궁금하시죠?</h4>
 		<div class="inputserach">
-			<input type="text" id="search" name="search" placeholder="기업 검색"
+			<form action="searchlist" method="get">
+			<input type="text" id="empname" name="empname" placeholder="기업 검색"
 				style="width: 350px; height: 45px; border: 0px; margin-left: 3px;" class="form-inline">
-			<div class="runsearch glyphicon glyphicon-search"
-				onclick=""></div>
+			<button class="btn btn-sm" type="submit" >
+			<span class="glyphicon glyphicon-search"></span>
+			</button>
+			</form>
+
 		</div>
 	</div>
 	
@@ -85,10 +96,40 @@
 		<h2>전체 기업리뷰</h2>
 		<c:forEach items="${empname }" var="empname">
 			<div class="empname">
-			<a href="reviewdetail?empname=${empname.empname }">${empname.empname }</a>
+			<br>
+			<a class="empname" href="reviewdetail?empname=${empname.empname }">${empname.empname }</a>
 			</div>
 		</c:forEach>
 	</div>
-
+	
+	
+<!-- 페이지 번호 -->
+<div style="width: 800px; text-align: center;">
+	<ul class="pagination">
+		<!-- 이전페이지 -->
+		<c:if test="${startPage>1 }">
+			<li><a href="review?pageNum=${startPage-1}">◁이전</a></li>
+		</c:if>
+		
+		<!-- 페이지번호 -->
+		<c:forEach var="pp" begin="${startPage }" end="${endPage }">
+			<!-- currentPage==pp -->
+			<c:if test="${currentPage==pp }">
+				<li class="active"><a href="review?pageNum=${pp }">${pp }</a></li>
+			</c:if>
+			<!-- currentPage!=pp -->
+			<c:if test="${currentPage!=pp }">
+				<li><a href="review?pageNum=${pp }">${pp }</a></li>
+			</c:if>
+		</c:forEach>
+		
+		<!-- 다음페이지 -->
+		<c:if test="${endPage<totalPage }">
+			<li><a href="review?pageNum=${endPage+1}">다음▷</a></li>
+		</c:if>
+	</ul>
+</div>
 </body>
+
+
 </html>

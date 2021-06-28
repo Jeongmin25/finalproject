@@ -65,7 +65,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td width="200px;">
+				<td width="100px;">
 				<!-- 총 평가 -->
 				<span class="pinkstar-rating">
 				<span style ="width:${(data.rating*10)*2}%"></span>
@@ -73,46 +73,47 @@
 	
 				사내문화
 				<div class="progress">
-  				<div class="progress-bar progress-bar-striped active" role="progressbar" 
-  				style="width: ${(data.cul*10)*2}%" aria-valuenow="${(data.cul*10)*2}" aria-valuemin="0" aria-valuemax="100"></div>
+  				<div class="progress-bar progress-bar" role="progressbar"
+  				style="width: ${(data.cul*10)*2}%; background-color:#0064CD;" aria-valuenow="${(data.cul*10)*2}" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 				자기개발
 				<div class="progress">
-  				<div class="progress-bar progress-bar-striped active" role="progressbar" 
-  				style="width: ${(data.imp*10)*2}%" aria-valuenow="${(data.imp*10)*2}" aria-valuemin="0" aria-valuemax="100"></div>
+  				<div class="progress-bar progress-bar" role="progressbar" 
+  				style="width: ${(data.imp*10)*2}%; background-color:#0064CD;" aria-valuenow="${(data.imp*10)*2}" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 				근무환경
 				<div class="progress">
-  				<div class="progress-bar progress-bar-striped active" role="progressbar" 
-  				style="width: ${(data.env*10)*2}%" aria-valuenow="${(data.env*10)*2}" aria-valuemin="0" aria-valuemax="100"></div>
+  				<div class="progress-bar progress-bar" role="progressbar" 
+  				style="width: ${(data.env*10)*2}%; background-color:#0064CD;" aria-valuenow="${(data.env*10)*2}" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 				급여 및 복지
 				<div class="progress">
-  				<div class="progress-bar progress-bar-striped active" role="progressbar" 
-  				style="width: ${(data.sal*10)*2}%" aria-valuenow="${(data.sal*10)*2}" aria-valuemin="0" aria-valuemax="100"></div>
+  				<div class="progress-bar progress-bar" role="progressbar" 
+  				style="width: ${(data.sal*10)*2}%; background-color:#0064CD;" aria-valuenow="${(data.sal*10)*2}" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 				경영진
 				<div class="progress">
-  				<div class="progress-bar progress-bar-striped active" role="progressbar" 
-  				style="width: ${(data.ceo*10)*2}%" aria-valuenow="${(data.ceo*10)*2}" aria-valuemin="0" aria-valuemax="100"></div>
+  				<div class="progress-bar progress-bar" role="progressbar" 
+  				style="width: ${(data.ceo*10)*2}%; background-color:#0064CD;" aria-valuenow="${(data.ceo*10)*2}" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 				
 				</td>
 				<td>
-				<h2 style="color: #28AEFF;">장점</h2><br>
-				<h3>${data.good}</h3><br>
-				<h2 style="color: #FF3232;">단점</h2><br>
-				<h3>${data.bad}</h3><br>
+				<h4 style="color: #28AEFF;">장점</h4><br>
+				<p>${data.good}</p><br>
+				<h4 style="color: #FF3232;">단점</h4><br>
+				<p>${data.bad}</p><br>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
 					<label class="inline">
 						
-      					<button type="button" class="btn btn-default btnlikes" num="${data.num}">
+      					<button type="button" class="btn btn-default btnlikes" num="${data.num}" email="${data.email}" >
       					<span class="glyphicon glyphicon-thumbs-up" style="color: blue;"></span>
-      					도움이 돼요
+      					도움이 돼요 ${data.likes }
       					</button>
+      					
     				</label>
 					
 				</td>
@@ -154,17 +155,9 @@ function drawBasic() {
 //도움이돼요 버튼 클릭 이벤트
 $(".btnlikes").click(function(){
 	var num=$(this).attr("num");
-	alert("num="+num);
-	
-    $.ajax({
-    	type:'get',
-        url:"insertlikes",
-        data: {"num":num},
-        success:function(data){
-        	alert("완료되었습니다.");
-        }
-	});
+	var email=$(this).attr("email");
+	alert("num="+num+" ,email="+email);
 
-	});
+});
 </script>
 </html>
