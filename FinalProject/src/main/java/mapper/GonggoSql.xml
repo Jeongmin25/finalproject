@@ -11,8 +11,8 @@
 		select * from company where num=#{num}
 	</select>
 	<insert id="insertGonggo" parameterType="company">
-		insert into company (empname,empsubject,empcontent,empimg,deadline,writeday) 
-		values (#{empname},#{empsubject},#{empcontent},#{empimg},#{deadline},now())
+		insert into company (empname,,jobgroup,empimg,deadline,writeday) 
+		values (#{empname},#{jobgroup},#{empcontent},#{empimg},#{deadline},now())
 	</insert>
 	<delete id="deleteGonggo" parameterType="String">
 		delete from company where num=#{num}

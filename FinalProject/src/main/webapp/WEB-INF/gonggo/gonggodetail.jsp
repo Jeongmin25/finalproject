@@ -11,7 +11,7 @@
 <body>
 <form class="detail form form-control">
 <img src="${dto.empimg}">
-<span>${dto.empname}</span><br>
+<span>${dto.jobgroup}</span><br>
 ${dto.deadline}<br>
 ${dto.empcontent}<br>
 

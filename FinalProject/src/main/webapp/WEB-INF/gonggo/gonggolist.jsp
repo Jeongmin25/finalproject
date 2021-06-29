@@ -62,7 +62,7 @@ div.circle{
 	<c:if test="${closeDate>=nowDate}">
 	<div class="gonggo-box form-control" OnClick="location.href='gonggodetail?num=${dto.num}'">
 		<input type="hidden" name="num" value="${dto.num}">
-		<h3>${dto.empsubject}</h3>
+		<h3>${dto.jobgroup}</h3>
 	<c:set var="endday1" value="${deadline.substring(0,4)}"/>
 	<c:set var="endday2" value="${deadline.substring(5,7)}"/>
 	<c:set var="endday3" value="${deadline.substring(8,10)}"/>
@@ -91,7 +91,7 @@ div.circle{
 	<c:if test="${closeDate<nowDate}">
 	<div class="gonggo-box form-control" OnClick="location.href='gonggodetail?num=${dto.num}'">
 		<input type="hidden" name="num" value="${dto.num}">
-		<h3>${dto.empsubject}</h3><br>
+		<h3>${dto.jobgroup}</h3><br>
 		<c:set var="endday1" value="${deadline.substring(0,4)}"/>
 		<c:set var="endday2" value="${deadline.substring(5,7)}"/>
 		<c:set var="endday3" value="${deadline.substring(8,10)}"/>
