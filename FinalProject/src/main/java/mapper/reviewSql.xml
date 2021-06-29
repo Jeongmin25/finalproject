@@ -69,7 +69,8 @@
 	
 	<!-- 기업이름 검색 -->
 	<select id="searchEmpname" resultType="review" parameterType="String">
-		SELECT DISTINCT empname FROM review WHERE empname LIKE CONCAT('%',#{empname},'%')
+		SELECT empname,good FROM review WHERE empname LIKE CONCAT('%',#{empname},'%')
+		 group by empname order by likes desc
 	</select>
 
 	<!-- num에 해당하는 추천수 증가 -->

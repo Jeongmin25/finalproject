@@ -121,7 +121,9 @@
 		</table>
 		</c:forEach>
 	</div>
-	
+	<br>
+	<button type="button" class="btn btn-default btn" onclick="location.href='review'"
+		style="margin-left: 400px;">목록</button>	
 </body>
 <script type="text/javascript">
 google.charts.load('current', {packages: ['corechart', 'bar']});
