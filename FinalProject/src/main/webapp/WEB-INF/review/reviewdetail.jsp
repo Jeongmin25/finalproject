@@ -156,8 +156,29 @@ function drawBasic() {
 $(".btnlikes").click(function(){
 	var num=$(this).attr("num");
 	var email=$(this).attr("email");
-	alert("num="+num+" ,email="+email);
+	
+    $.ajax({
+        type : "post",  
+        url : "/insertlikes",        
+        data : "num="+num+"&email="+email,
+        dataType: 'json',
+        
+        error : function(){
+            alert("통신 에러","error","확인",function(){});
+        },
 
+        success : function(data) {
+        		location.reload();
+        
+                if(data == 1){
+                    alert("이미 추천되었습니다.");
+                }
+                else if (data == 0){
+                	 alert("감사합니다. 추천되었습니다.");
+                	
+                }
+        }
+    });
 });
 </script>
 </html>
