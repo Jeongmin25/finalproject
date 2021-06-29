@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
@@ -43,7 +44,7 @@ public class ProfileController {
 		   mv.addObject("cdto",cdto);
 		   mv.addObject("rdto",rdto);
 		 
-		mv.setViewName("/profile/main");
+		mv.setViewName("/profile/profile");
 		return mv;
 	}
 	
@@ -54,4 +55,23 @@ public class ProfileController {
 		return mv;
 	}
 	
+	@GetMapping("/myjob")
+	public ModelAndView myjob() {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("/profile/myjob");
+		return mv;
+	}
+	
+	@GetMapping("/acntMngmn")
+	public ModelAndView acntMngmn(@RequestParam String type) {
+		ModelAndView mv = new ModelAndView();
+		if(type==null) {
+			type="changePassword";
+		}
+		
+		mv.addObject("type",type);
+		mv.setViewName("/profile/acntMngmn");
+		return mv;
+	}
 }

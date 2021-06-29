@@ -115,18 +115,18 @@
 			<h5 style="color: #ccc;">학교 
 			<span class="glyphicon glyphicon-pencil" style="float: right;margin-right: 30px;" onclick="location.href='updateresumeForm?num_r=${num_r}'"></span>
 			</h5>
-			<c:if test="${edto.school==null }">
+			<c:if test="${edto.school=='' }">
 				<span style="color: red;">학교 미입력</span>
 			</c:if>
-			<c:if test="${edto.school!=null }">
+			<c:if test="${edto.school!='' }">
 				<span>${edto.school }</span> | <span style="color: #ccc;">${edto.major }</span>
 			</c:if>
 			
 			<h5 style="color: #ccc;">직장</h5>
-			<c:if test="${cdto.company==null }">
-				<span style="color: red;">학교 미입력</span>
+			<c:if test="${cdto.company=='' }">
+				<span style="color: red;">직장 미입력</span>
 			</c:if>
-			<c:if test="${cdto.company!=null }">
+			<c:if test="${cdto.company!='' }">
 				<span>${cdto.company }</span> | <span style="color: #ccc;">${cdto.department}</span>
 			</c:if>
 			<br><br>
