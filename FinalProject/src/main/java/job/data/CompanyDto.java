@@ -1,6 +1,5 @@
 package job.data;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 import org.apache.ibatis.type.Alias;

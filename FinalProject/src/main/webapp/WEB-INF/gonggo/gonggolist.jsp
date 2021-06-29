@@ -73,7 +73,8 @@ div.circle{
 	</c:if>
 	<!-- 마감일이 30일보다 적을 때 -->
 	<c:if test="${closeDate-nowDate<=30}">
-	<p>마감일 : ${endday1}년 ${endday2}월 ${endday3}일</p>
+	<br>
+	<h5>마감일 : ${endday1}년 ${endday2}월 ${endday3}일</h5>
 	<h3 class="numdday">D - ${closeDate-nowDate}</h3>
 	</c:if>
 	</div>

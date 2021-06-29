@@ -17,4 +17,7 @@
 	<delete id="deleteGonggo" parameterType="String">
 		delete from company where num=#{num}
 	</delete>
+	<update id="updateGonggo" parameterType="company">
+		update company set jobgroup=#{jobgroup},empcontent=#{empcontent},empimg=#{empimg},deadline=STR_TO_DATE(#{deadline},'%Y-%m-%d') where num=#{num}
+	</update>
 </mapper>
