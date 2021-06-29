@@ -72,19 +72,19 @@
 		SELECT DISTINCT empname FROM review WHERE empname LIKE CONCAT('%',#{empname},'%')
 	</select>
 
-	<!-- num에 해당하는 조회수 증가 -->
+	<!-- num에 해당하는 추천수 증가 -->
 	<update id="insertReviewOflikes" parameterType="String">
 		update review set likes=likes+1 where num=#{num}
 	</update>
 	
 	<!-- 추천 누른 id 데이터 추가 -->
-	<insert id="insertlikes" parameterType="HashMap">
-		INSERT INTO likes(email,num) SELECT ?, ? FROM DUAL WHERE NOT EXISTS 
-		(SELECT email, num FROM likes WHERE email=#{email} and num=#{num}
+	<insert id="insertlikes" parameterType="String">
+		INSERT INTO likes(email,num) SELECT #{email},#{num} FROM DUAL WHERE NOT EXISTS 
+		(SELECT email, num FROM likes WHERE email=#{email} and num=#{num})
 	</insert>
 	
 	<!-- likes 추천했으면1 안했으면0 반환-->
-	<select id="countOflikes" resultType="int" parameterType="HashMap">
+	<select id="countOflikes" resultType="int" parameterType="String">
 		select count(*) from likes where email=#{email} and num=#{num}
 	</select>
 	

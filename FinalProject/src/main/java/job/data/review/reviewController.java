@@ -1,5 +1,6 @@
 package job.data.review;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -135,33 +136,7 @@ public class reviewController {
 		mview.setViewName("/review/reviewdetail");
 		return mview;
 	}
-	
-	@GetMapping("/insertlikes")
-	public ModelAndView likes(@RequestParam String email,@RequestParam String num) {
-		ModelAndView mview =new ModelAndView();
 		
-		System.out.println("num:"+num);
-		
-		//조회수 증가 insert
-		mapper.insertReviewOflikes(num);
-		
-		//추천 누른 id 데이터 추가
-		mapper.insertlikes(email, num);
-		
-		//추천했으면1 안했으면0 반환
-		int countOflikes=mapper.countOflikes(email, num);
-		
-		//num에 해당하는 좋아요 수 출력
-		int countOfReviewLikes=mapper.countOfReviewLikes(num);
-		
-		//저장
-		mview.addObject("countOflikes",countOflikes);
-		mview.addObject("countOfReviewLikes",countOfReviewLikes);
-		mview.setViewName("/review/reviewdetail");
-		return mview;
-	}
-	
-	
 	@GetMapping("/searchlist")
 	public ModelAndView searchlist (@RequestParam String empname) {
 		ModelAndView mview =new ModelAndView();
@@ -174,5 +149,41 @@ public class reviewController {
 		mview.setViewName("/review/searchlist");
 		return mview;
 	}
+	
+	@ResponseBody
+	@PostMapping("/insertlikes")
+	public int likes(@RequestParam String email,@RequestParam String num) {
+		
+		System.out.println(email);
+		System.out.println(num);
 
+		// 이전에 추천했으면1 안했으면0 반환
+		int countOflikes=mapper.countOflikes(email, num);
+		System.out.println("추천기록:"+countOflikes);
+
+		//이전에 추천했으면 1반환
+		if (countOflikes==1) {
+			countOflikes=1;
+			
+			return countOflikes;
+
+		//이전에 추천 안했으면 데이터 추가
+		}else {
+			//추천기록 없음
+			countOflikes=0;
+
+			//추천수 증가 insert
+			mapper.insertReviewOflikes(num);
+
+			//추천 누른 id 데이터 추가
+			mapper.insertlikes(email, num);
+			
+			return countOflikes;
+		}
+	}
+	
+	
+	
+	
+	
 }
