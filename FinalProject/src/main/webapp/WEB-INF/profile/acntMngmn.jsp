@@ -12,23 +12,27 @@
 </head>
 <style>
 	div.acntMngmn_title{
-		border: 1px solid gray;
+		border: 0px solid gray;
 		width: 100px;
 		height: 50px;
 		margin-bottom: 20px;
 	}
 	div.acntMngmn_nav{
-		border: 1px solid gray;
+		border: 1px solid #ccc;
 		width: 200px;
 		height: 400px;
 		float: left;
+		border-radius: 5px;
+		padding: 10px 10px 10px 10px;
 		
 	}
 	div.acntMngmn_content{
-		border: 1px solid gray;
+		border: 1px solid #ccc;
 		width: 600px;
 		height: 400px;
 		margin-left: 230px;
+		border-radius: 5px;
+		padding: 10px 10px 10px 10px;
 	}
 	
 	div.profile_img{
@@ -88,7 +92,7 @@
 		color: white;
 		border-radius: 40px;
 		width: 120px;
-		height: 40px;
+		height: 30px;
 		line-height: 30px;
 		border: 0px solid black;
 	}
@@ -144,13 +148,15 @@
 	</div>
 	<div class="acntMngmn_content">
 		<c:if test="${type == 'changePassword' }">
-			<h4>비밀번호 설정</h4>
-			<input name="email" class="emailbox" placeholder="sample@job.co.kr">
-			<h6 style="color: #bbb;">*비밀번호를 재설정 할 이메일 계정을 입려해주세요.</h6>
-			<br>
-			<div style="text-align: right;margin-right: 50px;">
-				<button type="button" class="emailcheck_btn">전송</button>
-			</div>
+			<form action="sendemail">
+				<h4>비밀번호 설정</h4>
+				<input name="addr" class="emailbox" placeholder="sample@job.co.kr">
+				<h6 style="color: #bbb;">*비밀번호를 재설정 할 이메일 계정을 입력해주세요.</h6>
+				<br>
+				<div style="text-align: right;margin-right: 50px;">
+					<button type="submit" class="emailcheck_btn">전송</button>
+				</div>
+			</form>
 		</c:if>
 		<c:if test="${type != 'changePassword' }">
 			<h4>탈퇴 시 주의 사항</h4>

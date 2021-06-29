@@ -12,31 +12,36 @@
 </head>
 <style>
 	div.profile_title{
-		border: 1px solid gray;
+		border: 0px solid gray;
 		width: 100px;
 		height: 50px;
 		margin-bottom: 20px;
 	}
 	div.profile_personW{
-		border: 1px solid gray;
+		border: 1px solid #ccc;
 		width: 200px;
 		height: 400px;
 		float: left;
+		border-radius: 5px;
 		
 	}
 	div.myjob_apply{
-		border: 1px solid gray;
+		border: 1px solid #ccc;
 		width: 600px;
 		height: 130px;
 		margin-left: 230px;
+		border-radius: 5px;
+		padding: 10px 10px 10px 10px;
 	}
 	
 	div.myjob_bookmarks{
-		border: 1px solid gray;
+		border: 1px solid #ccc;
 		width: 600px;
 		margin-top: 10px;
 		height: 260px;
 		margin-left: 230px;
+		border-radius: 5px;
+		padding: 10px 10px 10px 10px;
 	}
 	
 	div.profile_img{

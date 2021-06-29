@@ -648,8 +648,12 @@ document.addEventListener("click", function (e) {
  </div>
  <button type="button" class="btn btn-info" id="btnskilladd">추가</button><br><br>
 	<c:forTokens items="${rdto.skill }" delims="," var="skill">
-		<span class="glyphicon glyphicon-remove skillblock">${skill }</span>
+		<div style="float: left;">		
+		<span class="skillblock" value="${skill }">${skill }
+			<span class="glyphicon glyphicon-remove"></span>
+		</span>
 		<input type="hidden" value="${skill }" name="skill">
+		</div>
 	</c:forTokens>
 </div>
 <br><br>

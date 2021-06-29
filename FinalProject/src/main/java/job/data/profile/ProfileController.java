@@ -8,12 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-
-import job.data.resume.AwardDto;
 import job.data.resume.CarerDto;
 import job.data.resume.EducationDto;
-import job.data.resume.ForeDto;
 import job.data.resume.ResumeDto;
 import job.data.resume.ResumeMapper;
 

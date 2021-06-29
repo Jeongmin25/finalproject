@@ -12,24 +12,28 @@
 </head>
 <style>
 	div.profile_title{
-		border: 1px solid gray;
+		border: 0px solid gray;
 		width: 100px;
 		height: 50px;
 		margin-bottom: 20px;
 	}
 	div.profile_personW{
-		border: 1px solid gray;
+		border: 1px solid #ccc;
 		width: 200px;
 		height: 400px;
 		float: left;
+		border-radius: 5px;
 		
 	}
 	div.profile_resume{
-		border: 1px solid gray;
+		border: 1px solid #ccc;
 		width: 600px;
 		height: 400px;
 		margin-left: 230px;
+		border-radius: 5px;
+		padding: 10px 10px 10px 10px;
 	}
+	
 	
 	div.profile_img{
 		text-align: center;
