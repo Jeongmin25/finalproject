@@ -36,7 +36,13 @@ public class JobResumeController {
 	 @GetMapping({"/addresume"})
 	   public ModelAndView index() {
 	      ModelAndView mview =new ModelAndView();
-	     
+	      //외국어 select 태그 배열값 보내기
+		   String lang [] = {"영어","중국어 북경어","중국어 광동어","일본어","한국어","독일어"
+				   ,"스페인어","프랑스어","네덜란드어","노르웨이어","덴마크어"};
+		   String level []= {"유창","비지니스회화","일상회화"};
+		   mview.addObject("lang",lang);
+		   mview.addObject("level",level);
+	      
 	      mview.setViewName("/resume/addresume");
 	      return mview;
 	   }
@@ -53,16 +59,18 @@ public class JobResumeController {
 		   //resume insert하고, num_r값 가져오기
 		   mapper.insertResume(resume);
 		   int num_r= mapper.getInsertNum();
-		   
-		   String a=null;
+	
 		   //award 활동명, 세부사항, 날짜 ,를 기준으로 나눠서 받아 입력
 		   award.setNum_r(num_r);
 		   
-		   String act[]=award.getActivity().split(",");
-		   String detail[]=award.getDetail().split(",");
-		   String start[]=award.getA_startday().split(",");
-		   String end[]=award.getA_endday().split(",");
-	
+		   
+		   String act[]=award.getActivity().split(",",-1);
+		   String detail[]=award.getDetail().split(",",-1);
+		   String start[]=award.getA_startday().split(",",-1);
+		   String end[]=award.getA_endday().split(",",-1);
+		   
+		   System.out.println(award.getActivity());
+		   System.out.println(act.length);
 		   for(int i=0;i<act.length;i++) {
 			   award.setA_endday(end[i]);
 			   award.setActivity(start[i]);
@@ -74,10 +82,10 @@ public class JobResumeController {
 		
 		   //carer 회사명, 부서, 날짜를 ,를 기준으로 나눠받아 입력
 		   carer.setNum_r(num_r);
-		   String company[]=carer.getCompany().split(",");
-		   String depart[]=carer.getDepartment().split(",");
-		   String c_start[]=carer.getC_startday().split(",");
-		   String c_end[]=carer.getC_endday().split(",");
+		   String company[]=carer.getCompany().split(",",-1);
+		   String depart[]=carer.getDepartment().split(",",-1);
+		   String c_start[]=carer.getC_startday().split(",",-1);
+		   String c_end[]=carer.getC_endday().split(",",-1);
 		   
 		   for(int i=0;i<company.length;i++) {
 			   carer.setC_endday(c_end[i]);
@@ -89,10 +97,10 @@ public class JobResumeController {
 		   
 		 //education 학교명, 전공, 날짜를 ,를 기준으로 나눠받아 입력
 		   education.setNum_r(num_r);
-		   String school[]=education.getSchool().split(",");
-		   String major[]=education.getMajor().split(",");
-		   String e_start[]=education.getE_startday().split(",");
-		   String e_end[]=education.getE_endday().split(",");
+		   String school[]=education.getSchool().split(",",-1);
+		   String major[]=education.getMajor().split(",",-1);
+		   String e_start[]=education.getE_startday().split(",",-1);
+		   String e_end[]=education.getE_endday().split(",",-1);
 		   
 		   for(int i=0;i<school.length;i++) {
 			   education.setE_endday(e_end[i]);
@@ -104,8 +112,8 @@ public class JobResumeController {
 		   
 		 //fore 언어, 레벨를 ,를 기준으로 나눠받아 입력
 		   fore.setNum_r(num_r);
-		   String lang[]=fore.getLang().split(",");
-		   String level[]=fore.getLevel().split(",");
+		   String lang[]=fore.getLang().split(",",-1);
+		   String level[]=fore.getLevel().split(",",-1);
 		   
 		   for(int i=0;i<lang.length;i++) {
 			   fore.setLang(lang[i]);
@@ -202,10 +210,10 @@ public class JobResumeController {
 		   
 		   //award 활동명, 세부사항, 날짜 ,를 기준으로 나눠서 받아 입력
 		   award.setNum_r(num_r);
-		   String act[]=award.getActivity().split(",");
-		   String detail[]=award.getDetail().split(",");
-		   String start[]=award.getA_startday().split(",");
-		   String end[]=award.getA_endday().split(",");
+		   String act[]=award.getActivity().split(",",-1);
+		   String detail[]=award.getDetail().split(",",-1);
+		   String start[]=award.getA_startday().split(",",-1);
+		   String end[]=award.getA_endday().split(",",-1);
 		  
 		   
 		   mapper.delAward(num_r);
@@ -221,10 +229,10 @@ public class JobResumeController {
 		   
 		   //carer 회사명, 부서, 날짜를 ,를 기준으로 나눠받아 입력
 		   carer.setNum_r(num_r);
-		   String company[]=carer.getCompany().split(",");
-		   String depart[]=carer.getDepartment().split(",");
-		   String c_start[]=carer.getC_startday().split(",");
-		   String c_end[]=carer.getC_endday().split(",");
+		   String company[]=carer.getCompany().split(",",-1);
+		   String depart[]=carer.getDepartment().split(",",-1);
+		   String c_start[]=carer.getC_startday().split(",",-1);
+		   String c_end[]=carer.getC_endday().split(",",-1);
 		   
 		   mapper.delCarer(num_r);
 		   for(int i=0;i<company.length;i++) {
@@ -237,10 +245,10 @@ public class JobResumeController {
 		   
 		 //education 학교명, 전공, 날짜를 ,를 기준으로 나눠받아 입력
 		   education.setNum_r(num_r);
-		   String school[]=education.getSchool().split(",");
-		   String major[]=education.getMajor().split(",");
-		   String e_start[]=education.getE_startday().split(",");
-		   String e_end[]=education.getE_endday().split(",");
+		   String school[]=education.getSchool().split(",",-1);
+		   String major[]=education.getMajor().split(",",-1);
+		   String e_start[]=education.getE_startday().split(",",-1);
+		   String e_end[]=education.getE_endday().split(",",-1);
 		  
 		   mapper.delEducation(num_r);
 		   for(int i=0;i<school.length;i++) {
@@ -253,8 +261,8 @@ public class JobResumeController {
 		   
 		 //fore 언어, 레벨를 ,를 기준으로 나눠받아 입력
 		   fore.setNum_r(num_r);
-		   String lang[]=fore.getLang().split(",");
-		   String level[]=fore.getLevel().split(",");
+		   String lang[]=fore.getLang().split(",",-1);
+		   String level[]=fore.getLevel().split(",",-1);
 		
 		   mapper.delFore(num_r);
 		   for(int i=0;i<lang.length;i++) {

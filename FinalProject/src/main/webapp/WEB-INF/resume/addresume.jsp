@@ -7,11 +7,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
 <style type="text/css">
-body *{
-	margin-left: 20px;
-}
+	body *{
+		margin-left: 20px;
+	}
+	
+
 	textarea.intro:focus{
 		outline: none;
 	}
@@ -44,13 +48,14 @@ body *{
 	
 	span.skillblock{
 		border-radius: 100px;
-		width: 100px;
-		height: 30px;
+		width: auto;
+		height: 40px;
 		background-color: #eee;
-		font-size: 0.9em;
 		margin-right: 10px;
-		line-height: 30px;
+		line-height: 40px;
+		padding: 10px 10px 10px 10px;
 	}
+	
 	
 	select.sel{
 		width: 150px;
@@ -80,6 +85,10 @@ body *{
 		line-height: 30px;
 		border: 0px solid black;
 		
+	}
+	
+	#btnskilladd:focus{
+		outline: none;
 	}
 	
 	
@@ -161,9 +170,11 @@ window.onload = function() {
 	startday.setAttribute("placeholder","YYYY-MM");
 	startday.setAttribute("class","day");
 	startday.setAttribute("name","c_startday");
+	startday.setAttribute("maxlength","7");
 	endday.setAttribute("placeholder","YYYY-MM");
 	endday.setAttribute("class","day");
 	endday.setAttribute("name","c_endday");
+	endday.setAttribute("maxlength","7");
 
 	company.style.border="none";
 	company.style.fontWeight="bold";
@@ -216,9 +227,11 @@ window.onload = function() {
 		startday.setAttribute("placeholder","YYYY-MM");
 		startday.setAttribute("class","day");
 		startday.setAttribute("name","e_startday");
+		startday.setAttribute("maxlength","7");
 		endday.setAttribute("placeholder","YYYY-MM");
 		endday.setAttribute("class","day");
 		endday.setAttribute("name","e_endday");
+		endday.setAttribute("maxlength","7");
 
 		school.style.border="none";
 		school.style.fontWeight="bold";
@@ -248,20 +261,56 @@ window.onload = function() {
 	
 	//기술 추가 이벤트
 	document.getElementById('btnskilladd').onclick=function(){
+		
+		//값을 입력하지 않은 경우 alert창으로 경고
 		var skill=document.getElementById('myInput').value;
+		if(skill == ""){
+			return
+		}
+		
+		//이미 있는 값인지 체크해서 없을 경우에만 추가
+		var skills=document.querySelectorAll(".skillblock");
+		for (var i = 0; i < skills.length; i++) {
+			if(skills[i].getAttribute("value") == skill){
+				alert("이미 있는 스킬입니다.");
+				
+				//input 초기화
+				document.getElementById('myInput').value="";
+				return
+			}
+		}
+		
+		
+		var skill_box=document.createElement('div');
+		
 		var skill_span=document.createElement("span");
+		var spanx=document.createElement("span");
 		var hidden=document.createElement("input");
 		//skill_span.setAttribute("class","skillblock");
 		//skill_span.setAttribute("class","glyphicon glyphicon-remove");
+		
+		skill_box.style.float="left";
+		
 		hidden.setAttribute("type","hidden");
 		hidden.setAttribute("value",skill);
 		hidden.setAttribute("name","skill");
+		
 		skill_span.innerHTML=skill;
 		skill_span.setAttribute("name","skill");
 		skill_span.setAttribute("value",skill);
-		document.getElementById('skill').appendChild(skill_span);
-		document.getElementById('skill').appendChild(hidden);
-		skill_span.classList.add('skillblock','glyphicon','glyphicon-remove');
+		skill_span.setAttribute("class","skillblock");
+		
+		spanx.setAttribute("class","glyphicon glyphicon-remove");
+		
+		skill_span.appendChild(spanx);
+		document.getElementById('skill').appendChild(skill_box);
+		skill_box.appendChild(skill_span);
+		skill_box.appendChild(hidden);
+		
+		
+		
+		//input 초기화
+		document.getElementById('myInput').value="";
 
 		
 		
@@ -287,14 +336,17 @@ window.onload = function() {
 		startday.setAttribute("placeholder","YYYY-MM");
 		startday.setAttribute("class","day");
 		startday.setAttribute("name","a_startday");
+		startday.setAttribute("maxlength","7");
 		endday.setAttribute("placeholder","YYYY-MM");
 		endday.setAttribute("class","day");
 		endday.setAttribute("name","a_endday");
+		endday.setAttribute("maxlength","7");
 
 		activity.style.border="none";
 		activity.style.fontWeight="bold";
 		activity.setAttribute("placeholder","활동명");
 		activity.setAttribute("name","activity");
+
 		
 		detail.style.border="none";
 		detail.style.fontSize="0.9em";
@@ -550,6 +602,19 @@ document.addEventListener("click", function (e) {
 <button type="button" class="add" id="btnaddcarer">+ 추가</button>
 <br><br>
 <table id="addcarer">
+	<tr>
+		<td>
+			<input name="c_startday" class="day" placeholder="YYYY-MM" maxlength="7">
+			<input name="c_endday" class="day" placeholder="YYYY-MM" maxlength="7">
+		</td>
+		<td>
+			<input name="company" placeholder="회사명" style="border: none;font-weight: bold;">
+		</td>
+		<td>
+			<input placeholder="부서명/직책" name="department" style="border: none;font-size: 0.9em;">
+			<span class="glyphicon glyphicon-remove"></span>
+		</td>
+	</tr>
 </table>
 </div>
 <br><br>
@@ -563,6 +628,19 @@ document.addEventListener("click", function (e) {
 <br><br>
 <button type="button" class="add" id="btnaddedu">+ 추가</button>
 <table id="addedu">
+	<tr>
+		<td>
+			<input name="e_startday" class="day" placeholder="YYYY-MM" maxlength="7">
+			<input name="e_endday" class="day" placeholder="YYYY-MM" maxlength="7">
+		</td>
+		<td>
+			<input name="school" placeholder="학교명" style="border: none;font-weight: bold;">
+		</td>
+		<td>
+			<input placeholder="전공 및 학위" name="major" style="border: none;font-size: 0.9em;">
+			<span class="glyphicon glyphicon-remove"></span>
+		</td>
+	</tr>
 </table>
 </div>
 <br><br>
@@ -580,9 +658,8 @@ document.addEventListener("click", function (e) {
 	<input type="text" style="border: none;" placeholder="보유 스킬을 검색해주세요" id="myInput" onkeyup="searchskill()">
  </div>
  <button type="button" class="btn btn-info" id="btnskilladd">추가</button><br><br>
-
 </div>
-<br><br>
+<br><br><br>
 
 <div class="award" id="award">
 <h5>수상 및 기타</h5>
@@ -593,7 +670,21 @@ document.addEventListener("click", function (e) {
 </div>
 <br><br>
 <button type="button" class="add" id="btnaddaward">+ 추가</button>
-<table id="addaward"></table>
+<table id="addaward">
+	<tr>
+		<td>
+			<input name="a_startday" class="day" placeholder="YYYY-MM" maxlength="7">
+			<input name="a_endday" class="day" placeholder="YYYY-MM" maxlength="7">
+		</td>
+		<td>
+			<input name="activity" placeholder="활동명" style="border: none;font-weight: bold;">
+		</td>
+		<td>
+			<input placeholder="세부사항" name="detail" style="border: none;font-size: 0.9em;">
+			<span class="glyphicon glyphicon-remove"></span>
+		</td>
+	</tr>
+</table>
 </div>
 <br><br>
 
@@ -606,7 +697,22 @@ document.addEventListener("click", function (e) {
 </div>
 <br><br>
 <button type="button" class="add" id="btnaddfore">+ 추가</button>
-<table id="selfore"></table>
+<table id="selfore">
+	<tr>
+		<td>
+			<select width="100" name="lang" class="sel">
+				<c:forEach var="lang" items="${lang }">
+					<option value="${lang }">${lang }</option>
+				</c:forEach>
+			</select>
+			<select width="100" name="level" class="sel">
+				<c:forEach var="level" items="${level }">
+					<option value="${level }">${level }</option>
+				</c:forEach>
+			</select>
+		</td>
+	</tr>
+</table>
 </div>
 <br><br>
 

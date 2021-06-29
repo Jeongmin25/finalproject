@@ -44,12 +44,12 @@ body *{
 	
 	span.skillblock{
 		border-radius: 100px;
-		width: 100px;
-		height: 30px;
+		width: auto;
+		height: 40px;
 		background-color: #eee;
-		font-size: 0.9em;
 		margin-right: 10px;
-		line-height: 30px;
+		line-height: 40px;
+		padding: 10px 10px 10px 10px;
 	}
 	
 	select.sel{
@@ -80,6 +80,10 @@ body *{
 		line-height: 30px;
 		border: 0px solid black;
 		
+	}
+	
+   	#btnskilladd:focus{
+		outline: none;
 	}
 	
 	
@@ -244,23 +248,56 @@ window.onload = function() {
 	
 	//기술 추가 이벤트
 	document.getElementById('btnskilladd').onclick=function(){
+
+		//값을 입력하지 않은 경우 alert창으로 경고
 		var skill=document.getElementById('myInput').value;
+		if(skill == ""){
+			return
+		}
+		
+		//이미 있는 값인지 체크해서 없을 경우에만 추가
+		var skills=document.querySelectorAll(".skillblock");
+		for (var i = 0; i < skills.length; i++) {
+			if(skills[i].getAttribute("value") == skill){
+				alert("이미 있는 스킬입니다.");
+				
+				//input 초기화
+				document.getElementById('myInput').value="";
+				return
+			}
+		}
+		
+		
+		var skill_box=document.createElement('div');
+		
 		var skill_span=document.createElement("span");
+		var spanx=document.createElement("span");
 		var hidden=document.createElement("input");
 		//skill_span.setAttribute("class","skillblock");
 		//skill_span.setAttribute("class","glyphicon glyphicon-remove");
+		
+		skill_box.style.float="left";
+		
 		hidden.setAttribute("type","hidden");
 		hidden.setAttribute("value",skill);
 		hidden.setAttribute("name","skill");
+		
 		skill_span.innerHTML=skill;
 		skill_span.setAttribute("name","skill");
 		skill_span.setAttribute("value",skill);
-		document.getElementById('skill').appendChild(skill_span);
-		document.getElementById('skill').appendChild(hidden);
-		skill_span.classList.add('skillblock','glyphicon','glyphicon-remove');
-
+		skill_span.setAttribute("class","skillblock");
+		
+		spanx.setAttribute("class","glyphicon glyphicon-remove");
+		
+		skill_span.appendChild(spanx);
+		document.getElementById('skill').appendChild(skill_box);
+		skill_box.appendChild(skill_span);
+		skill_box.appendChild(hidden);
 		
 		
+		
+		//input 초기화
+		document.getElementById('myInput').value="";
 	}
 	
 	
