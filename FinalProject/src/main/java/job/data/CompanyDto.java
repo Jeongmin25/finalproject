@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -12,10 +13,11 @@ import lombok.Data;
 public class CompanyDto {
 	private int num;
 	private String empname;
-	private String empsubject;
+	private String jobgroup;
 	private String empcontent;
+	private MultipartFile upload;
 	private String empimg;
-	private Timestamp deadline;
+	private String deadline;
 	private Timestamp writeday;
 	
 }
