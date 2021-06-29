@@ -59,4 +59,8 @@ public interface reviewMapper {
 	
 	//num에 해당하는 데이터, 좋아요 수 
 	public int countOfReviewLikes(String num);
+	
+	//리뷰 추천 많은 순으로 장점 2개 출력
+	public List<reviewDto> likesGood(String empname);
+
 }

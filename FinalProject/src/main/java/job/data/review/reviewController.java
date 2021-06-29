@@ -1,25 +1,14 @@
 package job.data.review;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-
 
 @Controller
 public class reviewController {
@@ -79,6 +68,9 @@ public class reviewController {
 		List<reviewDto> list=mapper.getReviewData();
 		mview.addObject("empname",empname);
 		mview.addObject("list",list);
+		
+		//기업리뷰 추천 많은 순으로 장점 2개 출력
+		
 
 		//출력에 필요한 변수들 모두 request에 저장(list.jsp에서 사용)
 		mview.addObject("no", no);

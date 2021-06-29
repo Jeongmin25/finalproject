@@ -97,7 +97,9 @@
 		<c:forEach items="${empname }" var="empname">
 			<div class="empname">
 			<br>
-			<a class="empname" href="reviewdetail?empname=${empname.empname }">${empname.empname }</a>
+			<a class="empname" href="reviewdetail?empname=${empname.empname }">${empname.empname } 
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<b style="font-weight: normal; color: gray;"># ${empname.good}</b></a>
 			</div>
 		</c:forEach>
 	</div>
@@ -130,6 +132,4 @@
 	</ul>
 </div>
 </body>
-
-
 </html>
