@@ -13,6 +13,7 @@ public interface CompanyMapper {
 	public CompanyDto getData(String num);
 	public void insertGonggo(CompanyDto dto);
 	public void deleteGonggo(String num);
+	public void updateGonggo(CompanyDto dto);
 }
 
 
