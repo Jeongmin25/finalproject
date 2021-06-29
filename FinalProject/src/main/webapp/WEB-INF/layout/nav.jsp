@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,5 +44,15 @@
 				</ul>
 			</nav>
 		</div>
+<c:set var="root" value="<%=request.getContextPath()%>"/>
+<span>
+ <c:if test="${sessionScope.loginok==null }">
+ 	<button type="button" class="btn btn-primary"
+ 	onclick="location.href='login'">Login</button>
+ </c:if>
+ <c:if test="${sessionScope.loginok!=null}">
+ 	<b>${sessionScope.myid }님</b>
+ </c:if>
+</span>
 </body>
 </html>

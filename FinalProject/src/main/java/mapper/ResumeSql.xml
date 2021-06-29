@@ -73,4 +73,25 @@
 	<update id="updateFore" parameterType="fore">
 		update fore set lang=#{lang},level=#{level} where num_r=#{num_r}
 	</update>
+	
+	<delete id="delAward" parameterType="int">
+		set foreign_key_checks=0;
+		delete from award where num_r=#{num_r};
+		set foreign_key_checks = 1;
+	</delete>
+	<delete id="delCarer" parameterType="int">
+		set foreign_key_checks=0;
+		delete from carer where num_r=#{num_r};
+		set foreign_key_checks = 1;
+	</delete>
+	<delete id="delEducation" parameterType="int">
+		set foreign_key_checks=0;
+		delete from education where num_r=#{num_r};
+		set foreign_key_checks = 1;
+	</delete>
+	<delete id="delFore" parameterType="int">
+		set foreign_key_checks=0;
+		delete from fore where num_r=#{num_r};
+		set foreign_key_checks = 1;
+	</delete>
 </mapper>

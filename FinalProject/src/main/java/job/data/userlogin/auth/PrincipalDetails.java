@@ -1,12 +1,14 @@
-package job.data.login.auth;
+package job.data.userlogin.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import job.data.login.UserAccountDto;
+import job.data.userlogin.UserAccountDto;
 import lombok.Data;
 
 //시큐리티가 /login 주소 요청이 오면 낚아채서 로그인을 진행시킨다.
@@ -17,15 +19,24 @@ import lombok.Data;
 //security session => authentication => userdetatils(PrincipalDetails)
 
 @Data
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails,OAuth2User {
 
 	private UserAccountDto user; //콤포지션
+	private Map<String,Object> attributes;
 	
 	
 	//PrincipalDetails 생성자에 user를 받아서 this에 넣어줌
+	//일반 로그인시 사용하는 생성자
 	public PrincipalDetails(UserAccountDto user) {
 		this.user=user;
 	}
+	
+	//생성자 오버라이딩
+	//OAuth 로그인시 사용하는 생성자 
+		public PrincipalDetails(UserAccountDto user, Map<String, Object> attributes) {
+			this.user=user;
+			this.attributes=attributes;
+		}
 	
 	
 	//해당 유저의 권한을 리턴하는 곳!!
@@ -83,6 +94,20 @@ public class PrincipalDetails implements UserDetails {
 	public boolean isEnabled() {
 		
 		return true;
+	}
+
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		// TODO Auto-generated method stub
+		return attributes;
+	}
+
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;  // 구글로그인시 받아올수 있는 sub 정보를 리턴할 수 있으나, 굳이 사용안해도되어 null을 리턴
 	}
 		
 }

@@ -19,7 +19,10 @@ public interface reviewMapper {
 	public List<reviewDto> getReviewDataOfEmp(String empname);
 	
 	//review기업명 조회
-	public List<reviewDto> selectEmpname();
+	public List<reviewDto> selectEmpname(int start, int perpage);
+	
+	//review기업명 개수(중복제외)
+	public int selectEmpnameCount();
 	
 	//기업평가 평균
 	public float avgRating(String empname);
@@ -42,9 +45,22 @@ public interface reviewMapper {
 	//기업명 별 리뷰개수
 	public int review0fEmp(String empname);
 	
-	//조회수 증가 insert
-	public void insertlikes(int num);
+	//기업명 검색
+	public List<reviewDto> searchEmpname(String empname);
+	
+	//조회수 증가 update
+	public void insertReviewOflikes(String num);
+	
+	//추천 누른 email 데이터 insert
+	public void insertlikes(String email, String num);
+	
+	//likes 추천했으면1 안했으면0 반환
+	public int countOflikes(String email, String num);
 	
 	//num에 해당하는 데이터, 좋아요 수 
-	public List<reviewDto> dataOfnumLikes(int num);
+	public int countOfReviewLikes(String num);
+	
+	//리뷰 추천 많은 순으로 장점 2개 출력
+	public List<reviewDto> likesGood(String empname);
+
 }

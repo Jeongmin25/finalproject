@@ -44,12 +44,12 @@ body *{
 	
 	span.skillblock{
 		border-radius: 100px;
-		width: 100px;
-		height: 30px;
+		width: auto;
+		height: 40px;
 		background-color: #eee;
-		font-size: 0.9em;
 		margin-right: 10px;
-		line-height: 30px;
+		line-height: 40px;
+		padding: 10px 10px 10px 10px;
 	}
 	
 	select.sel{
@@ -80,6 +80,10 @@ body *{
 		line-height: 30px;
 		border: 0px solid black;
 		
+	}
+	
+   	#btnskilladd:focus{
+		outline: none;
 	}
 	
 	
@@ -244,23 +248,56 @@ window.onload = function() {
 	
 	//기술 추가 이벤트
 	document.getElementById('btnskilladd').onclick=function(){
+
+		//값을 입력하지 않은 경우 alert창으로 경고
 		var skill=document.getElementById('myInput').value;
+		if(skill == ""){
+			return
+		}
+		
+		//이미 있는 값인지 체크해서 없을 경우에만 추가
+		var skills=document.querySelectorAll(".skillblock");
+		for (var i = 0; i < skills.length; i++) {
+			if(skills[i].getAttribute("value") == skill){
+				alert("이미 있는 스킬입니다.");
+				
+				//input 초기화
+				document.getElementById('myInput').value="";
+				return
+			}
+		}
+		
+		
+		var skill_box=document.createElement('div');
+		
 		var skill_span=document.createElement("span");
+		var spanx=document.createElement("span");
 		var hidden=document.createElement("input");
 		//skill_span.setAttribute("class","skillblock");
 		//skill_span.setAttribute("class","glyphicon glyphicon-remove");
+		
+		skill_box.style.float="left";
+		
 		hidden.setAttribute("type","hidden");
 		hidden.setAttribute("value",skill);
 		hidden.setAttribute("name","skill");
+		
 		skill_span.innerHTML=skill;
 		skill_span.setAttribute("name","skill");
 		skill_span.setAttribute("value",skill);
-		document.getElementById('skill').appendChild(skill_span);
-		document.getElementById('skill').appendChild(hidden);
-		skill_span.classList.add('skillblock','glyphicon','glyphicon-remove');
-
+		skill_span.setAttribute("class","skillblock");
+		
+		spanx.setAttribute("class","glyphicon glyphicon-remove");
+		
+		skill_span.appendChild(spanx);
+		document.getElementById('skill').appendChild(skill_box);
+		skill_box.appendChild(skill_span);
+		skill_box.appendChild(hidden);
 		
 		
+		
+		//input 초기화
+		document.getElementById('myInput').value="";
 	}
 	
 	
@@ -338,9 +375,14 @@ window.onload = function() {
 	
 	//외국어 추가 이벤트
 	document.getElementById('btnaddfore').onclick=function(){
+		var tr=document.createElement("tr");
+		var td1=document.createElement("td");
+		var td2=document.createElement("td");
+		
 		//객체를 생성하고, option값을 select 에 삽입
 		var fore=["영어","중국어 북경어","중국어 광동어","일본어","한국어","독일어","스페인어","프랑스어","네덜란드어","노르웨이어","덴마크어"];
 		var level=["유창","비지니스회화","일상회화"];
+		
 		var sel1=document.createElement("select");
 		sel1.setAttribute("width","100px");
 		sel1.setAttribute("name","lang");
@@ -372,10 +414,15 @@ window.onload = function() {
 		sel2.setAttribute("class","sel");
 		
 		//객체 삽입
-		document.getElementById('selfore').appendChild(sel1);
-		document.getElementById('selfore').appendChild(sel2);
-		document.getElementById('selfore').appendChild(span);
+		document.getElementById('selfore').appendChild(tr);
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		td1.appendChild(sel1);
+		td1.appendChild(sel2);
+		td2.appendChild(span);
 	}
+	
+	
 
 }	
 
@@ -399,6 +446,13 @@ function searchskill() {
 
 });
 }
+
+//삭제 이벤트
+$(document).on("click",".glyphicon-remove",function(e){
+	var spanx=e.target;
+	var tr=spanx.parentNode.parentNode;
+	tr.parentNode.removeChild(tr);
+});
 
 //자동 완성 기능
 function autocomplete(inp, arr) {

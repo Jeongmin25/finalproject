@@ -1,4 +1,4 @@
-package job.data.login;
+package job.data.userlogin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,8 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import job.data.login.auth.PrincipalDetailsService;
-import job.data.login.oauth.PrincipalOauth2UserService;
+import job.data.userlogin.auth.PrincipalDetailsService;
+import job.data.userlogin.oauth.PrincipalOauth2UserService;
 
 @Configuration
 @EnableWebSecurity //스프링 시큐리티 필터가 스프링 필터체인에 등록이된다.
@@ -26,12 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //원활한 프로젝트 진행을 위해 일단 페이지의 인증을 해제하자.
 	
 	@Autowired
-	private PrincipalOauth2UserService principalDetailsService;
-	
+	private PrincipalOauth2UserService PrincipalOauth2UserService;
 	
 	//해당 메서드의 리턴되는 오브젝트를 IOC로 등록해준다.
 	@Bean
-	public BCryptPasswordEncoder encodePwd() {
+	BCryptPasswordEncoder encodePwd() {
 		return new BCryptPasswordEncoder();
 	}
 	
@@ -52,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.oauth2Login()
 		.loginPage("/loginForm") //구글 로그인이 완료된 뒤의 후처리가 필요. tip. 코드X, (엑세스토큰+사용자프로필정보 O)
 		.userInfoEndpoint()
-		.userService(principalDetailsService);
+		.userService(PrincipalOauth2UserService);
 	
 	}
 }

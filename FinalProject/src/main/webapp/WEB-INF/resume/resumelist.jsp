@@ -60,6 +60,7 @@
   	border: 1px solid gray;
   	background-color: white;
   	width: 130px;
+  	box-shadow : 0 0 2px gray inset, 0 0 2px black
   }
   
   div.popup *{
