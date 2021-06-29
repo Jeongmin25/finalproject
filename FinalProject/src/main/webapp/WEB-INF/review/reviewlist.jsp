@@ -44,7 +44,6 @@
 	
 	div.list{
 		width: 900px;
-		height : 600px;
 		margin-left: 10px;
 	}
 	
@@ -117,7 +116,7 @@
 		<c:forEach var="pp" begin="${startPage }" end="${endPage }">
 			<!-- currentPage==pp -->
 			<c:if test="${currentPage==pp }">
-				<li class="active"><a href="review?pageNum=${pp }">${pp }</a></li>
+				<li class="active" ><a href="review?pageNum=${pp }">${pp }</a></li>
 			</c:if>
 			<!-- currentPage!=pp -->
 			<c:if test="${currentPage!=pp }">

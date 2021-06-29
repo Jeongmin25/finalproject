@@ -26,7 +26,6 @@
 	
 	div.list{
 		width: 900px;
-		height : 600px;
 		margin-left: 10px;
 	}
 	
@@ -70,12 +69,18 @@
 	<h2>전체 기업리뷰</h2>
 	<br>
 	<c:forEach items="${searchlist }" var="data">
+
 		<div class="empname">
 		<br>
-		<a class="empname" href="reviewdetail?empname=${data.empname }">${data.empname }</a>
+		<a class="empname" href="reviewdetail?empname=${data.empname }">${data.empname }
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<b style="font-weight: normal; color: gray;"># ${data.good}</b></a>
+		</a>
 		</div>
 	</c:forEach>
 </div>	
-
+	<br>
+	<button type="button" class="btn btn-default" onclick="location.href='review'"
+		style="margin-left: 400px;">목록</button>
 </body>
 </html>
