@@ -1,38 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="job.data.resume.ResumeMapper">
-	<select id="getTotalCount" resultType="int">
-		select count(*) from resume
-	</select>
+	<!-- 로그인한 회원의 이력서 출력 -->
 	<select id="getDataOfResume" parameterType="String" resultType="resume">
 		select * from resume where user_id=#{user_id}
 	</select>
-	<insert id="insertResume" parameterType="resume">
-		insert into resume (intro,skill,link,nowdate,user_id) values (#{intro},#{skill},#{link},now(),#{user_id})
-	</insert>
-	<select id="getInsertNum" resultType="int">
-		select LAST_INSERT_ID()
-	</select>
-	<insert id="insertAward" parameterType="award">
-		insert into award (activity,detail,endday,startday,num_r) values (#{activity, jdbcType=VARCHAR},#{detail, jdbcType=VARCHAR},#{a_endday, jdbcType=VARCHAR},#{a_startday, jdbcType=VARCHAR},#{num_r})
-	</insert>
-	<insert id="insertCarer" parameterType="carer">
-		insert into carer (company,department,endday,startday,num_r) values (#{company, jdbcType=VARCHAR},#{department, jdbcType=VARCHAR},#{c_endday, jdbcType=VARCHAR},#{c_startday, jdbcType=VARCHAR},#{num_r})
-	</insert>
-	<insert id="insertEducation" parameterType="education">
-		insert into education (school,major,endday,startday,num_r) values (#{school, jdbcType=VARCHAR},#{major, jdbcType=VARCHAR},#{e_endday, jdbcType=VARCHAR},#{e_startday, jdbcType=VARCHAR},#{num_r})
-	</insert>
-	<insert id="insertFore" parameterType="fore">
-		insert into fore (lang,level,num_r) values (#{lang, jdbcType=VARCHAR},#{level, jdbcType=VARCHAR},#{num_r})
-	</insert>
-	<!-- <select id="getDataOfResume" resultType="resume">
-		select * from resume order by num_r desc
-	</select> -->
-	<delete id="delresume" parameterType="String">
-			set foreign_key_checks=0;
-			delete from resume where num_r=#{num_r};
-			set foreign_key_checks = 1;
-	</delete>
 	
 	<!-- 이력서 출력을 위한 resultMap 선언 -->
 	<resultMap type="resume" id="resume-selectmap">
@@ -61,22 +33,32 @@
 		select * from fore where num_r=#{num_r}
 	</select>
 	
-	<update id="updateResume" parameterType="resume">
-		update resume set intro=#{intro},skill=#{skill},link=#{link} where num_r=#{num_r}
-	</update>
-	<update id="updateAward" parameterType="award">
-		update award set activity=#{activity},detail=#{detail},startday=#{a_startday}, endday=#{a_endday} where num_r=#{num_r}
-	</update>
-	<update id="updateCarer" parameterType="carer">
-		update carer set company=#{company},department=#{department},startday=#{c_startday}, endday=#{c_endday} where num_r=#{num_r}
-	</update>
-	<update id="updateEducation" parameterType="education">
-		update education set school=#{school},major=#{major},startday=#{e_startday}, endday=#{e_endday} where num_r=#{num_r}
-	</update>
-	<update id="updateFore" parameterType="fore">
-		update fore set lang=#{lang},level=#{level} where num_r=#{num_r}
-	</update>
+	<!-- 데이터 삽입 -->
+	<insert id="insertResume" parameterType="resume">
+		insert into resume (intro,skill,link,nowdate,user_id) values (#{intro},#{skill},#{link},now(),#{user_id})
+	</insert>
+	<select id="getInsertNum" resultType="int">
+		select LAST_INSERT_ID()
+	</select>
+	<insert id="insertAward" parameterType="award">
+		insert into award (activity,detail,endday,startday,num_r) values (#{activity, jdbcType=VARCHAR},#{detail, jdbcType=VARCHAR},#{a_endday, jdbcType=VARCHAR},#{a_startday, jdbcType=VARCHAR},#{num_r})
+	</insert>
+	<insert id="insertCarer" parameterType="carer">
+		insert into carer (company,department,endday,startday,num_r) values (#{company, jdbcType=VARCHAR},#{department, jdbcType=VARCHAR},#{c_endday, jdbcType=VARCHAR},#{c_startday, jdbcType=VARCHAR},#{num_r})
+	</insert>
+	<insert id="insertEducation" parameterType="education">
+		insert into education (school,major,endday,startday,num_r) values (#{school, jdbcType=VARCHAR},#{major, jdbcType=VARCHAR},#{e_endday, jdbcType=VARCHAR},#{e_startday, jdbcType=VARCHAR},#{num_r})
+	</insert>
+	<insert id="insertFore" parameterType="fore">
+		insert into fore (lang,level,num_r) values (#{lang, jdbcType=VARCHAR},#{level, jdbcType=VARCHAR},#{num_r})
+	</insert>
 	
+	<!-- 데이터 삭제 -->
+	<delete id="delresume" parameterType="String">
+			set foreign_key_checks=0;
+			delete from resume where num_r=#{num_r};
+			set foreign_key_checks = 1;
+	</delete>
 	<delete id="delAward" parameterType="String">
 		set foreign_key_checks=0;
 		delete from award where num_r=#{num_r};
@@ -95,4 +77,9 @@
 		delete from fore where num_r=#{num_r};
 		set foreign_key_checks = 1;
 	</delete>
+	
+	<!-- 데이터 update -->
+	<update id="updateResume" parameterType="resume">
+		update resume set intro=#{intro},skill=#{skill},link=#{link} where num_r=#{num_r}
+	</update>
 </mapper>
