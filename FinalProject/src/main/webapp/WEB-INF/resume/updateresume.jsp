@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -556,11 +557,10 @@ document.addEventListener("click", function (e) {
 </head>
 <body>
 <form action="updateresume?num_r=${rdto.num_r}" method="post">
-<h2>이름</h2>
 <br><br>
-<h5>이름</h5>
-<h5>이메일</h5>
-<h5>핸드폰</h5>
+<h5><sec:authentication property="principal.username"/></h5>
+<h5><sec:authentication property="principal.user.email"/></h5>
+<h5><sec:authentication property="principal.user.hp"/></h5>
 <br><br><br>
 <div class="intro">
 <h5>간단 소개글</h5>

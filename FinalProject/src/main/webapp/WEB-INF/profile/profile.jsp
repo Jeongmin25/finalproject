@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
     <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -84,6 +85,7 @@
 	}
 </script>
 <body>
+<c:set var="user_id"><sec:authentication property="principal.user.id"/></c:set>
 <div class="profile_entire">
 	<div class="profile_title">
 		<h4>프로필</h4>
@@ -92,9 +94,9 @@
 		<div class="profile_img">
 			<img alt="없음" src="image/profile.png">
 			<br><br>
-			<h4>이름</h4>
-			<h5 style="color: #ccc;">rlatngus9655@naver.com</h5>
-			<h5 style="color: #ccc;">01041639655</h5>
+			<h4><sec:authentication property="principal.username"/></h4>
+			<h5 style="color: #ccc;"><sec:authentication property="principal.user.email"/></h5>
+			<h5 style="color: #ccc;"><sec:authentication property="principal.user.hp"/></h5>
 			<br>
 			<button type="button" class="profile_update" onclick="location.href='personUpdateForm'" style="color: #021B80;">기본정보 수정</button>
 		</div>

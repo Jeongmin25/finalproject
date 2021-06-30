@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+     <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,31 +29,36 @@
 <script type="text/javascript">
 window.onload=function(){
 	//pdf파일로 변환해주는 이벤트
-	$('#create_pdf').click(function() {
+	$('#create_pdf').click(function(e) {
+		//이름 받아오기
+		var username=e.target.getAttribute("value");
+		console.log(username);
 		  //pdf_wrap을 canvas객체로 변환
 		  html2canvas($('#pdf_wrap')[0]).then(function(canvas) {
 		    var doc = new jsPDF('p', 'mm', 'a4'); //jspdf객체 생성
 		    var imgData = canvas.toDataURL('image/png'); //캔버스를 이미지로 변환
 		    doc.addImage(imgData, 'PNG', 0, 0); //이미지를 기반으로 pdf생성
-		    doc.save('이력서.pdf'); //pdf저장
+		    doc.save(username+'_이력서.pdf'); //pdf저장
 		  });
 		});
 }
 </script>
 </head>
 <body>
+<c:set var="username"><sec:authentication property="principal.username"/></c:set>
 <div style="position: fixed; bottom: 10px;right: 200px;" class="fixbtn">
 <button type="button" onclick="location.href='updateresumeForm?num_r=${num_r}'">수정하기</button>
-<button type="button" id="create_pdf"><span class="glyphicon glyphicon-download-alt"></span></button>
+<button type="button" id="create_pdf" value="${username }"><span class="glyphicon glyphicon-download-alt"></span></button>
 </div>
 
 <form action="#" class="resumedetail">
 <div id="pdf_wrap">
-	<h2>이름</h2>
+	
+	<h2><sec:authentication property="principal.username"/></h2>
 	<br><br>
-	<h5>이름</h5>
-	<h5>이메일</h5>
-	<h5>핸드폰</h5>
+	<h5><sec:authentication property="principal.username"/></h5>
+	<h5><sec:authentication property="principal.user.email"/></h5>
+	<h5><sec:authentication property="principal.user.hp"/></h5>
 	<br><br><br>
 	<table class="carer">
 		<tr style="border-bottom: 1px solid gray;">
