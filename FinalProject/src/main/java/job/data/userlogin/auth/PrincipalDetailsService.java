@@ -1,7 +1,5 @@
 package job.data.userlogin.auth;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,13 +23,12 @@ public class PrincipalDetailsService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		System.out.println("username:"+username);
 		UserAccountDto userEntity=mapper.findByUsername(username);
+		System.out.println(userEntity.getId());
 		if(userEntity!= null ) {
 			return new PrincipalDetails(userEntity); //PrincipalDetails가 리턴될때 리턴된 값이 authentication에 들어간다
 		}
 		
 		return null;
 	}
-	
-	
 
 }
