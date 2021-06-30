@@ -11,13 +11,13 @@
 		select * from company where num=#{num}
 	</select>
 	<insert id="insertGonggo" parameterType="company">
-		insert into company (empname,jobgroup,empcontent,empimg,deadline,writeday) 
-		values (#{empname},#{jobgroup},#{empcontent},#{empimg},STR_TO_DATE(#{deadline},'%Y-%m-%d'),now())
+		insert into company (empname,job,jobgroup,empcontent,empimg,deadline,writeday) 
+		values (#{empname},#{job},#{jobgroup},#{empcontent},#{empimg},STR_TO_DATE(#{deadline},'%Y-%m-%d'),now())
 	</insert>
 	<delete id="deleteGonggo" parameterType="String">
 		delete from company where num=#{num}
 	</delete>
 	<update id="updateGonggo" parameterType="company">
-		update company set jobgroup=#{jobgroup},empcontent=#{empcontent},empimg=#{empimg},deadline=STR_TO_DATE(#{deadline},'%Y-%m-%d') where num=#{num}
+		update company set job=#{job},jobgroup=#{jobgroup},empcontent=#{empcontent},empimg=#{empimg},deadline=STR_TO_DATE(#{deadline},'%Y-%m-%d') where num=#{num}
 	</update>
 </mapper>
