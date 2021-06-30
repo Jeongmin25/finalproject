@@ -90,8 +90,8 @@ public class IndexController {
 		return "redirect:/"; //조인할때 실제로 회원가입 시킨다
 	}
 	
-	
-	
+
+
 	///----------여기는 그냥 연습용. 어드민 페이지 관리하는 사람쓰고 싶으면 쓸수있게.
 	
 	@Secured("ROLE_ADMIN") //매핑주소의 권한을 하나만 걸고싶을때는 @Secured를 사용

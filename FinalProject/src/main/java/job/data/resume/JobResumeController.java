@@ -1,5 +1,6 @@
 package job.data.resume;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.management.MXBean;
@@ -7,6 +8,9 @@ import javax.management.MXBean;
 import org.apache.ibatis.annotations.Lang;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
+import job.data.userlogin.auth.PrincipalDetails;
 
 
 
@@ -24,11 +30,20 @@ public class JobResumeController {
 	 
 	 
 	 @GetMapping("/resumelist")
-	 public ModelAndView resumelist() {
+	 public ModelAndView resumelist(
+			 Authentication authentication,
+			@AuthenticationPrincipal PrincipalDetails userDetails,
+			@AuthenticationPrincipal OAuth2User oauth
+			 ) {
 		 ModelAndView mview = new ModelAndView();
 		 mview.setViewName("/resume/resumelist");
+		 
+		  PrincipalDetails principalDetails = (PrincipalDetails)
+		  authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+		  String user_id=Long.toString(userDetails.getUser().getId());
+		  //System.out.println(userDetails.getUser());
 		 //목록 가져오기
-		 List<ResumeDto> list=mapper.getDataOfResume();
+		 List<ResumeDto> list=mapper.getDataOfResume(user_id);
 		 mview.addObject("list",list);
 		 return mview;
 	 }
@@ -122,13 +137,19 @@ public class JobResumeController {
 		   }
 		   
 
-			return "/resume/resumelist";
+			return "redirect:resumelist";
 		}
 	   
 	   @GetMapping("/delresume")
 	   public String delresume(String num_r) {
+		   
 		   mapper.delresume(num_r);
-		   return "/resume/resumelist";
+		   mapper.delAward(num_r);
+		   mapper.delCarer(num_r);
+		   mapper.delEducation(num_r);
+		   mapper.delFore(num_r);
+		 
+		   return "redirect:resumelist";
 	   }
 	   
 	   //num_r에 해당하는 데이터 반환
@@ -170,7 +191,7 @@ public class JobResumeController {
 		   List<EducationDto>edto=rdto.getEducation();
 		   List<ForeDto>fdto=rdto.getFore();
 		   List<CarerDto>cdto=rdto.getCarer();
-		   
+		   for(AwardDto d:adto)
 		   //정보 보내기
 		   mview.addObject("rdto", rdto);
 		   mview.addObject("adto",adto);
@@ -203,13 +224,14 @@ public class JobResumeController {
 		   ModelAndView mview = new ModelAndView();
 		   //resume insert하고, Num_r 값 보내기
 		   mapper.updateResume(resume);
-		   int num_r= resume.getNum_r();
+		   String num_r=Integer.toString(resume.getNum_r());
+		   int num=resume.getNum_r();
 		   mview.addObject("num_r",num_r);
 		  // int num_r= mapper.getInsertNum();
 		   
 		   
 		   //award 활동명, 세부사항, 날짜 ,를 기준으로 나눠서 받아 입력
-		   award.setNum_r(num_r);
+		   award.setNum_r(num);
 		   String act[]=award.getActivity().split(",",-1);
 		   String detail[]=award.getDetail().split(",",-1);
 		   String start[]=award.getA_startday().split(",",-1);
@@ -228,7 +250,7 @@ public class JobResumeController {
 		   }
 		   
 		   //carer 회사명, 부서, 날짜를 ,를 기준으로 나눠받아 입력
-		   carer.setNum_r(num_r);
+		   carer.setNum_r(num);
 		   String company[]=carer.getCompany().split(",",-1);
 		   String depart[]=carer.getDepartment().split(",",-1);
 		   String c_start[]=carer.getC_startday().split(",",-1);
@@ -244,7 +266,7 @@ public class JobResumeController {
 				   }
 		   
 		 //education 학교명, 전공, 날짜를 ,를 기준으로 나눠받아 입력
-		   education.setNum_r(num_r);
+		   education.setNum_r(num);
 		   String school[]=education.getSchool().split(",",-1);
 		   String major[]=education.getMajor().split(",",-1);
 		   String e_start[]=education.getE_startday().split(",",-1);
@@ -260,7 +282,7 @@ public class JobResumeController {
 		   }
 		   
 		 //fore 언어, 레벨를 ,를 기준으로 나눠받아 입력
-		   fore.setNum_r(num_r);
+		   fore.setNum_r(num);
 		   String lang[]=fore.getLang().split(",",-1);
 		   String level[]=fore.getLevel().split(",",-1);
 		
@@ -272,8 +294,8 @@ public class JobResumeController {
 		   }
 		   
 		   
-		   
-		   mview.setViewName("/resume/resumelist");
+		   mview.addObject("num_r",num_r);
+		   mview.setViewName("redirect:resumedetail");
 
 			return mview;
 		}

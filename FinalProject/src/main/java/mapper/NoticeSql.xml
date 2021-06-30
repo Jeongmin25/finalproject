@@ -7,5 +7,32 @@
 <select id="getAllDatas" resultType="notice">
 	select * from notice order by num_n desc
 </select>	
-	
+
+<insert id="insertNotice" parameterType="notice">
+		insert into notice (writer,category,subject,content,photo,
+		viewcount,writeday) values (#{writer},#{category},#{subject},#{content},
+		#{photo},0,now())
+	</insert>
+
+<select id="getData" parameterType="String" resultType="notice">
+		select * from notice where num_n=#{num_n}
+	</select>
+<select id="getPhotoDatas" resultType="notice">
+		select * from notice where photo!='no' order by num_n desc
+	</select>	
+<update id="updateViewCount" parameterType="int">
+		update notice set viewcount=viewcount+1 where num_n=#{num_n}
+	</update>		
+<update id="updateNotice" parameterType="notice">
+			update notice set category=#{category}, subject=#{subject},
+		writer=#{writer},content=#{content}
+		<if test="photo!=null">
+			,photo=#{photo}
+		</if>
+		where num_n=#{num_n}
+	</update>	
+	<delete id="deleteNotice" parameterType="String" >
+		delete from notice where num_n=#{num_n}
+	</delete>	
+		
 </mapper>	

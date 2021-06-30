@@ -4,8 +4,11 @@
 	<select id="getTotalCount" resultType="int">
 		select count(*) from resume
 	</select>
+	<select id="getDataOfResume" parameterType="String" resultType="resume">
+		select * from resume where user_id=#{user_id}
+	</select>
 	<insert id="insertResume" parameterType="resume">
-		insert into resume (intro,skill,link,nowdate) values (#{intro},#{skill},#{link},now())
+		insert into resume (intro,skill,link,nowdate,user_id) values (#{intro},#{skill},#{link},now(),#{user_id})
 	</insert>
 	<select id="getInsertNum" resultType="int">
 		select LAST_INSERT_ID()
@@ -22,9 +25,9 @@
 	<insert id="insertFore" parameterType="fore">
 		insert into fore (lang,level,num_r) values (#{lang, jdbcType=VARCHAR},#{level, jdbcType=VARCHAR},#{num_r})
 	</insert>
-	<select id="getDataOfResume" resultType="resume">
+	<!-- <select id="getDataOfResume" resultType="resume">
 		select * from resume order by num_r desc
-	</select>
+	</select> -->
 	<delete id="delresume" parameterType="String">
 			set foreign_key_checks=0;
 			delete from resume where num_r=#{num_r};
@@ -74,22 +77,20 @@
 		update fore set lang=#{lang},level=#{level} where num_r=#{num_r}
 	</update>
 	
-	<delete id="delAward" parameterType="int">
+	<delete id="delAward" parameterType="String">
 		set foreign_key_checks=0;
 		delete from award where num_r=#{num_r};
 		set foreign_key_checks = 1;
 	</delete>
-	<delete id="delCarer" parameterType="int">
-		set foreign_key_checks=0;
+	<delete id="delCarer" parameterType="String">
 		delete from carer where num_r=#{num_r};
-		set foreign_key_checks = 1;
 	</delete>
-	<delete id="delEducation" parameterType="int">
+	<delete id="delEducation" parameterType="String">
 		set foreign_key_checks=0;
 		delete from education where num_r=#{num_r};
 		set foreign_key_checks = 1;
 	</delete>
-	<delete id="delFore" parameterType="int">
+	<delete id="delFore" parameterType="String">
 		set foreign_key_checks=0;
 		delete from fore where num_r=#{num_r};
 		set foreign_key_checks = 1;
