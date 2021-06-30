@@ -29,7 +29,7 @@ public class NoticeController {
 	@Autowired
 	NoticeMapper mapper;
 	
-	@GetMapping("/adminnotice/list")
+	@GetMapping("/adminnoticelist")
 	public ModelAndView list()
 	{
 		ModelAndView mview=new ModelAndView();
@@ -53,6 +53,7 @@ public class NoticeController {
 
 	@PostMapping("/adminnotice/insert")
 	public String insert(@ModelAttribute NoticeDto dto,
+			@RequestParam String num_n,
 			HttpServletRequest request)
 	{
 		String path=request.getSession().getServletContext().getRealPath("/noticephoto");
@@ -77,7 +78,8 @@ public class NoticeController {
 		mapper.insertNotice(dto);
 		return "redirect:list";
 		
-	}
+		}
+	
 	
 		@GetMapping("/adminnotice/contents")
 		public String content(Model model,
@@ -97,6 +99,8 @@ public class NoticeController {
 			return "/adminnotice/contents";
 		}
 		
+		
+		
 		@GetMapping("/adminnotice/updateform")
 		public ModelAndView updateForm(@RequestParam String num_n)
 		{
@@ -108,19 +112,30 @@ public class NoticeController {
 			return mview;
 		}
 		
+		
+		
 		@PostMapping("/adminnotice/updatenotice")
 		public String update(@ModelAttribute NoticeDto dto,
+				@RequestParam String num_n,
 				HttpServletRequest request)
 		{
 			String path=request.getSession().getServletContext().getRealPath("/noticephoto");
 			System.out.println(path);
+		     String f=dto.getUpload().getOriginalFilename();
 			//파일명 앞에 붙일 날짜구하기
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 			String fileName="photo"+sdf.format(new Date())
 				+"_"+dto.getUpload().getOriginalFilename();
 			//dto에 업로드될 파일명 저장
-			dto.setPhoto(fileName);
-			
+		
+	         if(f.equals("")){ 
+	        	 NoticeDto ato=mapper.getData(num_n);
+	        	 dto.setPhoto(ato.getPhoto());
+	        	//db update
+	 			mapper.updateNotice(dto);
+	        	 
+	         }
+	         else {
 			//업로드
 			MultipartFile uploadFile=dto.getUpload();
 			try {
@@ -130,11 +145,13 @@ public class NoticeController {
 				e.printStackTrace();
 			}
 			
-			//db update
 			mapper.updateNotice(dto);
+	         }
 			return "redirect:contents?num_n="+dto.getNum_n();
 			
 		}
+		
+		
 		
 			@GetMapping("/adminnotice/deletenotice")
 			public String delete(@RequestParam String num_n)
