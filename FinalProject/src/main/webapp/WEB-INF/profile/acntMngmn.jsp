@@ -20,7 +20,7 @@
 		margin-bottom: 20px;
 	}
 	div.acntMngmn_nav{
-		border: 1px solid #ccc;
+		border: 0px solid #ccc;
 		width: 200px;
 		height: 400px;
 		float: left;
@@ -29,7 +29,7 @@
 		
 	}
 	div.acntMngmn_content{
-		border: 1px solid #ccc;
+		border: 0px solid #ccc;
 		width: 600px;
 		height: 400px;
 		margin-left: 230px;
@@ -169,7 +169,7 @@ window.onload=function(e){
 		<h4>계정 설정</h4>
 	</div>
 	<div class="acntMngmn_nav">
-          <ul class="nav flex-column" style="width: 150px;">
+          <ul class="nav flex-column" style="width: 180px;">
             <c:if test="${type=='changePassword' }">
 	             <li class="nav-item">
 	             	<a class="nav-link active" href="acntMngmn?type=changePassword">비밀번호 설정</a>
@@ -249,6 +249,5 @@ window.onload=function(e){
       </div>
     </div>
   </div>
-
 </body>
 </html>

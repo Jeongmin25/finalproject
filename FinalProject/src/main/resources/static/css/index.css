@@ -17,9 +17,9 @@ body *{
 	div.entire{
 	border: 0px solid black;
     min-width: 1000px;
-   max-width: 1000px;
-   margin: auto;
-   padding: 10px;
+   	max-width: 1000px;
+  	margin:auto;
+   	padding: 10px;
 
 	}
 	

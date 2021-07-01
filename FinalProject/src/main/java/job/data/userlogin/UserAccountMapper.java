@@ -24,5 +24,6 @@ public interface UserAccountMapper {
 //	
 	public void deleteUserAccount(String id);
 	public void updatePasswordOfuser(Map<String, String>map);
+	public void updateUser(UserAccountDto dto);
 
 }

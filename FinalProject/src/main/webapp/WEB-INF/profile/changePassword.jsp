@@ -8,12 +8,15 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <style type="text/css">
-	body{
-		background-image: url('image/company.png');
-		background-color: gray;
+	div.change_pass_entire{
+		background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('image/company.png');
 		background-repeat: no-repeat;
 		background-size: cover;
-		
+		width: auto;
+		height: auto;
+		margin: auto;
+		padding-bottom: 120px;
+		padding-top: 5px;
 	}
 	button.change_btn{
 		background-color: #021B80;
@@ -65,6 +68,7 @@ window.onload=function(){
 </script>
 </head>
 <body>
+<div class="change_pass_entire">
 <form action="changePwAct" method="post">
 <div class="change_pw">
 	<h4>비밀번호 재설정</h4>
@@ -74,5 +78,6 @@ window.onload=function(){
 	<button type="submit" class="change_btn" id="change_btn">완료</button>
 </div>
 </form>
+</div>
 </body>
 </html>
