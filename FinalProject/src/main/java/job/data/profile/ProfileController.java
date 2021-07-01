@@ -7,15 +7,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import job.data.resume.CarerDto;
 import job.data.resume.EducationDto;
 import job.data.resume.ResumeDto;
 import job.data.resume.ResumeMapper;
+import job.data.userlogin.UserAccountMapper;
 import job.data.userlogin.auth.PrincipalDetails;
 
 @Controller
@@ -23,6 +27,10 @@ public class ProfileController {
 	
 	@Autowired
 	ResumeMapper rmapper;
+	@Autowired
+	UserAccountMapper umapper;
+	 @Autowired
+	 private MailService mailService;
 	
 	@GetMapping("/profile")
 	public ModelAndView profile_index(
@@ -81,4 +89,39 @@ public class ProfileController {
 		mv.setViewName("/profile/acntMngmn");
 		return mv;
 	}
+	
+	@GetMapping("/deleteuser")
+	public ModelAndView deleteuser(
+			Authentication authentication,
+			@AuthenticationPrincipal PrincipalDetails userDetails,
+			@AuthenticationPrincipal OAuth2User oauth
+			) {
+		ModelAndView mv=new ModelAndView();
+		PrincipalDetails principalDetails = (PrincipalDetails)
+		authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+		String id=Long.toString(userDetails.getUser().getId());
+		umapper.deleteUserAccount(id);
+		
+		mv.setViewName("layout");
+		return mv;
+	}
+	
+
+
+    @PostMapping("/send")
+    public String sendTestMail(@ModelAttribute MailDto mailDto) {
+    	mailService.mailSend(mailDto);
+    	return "layout";
+    }
+    
+    @GetMapping("/mail")
+    public String mail() {
+    	return "/profile/mail";
+    }
+    
+    @GetMapping("/change_password")
+    public String changePassword() {
+    	return "/profile/changePassword";
+    }
+        
 }
