@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="job.data.AdminMapper">
 
-	<select id="loginCheckOfMember" parameterType="HashMap" resultType="int">
-		select count(*) from member where id=#{id} and pass=#{pass}
+	<select id="loginCheckOfAdmin" parameterType="HashMap" resultType="int">
+		select count(*) from admin where adminid=#{adminid} and adminpass=#{adminpass}
 	</select>
-	<select id="passCheckOfMember" parameterType="HashMap" resultType="int">
-		select count(*) from member where num=#{num} and pass=#{pass}
+	<select id="passCheckOfAdmin" parameterType="HashMap" resultType="int">
+		select count(*) from admin where num_n=#{num_n} and adminpass=#{adminpass}
 	</select>
 </mapper>

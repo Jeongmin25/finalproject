@@ -20,65 +20,60 @@ public class AdminHomeController {
 	  @Autowired
 	   AdminMapper mapper;
 	  
-	  @GetMapping({"/adminmain","/adminlogin"})
+	  @GetMapping({"/admin2/adminmain","/admin2/adminlogin"})
 		public String main()
 		{
-			return "/adminlogin/loginform";
+			return "/admin2/adminlogin/loginform";
 		}
 	 
 		
-		@PostMapping("/adminloginprocess")
-		public String loginCheck(@RequestParam String id,
-				@RequestParam String pass,HttpSession session)
+		@PostMapping("/admin2/adminloginprocess")
+		public String loginCheck(@RequestParam String adminid,
+				@RequestParam String adminpass,HttpSession session)
 		{
-			int n=mapper.loginCheck(id, pass);
+			int n=mapper.loginCheckOfAdmin(adminid, adminpass);
 			if(n==1)
 			{
 				//세션 저장(2개)
 				session.setAttribute("loginok","yes");
-				session.setAttribute("myid",id);
+				session.setAttribute("myid",adminid);
 				//메인페이지로 리다이렉트
-				return "redirect:adminmain";
+				return "/admin2/adminnotice/list";
 			}else {
 				//loginfail.jsp로 포워드
-				return "/adminlogin/loginfail";
+				return "/admin2/adminlogin/loginfail";
 				
 			}
 			
 		}
 		
-		@GetMapping({"/adminlogout"})
+		@GetMapping({"/admin2/adminlogout"})
 		public String logout(HttpSession session)
 		{
 			session.removeAttribute("loginok");
 			session.removeAttribute("myid");
-			return "/adminlogin/loginform";
+			return "/admin2/adminlogin/loginform";
 			
 		}
 		
 	  
-	  @GetMapping("/adminmember/list")
-		public String member()
-		{
-			return "/adminmember/list";
-		}
-
-	  @GetMapping("/adminpayment/list")
+	 
+	  @GetMapping("/admin2/adminpayment/list")
 		public String payment()
 		{
-			return "/adminpayment/list";
+			return "/admin2/adminpayment/list";
 		}
 	  
-	  @GetMapping("/adminjobnotice/list")
+	  @GetMapping("/admin2/adminjobnotice/list")
 		public String jobnotice()
 		{
-			return "/adminjobnotice/list";
+			return "/admin2/adminjobnotice/list";
 		}
 	  
-	  @GetMapping("/adminempreview/list")
+	  @GetMapping("/admin2/adminempreview/list")
 		public String empreview()
 		{
-			return "/adminempreview/list";
+			return "/admin2/adminempreview/list";
 		}
 	  
 	  

@@ -25,7 +25,7 @@
     <!-- Custom styles for this template-->
     <link href="/acss/sb-admin-2.min.css" rel="stylesheet">
     <style type="text/css">
-    	#noticeadd {
+    	#noticeupdate {
     		position: absolute;
     		top: 150px;
     		left:400px;  	
@@ -105,7 +105,7 @@
             
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/adminnotice/list" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/admin2/adminnotice/list" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-exclamation"></i>
                     <span>공지관리</span>
@@ -115,7 +115,7 @@
             
 
               <li class="nav-item">
-                <a class="nav-link collapsed" href="/adminmember/list" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/admin2/adminmember/list" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                    <i class="fas fa-users-cog"></i>
                     <span>회원관리</span>
@@ -125,7 +125,7 @@
             
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/adminpayment/list" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/admin2/adminpayment/list" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                    <i class="far fa-credit-card"></i>
                     <span>결제내역관리</span>
@@ -133,7 +133,7 @@
             </li>
 
                <li class="nav-item">
-                <a class="nav-link collapsed" href="/adminjobnotice/list" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/admin2/adminjobnotice/list" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                   <i class="fas fa-list"></i>
                     <span>채용공고관리</span>
@@ -142,7 +142,7 @@
 
 
                <li class="nav-item">
-                <a class="nav-link collapsed" href="/adminempreview/list" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/admin2/adminempreview/list" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                    <i class="fas fa-list"></i>
                     <span>기업리뷰관리</span>
@@ -220,8 +220,7 @@
 
  
 
-               
-
+                   
  
 
                 <!-- Begin Page Content -->
@@ -234,23 +233,23 @@
 
                     <h1 class="h3 mb-4 text-gray-800"></h1>
 
-                    <form action="insert" method="post" enctype="multipart/form-data">
+                    <form action="update" method="post" enctype="multipart/form-data">
                     	<!-- hidden -->
-						<input type="hidden" name="num_n" value="${num_n}">
+						<input type="hidden" name="num_n" value="${dto.num_n}">
 				
 						
 				
 						
                     
 
-                    	<table class="table table-bordered" id="noticeadd" style="width:600px;">
+                    	<table class="table table-bordered" id="noticeupdate" style="width:600px;">
 
                     	<tr>
-                    		<th colspan="4" bgcolor="#021B80" style="color:white;font-size: 10pt;"><b>공지글 등록</b></th>
+                    		<th colspan="4" bgcolor="#021B80" style="color:white;font-size: 10pt;"><b>공지글 수정</b></th>
                     	</tr>
                     		<tr>
                     			<td width="90" bgcolor="#021B80" style="color:white;font-size: 10pt;">카테고리</td>
-                    			<td><select name="category" required="required">
+                    			<td><select name="category" required="required" value="${dto.category}">
 									<option value="공지">공지</option>
 									<option value="안내">안내</option>
 									<option value="기타">기타</option>
@@ -259,38 +258,37 @@
                     			<td width="100" bgcolor="#021B80" style="color:white;font-size: 10pt;">작성자</td>
                     			<td>
                     				<input type="text" name="writer" 
-                    				class="form-control" required="required" >
+                    				class="form-control" required="required" value="${dto.writer}" >
                     			</td>
                     		</tr>
                     		<tr>
                     			<th width="100" bgcolor="#021B80" style="color:white;font-size: 10pt;">제목</th>
                     			<td colspan="3">
-									<input type="text" name="subject"
+									<input type="text" name="subject" value="${dto.subject}"
 									class="form-control" required="required" >		
 								</td>
                     		<tr>
 								<th width="100" bgcolor="#021B80" style="color:white;font-size: 10pt;">사진</th>
 								<td colspan="3">
-									<input type="file" name="upload" class="form-control"
-									>		
+									<input type="file" name="upload" class="form-control" >		
 								</td>
 							</tr>
 							<tr>
 								<th width="100" bgcolor="#021B80" style="color:white;font-size: 10pt;">내용</th>
 								<td colspan="4">
 									<textarea name="content" class="form-control"
-									required="required" style="width: 450px;height: 100px;"></textarea>
+									required="required" style="width: 450px;height: 100px;">${dto.content}</textarea>
 								</td>
 							</tr>
 
 							<tr>
 								<td colspan="4" bgcolor="#021B80" align="center">
 									<button type="submit"
-									style="width: 120px;font-size: 10pt;">글저장</button>
+									style="width: 120px;font-size: 10pt;">글수정</button>
 				
 									<button type="button"
 									style="width: 120px;font-size: 10pt;"
-									onclick="location.href='list'">목록</button>
+									onclick="history.back()">이전</button>
 								</td>
 							</tr>
 						</table>
@@ -326,17 +324,9 @@
 
  
 
-    <!-- Scroll to Top Button-->
-
-    <a class="scroll-to-top rounded" href="#page-top">
-
-        <i class="fas fa-angle-up"></i>
-
-    </a>
-
+    
  
 
-   
     <!-- Bootstrap core JavaScript-->
 
    
