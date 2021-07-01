@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface AdminMapper {
 	
-	public int loginCheck(String id,String pass);
-	public int PassCheck(String id,String pass);
+	public int loginCheckOfAdmin(String adminid,String adminpass);
+	public int passCheckOfAdmin(String adminid,String adminpass);
 	
 }
