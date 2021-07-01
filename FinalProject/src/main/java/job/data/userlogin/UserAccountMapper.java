@@ -19,6 +19,6 @@ public interface UserAccountMapper {
 //	
 //	public void updateOfUserAccount(UserAccountDto dto);
 //	
-//	public void deleteUserAccount(String id);
+	public void deleteUserAccount(String id);
 
 }
