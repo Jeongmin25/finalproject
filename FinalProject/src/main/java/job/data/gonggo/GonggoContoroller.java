@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.metamodel.StaticMetamodel;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -46,7 +47,9 @@ public class GonggoContoroller {
 	     
 	      Date date=new Date();
           long time= date.getTime();
+          mview.addObject("date", date);
           mview.addObject("time",time);
+      
 	      //목록 가져오기
 	      List<CompanyDto> gonggolist=mapper.getAlldatas();
 	      mview.addObject("gonggolist",gonggolist);
@@ -70,32 +73,27 @@ public class GonggoContoroller {
 	   {
 		   return mapper.getData(num);
 	   }
-	   
-//	   @PostMapping("/insert")
-//		public String insert(@ModelAttribute CompanyDto dto,HttpServletRequest request)
-//		{
-//			String path=request.getSession().getServletContext().getRealPath("/gonggophoto");
-//			System.out.println(path);
-//			//파일명 앞에 붙일 날짜 구하기
-//			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
-//			String fileName="photo"+sdf.format(new Date())+"_"+dto.getUpload().getOriginalFilename();
-//			//파일명= "photo"+ 날짜(년월일시분초)+dto에 업로드된 실제 파일이름
-//			//dto에 업로드될 파일명 저장
-//			dto.setEmpimg(fileName);
-//			
-//			//업로드 transferTo : 업로드한 파일 데이터를 지정한 파일에 저장
-//			MultipartFile uploadFile=dto.getUpload();
-//			try {
-//				uploadFile.transferTo(new File(path+"\\"+fileName));
-//			} catch (IllegalStateException | IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			//db insert
-//			mapper.insertGonggo(dto);
-//			return "redirect:gonggolist";
-//		}
-	   
+
+	   @PostMapping("/insert")
+	   public String insertgonggo(@ModelAttribute CompanyDto dto, HttpServletRequest request)
+	   {
+		   String path=request.getSession().getServletContext().getRealPath("/gonggophoto"); 
+		   System.out.println(path); 
+		   
+		   SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+		   String fileName="photo"+sdf.format(new Date())+"_"+dto.getUpload().getOriginalFilename();
+		   //파일명= "photo"+날짜(년월일시분초)+dto에 업로드된 실제 파일이름
+		   dto.setEmpimg(fileName);
+		   MultipartFile uploadFile=dto.getUpload();
+		   try { 
+				 uploadFile.transferTo(new File(path+"\\"+fileName));
+				} catch(IllegalStateException | IOException e) { 
+					e.printStackTrace(); } 
+		   //db insert 
+			mapper.insertGonggo(dto); 
+			return "redirect:gonggolist"; 
+	   }
+		
 	   @GetMapping({"/writegonggo"})
 	   public String from()
 	   {
