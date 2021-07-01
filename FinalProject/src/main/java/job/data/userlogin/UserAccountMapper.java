@@ -1,5 +1,8 @@
 package job.data.userlogin;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -20,5 +23,6 @@ public interface UserAccountMapper {
 //	public void updateOfUserAccount(UserAccountDto dto);
 //	
 	public void deleteUserAccount(String id);
+	public void updatePasswordOfuser(Map<String, String>map);
 
 }
