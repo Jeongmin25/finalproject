@@ -9,17 +9,17 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
-<h3>관리자계정 로그인</h3>
-<form action="/login" method="POST">
+<h3>관리자 계정 로그인</h3>
+<form action="insert" method="POST">
 	<input type="text" name="username" placeholder="Username"/> 
 	<br/><br/>
-	<input type="email" name="email" placeholder="Email"/> 
+	<input type="email" name="email" placeholder="Email"/>
 	<br/><br/>
 	<input type="password" name="password" placeholder="Password"/> 
 	<br/><br/>
 	<button type="submit" class="btn btn-primary" style="width: 150px;">로그인</button>
 </form>
 <br/><br/>
-<a href="emp/joinForm">계정이 없으신가요? 관리자 계정 만들기</a>
+<a href="/empJoin">계정이 없으신가요? 관리자 계정 만들기</a>
 </body>
 </html>

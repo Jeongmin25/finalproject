@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  	<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
     <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -137,7 +138,7 @@ function godel(e){
 	<table class="resumelist" id="resumelist">
 		<tr onclick="location.href='resumedetail?num_r=${dto.num_r}'">
 			<td align="left" style="width: 170px;height: 120px;">
-				<h4 style="color:#868e96;">이름</h4>
+				<h4 style="color:#868e96;"><sec:authentication property="principal.username"/></h4>
 				<h5 style="color:#adb5bd;"><fmt:formatDate value="${dto.nowdate }" pattern="yyyy.MM.dd"/></h5><br><br>
 			</td>
 		</tr>
