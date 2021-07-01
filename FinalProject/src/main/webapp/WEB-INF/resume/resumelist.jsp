@@ -20,11 +20,11 @@
 	padding-top: 10px;
 	}
 	div.gonggoicon{
-   width: 75px;
-   height: 75px;
+   width: 70px;
+   height: 70px;
    border-radius: 50px 50px 50px;
    border: 0px solid black;
-   margin: 28px 35px;
+   margin-left:50px;
    background-color: #021B80;
 }
 	div.gonggoicon span{
@@ -111,11 +111,7 @@ window.onload=function(){
 	} 
 }
 
-//각자 이력서 다운로드, 삭제 이벤트
-function godown(e){
-	location.href="downresume?num_r="+num_r;
-}
-
+//이력서삭제 이벤트
 function godel(e){
 	location.href="delresume?num_r="+num_r;
 }
@@ -124,13 +120,17 @@ function godel(e){
 </head>
 <body>
 <div class="resume-entire">
+<div>
+	<h4>최근 문서</h4>
+</div>
+<br>
 <table class="resumebox" onclick="location.href='addresume'" style="cursor: pointer;">
  	<tr>
  		<td>
  			<div class="gonggoicon">
    			<span class="glyphicon glyphicon-file" ></span>
-   			<p style="color: #495057;text-align: center;">새 이력서 작성</p>
    			</div>
+   			<p style="color: #495057;text-align: center;margin-top: 10px;">새 이력서 작성</p>
  		</td>
  	</tr>
 </table>
@@ -151,12 +151,10 @@ function godel(e){
 	
 	<div class="popup" id="popup" >
 		<ul>
-			<li onclick="godown()">다운로드</li>
-			<li onclick="godel()">삭제</li>
+			<li onclick="godel()" style="cursor: pointer;">삭제</li>
 		</ul>
 	</div>
 </c:forEach>
-	
 </div>
 </body>
 </html>

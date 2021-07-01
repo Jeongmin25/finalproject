@@ -38,4 +38,7 @@
 	<update id="updatePasswordOfuser" parameterType="Hashmap">
 		update user_account set password=#{password} where id=#{user_id}
 	</update>
+	<update id="updateUser" parameterType="user">
+		update user_account set username=#{username}, email=#{email}, hp=#{hp} where id=#{id}
+	</update>
 </mapper>

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
     <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    <%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,14 +26,46 @@
 		border-radius: 5px;
 		
 	}
-	div.profile_personInfo{
+	div.profile_resume{
 		border: 1px solid #ccc;
 		width: 600px;
 		height: 400px;
 		margin-left: 230px;
 		border-radius: 5px;
-		padding-left: 10px;
+		padding: 10px 10px 10px 10px;
 	}
+	
+	div.profile_jobGroup{
+		border: 1px solid #ccc;
+		width: 600px;
+		height: 300px;
+		margin-left: 230px;
+		border-radius: 5px;
+		padding: 10px 10px 10px 10px;
+		margin-top: 10px;
+	}
+	
+	div.jobGroup_main{
+		border: 1px solid #ccc;
+		width: 600px;
+		margin-top: 10px;
+		height: 400px;
+		margin-left: 230px;
+		border-radius: 5px;
+		padding: 10px 10px 10px 10px;
+	}
+	
+	div.profile_noresume{
+		border: 0px solid #ccc;
+		width: 600px;
+		height: 400px;
+		margin-left: 230px;
+		border-radius: 5px;
+		padding: 10px 10px 10px 10px;
+		text-align: center;
+		margin-top: 100px;
+	}
+	
 	
 	div.profile_img{
 		text-align: center;
@@ -76,28 +108,9 @@
 		color: blue;
 		cursor: pointer;
 	}
-	input.profile_input{
-		/* border: none; */
-		BORDER-BOTTOM: 1px solid #eee;
-		BORDER-LEFT: medium none;
-		BORDER-RIGHT: medium none;
-		BORDER-TOP: medium none;
-		FONT-SIZE: 10pt
-
-
-	}
-	input.profile_input:focus{
-		outline: none;
-	}
-	button.profile_btn{
-		width: 100px;
-		height: 40px;
-		color: white;
-		background-color: #021B80;
-		border: none;
-		border-radius: 5px;
-		float: right;
-		margin-right: 20px;
+	
+	a.addresume_link:hover{
+		text-decoration: none;
 	}
 </style>
 <script type="text/javascript">
@@ -107,10 +120,7 @@
 	}
 </script>
 <body>
-<c:set var="name"><sec:authentication property="principal.username"/></c:set>
-<c:set var="email"><sec:authentication property="principal.user.email"/></c:set>
-<c:set var="hp"><sec:authentication property="principal.user.hp"/></c:set>
-<c:set var="id"><sec:authentication property="principal.user.id"/></c:set>
+<c:set var="user_id"><sec:authentication property="principal.user.id"/></c:set>
 <div class="profile_entire">
 	<div class="profile_title">
 		<h4>프로필</h4>
@@ -123,42 +133,43 @@
 			<h5 style="color: #ccc;"><sec:authentication property="principal.user.email"/></h5>
 			<h5 style="color: #ccc;"><sec:authentication property="principal.user.hp"/></h5>
 			<br>
-			<button type="button" class="profile_update" style="color: #021B80;">기본정보 수정</button>
+			<button type="button" class="profile_update" onclick="location.href='personUpdateForm'" style="color: #021B80;">기본정보 수정</button>
 		</div>
 	</div>
-	<form action="updateUser" method="post">
-		<input type="hidden" name="id" value="${id }">
-		<div class="profile_personInfo">
-			<div class="personInfo_title">
-			
-				<h4>기본정보 수정</h4>
-				<h5 style="color: #ccc;">지원 결과 또는 추천 포지션 정보를 받아볼 이메일/연락처 정보 입력해주세요.</h5>
-			</div>
-				<br>
+	<div class="jobGroup_main">
+		<div class="bookmarks_title" style="float: left;">
+			<h4>전문분야 설정</h4>
+		</div>
+		<br><br>
+		<div>
 			<table>
 				<tr>
-					<td style="width: 100px;color: #bbb;height: 70px;" >이름</td>
+					<td>직군</td>
 					<td>
-						<input style="width: 200px;" class="profile_input" value="${name }" name="username">
-					</td>
-				</tr>
-				<tr>
-					<td style="width: 100px;color: #bbb;height: 70px;" >이메일</td>
-					<td>
-						<input style="width: 200px;" class="profile_input" value="${email }" name="email">
-					</td>
-				</tr>
-				<tr>
-					<td style="width: 100px;color: #bbb;height: 70px;" >연락처</td>
-					<td>
-						<input style="width: 200px;" class="profile_input" value="${hp }" name="hp">
+						<select>
+							<option>개발</option>
+							<option>경영 비지니스</option>
+							<option>마케팅 광고</option>
+							<option>고객서비스 리테일</option>
+							<option>영업</option>
+							<option>미디어</option>
+							<option>인사</option>
+							<option>게임 제작</option>
+							<option>금융</option>
+							<option>엔지니어링 설계</option>
+							<option>물류 무역</option>
+							<option>의류 제작 바이오</option>
+							<option>교육</option>
+							<option>법률 법집행기관</option>
+							<option>식음료</option>
+							<option>건설 시설</option>
+							<option>공공 복지</option>
+						</select>
 					</td>
 				</tr>
 			</table>
-			<br>
-			<button type="submit" class="profile_btn">확인</button>	
 		</div>
-	</form>
+	</div>
 </div>
 </body>
 </html>
