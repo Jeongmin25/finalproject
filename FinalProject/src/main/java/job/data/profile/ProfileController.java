@@ -1,10 +1,14 @@
 package job.data.profile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +35,10 @@ public class ProfileController {
 	UserAccountMapper umapper;
 	 @Autowired
 	 private MailService mailService;
-	
+	 
+	 @Autowired
+	 BCryptPasswordEncoder encodePwd;
+	 
 	@GetMapping("/profile")
 	public ModelAndView profile_index(
 			Authentication authentication,
@@ -124,4 +131,23 @@ public class ProfileController {
     	return "/profile/changePassword";
     }
         
+    @PostMapping("/changePwAct")
+    public String changePwAct(
+    		@RequestParam String pass,
+    		Authentication authentication,
+ 			@AuthenticationPrincipal PrincipalDetails userDetails,
+ 			@AuthenticationPrincipal OAuth2User oauth
+    		) {
+
+		 PrincipalDetails principalDetails = (PrincipalDetails)
+		 authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+		 String user_id=Long.toString(userDetails.getUser().getId());
+		 String password= encodePwd.encode(pass);
+		 Map<String, String>map=new HashMap<String, String>();
+		 System.out.println(password);
+		 map.put("user_id", user_id);
+		 map.put("password", password);
+		 umapper.updatePasswordOfuser(map);
+    	return "layout";
+    }
 }
