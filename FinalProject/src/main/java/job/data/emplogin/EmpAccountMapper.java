@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface EmpAccountMapper {
 
 	public int getTotalCountOfEmp();
-	public int emailCheckOfEmp(String email);
-	public void insertEmpAccount(EmpAccountDto dto);
+	public void insertOfEmp(EmpAccountDto dto);
+	public int emailCheckOfEmp(String email,String password);
 	
 	//@Select("SELECT * FROM user_account WHERE username = #{username}")
 	public EmpAccountDto findByEmpname(String Empname);

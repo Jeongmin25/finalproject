@@ -10,9 +10,9 @@
 </head>
 <body>
 <h3>관리자 계정 로그인</h3>
-<form action="insert" method="POST">
-	<input type="text" name="username" placeholder="Username"/> 
-	<br/><br/>
+<form action="/loginprocess" method="POST">
+<!-- 	<input type="text" name="username" placeholder="Username"/> 
+	<br/><br/> -->
 	<input type="email" name="email" placeholder="Email"/>
 	<br/><br/>
 	<input type="password" name="password" placeholder="Password"/> 

@@ -6,8 +6,18 @@
 		select count(*) from emp_account
 	</select>
 	
-	<select id="emailCheckOfEmp" parameterType="String" resultType="int">
+	<!-- <select id="emailCheckOfEmp" parameterType="String" resultType="int">
 		select count(*) from emp_account where email=#{email}
+	</select> -->
+	
+	<!-- create_date sql 컬럼 오타났지만 그냥 그대로 씀 -->
+	<insert id="insertOfEmp" parameterType="empAccount">
+	 	insert into emp_account (managername, team, hp, email, password, empname, empserial, country, area, addr, biztype, staffnum, establishyear,create_date)
+	 	values (#{managername},#{team},#{hp},#{email},#{password},#{empname},#{empserial},#{country},#{area},#{addr},#{biztype},#{staffnum},#{establishyear},now())
+	</insert>
+	
+	<select id="emailCheckOfEmp" parameterType="HashMap" resultType="int">
+		select count(*) from emp_account where email=#{email} and pass=#{pass}
 	</select>
 	
 </mapper>
