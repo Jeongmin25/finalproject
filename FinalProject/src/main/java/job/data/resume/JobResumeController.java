@@ -41,7 +41,7 @@ public class JobResumeController {
 		  PrincipalDetails principalDetails = (PrincipalDetails)
 		  authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
 		  String user_id=Long.toString(userDetails.getUser().getId());
-		  //System.out.println(userDetails.getUser());
+		 
 		 //목록 가져오기
 		 List<ResumeDto> list=mapper.getDataOfResume(user_id);
 		 mview.addObject("list",list);
