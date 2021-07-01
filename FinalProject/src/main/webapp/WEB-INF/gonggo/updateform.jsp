@@ -24,10 +24,22 @@ border: none;
 <h3>회사 이름</h3><!-- account 연결 필요 -->
 <h4 style="color:gray">${dto.empname}</h4>
 
-<h3>직군/직무<br><br>
-<input type="text" name="jobgroup"  value="${dto.jobgroup}" placeholder="직군 작성" class="form-control"></h3>
-
-<h3>회사 로고</h3>
+<h3>직군/직무</h3>
+<select name="job" id="job" class="form-inline" style="width: 200px; height: 30px;"
+			onchange="selectjob(this)">
+			<option selected="selected">${dto.job}</option>
+			<option value="IT/인터넷">IT/인터넷</option>
+			<option value="경영/기획/컨설팅">경영/기획/컨설팅</option>
+			<option value="디자인">디자인</option>
+			<option value="미디어/홍보/마케팅">미디어/홍보/마케팅</option>
+			<option value="생산/제조">생산/제조</option>
+			<option value="유통/무역">유통/무역</option>
+			<option value="서비스/고객지원">서비스/고객지원</option>
+		</select>
+<select name="jobgroup" id="jobgroup" class="form-inline" style="width: 200px; height: 30px;">
+			<option>${dto.jobgroup}</option>
+</select>
+<br><h3>회사 로고</h3>
 <input type="file" name="upload" class="form-control">&nbsp;&nbsp;
 <img src="../gonggophoto/${dto.empimg}" style="width: 200px;">
 
@@ -43,4 +55,35 @@ border: none;
 </div>
 </form>
 </body>
+<script type="text/javascript">
+//직군 onchange 이벤트
+function selectjob(e) {
+    var it = ["웹개발자", "프론트엔드개발자", "Node.js개발자", "빅데이터엔지니어"];
+    var business = ["사업개발기획자", "컨설턴트", "경영지원"];
+    var design = ["그래픽디자이너", "웹디자이너", "일러스트레이터", "UI 디자이너"];
+    var marketing = ["광고기획자", "마케팅전략기획자", "키워드광고", "소셜마케터"];
+    var production = ["생산직종사자", "제조엔지니어", "품질관리자", "반도체/디스플레이"];
+    var trade  = ["수출입사무", "유통관리자", "배송담당", "항공운송"];
+    var service  = ["MD", "CS어드바이저", "CS매니저", "텔레마케터"];
+    var target = document.getElementById("jobgroup");
+
+    if(e.value == "IT/인터넷") var d = it;
+    else if(e.value == "경영/기획/컨설팅") var d = business;
+    else if(e.value == "디자인") var d = design;
+    else if(e.value == "미디어/홍보/마케팅") var d = marketing;
+    else if(e.value == "생산/제조") var d = production;
+    else if(e.value == "유통/무역") var d = trade;
+    else if(e.value == "서비스/고객지원") var d = service;
+
+
+    target.options.length = 0;
+
+    for (x in d) {
+        var opt = document.createElement("option");
+        opt.value = d[x];
+        opt.innerHTML = d[x];
+        target.appendChild(opt);
+    }   
+}
+</script>
 </html>

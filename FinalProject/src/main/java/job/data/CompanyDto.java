@@ -13,6 +13,7 @@ public class CompanyDto {
 	private int num;
 	private String empname;
 	private String jobgroup;
+	private String job;
 	private String empcontent;
 	private MultipartFile upload;
 	private String empimg;

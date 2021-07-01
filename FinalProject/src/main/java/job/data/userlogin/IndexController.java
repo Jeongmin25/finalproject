@@ -55,11 +55,11 @@ public class IndexController {
 		return "user/loginForm";
 	}
 	
-	@GetMapping("/emp") //매니저로 로그인했을경우 이경로로 갔을때 이용가능함. 유저는 이용못하는 페이지
-	public @ResponseBody String emp() {
-		return "emp/loginForm";
-	}
-	
+//	@GetMapping("/emp") //매니저로 로그인했을경우 이경로로 갔을때 이용가능함. 유저는 이용못하는 페이지
+//	public @ResponseBody String emp() {
+//		return "emp/loginForm";
+//	}
+//	
 //	@GetMapping("/admin") //어드민은 다 이용가능함
 //	public @ResponseBody String admin() {
 //		return "admin";
@@ -90,8 +90,8 @@ public class IndexController {
 		return "redirect:/"; //조인할때 실제로 회원가입 시킨다
 	}
 	
-	
-	
+
+
 	///----------여기는 그냥 연습용. 어드민 페이지 관리하는 사람쓰고 싶으면 쓸수있게.
 	
 	@Secured("ROLE_ADMIN") //매핑주소의 권한을 하나만 걸고싶을때는 @Secured를 사용

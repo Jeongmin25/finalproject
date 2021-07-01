@@ -32,6 +32,9 @@
 					<li id="gs"><a>Mypage</a>
 						<div>
 							<ul class="Mypage">
+								<li><a href="myjob">My +JOB</a></li>
+								<li><a href="profile">프로필</a></li>
+								<li><a href="resumelist">이력서</a></li>
 							</ul>
 						</div></li>
 					<li id="gs"><a>고객센터</a>
@@ -41,18 +44,19 @@
 								<li><a>공지사항</a></li>
 							</ul>
 						</div></li>
+					<li id="log">
+						<li>
+						<div>
+							<a onclick="location.href='/user/login'">회원가입/로그인</a>
+						</div>
+						</li>
+	 					<li>
+	 						<button type="button" class="btn btn-default"
+	 						onclick="location.href='/empLogin'">기업서비스</button>
+	 					</li>
+ 					</li>
 				</ul>
 			</nav>
 		</div>
-<c:set var="root" value="<%=request.getContextPath()%>"/>
-<span>
- <c:if test="${sessionScope.loginok==null }">
- 	<button type="button" class="btn btn-primary"
- 	onclick="location.href='login'">Login</button>
- </c:if>
- <c:if test="${sessionScope.loginok!=null}">
- 	<b>${sessionScope.myid }님</b>
- </c:if>
-</span>
 </body>
 </html>

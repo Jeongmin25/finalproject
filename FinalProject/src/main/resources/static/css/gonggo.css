@@ -13,7 +13,7 @@ form.list{
    height: 100vh;
 }
 div.addgonggo{
-	width: 200px;
+	width: 400px;
 	height: 150px;
 	cursor: pointer;
 	margin-left: 30px;
@@ -43,5 +43,32 @@ div.gonggoicon{
 	margin-left:30px;
 	margin-bottom: 20px;
 	text-align:center;
+	padding-top: 10px;
  }
  
+ h3.numdday{
+color: #021B80;
+font-size: 1.8em;
+margin-top : 15px;
+}
+h3.endday{
+font-size: 1.3em;
+margin-top: 0px;
+line-height: 0.8;
+color: gray;
+}
+
+div.circle{
+    border: 2px solid #021B80;
+    border-radius: 20px 20px;
+    font-size: 1.2em;
+    color: gray;
+    width: 100px;
+    margin-bottom: 3px;
+    margin-left: 35px;
+}
+ 
+h4.subject{
+	font-size: 1.5em;
+	margin-bottom: 20px;	
+}

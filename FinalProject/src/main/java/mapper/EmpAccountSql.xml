@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="job.data.emplogin.EmpAccountMapper">
+
+	 <select id="getTotalCountOfEmp" resultType="int">
+		select count(*) from emp_account
+	</select>
+	
+	<select id="emailCheckOfEmp" parameterType="String" resultType="int">
+		select count(*) from emp_account where email=#{email}
+	</select>
+	
+</mapper>

@@ -1,6 +1,7 @@
 package job.data.userlogin;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,4 +13,16 @@ public interface UserAccountMapper {
 	
 	//@Select("SELECT * FROM user_account WHERE username = #{username}")
 	public UserAccountDto findByUsername(String username);
+	
+//	public int loginCheckOfUserAccount(String email, String pass);
+//	
+//	public UserAccountDto getUser(String id);
+//	
+//	public int passCheck(String id,String pass);
+//	
+//	public void updateOfUserAccount(UserAccountDto dto);
+//	
+	public void deleteUserAccount(String id);
+	public void updatePasswordOfuser(Map<String, String>map);
+
 }

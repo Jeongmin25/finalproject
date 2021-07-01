@@ -38,7 +38,7 @@ border: solid 2px gray;
 
 </aside>
 <button type="button" class="golist" onclick="location.href='gonggolist'">목록</button>
-<button type="button" class="update" onclick="location.href='gonggoupdate?num=${dto.num}'">공고 수정</button>
+<button type="button" class="update" onclick="location.href='updategonggo?num=${dto.num}'">공고 수정</button>
 <button type="button" class="delete" onclick="location.href='delete?num=${dto.num}'">공고 삭제</button>
 </form>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-6093907a141e311e"></script>

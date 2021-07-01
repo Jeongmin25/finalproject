@@ -22,7 +22,7 @@
 			지금 +JOB에서 시작하세요.</h4>
 		</section>
 		<section class="login-input-section-wrap">
-		<form action="/login" method="POST">
+		<form action="/login" method="post">
 			<div class="login-input-wrap">	
 				<input type="text" name="username" placeholder="Username"/> 
 			</div>

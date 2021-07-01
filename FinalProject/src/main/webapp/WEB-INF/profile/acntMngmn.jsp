@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+     <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <style>
 	div.acntMngmn_title{
@@ -114,8 +116,46 @@
 	a.nav-link{
 		color: black;
 	}
+	
+	select.sel{
+		width: 200px;
+		height: 30px;
+		padding-left: 10px;
+		font-size: 15px;
+		color: gray;
+		border-style: none;
+		border-radius: 3px;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		/*background: url('select-arrow.png') no-repeat 95% 50%;  화살표 아이콘 추가 */
+		margin-left: 10px;
+	}
+	
+	button.final_leave_btn{
+		color: white;
+		background-color: #bbb;
+		border: none;
+		border-radius: 5px;
+		width: 200px;
+		height: 40px;
+		margin-top: 10px;
+	}
 </style>
 <script type="text/javascript">
+window.onload=function(e){
+	//로그인한 이메일을 입력시 메일 발송
+	document.getElementById("emailcheck_btn").onclick=function(e){
+		var email_input = document.getElementById("email_input").value;
+		var hidden_email = document.getElementById("hidden_email").value;
+		
+		if(email_input != hidden_email){
+			alert("입력하신 이메일이 유효하지 않습니다.\n다시 입력해주세요.");
+			e.preventDefault();
+		}
+	}
+}
+
 	function selresume(val){
 		location.href="profile?num_r="+val;
 		
@@ -123,6 +163,8 @@
 </script>
 <body>
 <div class="profile_entire">
+<c:set var="email"><sec:authentication property="principal.user.email"/></c:set>
+<c:set var="name"><sec:authentication property="principal.username"/></c:set>
 	<div class="acntMngmn_title">
 		<h4>계정 설정</h4>
 	</div>
@@ -148,13 +190,15 @@
 	</div>
 	<div class="acntMngmn_content">
 		<c:if test="${type == 'changePassword' }">
-			<form action="sendemail">
+			<form action="send" method="post">
 				<h4>비밀번호 설정</h4>
-				<input name="addr" class="emailbox" placeholder="sample@job.co.kr">
+				<input type="hidden" name="name" value="${name }">
+				<input type="hidden" name="email" value="${email }" id="hidden_email">
+				<input name="address" class="emailbox" placeholder="sample@job.co.kr" id="email_input">
 				<h6 style="color: #bbb;">*비밀번호를 재설정 할 이메일 계정을 입력해주세요.</h6>
 				<br>
 				<div style="text-align: right;margin-right: 50px;">
-					<button type="submit" class="emailcheck_btn">전송</button>
+					<button type="submit" class="emailcheck_btn" id="emailcheck_btn">전송</button>
 				</div>
 			</form>
 		</c:if>
@@ -172,10 +216,39 @@
 			<h6 class="detail">• 이상의 내용에 동의하여 탈퇴를 원하실 경우, 아래의 “동의하기” 버튼을 클릭 부탁드립니다.</h6>
 			<br> 
 			<div style="text-align: center;">
-				<button type="button" class="leave_btn">동의하기</button>
+				<button type="button" class="leave_btn" data-toggle="modal" data-target="#myModal">동의하기</button>
 			</div>
 		</c:if>
 	</div>
 </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">탈퇴하기</h4>
+        </div>
+        <div class="modal-body" style="text-align: center;"> 
+          	<h5>탈퇴사유를 선택해주세요.</h5>
+          	<select class="sel">
+          		<option disabled selected hidden>선택하기</option>
+          		<option>구직/이직할 생각이 없음</option>
+          		<option>개인정보 유출 우려</option>
+          		<option>원티드를 통해 구직완료</option>
+          		<option>홍보성 메일/메세지</option>
+          		<option>타 서비스를 통해 구직완료</option>
+          		<option>채용 공고 부족</option>
+          	</select>
+          	<br>
+          	<button class="final_leave_btn" onclick="location.href='deleteuser'">완료</button>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

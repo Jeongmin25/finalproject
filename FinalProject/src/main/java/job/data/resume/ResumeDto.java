@@ -11,6 +11,7 @@ import lombok.Data;
 @Data
 public class ResumeDto {
 	private int num_r;
+	private int user_id;
 	private String intro;
 	private String skill;
 	private String link;
@@ -19,5 +20,6 @@ public class ResumeDto {
 	private List<CarerDto> carer;
 	private List<EducationDto> education;
 	private List<ForeDto> fore;
+	
 	
 }
