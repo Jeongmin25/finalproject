@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Alias("emp_account")
-public class EmpDto {
+public class EmpAccountDto {
 	private long num;
 	private String empname;
 	private String empserial;
@@ -25,5 +25,7 @@ public class EmpDto {
 	private String email ;
 	private String keyword  ;
 	private Timestamp createDate;
-	
+		
 }
+
+
