@@ -13,4 +13,11 @@
 		<put-attribute name="body" value="/WEB-INF/{1}/{2}.jsp"/>
 	</definition> 
 	
+	
+	<!-- 관리자페이지 tiles 제외하기 -->
+	<definition name="/admin2/*" extends="empty">
+          <put-attribute name="empty" value="/WEB-INF/admin2/*.jsp" />
+    </definition>
+	
+	
 </tiles-definitions>

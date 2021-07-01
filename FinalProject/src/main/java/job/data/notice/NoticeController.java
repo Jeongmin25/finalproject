@@ -23,13 +23,14 @@ import job.data.notice.NoticeDto;
 
 
 
+
 @Controller
 public class NoticeController {
 	
 	@Autowired
 	NoticeMapper mapper;
 	
-	@GetMapping("/adminnoticelist")
+	@GetMapping("/admin2/adminnotice/list")
 	public ModelAndView list()
 	{
 		ModelAndView mview=new ModelAndView();
@@ -39,28 +40,32 @@ public class NoticeController {
 		//목록 가져오기
 		List<NoticeDto> list=mapper.getAllDatas();
 		mview.addObject("list",list);
-		mview.setViewName("/adminnotice/list");
+		mview.setViewName("/admin2/adminnotice/list");
 		return mview;
 	}
 	
 	
-	@GetMapping("/adminnotice/addform")
+	
+	
+	@GetMapping("/admin2/adminnotice/addform")
 	public String addform()
 	{
-		return "/adminnotice/addform"; 
+		return "/admin2/adminnotice/addform"; 
 	}
 	
 
-	@PostMapping("/adminnotice/insert")
+	@PostMapping("/admin2/adminnotice/insert")
 	public String insert(@ModelAttribute NoticeDto dto,
 			@RequestParam String num_n,
 			HttpServletRequest request)
 	{
 		String path=request.getSession().getServletContext().getRealPath("/noticephoto");
 		System.out.println(path);
+		String fileName="";
+		
 		//파일명 앞에 붙일 날짜구하기
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
-		String fileName="photo"+sdf.format(new Date())
+		 fileName="photo"+sdf.format(new Date())
 			+"_"+dto.getUpload().getOriginalFilename();
 		//dto에 업로드될 파일명 저장
 		dto.setPhoto(fileName);
@@ -74,6 +79,7 @@ public class NoticeController {
 			e.printStackTrace();
 		}
 		
+		
 		//db insert
 		mapper.insertNotice(dto);
 		return "redirect:list";
@@ -81,8 +87,8 @@ public class NoticeController {
 		}
 	
 	
-		@GetMapping("/adminnotice/contents")
-		public String content(Model model,
+		@GetMapping("/admin2/adminnotice/contents")
+		public String contents(Model model,
 				
 				@RequestParam String num_n,
 				@RequestParam(defaultValue = "no") String key)
@@ -96,46 +102,30 @@ public class NoticeController {
 			NoticeDto dto=mapper.getData(num_n);
 			model.addAttribute("dto",dto);
 			
-			return "/adminnotice/contents";
+			return "/admin2/adminnotice/contents";
 		}
 		
-		
-		
-		@GetMapping("/adminnotice/updateform")
-		public ModelAndView updateForm(@RequestParam String num_n)
-		{
-			ModelAndView mview=new ModelAndView();
-			NoticeDto dto=mapper.getData(num_n);
-			
-			mview.addObject("dto",dto);
-			mview.setViewName("/adminnotice/updateform");
-			return mview;
-		}
-		
-		
-		
-		@PostMapping("/adminnotice/updatenotice")
+		@PostMapping("/admin2/adminnotice/update")
 		public String update(@ModelAttribute NoticeDto dto,
 				@RequestParam String num_n,
 				HttpServletRequest request)
 		{
 			String path=request.getSession().getServletContext().getRealPath("/noticephoto");
 			System.out.println(path);
-		     String f=dto.getUpload().getOriginalFilename();
+			  String f=dto.getUpload().getOriginalFilename();
+
 			//파일명 앞에 붙일 날짜구하기
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 			String fileName="photo"+sdf.format(new Date())
 				+"_"+dto.getUpload().getOriginalFilename();
-			//dto에 업로드될 파일명 저장
-		
-	         if(f.equals("")){ 
-	        	 NoticeDto ato=mapper.getData(num_n);
-	        	 dto.setPhoto(ato.getPhoto());
-	        	//db update
-	 			mapper.updateNotice(dto);
-	        	 
-	         }
-	         else {
+			if(f.equals("")){
+	            NoticeDto ato=mapper.getData(num_n);
+	            dto.setPhoto(ato.getPhoto());
+	            
+	            mapper.updateNotice(dto);
+			}else {
+	            	
+	            dto.setPhoto(fileName);
 			//업로드
 			MultipartFile uploadFile=dto.getUpload();
 			try {
@@ -145,15 +135,32 @@ public class NoticeController {
 				e.printStackTrace();
 			}
 			
+			//db update
 			mapper.updateNotice(dto);
-	         }
-			return "redirect:contents?num_n="+dto.getNum_n();
 			
+			
+			}
+			return "redirect:contents?num_n="+dto.getNum_n();
+	            
+			}
+		
+		
+		@GetMapping("/admin2/adminnotice/updateform")
+		public ModelAndView updateForm(@RequestParam String num_n)
+		{
+			ModelAndView mview=new ModelAndView();
+			NoticeDto dto=mapper.getData(num_n);
+			
+			mview.addObject("dto",dto);
+			mview.setViewName("/admin2/adminnotice/updateform");
+			return mview;
 		}
 		
 		
 		
-			@GetMapping("/adminnotice/deletenotice")
+	
+		
+			@GetMapping("/admin2/adminnotice/delete")
 			public String delete(@RequestParam String num_n)
 			{
 				mapper.deleteNotice(num_n);

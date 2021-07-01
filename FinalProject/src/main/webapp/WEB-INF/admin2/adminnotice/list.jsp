@@ -169,7 +169,7 @@ div.dataTables_filter {  /* 검색창 */
             </li>
             
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/adminnotice/list" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/admin2/adminnotice/list" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-exclamation"></i>
                     <span><b>공지관리</b></span>
@@ -178,7 +178,7 @@ div.dataTables_filter {  /* 검색창 */
             </li>
             
               <li class="nav-item">
-                <a class="nav-link collapsed" href="/adminmember/list" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/admin2/adminmember/list" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                    <i class="fas fa-users-cog"></i>
                     <span>회원관리</span>
@@ -186,21 +186,21 @@ div.dataTables_filter {  /* 검색창 */
             </li>
             
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/adminpayment/list" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/admin2/adminpayment/list" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                    <i class="far fa-credit-card"></i>
                     <span>결제내역관리</span>
                 </a>
             </li>
                <li class="nav-item">
-                <a class="nav-link collapsed" href="/adminjobnotice/list" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/admin2/adminjobnotice/list" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                   <i class="fas fa-list"></i>
                     <span>채용공고관리</span>
                 </a>
             </li>
                <li class="nav-item">
-                <a class="nav-link collapsed" href="/adminempreview/list" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/admin2/adminempreview/list" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                    <i class="fas fa-list"></i>
                     <span>기업리뷰관리</span>
@@ -239,7 +239,7 @@ div.dataTables_filter {  /* 검색창 */
                     <!-- DataTales Example -->
                    		<h2 style="margin-left: 200px;margin-top: 50px;">공지관리</h2><button type="button" id="btnnotice" 
                    		
-                   		onclick="location.href='/adminnotice/addform'">공지글쓰기<i class="fas fa-pencil-alt"></i></button>
+                   		onclick="location.href='/admin2/adminnotice/addform'">공지글쓰기<i class="fas fa-pencil-alt"></i></button>
                    		
                    			
     
@@ -250,7 +250,6 @@ div.dataTables_filter {  /* 검색창 */
                                         	<th  bgcolor="#021B80" style="color: white;">번호</th>
                                         	 <th  bgcolor="#021B80" style="color: white;">카테고리</th>
                                             <th  bgcolor="#021B80" style="color: white;">제목</th>
-                                        
                                             <th  bgcolor="#021B80" style="color: white;">작성일</th>
                                          
                                                 
@@ -283,7 +282,7 @@ div.dataTables_filter {  /* 검색창 */
 												<fmt:formatDate value="${dto.writeday}"
 													pattern="yyyy-MM-dd"/>
 											</td>
-											
+										</tr>	
                                     </c:forEach>
                                     
                                     
