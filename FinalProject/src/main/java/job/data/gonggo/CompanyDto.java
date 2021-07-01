@@ -1,6 +1,7 @@
-package job.data;
+package job.data.gonggo;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,5 +20,5 @@ public class CompanyDto {
 	private String empimg;
 	private String deadline;
 	private Timestamp writeday;
-	
+	private List<CategoryDto> category;
 }

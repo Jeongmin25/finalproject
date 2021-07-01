@@ -4,29 +4,22 @@ package job.data.gonggo;
 
 import java.io.File;
 
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.persistence.metamodel.StaticMetamodel;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import job.data.CompanyDto;
 
 
 
@@ -40,21 +33,18 @@ public class GonggoContoroller {
 	   @GetMapping("/gonggolist")
 	   public ModelAndView index() {
 	      ModelAndView mview =new ModelAndView();
-	    
-	      //총 개수
-	      int totalCount=mapper.getTotalCount();
-	      mview.addObject("totalCount",totalCount);
-	     
-	      Date date=new Date();
-          long time= date.getTime();
-          mview.addObject("date", date);
-          mview.addObject("time",time);
-      
 	      //목록 가져오기
 	      List<CompanyDto> gonggolist=mapper.getAlldatas();
+	      Date date=new Date();
+          long time= date.getTime();
+          
+          mview.addObject("date", date);
+          mview.addObject("time",time);
 	      mview.addObject("gonggolist",gonggolist);
+	      
 	      for(CompanyDto d:gonggolist)
 	    	  System.out.println(d.getDeadline());
+	      
 	      mview.setViewName("/gonggo/gonggolist");
 	      return mview;
 	   }
@@ -64,6 +54,11 @@ public class GonggoContoroller {
 		   ModelAndView mview=new ModelAndView();
 		   CompanyDto dto=mapper.getData(num);
 			mview.addObject("dto",dto);
+			
+			List<CategoryDto>category=dto.getCategory();
+			mview.addObject("category",category);
+			mview.addObject("num",dto.getNum());
+			
 			mview.setViewName("/gonggo/gonggodetail");
 			return mview;
 	   }
@@ -75,7 +70,10 @@ public class GonggoContoroller {
 	   }
 
 	   @PostMapping("/insert")
-	   public String insertgonggo(@ModelAttribute CompanyDto dto, HttpServletRequest request)
+	   public String insertgonggo(
+			   @ModelAttribute CompanyDto dto,
+			   @ModelAttribute CategoryDto category,
+			   HttpServletRequest request)
 	   {
 		   String path=request.getSession().getServletContext().getRealPath("/gonggophoto"); 
 		   System.out.println(path); 
@@ -90,21 +88,47 @@ public class GonggoContoroller {
 				} catch(IllegalStateException | IOException e) { 
 					e.printStackTrace(); } 
 		   //db insert 
-			mapper.insertGonggo(dto); 
+			mapper.insertGonggo(dto);
+			int num=mapper.getInsertNum();
+			category.setNum(num);
+			
+			String ctg[]=category.getCtg().split(",",-1);
+			//String ctg_idx[]=category.getCtg_idx().split(",",-1);
+			String tag[]=category.getTag().split(",",-1);
+			//String tag_idx[]=category.getTag_idx().split(",",-1);
+			
+			for(int i=0; i<ctg.length; i++) {
+				category.setCtg(ctg[i]);
+				//category.setCtg_idx(ctg_idx[i]);
+				category.setTag(tag[i]);
+				//category.setTag_idx(tag_idx[i]);
+				mapper.insertCategory(category);
+			}
 			return "redirect:gonggolist"; 
 	   }
 		
 	   @GetMapping({"/writegonggo"})
-	   public String from()
+	   public ModelAndView insertform()
 	   {
-		   return "/gonggo/writegonggo";
-	   }
+		   ModelAndView mview =new ModelAndView();
+		      //외국어 select 태그 배열값 보내기
+			   String lang [] = {"영어","중국어 북경어","중국어 광동어","일본어","한국어","독일어"
+					   ,"스페인어","프랑스어","네덜란드어","노르웨이어","덴마크어"};
+			   String level []= {"유창","비지니스회화","일상회화"};
+			   mview.addObject("lang",lang);
+			   mview.addObject("level",level);
+		      
+		      mview.setViewName("/gonggo/writegonggo");
+		      return mview;
+		   }
+		   
 	   
 	   
 	   @GetMapping("/delete")
 	   public String delete(@RequestParam String num)
 	   {
 		   mapper.deleteGonggo(num);
+		   mapper.deleteCategory(num);
 		   return "redirect:gonggolist";
 	   }
 	   
@@ -114,13 +138,17 @@ public class GonggoContoroller {
 	   {
 		   ModelAndView mview=new ModelAndView();
 		   CompanyDto dto=mapper.getData(num);
-			mview.addObject("dto",dto);
+		   
+		   List<CategoryDto>category=dto.getCategory();
+		    mview.addObject("dto",dto);
+			mview.addObject("category",category);
 			mview.setViewName("/gonggo/updateform");
 			return mview;
 	   }
 	   
 	   @PostMapping("/update")
-	   public String update(@ModelAttribute CompanyDto dto,
+	   public ModelAndView update(@ModelAttribute CompanyDto dto,
+			   @ModelAttribute CategoryDto category,
 			   @RequestParam String num,
 				HttpServletRequest request)
 	   {
@@ -133,9 +161,7 @@ public class GonggoContoroller {
 			if(f.equals("")){
 				CompanyDto mto=mapper.getData(num);
 				dto.setEmpimg(mto.getEmpimg());
-				
-				mapper.updateGonggo(dto);}
-			else{
+				}else{
 				//파일명= "photo"+ 날짜(년월일시분초)+dto에 업로드된 실제 파일이름
 				//dto에 업로드될 파일명 저장
 				dto.setEmpimg(fileName);
@@ -146,12 +172,28 @@ public class GonggoContoroller {
 						} catch (IllegalStateException | IOException e) {
 							e.printStackTrace();
 						}
-				mapper.updateGonggo(dto);
 				}
-			//db update
-		
+				ModelAndView mview = new ModelAndView();
+				mapper.updateGonggo(dto);
+				int cnum=dto.getNum();
+				category.setNum(cnum);
+				String ctg[]=category.getCtg().split(",",-1);
+				//String ctg_idx[]=category.getCtg_idx().split(",",-1);
+				String tag[]=category.getTag().split(",",-1);
+				//String tag_idx[]=category.getTag_idx().split(",",-1);
+				
+				mapper.deleteCategory(num);
+				for(int i=0; i<ctg.length; i++) {
+					category.setCtg(ctg[i]);
+					//category.setCtg_idx(ctg_idx[i]);
+					category.setTag(tag[i]);
+					//category.setTag_idx(tag_idx[i]);
+					mapper.insertCategory(category);
+				}
 			
-			return "redirect:gonggodetail?num="+dto.getNum();
+			mview.addObject("num",num);
+			mview.setViewName("redirect:gonggodetail?num="+num);
+			return mview;
 
 	   }
 	   

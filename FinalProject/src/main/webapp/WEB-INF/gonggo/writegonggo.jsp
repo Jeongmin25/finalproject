@@ -40,7 +40,28 @@ border: none;
 </select>
 <h3>회사 로고</h3>
 <input type="file" name="upload" class="form-control">
+<div class="category">
+<h3>태그</h3>
+<select name="ctg" id="ctg" class="form-inline" style="width: 200px; height: 30px;"
+			onchange="selectctg(this)">
+			<option selected="selected">카테고리</option>
+			<option value="업계연봉수준">업계연봉수준</option>
+			<option value="보상">보상</option>
+			<option value="출퇴근">출퇴근</option>
+			<option value="식사/간식">식사/간식</option>
+			<option value="기업문화">기업문화</option>
+		</select>
+<select name="tag" id="tag" class="form-inline" style="width: 200px; height: 30px;">
+			<option selected="selected">카테고리</option>
+			<option value="업계연봉수준">업계연봉수준</option>
+			<option value="보상">보상</option>
+			<option value="출퇴근">출퇴근</option>
+			<option value="식사/간식">식사/간식</option>
+			<option value="기업문화">기업문화</option>
+</select>
+<button type="button" class="add" id="btnaddctg">+ 추가</button>
 
+</div>
 <h3>공고 내용</h3>
 <textarea rows="20" cols="100" class="form-control" name="empcontent" ></textarea>
 
@@ -84,5 +105,62 @@ function selectjob(e) {
         target.appendChild(opt);
     }   
 }
+window.onload = function() {
+	document.getElementById("btnaddctg").onclick=function(){	
+		var ctg=["업계연봉수준","보상","출퇴근","식사/간식","기업문화"];
+		var cate=document.createElement("select");
+		cate.setAttribute("width","100px");
+		cate.setAttribute("name","lang");
+		ctg.forEach(function(elt,i,array){
+			var block=document.createElement("option");
+			block.setAttribute("value",elt);
+			block.innerHTML=elt;
+			cate.appendChild(block);
+		});
+			
+			document.appendChild(cate);
+		}
+	
+		/*  var pay = ["", "", "", ""];
+		    var business = ["", "", ""];
+		    var design = ["", "", "", ""];
+		    var marketing = ["", "", "", ""];
+		    var production = ["", "", "", ""];
+		    var trade  = ["", "", "", ""];
+		    var service  = ["", "", "", ""];
+		    var target = document.getElementById("jobgroup");
+
+		    if(e.value == "IT/인터넷") var d = it;
+		    else if(e.value == "경영/기획/컨설팅") var d = business;
+		    else if(e.value == "디자인") var d = design;
+		    else if(e.value == "미디어/홍보/마케팅") var d = marketing;
+		    else if(e.value == "생산/제조") var d = production;
+		    else if(e.value == "유통/무역") var d = trade;
+		    else if(e.value == "서비스/고객지원") var d = service;
+
+
+		    target.options.length = 0;
+
+		    for (x in d) {
+		        var opt = document.createElement("option");
+		        opt.value = d[x];
+		        opt.innerHTML = d[x];
+		        target.appendChild(opt); 
+		    } 
+	
+	
+	
+	var tg=document.createElement("select");
+	tg.setAttribute("width","100px");
+	tg.setAttribute("name","tag");
+	tag.forEach(function(elt,i,array){
+		var block=document.createElement("option");
+		block.setAttribute("value",elt);
+		block.innerHTML=elt;
+		tag.appendChild(block);
+		})*/
+
+		
+	}
 </script>
 </html>
