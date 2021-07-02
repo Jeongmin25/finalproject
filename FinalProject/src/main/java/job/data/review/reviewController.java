@@ -1,5 +1,6 @@
 package job.data.review;
 
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,8 +70,6 @@ public class reviewController {
 		mview.addObject("empname",empname);
 		mview.addObject("list",list);
 		
-		//기업리뷰 추천 많은 순으로 장점 2개 출력
-		
 
 		//출력에 필요한 변수들 모두 request에 저장(list.jsp에서 사용)
 		mview.addObject("no", no);
@@ -94,7 +93,8 @@ public class reviewController {
 	
 	@GetMapping("/reviewdetail")
 	public ModelAndView reviewdetail(
-			@RequestParam String empname) {
+			@RequestParam String empname,
+			@RequestParam(value = "pageNum",defaultValue = "1") int currentPage) {
 		ModelAndView mview =new ModelAndView();
 		//기업이름
 		String emp=empname;
@@ -108,8 +108,43 @@ public class reviewController {
 		List<reviewDto> list=mapper.getReviewData();
 		mview.addObject("list",list);
 		
+		//페이징에 필요한 코드
+		int totalPage;//전체 페이지
+		int startPage;//각 블럭의 시작페이지
+		int endPage;//각 블럭의 마지막페이지
+		int start;//각 페이지의 시작번호
+		int no;//각 페이지에서 출력을 시작할 번호
+		int perPage=3;//한페이지에 보여질 글의 개수
+		int perBlock=5;//한 블럭에 보여질 페이지의 개수
+
+		//총 페이지수 구하기
+		totalPage=review0fEmp/perPage+(review0fEmp%perPage>0?1:0); 
+		//나머지가 있으면 1페이지 더하기(글개수13개면 페이지3장필요)
+
+		//현재페이지가 3인경우 startPage는 1, endPage=5 / 현재페이지가 6인경우 startPage는 6, endPage=10
+		startPage=(currentPage-1)/perBlock*perBlock+1;
+		endPage=startPage+perBlock-1;
+
+		//만약 총 페이지수가 8인경우 2번째 블럭은 startPage 6, endPage 10 BUT, 이때 endPage는 8로 표기되어야한다.
+		if(totalPage<endPage)
+			endPage=totalPage;
+
+		//각 페이지의 시작번호 구하기(1일경우 0, 2일경우 3)
+		//오라클 첫글:1, mysql 첫글:0
+		start=(currentPage-1)*perPage;
+
+		//각 글 앞에 붙일 시작번호구하기 
+		//예: 총글이 20개일경우 1페이지는 20부터 2페이지는 15부터 출력해서 1씩 감소해가며 출력할것
+		no=review0fEmp-(currentPage-1)*perPage;
+
+		
 		//empname에 해당하는 데이터 출력
-		List<reviewDto> empdata=mapper.getReviewDataOfEmp(empname);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("empname", empname);
+		map.put("start", start);
+		map.put("perpage", perPage);
+
+		List<reviewDto> empdata=mapper.getReviewDataOfEmp(map);
 		mview.addObject("empdata",empdata);
 		
 		//평가 평균
@@ -125,6 +160,14 @@ public class reviewController {
 		mview.addObject("avgEnv",avgEnv);
 		mview.addObject("avgSal",avgSal);
 		mview.addObject("avgCeo",avgCeo);
+		
+		//출력에 필요한 변수들 모두 저장
+		mview.addObject("no", no);
+		mview.addObject("startPage", startPage);
+		mview.addObject("endPage", endPage);
+		mview.addObject("currentPage", currentPage);
+		mview.addObject("totalPage", totalPage);
+		
 		mview.setViewName("/review/reviewdetail");
 		return mview;
 	}

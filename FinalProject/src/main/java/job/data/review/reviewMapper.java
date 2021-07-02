@@ -1,5 +1,6 @@
 package job.data.review;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -16,7 +17,7 @@ public interface reviewMapper {
 	public List<reviewDto> getReviewData();
 	
 	//review테이블 데이터 출력
-	public List<reviewDto> getReviewDataOfEmp(String empname);
+	public List<reviewDto> getReviewDataOfEmp(HashMap<String, Object> map);
 	
 	//review기업명 조회
 	public List<reviewDto> selectEmpname(int start, int perpage);
@@ -62,5 +63,7 @@ public interface reviewMapper {
 	
 	//리뷰 추천 많은 순으로 장점 2개 출력
 	public List<reviewDto> likesGood(String empname);
+
+	
 
 }
