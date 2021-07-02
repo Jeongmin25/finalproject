@@ -43,9 +43,23 @@
 		color: gray;
 	}
 	
+	div.mylist{
+		margin-bottom: 50px;
+	}
+	
+	table.reviewtable{
+		cursor: pointer;
+	}
+	
+	table.reviewtable:hover{
+		background-color: #eee;
+	}
+	
 </style>
 </head>
 <body>
+	<!-- 로그인 username -->
+	<c:set var="email" value="${auth }"/>
 	<div class="menu">
 		<button type="button" class="menu btn btn-default"
 			onclick="location.href='review'">기업리뷰</button>
@@ -53,24 +67,47 @@
 			onclick="location.href='addreview'">my리뷰</button>
 	</div>
 	<div class="myreview">
-		<h1>MY 기업리뷰</h1>
+		<h1>MY 기업리뷰 (${email }님)</h1>
 		<br>
-		
 		<c:if test="${totalCount>=0}">
-		<h5 style="color: gray;">${totalCount}개의 기업리뷰를 작성했습니다.</h5>
-  	<a href="#demo" class="btn btn-info" data-toggle="collapse">
-  	기업리뷰 작성하기>
-  	</a>
+		<h4 style="color: gray;">${totalCount}개의 기업리뷰를 작성했습니다.</h4>
+		<br>
+		<!-- 작성리뷰 출력 -->
+		<div class="mylist">
+		<c:forEach var="data" items="${list }" varStatus="n">
+			<table class="reviewtable table table" style="font-size: 1.3em;">
+				<tr>
+					<td width="70px;" align="center" style="height: 70px;">${n.count }</td>
+					<td width="500px;">${data.empname }</td>
+					<td width="100px;" align="right">${data.prenow }</td>
+					<td width="100px;" align="right">
+						<fmt:formatDate value="${data.writeday}" pattern="MM-dd"/>
+					</td>
+					<td width="100px;" align="right">
+						<button type="button" class="btn btn-default" num="${data.num }">삭제</button>
+					</td>
+				</tr>
+			</table>
+		</c:forEach>
+		</div>
+
+		
+  		<h3 href="#demo" class="alert alert-default" data-toggle="collapse"
+  			style="height:100px; border: 1px solid #dcdcdc;
+  			padding: 30px 70px 30px 180px;
+  			cursor: pointer;">
+  			아직 작성하지 않은 리뷰가 있나요? 기업리뷰 작성하기></h3>
+  	
+	<!-- 리뷰작성 폼 -->
   	<div id="demo" class="collapse">
   	<div class="statement">
-	
-
     <form action="add" method="post">
-    	<input type="hidden" name="email" value="yk@naver.com">
+    	<input type="hidden" name="email" value="${email }">
     	
     	<table class="table table-bordered" style="border: none;">
     		<tr>
-    			<th colspan="2">기업 리뷰 작성</th>
+    			<th colspan="2" style="text-align: center; height: 100px;
+    				font-size: 1.5em; line-height: 100px;">기업 리뷰 작성</th>
     		</tr>    		
     		<tr>
     			<th>기업명</th>
@@ -116,7 +153,8 @@
     			</td>
     		</tr>
     		<tr>
-    			<th colspan="2">기업 평점</th>
+    			<th colspan="2" style="text-align: center; height: 100px;
+    				font-size: 1.5em; line-height: 100px;">기업 평점</th>
     		</tr>
     		<tr>
     			<th>기업 총 평가</th>
@@ -239,8 +277,9 @@
     			</td>    			
     		</tr>
     	</table>
-    	
-    	<button type="submit">제출하기</button>
+    	<br>
+    	<button type="submit" class="btn btn-default btn-lg" style="margin-left: 400px;">제출하기</button>
+    	<br>
     </form>
   </div>
 	</div>	

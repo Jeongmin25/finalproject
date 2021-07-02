@@ -71,8 +71,13 @@
 	<div class="menu">
 		<button type="button" class="menu btn btn-default"
 			onclick="location.href='review'">기업리뷰</button>
+		
+		<!--  -->
+		<c:if test="${auth!=null }">
 		<button type="button" class="menu btn btn-default"
-			onclick="location.href='addreview'">my리뷰</button>
+			onclick="location.href='addreview'">my리뷰</button>		
+		</c:if>
+
 	</div>
 	
 	<div class="empreview">

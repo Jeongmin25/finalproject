@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="job.data.review.reviewMapper">
-	<select id="getTotalCount" resultType="int">
-		select count(*) from review
+	<select id="getTotalCount" resultType="int" parameterType="String">
+		select count(*) from review where email='${email}'
 	</select>
 
 	
@@ -26,7 +26,7 @@
 	
 	<!-- 기업명 조회 -->
 	<select id="selectEmpname" resultType="review" parameterType="int">
-		select empname, good from review group by empname order by likes desc 
+		select empname, good from review group by empname order by writeday desc 
 		limit #{start},#{perpage};
 		
 	</select>
@@ -100,5 +100,10 @@
 	<!-- 리뷰 추천 많은 순으로 장점 2개 출력 -->
 	<select id="likesGood" parameterType="String" resultType="review">
 		select good from review where empname=#{empname} order by likes desc limit 2
+	</select>
+	
+	<!-- my기업리뷰 email로 작성한 리뷰 출력 -->
+	<select id="myreviewOfEmail" parameterType="String" resultType="review">
+		select * from review where email=#{email}
 	</select>
 </mapper>

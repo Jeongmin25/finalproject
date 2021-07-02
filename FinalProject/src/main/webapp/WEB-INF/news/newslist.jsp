@@ -163,30 +163,59 @@ $("#searchbtn").click(function() {
 
 	        success : function(data) {
 	        	//console.log(data); list 데이터 확인 
-	        		        	
-        		//div 출력 변수
 	        	var s="";
-
-	        	//반복문으로 값 출력
-	        	$.each(data, function(idx, val) {
-	        		s+='<table class="newstable table table" num="'+val.num+'" style="width: 900px;" id="newstable">';
-		        	s+='<tr>';
-	        		s+='<td style="width:210px; height: 150px;">';
-		        	s+='<img src="../newsImage/'+val.image+'" style="max-width: 200px; max-height: 150px;"></td>';
-		        	s+='<td><h4>'+val.title+'</h4><br>';
-		        	s+='<h5 style="color: gray;">'+val.content+'</h5><br>';
-		        	s+='<span class="glyphicon glyphicon-eye-open" style="font-size: 1.2em;"></span>';
-		        	s+=val.readcount;
-		        	s+='</h5></td></tr>';
-		        	s+='</table>';
-		
-	        	});
-	        		        	
+	        	
+	        	if(data==""){
+	        		s+="<br><br><br>";
+	        		s+="<h3 style='margin-left: 300px;'>["+title+"] 검색 결과가 없습니다.</h3><br><br>";
+	        		s+='<button type="button" class="lostbtn btn-default btn" style="margin-left: 380px;">뒤로가기</button>';
+	        		
+	        		//검색 값 삭제
+	        		$("#title").val("");
+	        		
+	        		//페이징 숨기기
+	        		$(".pagination").hide();
+	        		
+	        	}else{
+	        		
+	        		//검색 값 삭제
+	        		$("#title").val("");
+	        		
+		       		//반복문으로 값 출력
+		        	$.each(data, function(idx, val) {
+		        		s+='<table class="newstable table table" num="'+val.num+'" style="width: 900px;" id="newstable">';
+			        	s+='<tr>';
+		        		s+='<td style="width:210px; height: 150px;">';
+			        	s+='<img src="../newsImage/'+val.image+'" style="max-width: 200px; max-height: 150px;"></td>';
+			        	s+='<td><h4>'+val.title+'</h4><br>';
+			        	s+='<h5 style="color: gray;">'+val.content+'</h5><br>';
+			        	s+='<span class="glyphicon glyphicon-eye-open" style="font-size: 1.2em;"></span>&nbsp;';
+			        	s+=val.readcount;
+			        	s+='</h5></td></tr>';
+			        	s+='</table>';
+			        	
+		        	});
+		       		
+		       		//목록 버튼
+		        	s+="<br><br><br>";
+		        	s+='<button type="button" class="lostbtn btn-default btn" style="margin-left: 380px;">목록</button>';
+	        		
+		        	//페이징 숨기기
+	        		$(".pagination").hide();
+	        		
+	        	}	        	
+	               	
 	        	$("div.newslist").html(s);
 	        }	
 		})		
 	}
 });
+
+//검색결과 없을 시 뒤로가기 버튼
+$(document).on('click', '.lostbtn', function() {
+	
+	location.href="news";
+})
 
 </script>
 </html>

@@ -31,6 +31,9 @@
 </head>
 <body>
 	<div class="list">
+		<!-- 로그인 username 저장 -->
+		<c:set var="email" value="${auth }"/>
+		<!-- 기업이름 저장 -->
 		<c:set value="${empname }" var="empname" />
 		<h1>${empname }기업리뷰</h1>
 		<h5 style="color: gray;">전/현직자들이 ${review0fEmp}개의 리뷰를 작성했습니다.</h5>
@@ -118,7 +121,7 @@
 					<td colspan="2" align="center"><label class="inline">
 
 							<button type="button" class="btn btn-default btnlikes"
-								num="${data.num}" email="${data.email}">
+								num="${data.num}" email="${email}">
 								<span class="glyphicon glyphicon-thumbs-up" style="color: blue;"></span>
 								도움이 돼요 ${data.likes }
 							</button>
@@ -197,28 +200,38 @@ $(".btnlikes").click(function(){
 	var num=$(this).attr("num");
 	var email=$(this).attr("email");
 	
-    $.ajax({
-        type : "post",  
-        url : "/insertlikes",        
-        data : "num="+num+"&email="+email,
-        dataType: 'json',
-        
-        error : function(){
-            alert("통신 에러","error","확인",function(){});
-        },
+	//미로그인시 alert
+	if(email==""){
+		
+		alert("로그인이 필요합니다.")
+		return;
+	}else{
+	    $.ajax({
+	        type : "post",  
+	        url : "/insertlikes",        
+	        data : "num="+num+"&email="+email,
+	        dataType: 'json',
+	        
+	        error : function(){
+	            alert("통신 에러","error","확인",function(){});
+	        },
 
-        success : function(data) {
-        		location.reload();
-        
-                if(data == 1){
-                    alert("이미 추천되었습니다.");
-                }
-                else if (data == 0){
-                	 alert("감사합니다. 추천되었습니다.");
-                	
-                }
-        }
-    });
+	        success : function(data) {
+	        		location.reload();
+	        
+	                if(data == 1){
+	                    alert("이미 추천되었습니다.");
+	                }
+	                else if (data == 0){
+	                	 alert("감사합니다. 추천되었습니다.");
+	                	
+	                }
+	        }
+	    });
+		
+	}
+	
+
 });
 </script>
 </html>

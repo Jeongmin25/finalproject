@@ -20,9 +20,8 @@ public class JobController {
 		//로그인할 시 정보를 전달
 		if(authentication!=null) {
 		
-		  PrincipalDetails principalDetails = (PrincipalDetails)
-		  authentication.getPrincipal(); OAuth2User oauth2User =
-		  (OAuth2User)authentication.getPrincipal();
+		  PrincipalDetails principalDetails = (PrincipalDetails)authentication.getPrincipal(); 
+		  OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
 		  System.out.println(userDetails.getUser());
 		  mv.addObject("auth",userDetails.getUsername());
 		}
@@ -31,3 +30,4 @@ public class JobController {
 	}
 		
 }
+

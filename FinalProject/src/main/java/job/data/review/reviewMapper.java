@@ -8,7 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface reviewMapper {
 
-	public int getTotalCount();
+	//email별 리뷰 총 개수 반환
+	public int getTotalCount(String email);
 	
 	//review테이블 데이터 추가
 	public void insertReview(reviewDto dto);
@@ -64,6 +65,7 @@ public interface reviewMapper {
 	//리뷰 추천 많은 순으로 장점 2개 출력
 	public List<reviewDto> likesGood(String empname);
 
-	
+	//my기업리뷰 email로 작성한 리뷰 출력
+	public List<reviewDto> myreviewOfEmail(String email);
 
 }
