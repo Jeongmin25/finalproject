@@ -6,9 +6,10 @@
 		select count(*) from emp_account
 	</select>
 	
-	<!-- <select id="emailCheckOfEmp" parameterType="String" resultType="int">
-		select count(*) from emp_account where email=#{email}
-	</select> -->
+	<!-- parameterType은 아이디니까 String, resultType는 갯수를 반환할거니까 int  -->
+	<select id="emailCheckOfEmp" parameterType="HashMap" resultType="int">
+		select count(*) from emp_account where num=#{num} and email=#{email}
+	</select>
 	
 	<!-- create_date sql 컬럼 오타났지만 그냥 그대로 씀 -->
 	<insert id="insertOfEmp" parameterType="empAccount">
@@ -16,8 +17,8 @@
 	 	values (#{managername},#{team},#{hp},#{email},#{password},#{empname},#{empserial},#{country},#{area},#{addr},#{biztype},#{staffnum},#{establishyear},now())
 	</insert>
 	
-	<select id="emailCheckOfEmp" parameterType="HashMap" resultType="int">
-		select count(*) from emp_account where email=#{email} and pass=#{pass}
+	<select id="loginCheckOfEmp" parameterType="HashMap" resultType="int">
+		select count(*) from emp_account where email=#{email} and password=#{password}
 	</select>
 	
 </mapper>

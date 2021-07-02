@@ -12,15 +12,6 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
-<c:if test="${auth==null }">
-<h1>로그인 하세유</h1>
-</c:if>
-<c:if test="${auth!=null }">
-<h1>${auth}님이 로그인하셨습니다</h1>
-</c:if>
-
 <%-- <p>principal : <sec:authentication property="principal.user.id"/></p> --%>
-
-
 </body>
 </html>

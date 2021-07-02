@@ -9,6 +9,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <link rel = "preconnect"href = "https://fonts.gstatic.com">
+<style type="text/css">
+	b.status{
+		color:#021B80;
+		font-size: 10pt;
+	}
+</style>
 </head>
 <body>
 <div class="logo">
@@ -47,12 +53,31 @@
 					<li id="log">
 						<li>
 						<div>
-							<a onclick="location.href='/user/login'">회원가입/로그인</a>
+							<c:if test="${auth==null }">
+							<a onclick="location.href='/login'">회원가입/로그인</a>
+							</c:if>
+							<c:if test="${auth!=null }">
+							<b class="status">${auth}님</b>
+							<c:set var="root" value="<%=request.getContextPath() %>"/>
+							<button type="button" class="btn btn-default" style="height: 30px;"
+							onclick="location.href='/logout'">Logout</button>
+							</c:if>
 						</div>
 						</li>
+					<li id=emploginfo>
 	 					<li>
+	 						<span style="margin-left: 20px;">
+	 						<c:if test="${sessionScope.loginok==null}">
 	 						<button type="button" class="btn btn-default"
 	 						onclick="location.href='/empLogin'">기업서비스</button>
+	 						</c:if>
+	 						<c:if test="${sessionScope.loginok!=null}">
+							<b class="status">${sessionScope.myemail}님</b>
+							<c:set var="root" value="<%=request.getContextPath() %>"/>
+							<button type="button" class="btn btn-default" style="height: 30px;"
+							onclick="location.href='/emplogout'">Logout</button>
+	 						</c:if>
+	 						</span>
 	 					</li>
  					</li>
 				</ul>
