@@ -49,10 +49,11 @@
 		border: 1px solid #ccc;
 		width: 600px;
 		margin-top: 10px;
-		height: 400px;
+		height: auto;
 		margin-left: 230px;
 		border-radius: 5px;
 		padding: 10px 10px 10px 10px;
+		min-height: 300px;
 	}
 	
 	div.profile_noresume{
@@ -112,15 +113,106 @@
 	a.addresume_link:hover{
 		text-decoration: none;
 	}
+	input.jobGroup{
+		margin-bottom: 10px;
+		height: 30px;
+		width: 200px;
+		border: 1px solid #D9D3D2;
+	}
+	input.jobGroup:focus {
+		outline: none;
+		border: 1px solid gray;
+	}
+	select.jobGroup{
+		margin-bottom: 10px;
+		height: 30px;
+		width: 200px;
+		border: 1px solid #D9D3D2;
+	}
+	select.jobGroup:focus {
+		outline: none;
+		border: 1px solid gray;
+	}
+	input.jobGroup_selbtn{
+		border: 1px solid #ccc;
+		width: auto;
+		height: 30px;
+		color: gray;
+		padding-left:5px;
+		padding-right:5px;
+		margin-right: 5px;
+		margin-left: 5px;
+		cursor: pointer;
+		margin-bottom: 10px;
+		text-align: center;
+	}
+	input.jobGroup_selbtn:focus {
+		outline: none;	
+	}
+	button.jobGroup_addbtn{
+		background-color: #021B80;
+	    color: white;
+	    border-radius: 5px;
+	    width: 120px;
+	    height: 40px;
+	    line-height: 30px;
+	    border: 0px solid black;
+	    
+	}
+	div.jobGroup_btndiv{
+		text-align: right;
+		margin-right: 60px;
+	}
+	#jobGroup_job_addbtn{
+		width: 50px;
+	    height: 30px;
+	    border-radius: 3px;
+	    background-color: #258bf7;
+	    color: #fff;
+	    border: none;
+	}	 
+	#jobGroup_job_addbtn:focus {
+		border: none;
+	}
+	.selectJob{
+		border: 2px solid #258bf7;
+	}
+	
 </style>
 <script type="text/javascript">
 	function selresume(val){
 		location.href="profile?num_r="+val;
 		
 	}
+	//직군선택에 따른 직무 나타내기
+	function selectJob(val){
+		location.href="jobGroup?match="+val;
+	}
+	
+window.onload=function(){
+	//직무를 선택했을 때 클릭 효과 주기
+	var list=document.querySelectorAll("#jobGroup_selbtn");
+	for(var i=0;list.length;i++){
+		list[i].onclick=function(){
+			if(this.getAttribute("name")!="job"){
+				this.setAttribute("name","job");
+				this.style.border="2px solid #258bf7";
+			}else{
+				this.setAttribute("name","");
+				this.style.border="1px solid #ccc";
+			}
+		}
+	}
+		
+	
+	
+	
+}
 </script>
 <body>
+<form action="insertJobGroup" method="post">
 <c:set var="user_id"><sec:authentication property="principal.user.id"/></c:set>
+<input value="${user_id }" name="id" type="hidden">
 <div class="profile_entire">
 	<div class="profile_title">
 		<h4>프로필</h4>
@@ -144,32 +236,62 @@
 		<div>
 			<table>
 				<tr>
-					<td>직군</td>
+					<td style="max-width: 50px;width: 50px;">직군</td>
 					<td>
-						<select>
-							<option>개발</option>
-							<option>경영 비지니스</option>
-							<option>마케팅 광고</option>
-							<option>고객서비스 리테일</option>
-							<option>영업</option>
-							<option>미디어</option>
-							<option>인사</option>
-							<option>게임 제작</option>
-							<option>금융</option>
-							<option>엔지니어링 설계</option>
-							<option>물류 무역</option>
-							<option>의류 제작 바이오</option>
-							<option>교육</option>
-							<option>법률 법집행기관</option>
-							<option>식음료</option>
-							<option>건설 시설</option>
-							<option>공공 복지</option>
+						<select class="jobGroup" name="job_group" onchange="selectJob(this.value)" id="selectJobGroup">
+							<c:forEach var="JobG" items="${jobGroup }">
+								<c:if test="${JobG == match }">
+									<option value="${JobG}" selected>${JobG }</option>
+								</c:if>
+								<c:if test="${JobG != match }">
+									<option value="${JobG}">${JobG }</option>
+								</c:if>
+							</c:forEach>
+						</select>
+						
+								
+						
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">직무</td>
+				</tr>
+				<tr>
+				<td></td>
+					<td>
+						<div id="jobGroup_option">
+							<c:forEach var="selJob" items="${selectJob }">
+								<input class="jobGroup_selbtn" id="jobGroup_selbtn" value="${selJob }" readonly>
+							</c:forEach>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>경력</td>
+					<td>
+						<select class="jobGroup" name="career">
+							<option hidden disabled>선택하기</option>
+							<option value="0">신입</option>
+							<option value="1">1 년</option>
+							<option value="2">2 년</option>
+							<option value="3">3 년</option>
+							<option value="4">4 년</option>
+							<option value="5">5 년</option>
+							<option value="6">6 년</option>
+							<option value="7">7 년</option>
+							<option value="8">8 년</option>
+							<option value="9">9 년</option>
+							<option value="10">10 년 이상</option>
 						</select>
 					</td>
 				</tr>
 			</table>
+			<div class="jobGroup_btndiv">
+				<button type="submit" class="jobGroup_addbtn">확인</button>
+			</div>
 		</div>
 	</div>
 </div>
+</form>
 </body>
 </html>

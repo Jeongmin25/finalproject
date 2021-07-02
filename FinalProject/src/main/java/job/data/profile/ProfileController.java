@@ -31,11 +31,14 @@ public class ProfileController {
 	ResumeMapper rmapper;
 	@Autowired
 	UserAccountMapper umapper;
-	 @Autowired
-	 private MailService mailService;
+	@Autowired
+	JobGroupMapper jmapper;
+	
+	@Autowired
+	private MailService mailService;
 	 
-	 @Autowired
-	 BCryptPasswordEncoder encodePwd;
+	@Autowired
+	BCryptPasswordEncoder encodePwd;
 	 
 	@GetMapping("/profile")
 	public ModelAndView profile_index(
@@ -47,8 +50,16 @@ public class ProfileController {
 				ModelAndView mv=new ModelAndView();
 				PrincipalDetails principalDetails = (PrincipalDetails)
 				authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
-				String user_id=Long.toString(userDetails.getUser().getId());
 				
+				 //전문 분야 설정
+				int id=(int)userDetails.getUser().getId();
+				int cnt= jmapper.searchIdOfJobGroup(id);
+				
+				 JobGroupDto gdto=jmapper.getDataOfJobGroup(id);
+				 mv.addObject("gdto",gdto);
+				 
+				
+				String user_id=Long.toString(userDetails.getUser().getId());
 				//목록 가져오기
 				List<ResumeDto> list=rmapper.getDataOfResume(user_id);
 				mv.addObject("list",list);
@@ -71,7 +82,6 @@ public class ProfileController {
 					 mv.addObject("edto",edto);
 					 mv.addObject("cdto",cdto);
 					 mv.addObject("rdto",rdto);
-						
 				}
 				mv.setViewName("/profile/profile");
 				return mv;
@@ -172,10 +182,54 @@ public class ProfileController {
     }
     
     @GetMapping("/jobGroup")
-	   public ModelAndView jobGroup() {
+	   public ModelAndView jobGroup(String match) {
 		   ModelAndView mv = new ModelAndView();
+		   String jobGroup[]= {"IT/인터넷", "경영/기획/컨설팅", "디자인", "미디어/홍보/마케팅", "생산/제조", "유통/무역","서비스/고객지원"};
+		   String it[]= {"웹개발자", "프론트엔드개발자", "Node.js개발자", "빅데이터엔지니어"};
+		   String business[]= {"사업개발기획자", "컨설턴트", "경영지원"};
+		   String design[]= {"그래픽디자이너", "웹디자이너", "일러스트레이터", "UI디자이너"};
+		   String marketing[]= {"광고기획자", "마케팅전략기획자", "키워드광고", "소셜마케터"};
+		   String production[]= {"생산직종사자", "제조엔지니어", "품질관리자", "반도체/디스플레이"};
+		   String trade[]= {"수출입사무", "유통관리자", "배송담당", "항공운송"};
+		   String service[]= {"MD", "CS어드바이저", "CS매니저", "텔레마케터"};
 		   
+		   if(match==null) {
+			   mv.addObject("selectJob",it);
+			   match="IT/인터넷";
+		   } else if(match.equals("IT/인터넷"))
+			   mv.addObject("selectJob",it);
+		   else if(match.equals("디자인"))
+			   mv.addObject("selectJob",design);
+		   else if(match.equals("경영/기획/컨설팅"))
+			   mv.addObject("selectJob",business);
+		   else if(match.equals("미디어/홍보/마케팅"))
+			   mv.addObject("selectJob",marketing);
+		   else if(match.equals("생산/제조"))
+			   mv.addObject("selectJob",production);
+		   else if(match.equals("유통/무역"))
+			   mv.addObject("selectJob",trade);
+		   else if(match.equals("서비스/고객지원"))
+			   mv.addObject("selectJob",service);
+		   
+		   mv.addObject("match",match);
+		   mv.addObject("jobGroup",jobGroup);
 		   mv.setViewName("/profile/jobGroup");
 		   return mv;
 	   }
+    
+    @PostMapping("/insertJobGroup")
+    public ModelAndView insertJobGroup(@ModelAttribute JobGroupDto dto) {
+    	ModelAndView mv=new ModelAndView();
+    	//처음 입력하는 것인지 알아보기(1이면 입력한 경우, 0이면 처음 입력하는 경우)
+    	int cnt= jmapper.searchIdOfJobGroup(dto.getId());
+    	
+    	if(cnt==0)//처음 입력하는 것일 경우 insert를 진행
+    		jmapper.insertJobOfJobGroup(dto);
+    	else if(cnt==1)//이미 입력을 한경우는 update를 진행
+    		jmapper.updateJobOfJobGroup(dto);
+    	
+    	
+    	mv.setViewName("redirect:profile");
+    	return mv;
+    }
 }
