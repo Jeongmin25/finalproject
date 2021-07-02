@@ -26,7 +26,7 @@
 	
 	<!-- 기업명 조회 -->
 	<select id="selectEmpname" resultType="review" parameterType="int">
-		select empname, good from review group by empname order by likes desc 
+		select empname, good from review group by empname order by writeday desc 
 		limit #{start},#{perpage};
 		
 	</select>
