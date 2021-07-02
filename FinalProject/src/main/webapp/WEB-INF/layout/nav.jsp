@@ -30,9 +30,9 @@
 					<li id="gc"><a >기업정보</a>
 						<div>
 							<ul class="info">
-								<li><a>기업 리뷰</a></li>
-								<li><a>직군별 연봉</a></li>
-								<li><a>최신뉴스</a></li>
+								<li><a href="review">기업 리뷰</a></li>
+								<li><a href="salary">직군별 연봉</a></li>
+								<li><a href="news">최신뉴스</a></li>
 							</ul>
 						</div></li>
 					<li id="gs"><a>Mypage</a>
