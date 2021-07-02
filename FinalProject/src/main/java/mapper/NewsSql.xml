@@ -31,5 +31,11 @@
 	<select id="getReadcount" parameterType="String" resultType="int">
 		select readcount from news where num=#{num}
 	</select>
+	
+	<!-- 기사 제목 검색 -->
+	<select id="searchNews" resultType="news" parameterType="String">
+		SELECT * FROM news WHERE title LIKE CONCAT('%',#{title},'%') 
+		order by writeday desc
+	</select>
 
 </mapper>
