@@ -23,7 +23,11 @@ public class JobController {
 		  PrincipalDetails principalDetails = (PrincipalDetails)authentication.getPrincipal(); 
 		  OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
 		  System.out.println(userDetails.getUser());
+		  //System.out.println(oauth.getName().toString());
+		  
+		  
 		  mv.addObject("auth",userDetails.getUsername());
+		  //mv.addObject("auth",oauth.getName().toString());
 		}
 		  mv.setViewName("layout");
 		return mv;
