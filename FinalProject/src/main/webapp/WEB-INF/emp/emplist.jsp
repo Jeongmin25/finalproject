@@ -25,11 +25,11 @@
 </c:if>
 
 
-<c:if test="${emailCheck>0}">
+<%-- <c:if test="${emailCheck>0}"> --%>
 	<div class="alert alert-warning">
 		<h2>총 ${emailCheck} 개 이메일이 있습니다</h2>
 	</div>
-</c:if>
+<%-- </c:if> --%>
 
 
 <h1></h1>

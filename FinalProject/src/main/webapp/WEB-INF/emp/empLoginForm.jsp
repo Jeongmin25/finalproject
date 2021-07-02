@@ -10,7 +10,7 @@
 </head>
 <body>
 <h3>관리자 계정 로그인</h3>
-<form action="/loginprocess" method="POST">
+<form action="/emploginprocess" method="POST">
 <!-- 	<input type="text" name="username" placeholder="Username"/> 
 	<br/><br/> -->
 	<input type="email" name="email" placeholder="Email"/>

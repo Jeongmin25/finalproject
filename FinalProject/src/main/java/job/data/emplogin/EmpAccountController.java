@@ -1,6 +1,9 @@
 package job.data.emplogin;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -18,12 +22,15 @@ public class EmpAccountController {
 	EmpAccountMapper mapper;
 	
 	@GetMapping("/emplist")
-	public ModelAndView emplist()
+	public ModelAndView emplist(@ModelAttribute EmpAccountDto dto)
 	{	
 		ModelAndView mv=new ModelAndView();
 		//총갯수
 		int totalCount=mapper.getTotalCountOfEmp();
+		int emailCheck=mapper.emailCheckOfEmp(dto.getEmail());
+		System.out.println("email:"+dto.getEmail());
 		mv.addObject("totalCount", totalCount);
+		mv.addObject("emailCheck", emailCheck);
 		mv.setViewName("/emp/emplist");
 		return mv;//  폴더명/파일명
 	}
@@ -40,32 +47,38 @@ public class EmpAccountController {
 		return "/emp/empJoinForm";
 	}
 	
-	//왜 이메일 카운트 안될까?
-	@ GetMapping("/emp/emailcheck")
-	public ModelAndView emailCheck(@RequestParam 
-			(value="email", required = false, defaultValue = "0") String email,
-			@RequestParam String password)
-	{
-		ModelAndView mv=new ModelAndView();
-		int count=mapper.emailCheckOfEmp(email,password);
-		mv.addObject("emailCheck", count);
-		mv.setViewName("/emp/emplist");
-		return mv;
-	}
+	
+	  //왜 이메일 카운트 안될까? //왜 안되지???왜왜왜애ㅙ
+	//이메일 값을 못받아오는거 같은데... db에서 못읽어오는건가?
+	  
+	
+	  @PostMapping("/emailcheck") 
+	  public ModelAndView emailCheck(@RequestParam
+	  String email) 
+	  { 
+		  ModelAndView mv=new ModelAndView(); //총갯수 int
+		  int emailCheck=mapper.emailCheckOfEmp(email); 
+		  System.out.println("email:"+email);
+		  mv.addObject("emailCheck", emailCheck); 
+		  mv.setViewName("/emp/emplist");
+		  return mv;// 폴더명/파일명 
+	  }
+	 
 	
 	@PostMapping("/insertemp") 
 	 public String insert(@ModelAttribute EmpAccountDto dto) 
 	 {
 		 mapper.insertOfEmp(dto);
-		 return "redirect:/"; 
+		 return "redirect:/";
 	 }
 	
 	
 	@PostMapping("/emploginprocess")
-	public String loginCheck(@RequestParam String email,
+	public String loginCheck(
+			@RequestParam String email,
 			@RequestParam String password, HttpSession session)
 	{
-		int n=mapper.emailCheckOfEmp(email, password);
+		int n=mapper.loginCheckOfEmp(email, password);
 		if(n==1) 
 		{
 			//세션저장(2개)
@@ -79,6 +92,16 @@ public class EmpAccountController {
 			//passfail.jsp로 포워드
 			return "/emp/passfail";
 		}
+	}
+	
+	
+	@GetMapping({"/emplogout"})
+	public String logout(HttpSession session)
+	{
+		session.removeAttribute("loginok");
+		session.removeAttribute("myemail");
+		return "layout";
+		
 	}
 
 }
