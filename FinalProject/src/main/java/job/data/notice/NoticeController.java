@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 
-import job.data.notice.NoticeDto;
 
 
 
@@ -44,7 +43,7 @@ public class NoticeController {
 		return mview;
 	}
 	
-	
+
 	
 	
 	@GetMapping("/admin2/adminnotice/addform")
@@ -95,7 +94,7 @@ public class NoticeController {
 		{
 			//목록에서 올경우에만 조회수 증가
 			if(key.equals("list"))
-				mapper.updateViewCount(num_n);
+				mapper.viewCount(num_n);
 			
 			//dto 가져와서 model 에 저장
 			
@@ -165,7 +164,48 @@ public class NoticeController {
 			{
 				mapper.deleteNotice(num_n);
 				return "redirect:list";
-			}	
+			}
+			
+			
+			//메인페이지 공지사항
+			@GetMapping("/notice")
+			public ModelAndView noticelist()
+			{
+				ModelAndView mview=new ModelAndView();
+				//총갯수
+				int totalCount=mapper.getTotalCount();
+				mview.addObject("totalCount",totalCount);
+				//목록 가져오기
+				List<NoticeDto> list=mapper.getAllDatas();
+				mview.addObject("list",list);
+				mview.setViewName("/notice/noticelist");
+				return mview;
+			}
+			
+			@GetMapping("/noticecontent")
+			public String noticedetail(Model model,
+					
+					@RequestParam String num_n,
+					@RequestParam(defaultValue = "no") String key)
+			{
+				//목록에서 올경우에만 조회수 증가
+				if(key.equals("list"))
+					mapper.viewCount(num_n);
+				
+				//dto 가져와서 model 에 저장
+				
+				NoticeDto dto=mapper.getData(num_n);
+				model.addAttribute("dto",dto);
+				
+				return "/notice/noticecontent";
+			}
+			
+			
+			
+			
+			
+			
+			
 	}
 
 	

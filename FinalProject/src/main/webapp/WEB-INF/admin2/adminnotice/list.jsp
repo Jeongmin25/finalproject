@@ -274,6 +274,7 @@ div.dataTables_filter {  /* 검색창 */
                                     		<td >${n.count}</td>
                                     		<td align="center">${dto.category}</td>
                                     		<td ><a href="contents?num_n=${dto.num_n}" style="color:black;">${dto.subject}
+                                    		</a></td>
                                   		
                                   		<%-- 
                                     	 	<td align="center" location.href='contents?num=${dto.num_n}'>${dto.subject}</td>	  --%>

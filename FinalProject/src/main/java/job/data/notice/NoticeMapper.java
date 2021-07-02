@@ -14,10 +14,10 @@ public interface NoticeMapper {
 	public List<NoticeDto> getAllDatas();
 	public void insertNotice(NoticeDto dto);
 	public NoticeDto getData(String num_n);
-	public int updateViewCount(String num_n);
+	public void viewCount(String num_n);
 	public List<NoticeDto> getPhotoDatas();
 	public void updateNotice(NoticeDto dto);
-	public void deleteNotice(String num);
+	public void deleteNotice(String num_n);
 
 
 }

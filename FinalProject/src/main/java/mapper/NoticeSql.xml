@@ -20,9 +20,9 @@
 <select id="getPhotoDatas" resultType="notice">
 		select * from notice where photo!='no' order by num_n desc
 	</select>	
-<update id="updateViewCount" parameterType="int">
+		<update id="viewCount" parameterType="String">
 		update notice set viewcount=viewcount+1 where num_n=#{num_n}
-	</update>		
+	</update>
 <update id="updateNotice" parameterType="notice">
 			update notice set category=#{category}, subject=#{subject},
 		writer=#{writer},content=#{content}
