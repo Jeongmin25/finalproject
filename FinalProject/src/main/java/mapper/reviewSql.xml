@@ -18,14 +18,17 @@
 		select * from review
 	</select>
 	
-	<!--  empname에 해당하는 데이터 출력-->
-	<select id="getReviewDataOfEmp" resultType="review" parameterType="String">
-		select * from review where empname=#{empname} order by writeday desc
+	<!--  empname에 해당하는 데이터 출력(3개씩 페이징처리)-->
+	<select id="getReviewDataOfEmp" resultType="review" parameterType="HashMap">
+		select * from review where empname=#{empname} order by writeday desc 
+		limit #{start},#{perpage};
 	</select>
 	
 	<!-- 기업명 조회 -->
 	<select id="selectEmpname" resultType="review" parameterType="int">
-		select empname, good from review group by empname order by likes desc limit #{start},#{perpage};	
+		select empname, good from review group by empname order by likes desc 
+		limit #{start},#{perpage};
+		
 	</select>
 	
 	<select id="selectEmpnameCount" resultType="int">
