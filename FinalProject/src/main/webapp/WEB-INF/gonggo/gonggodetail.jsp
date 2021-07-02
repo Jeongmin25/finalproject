@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,15 +20,25 @@ min-height: 400px;
 hr.seon{
 border: solid 2px gray;
 }
+div.one{
+ border: 2px solid #021B80;
+    border-radius: 20px 20px;
+    font-size: 1.2em;
+    color: gray;
+    width: 100px;
+    padding-left: 10px;
+}
 </style>
 </head>
 <body>
-<form class="detail form form-inline">
+<form action="#" class="gonggodetail">
 <div class="header">
 <img src="../gonggophoto/${dto.empimg}" class="emplogo"><br>
 <h2>${dto.jobgroup}</h2>
 <h3>${dto.empname}</h3>
-
+<c:forEach var="cdto" items="${cdto}">
+<div class="one">${cdto.tag}</div>
+</c:forEach>
 </div>
 <hr class="seon">
 <p>${dto.empcontent}<p><br>

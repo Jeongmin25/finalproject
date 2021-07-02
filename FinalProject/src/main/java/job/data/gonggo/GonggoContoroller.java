@@ -49,26 +49,24 @@ public class GonggoContoroller {
 	      return mview;
 	   }
 	   @GetMapping({"/gonggodetail"})
-	   public ModelAndView gonggo(@RequestParam String num)
+	   public ModelAndView gonggo(String num)
 	   {
 		   ModelAndView mview=new ModelAndView();
-		   CompanyDto dto=mapper.getData(num);
+		   	CompanyDto dto=new CompanyDto();
+			dto= mapper.getData(num);
 			mview.addObject("dto",dto);
 			
-			List<CategoryDto>category=dto.getCategory();
-			mview.addObject("category",category);
+			List<CategoryDto>cdto=dto.getCategory();
+			mview.addObject("cdto",cdto);
 			mview.addObject("num",dto.getNum());
-			
 			mview.setViewName("/gonggo/gonggodetail");
 			return mview;
 	   }
 	   
-	   @PostMapping("/detail")
-	   public CompanyDto getData(String num)
-	   {
-		   return mapper.getData(num);
-	   }
-
+		/*
+		 * @PostMapping("/detail") public CompanyDto getData(String num) { return
+		 * mapper.getData(num); }
+		 */
 	   @PostMapping("/insert")
 	   public String insertgonggo(
 			   @ModelAttribute CompanyDto dto,
@@ -87,23 +85,15 @@ public class GonggoContoroller {
 				 uploadFile.transferTo(new File(path+"\\"+fileName));
 				} catch(IllegalStateException | IOException e) { 
 					e.printStackTrace(); } 
+		   
 		   //db insert 
 			mapper.insertGonggo(dto);
 			int num=mapper.getInsertNum();
 			category.setNum(num);
 			
-			String ctg[]=category.getCtg().split(",",-1);
-			//String ctg_idx[]=category.getCtg_idx().split(",",-1);
-			String tag[]=category.getTag().split(",",-1);
-			//String tag_idx[]=category.getTag_idx().split(",",-1);
-			
-			for(int i=0; i<ctg.length; i++) {
-				category.setCtg(ctg[i]);
-				//category.setCtg_idx(ctg_idx[i]);
-				category.setTag(tag[i]);
-				//category.setTag_idx(tag_idx[i]);
+
 				mapper.insertCategory(category);
-			}
+			
 			return "redirect:gonggolist"; 
 	   }
 		
@@ -112,11 +102,8 @@ public class GonggoContoroller {
 	   {
 		   ModelAndView mview =new ModelAndView();
 		      //외국어 select 태그 배열값 보내기
-			   String lang [] = {"영어","중국어 북경어","중국어 광동어","일본어","한국어","독일어"
-					   ,"스페인어","프랑스어","네덜란드어","노르웨이어","덴마크어"};
-			   String level []= {"유창","비지니스회화","일상회화"};
-			   mview.addObject("lang",lang);
-			   mview.addObject("level",level);
+			   String cate [] = {"업계연봉수준","보상","출퇴근","식사/간식","기업문화"};
+			   mview.addObject("cate",cate);
 		      
 		      mview.setViewName("/gonggo/writegonggo");
 		      return mview;
