@@ -25,5 +25,8 @@ public interface newsMapper {
 	
 	//조회수 조회
 	public int getReadcount(String num);
+	
+	//기사 제목 검색
+	public List<newsDto> searchNews(String title);
 
 }

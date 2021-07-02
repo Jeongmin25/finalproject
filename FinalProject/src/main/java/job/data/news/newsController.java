@@ -1,11 +1,14 @@
 package job.data.news;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import job.data.review.reviewDto;
@@ -95,5 +98,17 @@ public class newsController {
 		mview.setViewName("/news/newsdetail");
 		return mview;
 	}
+	
+	@ResponseBody
+	@PostMapping("/searchNews")
+	public List<newsDto> searchNews(@RequestParam String title){
+		
+		//title이 들어간 news데이터 전체 출력
+		List<newsDto> list=mapper.searchNews(title);
+		System.out.println(list);
+		
+		return list;
+	}
+
 	
 }
