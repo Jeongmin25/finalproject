@@ -8,11 +8,16 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +26,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import job.data.JobMapper;
+import job.data.resume.ResumeDto;
+import job.data.resume.ResumeMapper;
+import job.data.userlogin.auth.PrincipalDetails;
+
 
 
 
@@ -28,6 +38,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class GonggoContoroller {
 	  @Autowired
 	  	CompanyMapper mapper;
+	  @Autowired
+	  	ResumeMapper rmapper;
+	  
 		String uploadName;//photo 폴더에 업로드 되는 실제 사진 파일명
 
 	   @GetMapping("/gonggolist")
@@ -49,15 +62,53 @@ public class GonggoContoroller {
 	      return mview;
 	   }
 	   @GetMapping({"/gonggodetail"})
-	   public ModelAndView gonggo(@RequestParam String num)
+	   public ModelAndView gonggo(
+			   Authentication authentication,
+			  @AuthenticationPrincipal PrincipalDetails userDetails,
+			  @AuthenticationPrincipal OAuth2User oauth,
+			   @RequestParam String num,String book)
 	   {
 		   ModelAndView mview=new ModelAndView();
 		   CompanyDto dto=mapper.getData(num);
 			mview.addObject("dto",dto);
 			
+			 PrincipalDetails principalDetails = (PrincipalDetails)
+			 authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+			 String id=Long.toString(userDetails.getUser().getId());
+			
 			List<CategoryDto>category=dto.getCategory();
 			mview.addObject("category",category);
 			mview.addObject("num",dto.getNum());
+			
+		
+			//이력서 목록 가져오기
+			List<ResumeDto> list=rmapper.getDataOfResume(id);
+			mview.addObject("list",list);
+			
+			//북마크 체크 여부
+			Map<String, String>map=new HashMap<String, String>();
+			map.put("id", id);
+			map.put("num", num);
+		
+			if(book!=null) {//북마크 값이 넘어온 경우
+				if(book.equals("yes")) {//북마크 값이 "yes"인 경우
+					//insert
+					mapper.insertBookmark(map);
+					mview.addObject("book","yes");
+				}else if(book.equals("no")) {//북마크 값이 "no"인 경우
+					//delete
+					mapper.deleteBookmark(map);
+					mview.addObject("book","no");
+				}
+			}else if(book==null) {//북마트 값이 넘어오지 않은 경우
+				int cnt = mapper.searchNum(map);
+			
+				if(cnt==0) {
+					mview.addObject("book","no");
+				}else if(cnt==1) {
+					mview.addObject("book","yes");
+				}
+			}
 			
 			mview.setViewName("/gonggo/gonggodetail");
 			return mview;

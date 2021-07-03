@@ -8,12 +8,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <style type="text/css">
-	div.change_pass_entire{
-		background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('image/company.png');
+	body{
 		background-repeat: no-repeat;
 		background-size: cover;
+		background-image:linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('image/company.png');
 		width: auto;
-		height: auto;
+		height: 855px;
 		margin: auto;
 		padding-bottom: 120px;
 		padding-top: 5px;
@@ -33,11 +33,11 @@
 		height: 200px;
 		border: 1px solid #ddd;
 		text-align: center;
-		margin-left: 370px;
-		margin-top: 200px;
 		background-color: white;
 		border-radius: 5px;
 		opacity: 0.8;
+		margin: auto;
+		margin-top: 15%;
 		}
 	
 	input.pw_input{

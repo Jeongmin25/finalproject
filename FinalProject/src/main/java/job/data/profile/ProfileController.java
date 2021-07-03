@@ -145,7 +145,7 @@ public class ProfileController {
     
     @GetMapping("/change_password")
     public String changePassword() {
-    	return "/profile/changePassword";
+    	return "profile/changePassword";
     }
         
     @PostMapping("/changePwAct")
