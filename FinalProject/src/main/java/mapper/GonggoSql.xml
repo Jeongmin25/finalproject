@@ -5,16 +5,16 @@
 		select * from company order by deadline desc 
 	</select>
 	
-	<resultMap type="company" id="copany-resultmap">
+	<resultMap type="company" id="company-selectmap">
 		<id property="num" column="NUM"/>
 		<collection property="category" ofType="category" column="num=NUM" javaType="list" select="getCtgData"/>
 	</resultMap>
 	
-	<select id="getData" parameterType="String" resultType="company">
+	<select id="getData" resultMap="company-selectmap">
 		select * from company where num=#{num}
 	</select>
-	<select id="getCtgData" parameterType="String" resultType="category">
-		select ctg as ,tag from company where num=#{num}
+	<select id="getCtgData" resultType="category">
+		select * from category where num=#{num}
 	</select>
 	<insert id="insertGonggo" parameterType="company">
 		insert into company (empname,job,jobgroup,empcontent,empimg,deadline,writeday) 
@@ -28,10 +28,14 @@
 		select LAST_INSERT_ID()
 	</select>
 	<delete id="deleteGonggo" parameterType="String">
-		delete from company where num=#{num}
+			set foreign_key_checks=0;
+			delete from company where num=#{num};
+			set foreign_key_checks = 1;
 	</delete>
 	<delete id="deleteCategory" parameterType="String">
-		delete from category where num=#{num}
+		set foreign_key_checks=0;
+		delete from category where num=#{num};
+		set foreign_key_checks = 1;
 	</delete>
 	
 	<update id="updateGonggo" parameterType="company">
