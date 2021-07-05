@@ -303,7 +303,11 @@ public class reviewController {
 	}
 	
 	
-	
+	@GetMapping("/deleteReview")
+	public String deleteReview(@RequestParam int num) {
+		mapper.deleteReview(num);
+		return "redirect:/addreview";
+	}
 	
 	
 }

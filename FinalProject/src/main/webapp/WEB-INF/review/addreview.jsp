@@ -75,23 +75,25 @@
 		<!-- 작성리뷰 출력 -->
 		<div class="mylist">
 		<c:forEach var="data" items="${list }" varStatus="n">
-			<table class="reviewtable table table" style="font-size: 1.3em;">
+			<table class="reviewtable table table" style="font-size: 1.3em;"
+			data-toggle="popover" title="${data.empname }" data-placement="bottom"
+			data-content="장점 : ${data.good } 단점 : ${data.bad}">
 				<tr>
 					<td width="70px;" align="center" style="height: 70px;">${n.count }</td>
-					<td width="500px;">${data.empname }</td>
+					<td width="500px;" >${data.empname }</td>
 					<td width="100px;" align="right">${data.prenow }</td>
 					<td width="100px;" align="right">
 						<fmt:formatDate value="${data.writeday}" pattern="MM-dd"/>
 					</td>
 					<td width="100px;" align="right">
-						<button type="button" class="btn btn-default" num="${data.num }">삭제</button>
+						<button type="button" class="delete btn btn-default" 
+							num="${data.num }" >삭제</button>
 					</td>
 				</tr>
 			</table>
 		</c:forEach>
 		</div>
-
-		
+	
   		<h3 href="#demo" class="alert alert-default" data-toggle="collapse"
   			style="height:100px; border: 1px solid #dcdcdc;
   			padding: 30px 70px 30px 180px;
@@ -287,5 +289,21 @@
 	</c:if>	
 	
 </body>
+<script>
 
+//팝오버 - 내용확인
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+
+//삭제버튼
+$(".delete").click(function() {
+	
+	var num=$(this).attr("num");
+	//alert(num);
+	
+	location.href="deleteReview?num="+num;
+	alert("삭제되었습니다.");
+});
+</script>
 </html>
