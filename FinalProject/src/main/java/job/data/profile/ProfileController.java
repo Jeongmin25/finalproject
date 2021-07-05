@@ -35,8 +35,8 @@ public class ProfileController {
 	UserAccountMapper umapper;
 	@Autowired
 	JobGroupMapper jmapper;
-	//@Autowired
-	//CompanyMapper cmapper;
+	@Autowired
+	CompanyMapper cmapper;
 	
 	@Autowired
 	private MailService mailService;
@@ -109,15 +109,15 @@ public class ProfileController {
 		PrincipalDetails principalDetails = (PrincipalDetails)
 		authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
 		String id=Long.toString(userDetails.getUser().getId());
-		//int apply_cnt= cmapper.getCountOfApply(id);
-		//int bookmark_cnt=cmapper.getCountOfBookmark(id);
+		int apply_cnt= cmapper.getCountOfApply(id);
+		int bookmark_cnt=cmapper.getCountOfBookmark(id);
 		
 		//북마크한 회사 정보 얻기
-		//List<CompanyDto>cdto =cmapper.getListOfCompany(id);
+		List<CompanyDto>cdto =cmapper.getListOfCompany(id);
 		
-		//mv.addObject("cdto",cdto);
-		//mv.addObject("apply_cnt",apply_cnt);
-		//mv.addObject("bookmark_cnt",bookmark_cnt);
+		mv.addObject("cdto",cdto);
+		mv.addObject("apply_cnt",apply_cnt);
+		mv.addObject("bookmark_cnt",bookmark_cnt);
 		
 		mv.setViewName("/profile/myjob");
 		return mv;
@@ -208,8 +208,8 @@ public class ProfileController {
     	 	PrincipalDetails principalDetails = (PrincipalDetails)
     		authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
     		String id=Long.toString(userDetails.getUser().getId());
-    		//List<CompanyDto>cdto=cmapper.getListOfCompany(id);
-    		//mv.addObject("cdto",cdto);
+    		List<CompanyDto>cdto=cmapper.getListOfCompany(id);
+    		mv.addObject("cdto",cdto);
     		
     		mv.setViewName("/profile/bookmark");
     	return mv;
