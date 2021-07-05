@@ -75,7 +75,7 @@ window.onload=function(){
 	<hr>
 	<input type="password" placeholder="6자리 이상 비밀번호" id="pw" class="pw_input" name="pass"><br>
 	<input type="password" placeholder="비밀번호 재입력" id="pw_ch" class="pw_input"><br>
-	<button type="submit" class="change_btn" id="change_btn">완료</button>
+	<button type="button" class="change_btn" id="change_btn" >완료</button>
 </div>
 </form>
 </div>

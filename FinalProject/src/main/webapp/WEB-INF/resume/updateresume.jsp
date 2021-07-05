@@ -10,9 +10,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <style type="text/css">
-body *{
-	margin-left: 20px;
-}
+	div.updateresume_entire{
+		width: auto;
+		margin: auto;
+	}
 	textarea.intro:focus{
 		outline: none;
 	}
@@ -21,7 +22,8 @@ body *{
 	}
 	
 	div.skill{
-		
+		height: auto;
+		padding-bottom: 50px;
 	}
 	
 	button.add{
@@ -561,6 +563,7 @@ document.addEventListener("click", function (e) {
 </script>
 </head>
 <body>
+<div class="updateresume_entire">
 <form action="updateresume?num_r=${rdto.num_r}" method="post">
 <br><br>
 <h5><sec:authentication property="principal.username"/></h5>
@@ -753,5 +756,6 @@ document.addEventListener("click", function (e) {
    <button type="submit" class="submit_resume" >작성 완료</button>
 </div>
 </form>
+</div>
 </body>
 </html>

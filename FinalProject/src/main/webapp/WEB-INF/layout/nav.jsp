@@ -40,6 +40,7 @@
 							<ul class="Mypage">
 								<li><a href="myjob">My +JOB</a></li>
 								<li><a href="profile">프로필</a></li>
+								<li><a href="bookmark">북마크</a></li>
 								<li><a href="resumelist">이력서</a></li>
 							</ul>
 						</div></li>

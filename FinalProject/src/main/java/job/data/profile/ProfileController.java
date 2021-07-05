@@ -154,9 +154,12 @@ public class ProfileController {
 
 
     @PostMapping("/send")
-    public String sendTestMail(@ModelAttribute MailDto mailDto) {
+    public ModelAndView sendTestMail(@ModelAttribute MailDto mailDto) {
     	mailService.mailSend(mailDto);
-    	return "layout";
+    	ModelAndView mv = new ModelAndView();
+    	mv.addObject("type","changePassword");
+    	mv.setViewName("redirect:acntMngmn");
+    	return mv;
     }
     
     @GetMapping("/mail")
@@ -186,7 +189,7 @@ public class ProfileController {
 		 map.put("user_id", user_id);
 		 map.put("password", password);
 		 umapper.updatePasswordOfuser(map);
-    	return "redirect:layout";
+    	return "layout";
     }
     
     @PostMapping("/updateUser")

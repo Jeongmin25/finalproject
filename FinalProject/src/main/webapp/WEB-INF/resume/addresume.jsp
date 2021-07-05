@@ -12,16 +12,16 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
 <style type="text/css">
-	body *{
-		margin-left: 20px;
+	div.addresume_entire{
+		width: auto;
+		margin: auto;
 	}
-	
-
 	textarea.intro:focus{
 		outline: none;
 	}
 	div.explanation{
-		background-color: #F3F9FE
+		background-color: #F3F9FE;
+		width: 800px;
 	}
 	div.carer{
 		min-width: 920px;
@@ -577,6 +577,7 @@ document.addEventListener("click", function (e) {
 </script>
 </head>
 <body>
+<div class="addresume_entire">
 <form action="insertresume" method="post">
 <c:set var="user_id"><sec:authentication property="principal.user.id"/></c:set>
 <input type="hidden" name="user_id" value="${user_id }">
@@ -736,5 +737,6 @@ document.addEventListener("click", function (e) {
    <button type="submit" class="submit_resume" >작성 완료</button>
 </div>
 </form>
+</div>
 </body>
 </html>
