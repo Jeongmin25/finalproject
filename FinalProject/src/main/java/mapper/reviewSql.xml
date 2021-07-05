@@ -4,8 +4,17 @@
 	<select id="getTotalCount" resultType="int" parameterType="String">
 		select count(*) from review where email='${email}'
 	</select>
-
 	
+	<!-- 총 리뷰 개수 -->
+	<select id="TotalCount" resultType="int">
+		select count(*) from review
+	</select>
+	
+	<!-- 검색 리뷰 개수 -->
+	<select id="TotalCountOfSearch" resultType="int" parameterType="String">
+		SELECT count(distinct empname) FROM review WHERE empname like CONCAT('%',#{empname},'%')
+	</select>
+
 	<!-- review테이블 데이터 추가 -->
 	<insert id="insertReview" parameterType="review">
 		insert into review (email,empname,prenow,job_group,good,bad,rating,
