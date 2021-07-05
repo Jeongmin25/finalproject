@@ -27,8 +27,8 @@ public class AdminHomeController {
 		}
 	 
 		
-		@PostMapping("/admin2/adminloginprocess")
-		public String loginCheck(@RequestParam String adminid,
+		@PostMapping("/admin2/loginprocess")
+		public String loginCheckOfAdmin(@RequestParam String adminid,
 				@RequestParam String adminpass,HttpSession session)
 		{
 			int n=mapper.loginCheckOfAdmin(adminid, adminpass);
