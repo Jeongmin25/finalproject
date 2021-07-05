@@ -41,4 +41,9 @@
 	<update id="updateUser" parameterType="user">
 		update user_account set username=#{username}, email=#{email}, hp=#{hp} where id=#{id}
 	</update>
+	
+		<!-- 관리자페이지에 출력--> 
+	<select id="getAllUserAccount" resultType="user">
+		select * from user_account order by id  desc
+	</select>
 </mapper>

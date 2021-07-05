@@ -1,6 +1,12 @@
 package job.data.userlogin;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,9 +18,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import job.data.userlogin.auth.PrincipalDetails;
+
+
 
 @Controller
 public class IndexController {
@@ -90,8 +100,50 @@ public class IndexController {
 		return "redirect:/"; //조인할때 실제로 회원가입 시킨다
 	}
 	
+	
+	
+	//관리자페이지 출력//
+	@GetMapping({"/admin2/adminmember/list"})
+	public ModelAndView list()
+	
+	{	ModelAndView mview=new ModelAndView();
+		
+		int totalCount=mapper.getTotalCountOfUserAccount();
+		mview.addObject("totalCount",totalCount);
+		//목록 가져오기
+		List<UserAccountDto> list=mapper.getAllUserAccount();		
+		mview.addObject("list",list);
+		mview.setViewName("/admin2/adminmember/list");
+		return mview;
+	}
+	
+	@GetMapping("/admin2/adminmember/addform")
+	public String addform() {
+		return "/admin2/adminmember/addform";  
+	}
 
 
+	@GetMapping("/admin2/adminmember/delete")
+	public String delete(@RequestParam String id)
+	{
+		mapper.deleteUserAccount(id);
+		return "redirect:list";
+	}
+	
+	@PostMapping("/admin2/adminmember/insert") 
+	public String insert(@ModelAttribute UserAccountDto dto)
+	{
+		mapper.insertUserAccount(dto);
+		return "redirect:list";
+	}
+	
+	//관리자페이지 출력//
+
+		
+	
+	
+	
+	
 	///----------여기는 그냥 연습용. 어드민 페이지 관리하는 사람쓰고 싶으면 쓸수있게.
 	
 	@Secured("ROLE_ADMIN") //매핑주소의 권한을 하나만 걸고싶을때는 @Secured를 사용

@@ -1,6 +1,7 @@
 package job.data.userlogin;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -25,5 +26,8 @@ public interface UserAccountMapper {
 	public void deleteUserAccount(String id);
 	public void updatePasswordOfuser(Map<String, String>map);
 	public void updateUser(UserAccountDto dto);
+	
+	/* 관리자페이지에 출력 */
+	public List<UserAccountDto> getAllUserAccount();
 
 }
