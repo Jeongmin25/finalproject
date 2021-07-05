@@ -41,4 +41,32 @@
 	<update id="updateGonggo" parameterType="company">
 		update company set job=#{job},jobgroup=#{jobgroup},empcontent=#{empcontent},empimg=#{empimg},deadline=STR_TO_DATE(#{deadline},'%Y-%m-%d') where num=#{num}
 	</update>
+	
+		<!-- bookmark -->
+	<select id="searchNum" parameterType="Hashmap" resultType="int">
+		select count(*) from bookmark where id=#{id} and num=#{num}
+	</select>
+	<insert id="insertBookmark" parameterType="Hashmap">
+		insert into bookmark (id,num) values (#{id},#{num})
+	</insert>
+	<delete id="deleteBookmark" parameterType="Hashmap">
+		delete from bookmark where id=#{id} and num=#{num}
+	</delete>
+	<select id="getCountOfBookmark" parameterType="String" resultType="int">
+		select count(*) from bookmark where id=#{id}
+	</select>
+	<select id="getListOfCompany" parameterType="String" resultType="company">
+		select bookmark.id,company.num,company.empname,company.jobgroup,company.empimg 
+		from company inner join bookmark
+		on company.num = bookmark.num
+		where id=#{id}
+	</select>
+	
+	<!-- apply -->
+	<insert id="insertApply" parameterType="apply">
+		insert into apply (id,num,num_r) values (#{id},#{num},#{num_r})
+	</insert>
+	<select id="getCountOfApply" parameterType="String" resultType="int">
+		select count(*) from apply where id=#{id}
+	</select>
 </mapper>
