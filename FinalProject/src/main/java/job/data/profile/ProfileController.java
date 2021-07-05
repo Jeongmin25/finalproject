@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import job.data.gonggo.CompanyDto;
+import job.data.gonggo.CompanyMapper;
 import job.data.resume.CarerDto;
 import job.data.resume.EducationDto;
 import job.data.resume.ResumeDto;
@@ -33,6 +35,8 @@ public class ProfileController {
 	UserAccountMapper umapper;
 	@Autowired
 	JobGroupMapper jmapper;
+	//@Autowired
+	//CompanyMapper cmapper;
 	
 	@Autowired
 	private MailService mailService;
@@ -95,8 +99,25 @@ public class ProfileController {
 	}
 	
 	@GetMapping("/myjob")
-	public ModelAndView myjob() {
+	public ModelAndView myjob(
+	Authentication authentication,
+	@AuthenticationPrincipal PrincipalDetails userDetails,
+	@AuthenticationPrincipal OAuth2User oauth
+	) {
 		ModelAndView mv = new ModelAndView();
+		//지원한 개수, 북마크한 개수 구하기
+		PrincipalDetails principalDetails = (PrincipalDetails)
+		authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+		String id=Long.toString(userDetails.getUser().getId());
+		//int apply_cnt= cmapper.getCountOfApply(id);
+		//int bookmark_cnt=cmapper.getCountOfBookmark(id);
+		
+		//북마크한 회사 정보 얻기
+		//List<CompanyDto>cdto =cmapper.getListOfCompany(id);
+		
+		//mv.addObject("cdto",cdto);
+		//mv.addObject("apply_cnt",apply_cnt);
+		//mv.addObject("bookmark_cnt",bookmark_cnt);
 		
 		mv.setViewName("/profile/myjob");
 		return mv;
@@ -177,8 +198,21 @@ public class ProfileController {
     }
     
     @GetMapping("/bookmark")
-    public String bookmark() {
-    	return "/bookmark/bookmark";
+    public ModelAndView bookmark(
+    		Authentication authentication,
+ 			@AuthenticationPrincipal PrincipalDetails userDetails,
+ 			@AuthenticationPrincipal OAuth2User oauth
+    		) {
+    		ModelAndView mv=new ModelAndView();
+    		//북마크한 기업 보내기
+    	 	PrincipalDetails principalDetails = (PrincipalDetails)
+    		authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+    		String id=Long.toString(userDetails.getUser().getId());
+    		//List<CompanyDto>cdto=cmapper.getListOfCompany(id);
+    		//mv.addObject("cdto",cdto);
+    		
+    		mv.setViewName("/profile/bookmark");
+    	return mv;
     }
     
     @GetMapping("/jobGroup")

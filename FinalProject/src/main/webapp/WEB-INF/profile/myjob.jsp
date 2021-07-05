@@ -86,6 +86,20 @@
 		color: blue;
 		cursor: pointer;
 	}
+	header.bookmark_bookmarkul_header{
+		background-image: url('image/company.png');
+		width: 100px;
+		height: 100px;
+		min-width: 100px;
+		min-height: 100px;
+		margin-right: 15px;
+		max-height: 100px;
+		max-width: 100px;
+		background-size: cover;
+	}
+	h5.myjob_bookmark_gobk:hover {
+		color:  #258bf7;
+	}
 </style>
 <script type="text/javascript">
 	function selresume(val){
@@ -114,7 +128,7 @@
 			<h4>지원 현황</h4>
 		</div>
 		<div style="text-align: center;">
-			<span style="font-size: 2em;">0</span>
+			<span style="font-size: 2em;">${apply_cnt }</span>
 			<h5>지원 완료</h5>
 		</div>
 	</div>
@@ -123,9 +137,28 @@
 			<h4>북마크</h4>
 		</div>
 		<div style="text-align: right;margin-right: 10px;color: #021B80;cursor: pointer;">
-			<h5>총 개 전체보기></h5>
+			<h5 onclick="location.href='bookmark'" class="myjob_bookmark_gobk">총 ${bookmark_cnt }개 전체보기></h5>
 		</div>
-		<h3>총 4개만 띄울 것</h3>
+		<br>
+		<div style="margin: auto;">
+			<ul class="bookmark_ul">
+				<c:forEach var="cdto" items="${cdto }" varStatus="n">
+					<c:if test="${n.index<4 }">
+						<li>
+							<a href="gonggodetail?num=${cdto.num }">
+								<div style="float: left;">
+									<header class="bookmark_bookmarkul_header"></header>
+									<div>
+										<h5 style="color: black;">${cdto.jobgroup }</h5>
+										<h6 style="color: gray;">${cdto.empname }</h6>
+									</div>
+								</div>
+							</a>
+						</li>
+					</c:if>
+				</c:forEach>
+			</ul>
+		</div>
 	</div>
 </div>
 </body>

@@ -11,6 +11,12 @@ public interface reviewMapper {
 	//email별 리뷰 총 개수 반환
 	public int getTotalCount(String email);
 	
+	//총 리뷰 개수
+	public int TotalCount();
+	
+	//검색 리뷰 개수
+	public int TotalCountOfSearch(String empname);
+	
 	//review테이블 데이터 추가
 	public void insertReview(reviewDto dto);
 	
@@ -67,5 +73,8 @@ public interface reviewMapper {
 
 	//my기업리뷰 email로 작성한 리뷰 출력
 	public List<reviewDto> myreviewOfEmail(String email);
+	
+	//my기업리뷰 삭제
+	public void deleteReview(int num);
 
 }
