@@ -2,6 +2,7 @@ package job.data.gonggo;
 
 
 
+import java.awt.color.CMMException;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -109,6 +110,9 @@ public class GonggoContoroller {
 				}
 			}
 			
+			//지원여부 체크
+			int apply_cnt=mapper.checkApply(map);
+			mview.addObject("apply_cnt",apply_cnt);
 
 			mview.setViewName("/gonggo/gonggodetail");
 			return mview;

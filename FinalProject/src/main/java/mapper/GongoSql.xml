@@ -56,7 +56,7 @@
 		select count(*) from bookmark where id=#{id}
 	</select>
 	<select id="getListOfCompany" parameterType="String" resultType="company">
-		select bookmark.id,company.num,company.empname,company.jobgroup,company.empimg 
+		select bookmark.id,company.num,company.empname,company.jobgroup,company.empcontent,company.empimg 
 		from company inner join bookmark
 		on company.num = bookmark.num
 		where id=#{id}
@@ -68,5 +68,8 @@
 	</insert>
 	<select id="getCountOfApply" parameterType="String" resultType="int">
 		select count(*) from apply where id=#{id}
+	</select>
+	<select id="checkApply" parameterType="Hashmap" resultType="int">
+		select count(*) from bookmark where id=#{id} and num=#{num}
 	</select>
 </mapper>

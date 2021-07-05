@@ -35,4 +35,6 @@ public interface CompanyMapper {
 	public void insertApply(ApplyDto dto);
 	//apply 개수
 	public int getCountOfApply(String id);
+	//apply여부
+	public int checkApply(Map<String, String>map);
 }

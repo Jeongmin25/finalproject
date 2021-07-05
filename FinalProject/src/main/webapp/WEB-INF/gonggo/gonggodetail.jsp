@@ -44,6 +44,8 @@ button.bookmark_btn{
 		height: 40px;
 		line-height: 30px;
 		border: 1px solid #021B80;
+		margin-top: 50px;
+		margin-bottom: 10px;
 	}
 	button.apply_btn{
 		background-color: #021B80;
@@ -54,30 +56,44 @@ button.bookmark_btn{
 		line-height: 30px;
 		border: 1px solid #021B80;
 	}
+	button.apply_complete_btn{
+		background-color: #bbb;
+		color: #F2F2F2;
+		border-radius: 20px;
+		width: 160px;
+		height: 40px;
+		line-height: 30px;
+		border: 1px solid #bbb;
+		cursor: default;
+	}
 	div.bookmarkBox{
-		border: 1px solid gray;
+		border: 1px solid #ccc;
 		width: 300px;
 		height: 200px;
 		text-align: center;
 		position: relative;
+		border-radius: 5px;
 	}
 	aside.bookmarkBox{
 		position: absolute;
 		left: 1000px;
 		top: 200px;
 		float: left;
-		border: 1px solid gray;
+		border: 0px solid gray;
 	}
 	div.apply_info_box{
 		position: absolute;
 		width: 300px;
 		height: auto;
 		min-height: 200px;
-		border: 1px solid gray;
+		border: 1px solid #ccc;
 		z-index: 100;
 		top: 0px;
 		display: none;
 		background-color: white;
+		border-radius: 5px;
+		overflow-y: scroll;
+		padding-left: 5px;
 	}
 	div.apply_resumelist{
 		border: 1px solid #ccc;
@@ -87,11 +103,14 @@ button.bookmark_btn{
 	    padding-left: 5px;
 	    padding-right: 5px;
 	    margin-right: 5px;
-	    margin-left: 50px;
+	    margin-left: 40px;
 	    cursor: pointer;
 	    margin-bottom: 10px;
 	    text-align: center;
 	    line-height: 40px;
+	}
+	div.apply_resumelist:hover{
+		border: 1px solid #36f;
 	}
 	#apply_resume_submit{
 		background-color: white;
@@ -112,7 +131,10 @@ button.bookmark_btn{
 		height: 40px;
 		line-height: 30px;
 		border: 1px solid #ccc;
-		margin-left: 45px;
+		margin-left: 35px;
+	}
+	button.add_new_resume:hover{
+		border: 1px solid #36f;
 	}
 	span.apply_box_backbtn{
 		color: #aaa;
@@ -147,6 +169,10 @@ window.onload=function(){
 	var list=document.querySelectorAll("#apply_resumelist");
 	for(var i=0;list.length;i++){
 		list[i].onclick=function(){
+			var numr_cnt=document.querySelectorAll("#num_r");
+			console.log(numr_cnt.length);
+			if(numr_cnt.length==1)
+				
 			if(this.getAttribute("name")!="num_r"){
 				this.setAttribute("name","num_r");
 				
@@ -156,6 +182,7 @@ window.onload=function(){
 				input.setAttribute("value",num_r);
 				input.setAttribute("name","num_r");
 				input.setAttribute("type","hidden");
+				input.setAttribute("id","num_r");
 				this.appendChild(input);
 				
 				this.style.border="2px solid #258bf7";
@@ -204,9 +231,16 @@ function submit2(frm){
 </button>
 </c:if>
 <br>
+<c:if test="${apply_cnt==0 }">
 <button type="button" class="apply_btn" id="apply_btn">
 	지원하기
 </button>
+</c:if>
+<c:if test="${apply_cnt!=0 }">
+<button type="button" class="apply_complete_btn">
+	지원완료
+</button>
+</c:if>
 </div>
 <div class="apply_info_box" id="appy_info_box">
 <header>
@@ -217,16 +251,16 @@ function submit2(frm){
 <table class="apply">
 	<caption><b>지원정보</b></caption>
 	<tr>
-		<th>이름</th>
-		<th><sec:authentication property="principal.username"/></th>
+		<th style="width: 70px;height: 30px;">이름</th>
+		<th style="border-bottom: 1px solid #ccc;"><sec:authentication property="principal.username"/></th>
 	</tr>
 	<tr>
-		<th>이메일</th>
-		<th><sec:authentication property="principal.user.email"/></th>
+		<th style="width: 70px;height: 30px;">이메일</th>
+		<th style="border-bottom: 1px solid #ccc;"><sec:authentication property="principal.user.email"/></th>
 	</tr>
 	<tr>
-		<th>연락처</th>
-		<th><sec:authentication property="principal.user.hp"/></th>
+		<th style="width: 70px;height: 30px;">연락처</th>
+		<th style="border-bottom: 1px solid #ccc;"><sec:authentication property="principal.user.hp"/></th>
 	</tr>
 </table>
 <br>
