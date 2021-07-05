@@ -25,7 +25,7 @@
 				<ul class="navcategory">
 					<li id="gg"><a>채용공고</a>
 					</li>
-					<li id="ch"><a>추천공고</a>
+					<li id="ch"><a href="recommend">추천공고</a>
 					</li>
 					<li id="gc"><a >기업정보</a>
 						<div>
