@@ -11,41 +11,56 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
-	div.choice{
-		width: 700px;
-		padding: 20px 20px 20px 20px;
+	
+	div.chart{
+		position:absolute;
+		margin-left: 50px;
+		width: 800px; 
+		height: 500px;
+	}
+	
+	div.cate_job{
+		position:absolute;
+		top:700px;
+		margin-left: 50px;
+		width: 800px; 
+		height: 30px;
+	}	
+	
+	div.detail{
+		position:absolute;
+		left:1250px;
+		top:300px;
+		width: 300px;
+		height: 150px;
+	}
+	
+	div.salary{
+		position:absolute;
+		top:800px;
+		width: 250px;
 		float: left;
 	}
 	
-	div.detailjob, div.detailjobgroup, div.detailcareer{
-		float: left;
+	div.choice{
+		position:absolute;
+		left:1250px;
+		top:440px;
+		width: 240px;
+		height: 150px;
+	}
+	
+	span.detailjob, span.detailjobgroup, span.detailcareer{
 		height: 50px;
 		border: 1px solid #021B80;
 		background-color: #021B80;
 		border-radius: 20px;
 		color: white;
 		padding: 10px 10px 10px 10px;
-		font-size: 1.3em;
-		margin-left: 10px;
-	}
-	
-	div.detailjob{
-		width: 200px;
+		font-size: 1.3em;	
 	}
 
-	div.detailjobgroup{
-		width: 180px;
-	}
-	
-	div.detailcareer{
-		width: 50px;
-	}
-	
-	div.detail{
-		width: 700px;
-		padding: 30px 30px 30px 30px;
-		height: 100px;
-	}
+
 </style>
 </head>
 <body>
@@ -57,12 +72,12 @@
 	</c:forEach>
 	
 	<!-- chart -->
-	<div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+	<div id="columnchart_material" class="chart"></div>
+	
 	
 	<!-- select -->
 	<div class="cate_job">
-		<select name="job" id="job" class="form-inline" style="width: 200px; height: 30px;"
-			onchange="selectjob(this)">
+		<select name="job" id="job" class="form-inline" style="width: 150px; height: 30px;" onchange="selectjob(this)">
 			<option >직군</option>
 			<option value="IT/인터넷" selected="selected">IT/인터넷</option>
 			<option value="경영/기획/컨설팅">경영/기획/컨설팅</option>
@@ -73,11 +88,15 @@
 			<option value="서비스/고객지원">서비스/고객지원</option>
 		</select>
 		&nbsp;
-		<select name="jobgroup" id="jobgroup" class="form-inline" style="width: 200px; height: 30px;">
+		<select name="jobgroup" id="jobgroup" class="form-inline" style="width: 150px; height: 30px;">
 			<option>직무</option>
+			<option selected="selected" value="웹개발자">웹개발자</option>
+			<option value="프론트엔드개발자">프론트엔드개발자</option>
+			<option value="Node.js개발자">Node.js개발자</option>
+			<option value="빅데이터엔지니어">빅데이터엔지니어</option>
 		</select>
 		&nbsp;
-		<select name="career" id="career" class="form-inline" style="width: 200px; height: 30px;"
+		<select name="career" id="career" class="form-inline" style="width: 150px; height: 30px;"
 			onchange="detail(this)">
 			<option value="0" selected="selected">신입</option>
 			<option value="1">1년</option>
@@ -92,20 +111,18 @@
 			<option value="10">10년</option>
 		</select>
 		&nbsp;
-		<button type="button" class="searchbtn btn btn-default">검색</button>
-	</div>
-	
-	<div class="detail"></div>
-	
-	<div>
-		<br>
-		<h3>연봉 비교하기</h3>
 		<input type="text" name="sal" id="sal" placeholder="연봉을 입력하세요."
 			style="width: 150px; height: 30px;">
 		&nbsp;
 		<button type="button" class="searchsal btn btn-default">검색</button>	
 	</div>
 	
+	<!-- 선택 값 출력 div -->
+	<div class="detail">
+		<span class='detailjob'>IT/인터넷</span><br><br>
+		<span class='detailjobgroup'>웹개발자</span><br><br>
+		<span class='detailcareer'>0년차</span><br><br>
+	</div>
 	<div class="choice"></div>
 </body>
 
@@ -187,16 +204,85 @@ function drawChart() {
 
 	  chart.draw(data, google.charts.Bar.convertOptions(options));
 }
+
+</script>
+<script type="text/javascript">
+
+//연봉검색 버튼 클릭 이벤트
+$(".searchsal").click(function() {
+	//입력한 연봉 값
+	var sal=$("#sal").val();
+	console.log(sal);
 	
+	if(sal=="" || sal==null){
+		alert("연봉을 입력해주세요");
+		return;
+	}
 	
-//검색 버튼 클릭 이벤트
-$(".searchbtn").click(function(){
+	//직군,직무,연차
 	var job=$("#job").val();
 	var jobgroup=$("#jobgroup").val();
 	var career=$("#career").val();
-
 	
-	//alert(job+", "+jobgroup+", "+career);
+	//alert(job+", "+jobgroup+", "+career+", "+sal);
+	
+	$.ajax({
+		type : "post",  
+        url : "/searchsal",        
+        data : "job="+job+"&jobgroup="+jobgroup+"&career="+career,
+        dataType: 'json',
+        
+        error : function(){
+            alert("통신 에러","error","확인",function(){});
+        },
+        
+        success : function(item) {
+        	
+        	//연봉대비 입력연봉 계산
+        	var money = ((sal-item)/item)*100;
+        	
+        	//계산값이 0보다 큼
+        	if(money>0){
+        		var m = Math.abs(money);
+        		var text="높음";
+        	}
+        	//계산값이 0보다 작음
+        	if(money<0){
+        		var m = Math.abs(money);
+        		var text="낮음";
+        	}
+        	//계산값 : 0
+        	if(money=0){
+        		var m = Math.abs(money);
+        		var text="적정";
+        	}
+        	
+        	//소수점 삭제(정수형)
+        	var s = m.toFixed();
+        	
+        	var print="<h2>*예상 연봉("+item+") 대비 "+s+"% "+text+"</h2>";
+
+        	$("div.choice").html(print);
+        	console.log(s+text);
+        }
+	})
+	
+	
+});
+
+
+//select onchange 이벤트
+function detail(e) {
+	//직군,직무,연차
+	var job=$("#job").val();
+	var jobgroup=$("#jobgroup").val();
+	var career=$("#career").val();
+	
+	var print="";
+	print+="<span class='detailjob'>"+job+"</span><br><br>";
+	print+="<span class='detailjobgroup'>"+jobgroup+"</span><br><br>";
+	print+="<span class='detailcareer'>"+career+"년차</span><br><br>";
+	$("div.detail").html(print);
 	
     $.ajax({
         type : "post",  
@@ -250,81 +336,7 @@ $(".searchbtn").click(function(){
         }
         
         
-    });
-
-});
-</script>
-<script type="text/javascript">
-
-//연봉검색 버튼 클릭 이벤트
-$(".searchsal").click(function() {
-	//입력한 연봉 값
-	var sal=$("#sal").val();
-	
-	//직군,직무,연차
-	var job=$("#job").val();
-	var jobgroup=$("#jobgroup").val();
-	var career=$("#career").val();
-	
-	//alert(job+", "+jobgroup+", "+career+", "+sal);
-	
-	$.ajax({
-		type : "post",  
-        url : "/searchsal",        
-        data : "job="+job+"&jobgroup="+jobgroup+"&career="+career,
-        dataType: 'json',
-        
-        error : function(){
-            alert("통신 에러","error","확인",function(){});
-        },
-        
-        success : function(item) {
-        	
-        	//연봉대비 입력연봉 계산
-        	var money = ((sal-item)/item)*100;
-        	
-        	//계산값이 0보다 큼
-        	if(money>0){
-        		var m = Math.abs(money);
-        		var text="높음";
-        	}
-        	//계산값이 0보다 작음
-        	if(money<0){
-        		var m = Math.abs(money);
-        		var text="낮음";
-        	}
-        	//계산값 : 0
-        	if(money=0){
-        		var m = Math.abs(money);
-        		var text="적정";
-        	}
-        	
-        	//소수점 삭제(정수형)
-        	var s = m.toFixed();
-        	
-        	var print="<h3>입력하신 연봉"+sal+"만원은 예상 연봉("+item+") 대비 "+s+"% "+text+"</h3>";
-
-        	$("div.choice").html(print);
-        	console.log(s+text);
-        }
-	})
-	
-	
-});
-
-
-//select onchange 이벤트
-function detail(e) {
-	//직군,직무,연차
-	var job=$("#job").val();
-	var jobgroup=$("#jobgroup").val();
-	var career=$("#career").val();
-	
-	var print="";
-	print+="<div class='detailjob'>"+job+"</div>";
-	print+="<div class='detailjobgroup'>"+jobgroup+"</div>";
-	print+="<div class='detailcareer'>"+career+"</div>";
-	$("div.detail").html(print);
+    });	
 }
 </script>
 </html>
