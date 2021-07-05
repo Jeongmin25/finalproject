@@ -62,7 +62,7 @@
                                     </div>
                                     
                                     
-                                    <form class="user" action="adminloginprocess" method="post">
+                                    <form class="user" action="loginprocess" method="post">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="exampleInputId" style="font-size: 1.3em;"
