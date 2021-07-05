@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,30 @@
 .btn {
 width: 120px; 
 background-color: #021B80;
+border: none;
+}
+div.output1{
+	border: 2px solid #021B80;
+    border-radius: 20px 20px;
+    font-size: 1.2em;
+    color: gray;
+    max-width: 200px;
+    width: 100px;
+    padding-left: 10px;
+}
+div.output2{
+	border: 2px solid #021B80;
+    border-radius: 20px 20px;
+    font-size: 1.2em;
+    color: gray;
+    max-width: 200px;
+    width: 100px;
+    padding-left: 10px;
+}
+#ctg{
+border: none;
+}
+#tag{
 border: none;
 }
 </style>
@@ -42,7 +67,40 @@ border: none;
 <br><h3>회사 로고</h3>
 <input type="file" name="upload" class="form-control">&nbsp;&nbsp;
 <img src="../gonggophoto/${dto.empimg}" style="width: 200px;">
-
+<div class="category">
+<h3>태그</h3>
+<table id="seltag" >
+	<tr>
+		<td>
+			<select style="width: 200px; height: 35px;" name="cctg" id="cctg" class="sel form-control" 
+			onchange="selectctg(this.value)">
+				<option selected="selected">카테고리</option>
+					<option value="보상">보상</option>
+					<option value="출퇴근">출퇴근</option>
+					<option value="식사/간식">식사/간식</option>
+					<option value="기업문화">기업문화</option>
+					
+			</select>
+			<select style="width: 200px; height: 35px;" name="hashtag" id="hashtag" 
+			class="sel form-control" onchange="selecttag(this.value)">
+				<option selected="selected">해시태그</option>
+			</select>
+			<!-- <button type="button" class="add" id="btnaddctg">+ 추가</button>-->
+			<div id="output1">
+			<c:forEach var="category" items="${category}">
+			<div class="form-control"><input type="text" name="ctg" id="ctg" value="${category.ctg}"> <span class="remove1 glyphicon glyphicon-remove"></span></div>
+			</c:forEach>
+			</div>
+			<div id="output2">
+			<c:forEach var="category" items="${category}">
+			<div class="form-control"><input type="text" name="tag" id="tag" value="${category.tag}"> <span class="remove1 glyphicon glyphicon-remove"></span></div>
+			</c:forEach>
+			</div>
+		</td>
+	</tr>
+</table>
+</div>
+<br><br>
 <h3>공고 내용</h3>
 <textarea rows="20" cols="100" class="form-control" name="empcontent" >${dto.empcontent}</textarea>
 
@@ -85,5 +143,63 @@ function selectjob(e) {
         target.appendChild(opt);
     }   
 }
+function selectctg(c) {
+	
+	var ipt = document.createElement("input");
+	ipt.setAttribute("type","text");
+	ipt.setAttribute("class","form-control");
+	ipt.setAttribute("name","ctg");
+	ipt.setAttribute("id","ctg");
+	ipt.setAttribute("value",c);
+	var space= document.getElementById("output1");
+	var spanx=document.createElement("span");
+	spanx.setAttribute("class","remove glyphicon glyphicon-remove");
+	space.appendChild(ipt);
+	space.appendChild(spanx);	
+	
+    var pay = ["연봉업계평균이상","연봉상위1%","연봉상위2~5%","연봉상위6~10%","연봉상위11~20%"];
+    var com = ["성과급", "상여금", "연말보너스","스톡옵션"];
+    var work = ["택시비", "차량지원", "재택근무", "원격근무"];
+    var eat = ["조식제공", "중식제공", "석식제공", "식비","커피","간식"];
+    var culture = ["수평적조직", "스타트업", "자율복장", "워크샵"];
+    var hashtag = document.getElementById("hashtag");
+   
+    if(c == "업계연봉수준") var t = pay;
+    else if(c == "보상") var t = com;
+    else if(c == "출퇴근") var t = work;
+    else if(c == "식사/간식") var t = eat;
+    else if(c == "기업문화") var t = culture;
+
+    hashtag.options.length = 0;
+
+    for (x in t) {
+        var opt = document.createElement("option");
+       	opt.setAttribute("type","text");
+        opt.value = t[x];
+        opt.innerHTML = t[x];
+        hashtag.appendChild(opt);
+    }
+}	
+function selecttag(t) {
+		var ipt = document.createElement("input");
+		ipt.setAttribute("type","text");
+		ipt.setAttribute("class","form-control");
+		ipt.setAttribute("name","tag");
+		ipt.setAttribute("id","tag");
+		ipt.setAttribute("value",t);
+		var space= document.getElementById("output2");
+		var spanx=document.createElement("span");
+		spanx.setAttribute("class","remove glyphicon glyphicon-remove");
+		space.appendChild(ipt);	
+		space.appendChild(spanx);	
+	
+}
+
+$(document).on("click",".remove1",function(e){
+	var r1 = e.target;
+	var r2= r1.parentNode;
+	r2.parentNode.removeChild(r2);
+});
+
 </script>
 </html>

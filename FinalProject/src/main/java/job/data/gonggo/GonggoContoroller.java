@@ -59,6 +59,7 @@ public class GonggoContoroller {
 	      mview.setViewName("/gonggo/gonggolist");
 	      return mview;
 	   }
+	   
 	   @GetMapping({"/gonggodetail"})
 	   public ModelAndView gonggo(
 			   	String num,
@@ -225,9 +226,7 @@ public class GonggoContoroller {
 				int cnum=dto.getNum();
 				category.setNum(cnum);
 				String ctg[]=category.getCtg().split(",",-1);
-				//String ctg_idx[]=category.getCtg_idx().split(",",-1);
 				String tag[]=category.getTag().split(",",-1);
-				//String tag_idx[]=category.getTag_idx().split(",",-1);
 				
 				mapper.deleteCategory(num);
 				for(int i=0; i<ctg.length; i++) {
