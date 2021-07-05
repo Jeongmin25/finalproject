@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+    <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+  />
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
 <style type="text/css">
@@ -29,10 +35,146 @@ div.one{
     width: 100px;
     padding-left: 10px;
 }
+
+button.bookmark_btn{
+		background-color: white;
+		color: #021B80;
+		border-radius: 20px;
+		width: 160px;
+		height: 40px;
+		line-height: 30px;
+		border: 1px solid #021B80;
+	}
+	button.apply_btn{
+		background-color: #021B80;
+		color: white;
+		border-radius: 20px;
+		width: 160px;
+		height: 40px;
+		line-height: 30px;
+		border: 1px solid #021B80;
+	}
+	div.bookmarkBox{
+		border: 1px solid gray;
+		width: 300px;
+		height: 200px;
+		text-align: center;
+		position: relative;
+	}
+	aside.bookmarkBox{
+		position: absolute;
+		left: 1000px;
+		top: 200px;
+		float: left;
+		border: 1px solid gray;
+	}
+	div.apply_info_box{
+		position: absolute;
+		width: 300px;
+		height: auto;
+		min-height: 200px;
+		border: 1px solid gray;
+		z-index: 100;
+		top: 0px;
+		display: none;
+		background-color: white;
+	}
+	div.apply_resumelist{
+		border: 1px solid #ccc;
+	    width: 200px;
+	    height: 40px;
+	    color: gray;
+	    padding-left: 5px;
+	    padding-right: 5px;
+	    margin-right: 5px;
+	    margin-left: 50px;
+	    cursor: pointer;
+	    margin-bottom: 10px;
+	    text-align: center;
+	    line-height: 40px;
+	}
+	#apply_resume_submit{
+		background-color: white;
+		color: #021B80;
+		border-radius: 20px;
+		width: 160px;
+		height: 40px;
+		border: 1px solid #021B80;
+		margin-bottom: 15px;
+		
+	}
+	
+	button.add_new_resume{
+		background-color: white;
+		color: #021B80;
+		border-radius: 5px;
+		width: 200px;
+		height: 40px;
+		line-height: 30px;
+		border: 1px solid #ccc;
+		margin-left: 45px;
+	}
+	span.apply_box_backbtn{
+		color: #aaa;
+		font-weight: bold;
+		cursor: pointer;
+	}
 </style>
+<script type="text/javascript">
+window.onload=function(){
+	//북마크 하기 버튼을 클릭했을 때 이벤트 주기
+	document.getElementById("bookmark_btn").onclick=function(){
+		var ch_book=this.getAttribute('value');
+		if(ch_book=="북마크하기"){
+			alert("북마크에 저장되었습니다.")
+			location.href="gonggodetail?num=${dto.num}&book=yes";
+		}else if(ch_book=="북마크완료"){
+			location.href="gonggodetail?num=${dto.num}&book=no";
+		}
+	}
+	
+	//지원하기를 클릭했을 때 지원창이 뜨는 이벤트
+	document.getElementById('apply_btn').onclick=function(){
+		document.getElementById("appy_info_box").style.display="block";
+	}
+	
+	//뒤로가기 버튼을 클릭했을 때 이벤트
+	document.getElementById("apply_box_backbtn").onclick=function(){
+		document.getElementById("appy_info_box").style.display="none";
+	}
+	
+	//지원할 이력서를 클릭했을 때 이벤트
+	var list=document.querySelectorAll("#apply_resumelist");
+	for(var i=0;list.length;i++){
+		list[i].onclick=function(){
+			if(this.getAttribute("name")!="num_r"){
+				this.setAttribute("name","num_r");
+				
+				//input태그 만들기
+				var input=document.createElement("input");
+				var num_r=this.getAttribute("num");
+				input.setAttribute("value",num_r);
+				input.setAttribute("name","num_r");
+				input.setAttribute("type","hidden");
+				this.appendChild(input);
+				
+				this.style.border="2px solid #258bf7";
+			}else{
+				this.setAttribute("name","");
+				this.style.border="1px solid #ccc";
+			}
+		}
+	}
+}
+function submit2(frm){
+	frm.action='applyResume';
+	frm.submit();
+	return true;
+}
+</script>
 </head>
 <body>
-<form action="#" class="gonggodetail form-inline">
+<form action="#" class="gonggodetail form-inline" method="post">
 <div class="header">
 <img src="../gonggophoto/${dto.empimg}" class="emplogo"><br>
 <h2>${dto.jobgroup}</h2>
@@ -46,7 +188,78 @@ div.one{
 <hr class="seon">
 <h4>마감일&nbsp; ${dto.deadline}</h4>
 <h4>근무지역 &nbsp;</h4>
-<aside>
+<aside class="bookmarkBox">
+<c:set var="id"><sec:authentication property="principal.user.id"/></c:set>
+<input type="hidden" name="id" value="${id }">
+<input type="hidden" value="${dto.num }" name="num">
+<div class="bookmarkBox">
+<c:if test="${book!='yes' }">
+<button type="button" class="bookmark_btn" id="bookmark_btn" value="북마크하기">
+	<i class="far fa-bookmark"></i>북마크하기
+</button>
+</c:if>
+<c:if test="${book=='yes' }">
+<button type="button" class="bookmark_btn" id="bookmark_btn" value="북마크완료">
+	<i class="fas fa-bookmark"></i>북마크완료
+</button>
+</c:if>
+<br>
+<button type="button" class="apply_btn" id="apply_btn">
+	지원하기
+</button>
+</div>
+<div class="apply_info_box" id="appy_info_box">
+<header>
+	<h3 style="text-align: center;">지원하기</h3>
+	<span class="apply_box_backbtn" id="apply_box_backbtn">뒤로</span>
+</header>
+<br>
+<table class="apply">
+	<caption><b>지원정보</b></caption>
+	<tr>
+		<th>이름</th>
+		<th><sec:authentication property="principal.username"/></th>
+	</tr>
+	<tr>
+		<th>이메일</th>
+		<th><sec:authentication property="principal.user.email"/></th>
+	</tr>
+	<tr>
+		<th>연락처</th>
+		<th><sec:authentication property="principal.user.hp"/></th>
+	</tr>
+</table>
+<br>
+<table>
+	<caption><b>첨부파일</b></caption>
+	<c:forEach var="rdto" items="${list }" varStatus="n">
+		<tr>
+			<td>
+				<div class="apply_resumelist" id="apply_resumelist" num="${rdto.num_r }">
+					<div>
+						<i class="far fa-square"></i>
+						<span>${n.count }번 이력서</span>&nbsp;
+						<span>
+							<fmt:formatDate value="${rdto.nowdate }" pattern="YYYY-MM-dd"/>
+						</span>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</c:forEach>
+	<tr>
+		<td align="center" style="margin: auto;">
+			<button type="button" onclick="location.href='addresume'" class="add_new_resume">새 이력서 작성</button>
+		</td>
+	</tr>
+</table>
+<footer style="text-align: center;margin: auto;">
+		<hr>
+		<button type="submit" id="apply_resume_submit" onclick="return submit2(this.form)">제출하기</button>
+</footer>
+<div>
+</div>
+</div>
 
 </aside>
 <button type="button" class="golist" onclick="location.href='gonggolist'">목록</button>
