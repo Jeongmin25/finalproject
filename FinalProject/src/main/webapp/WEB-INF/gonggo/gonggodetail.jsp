@@ -25,19 +25,20 @@ div.one{
     border-radius: 20px 20px;
     font-size: 1.2em;
     color: gray;
+    max-width: 200px;
     width: 100px;
     padding-left: 10px;
 }
 </style>
 </head>
 <body>
-<form action="#" class="gonggodetail">
+<form action="#" class="gonggodetail form-inline">
 <div class="header">
 <img src="../gonggophoto/${dto.empimg}" class="emplogo"><br>
 <h2>${dto.jobgroup}</h2>
 <h3>${dto.empname}</h3>
 <c:forEach var="cdto" items="${cdto}">
-<div class="one">${cdto.tag}</div>
+<div class="one form-control">${cdto.tag}</div>
 </c:forEach>
 </div>
 <hr class="seon">

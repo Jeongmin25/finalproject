@@ -54,20 +54,23 @@ div.output{
 <table id="selfore" >
 	<tr>
 		<td>
-			<select name="ctg[]" style="width: 200px; height: 35px;" name="ctg" id="ctg[]" class="sel form-control" 
-			onchange="selectctg(this)">
+			<select style="width: 200px; height: 35px;" name="cctg" id="cctg" class="sel form-control" 
+			onchange="selectctg(this.value)">
 				<option selected="selected">카테고리</option>
-				<c:forEach var="cate" items="${cate}">
-					<option value="${cate}">${cate}</option>
-				</c:forEach>
+					<option value="업계연봉수준">업계연봉수준</option>
+					<option value="보상">보상</option>
+					<option value="출퇴근">출퇴근</option>
+					<option value="식사/간식">식사/간식</option>
+					<option value="기업문화">기업문화</option>
+					
 			</select>
-			<select style="width: 200px; height: 35px;" name="tag[]" id="tag"  
-			class="sel form-control" onchange="selecttag(this)">
-				<option selected="selected">해시태그</option>
-				
+			<select style="width: 200px; height: 35px;" name="hashtag" id="hashtag" 
+			class="sel form-control" onchange="selecttag(this.value)">
+				<option selected="selected">해시태그</option>	
 			</select>
-			<button type="button" class="add" id="btnaddctg">+ 추가</button>
-			<div id="output"></div>
+			<!-- <button type="button" class="add" id="btnaddctg">+ 추가</button>-->
+			<div id="output1"></div>
+			<div id="output2"></div>
 		</td>
 	</tr>
 </table>
@@ -115,52 +118,47 @@ function selectjob(e) {
         opt.innerHTML = d[x];
         target.appendChild(opt);
     }
-    Array.from(document.querySelector("#tag").selectedOptions, (item)=> {
-    	return item.value;
-    });
+
 }
 function selectctg(c) {
+	
+	var ipt = document.createElement("input");
+	ipt.setAttribute("type","text");
+	ipt.setAttribute("name","ctg");
+	ipt.setAttribute("value",c);
+	var space= document.getElementById("output1");
+	space.appendChild(ipt);
+	
     var pay = ["연봉업계평균이상","연봉상위1%","연봉상위2~5%","연봉상위6~10%","연봉상위11~20%"];
     var com = ["성과급", "상여금", "연말보너스","스톡옵션"];
     var work = ["택시비", "차량지원", "재택근무", "원격근무"];
     var eat = ["조식제공", "중식제공", "석식제공", "식비","커피","간식"];
     var culture = ["수평적조직", "스타트업", "자율복장", "워크샵"];
-
-    var hashtag = document.getElementById("tag");
-
-    if(c.value == "업계연봉수준") var t = pay;
-    else if(c.value == "보상") var t = com;
-    else if(c.value == "출퇴근") var t = work;
-    else if(c.value == "식사/간식") var t = eat;
-    else if(c.value == "기업문화") var t = culture;
+    var hashtag = document.getElementById("hashtag");
+   
+    if(c == "업계연봉수준") var t = pay;
+    else if(c == "보상") var t = com;
+    else if(c == "출퇴근") var t = work;
+    else if(c == "식사/간식") var t = eat;
+    else if(c == "기업문화") var t = culture;
 
     hashtag.options.length = 0;
 
     for (x in t) {
         var opt = document.createElement("option");
+       	opt.setAttribute("type","text");
         opt.value = t[x];
         opt.innerHTML = t[x];
         hashtag.appendChild(opt);
-    }  
+    }
 }	
 function selecttag(t) {
-	var value = t.value;
-	document.getElementById('output').innerText += value;
-	value = document.getElementById("tag");
-	hashtag.appendChild(value);
+		var ipt = document.createElement("input");
+		ipt.setAttribute("type","text");
+		ipt.setAttribute("name","tag");
+		ipt.setAttribute("value",t);
+		var space= document.getElementById("output2");
+		space.appendChild(ipt);	
 }
-/* function selecttag(t) {
-	if (t.value == '해시태그'){
-		return false;
-	}
-	
-	t.vlaue.forEach(function(elt, i, array) {
-		var div = document.createElement("div");
-		div.setAttribute("value");
-	})
-	}
-	div.setAttribute("class","one");
-	alert(t.value);
-} */
 </script>
 </html>

@@ -53,12 +53,13 @@ public class GonggoContoroller {
 	   {
 		   ModelAndView mview=new ModelAndView();
 		   	CompanyDto dto=new CompanyDto();
-			dto= mapper.getData(num);
+		    dto= mapper.getData(num);
 			mview.addObject("dto",dto);
 			
 			List<CategoryDto>cdto=dto.getCategory();
 			mview.addObject("cdto",cdto);
 			mview.addObject("num",dto.getNum());
+
 			mview.setViewName("/gonggo/gonggodetail");
 			return mview;
 	   }
@@ -67,6 +68,15 @@ public class GonggoContoroller {
 		 * @PostMapping("/detail") public CompanyDto getData(String num) { return
 		 * mapper.getData(num); }
 		 */
+	   @GetMapping({"/writegonggo"})
+	   public ModelAndView insertform()
+	   {
+		   ModelAndView mview =new ModelAndView();
+		   	  String cate[] = {"업계연봉수준","보상","출퇴근","식사/간식","기업문화"};
+		   	  mview.setViewName("/gonggo/writegonggo");
+		      return mview;
+		   }
+	   
 	   @PostMapping("/insert")
 	   public String insertgonggo(
 			   @ModelAttribute CompanyDto dto,
@@ -91,23 +101,19 @@ public class GonggoContoroller {
 			int num=mapper.getInsertNum();
 			category.setNum(num);
 			
-
-				mapper.insertCategory(category);
+			String ctg[]=category.getCtg().split(",",-1);
+			String tag[]=category.getTag().split(",",-1);
 			
+			for(int i=0; i<ctg.length; i++) {
+				category.setCtg(ctg[i]);
+				category.setTag(tag[i]);
+				mapper.insertCategory(category);
+			}
+
 			return "redirect:gonggolist"; 
 	   }
 		
-	   @GetMapping({"/writegonggo"})
-	   public ModelAndView insertform()
-	   {
-		   ModelAndView mview =new ModelAndView();
-		      //외국어 select 태그 배열값 보내기
-			   String cate [] = {"업계연봉수준","보상","출퇴근","식사/간식","기업문화"};
-			   mview.addObject("cate",cate);
-		      
-		      mview.setViewName("/gonggo/writegonggo");
-		      return mview;
-		   }
+	
 		   
 	   
 	   
