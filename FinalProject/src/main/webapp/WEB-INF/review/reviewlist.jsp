@@ -17,7 +17,7 @@
 	}
 	
 	button.menu:hover{
-		background-color: highlight;
+		background-color: #021B80;
 		color: white;
 	}
 
@@ -58,23 +58,33 @@
 		font-size: 1.2em;
 	}
 	
+	div.empname:hover{
+		background-color: #ddd;
+	}
+	
 	a.empname{
 		font-size: 1.5em;
 		text-decoration: none;
 		color: #282828;
 		top: 20px;
 	}
+	
+	div.menu button.menu{
+		border-radius: 20px;
+		width: 150px;
+	}
+	
 </style>
 <title>Insert title here</title>
 </head>
 <body>
 	<div class="menu">
-		<button type="button" class="menu btn btn-default"
+		<button type="button" class="menu btn btn-default btn-lg"
 			onclick="location.href='review'">기업리뷰</button>
 		
 		<!--  -->
 		<c:if test="${auth!=null }">
-		<button type="button" class="menu btn btn-default"
+		<button type="button" class="menu btn btn-default btn-lg"
 			onclick="location.href='addreview'">my리뷰</button>		
 		</c:if>
 
@@ -88,20 +98,26 @@
 			<form action="searchlist" method="get">
 			<input type="text" id="empname" name="empname" placeholder="기업 검색"
 				style="width: 350px; height: 45px; border: 0px; margin-left: 3px;" class="form-inline">
-			<button class="btn btn-sm" type="submit" >
-			<span class="glyphicon glyphicon-search"></span>
+			<button class="btn btn-sm" type="submit" style="background-color: white;">
+			<span class="glyphicon glyphicon-search" style="font-size: 1.5em;"></span>
 			</button>
 			</form>
-
 		</div>
 	</div>
+	<br><br><br>
+	
+	<!-- 기업 이미지  -->
 	
 	<div class="list">
-		<h2>전체 기업리뷰</h2>
+		<h2>전체 기업리뷰 (${total})</h2>
+		<br>
 		<c:forEach items="${empname }" var="empname">
 			<div class="empname">
 			<br>
-			<a class="empname" href="reviewdetail?empname=${empname.empname }">${empname.empname } 
+			<a class="empname" href="reviewdetail?empname=${empname.empname }">
+			<img alt="" src="../image/+job.png" style="max-width: 50px; border: 1px solid gray; border-radius: 50px;">
+			&nbsp;&nbsp;
+			${empname.empname } 
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<b style="font-weight: normal; color: gray;"># ${empname.good}</b></a>
 			</div>
@@ -121,7 +137,7 @@
 		<c:forEach var="pp" begin="${startPage }" end="${endPage }">
 			<!-- currentPage==pp -->
 			<c:if test="${currentPage==pp }">
-				<li class="active" ><a href="review?pageNum=${pp }">${pp }</a></li>
+				<li class="active"><a href="review?pageNum=${pp }">${pp }</a></li>
 			</c:if>
 			<!-- currentPage!=pp -->
 			<c:if test="${currentPage!=pp }">

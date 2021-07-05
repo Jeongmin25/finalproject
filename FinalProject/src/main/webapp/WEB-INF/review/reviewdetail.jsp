@@ -13,7 +13,7 @@
 	div.total{
 		width: 700px;
 		height: 400px;
-		border: 1px solid gray;
+		border: 1px solid #ddd;
 		border-radius: 10px;
 		margin: 50px 50px 100px 100px;
 		padding: 20px 20px 20px 20px;
@@ -35,7 +35,7 @@
 		<c:set var="email" value="${auth }"/>
 		<!-- 기업이름 저장 -->
 		<c:set value="${empname }" var="empname" />
-		<h1>${empname }기업리뷰</h1>
+		<h1>${empname }&nbsp;기업리뷰</h1>
 		<h5 style="color: gray;">전/현직자들이 ${review0fEmp}개의 리뷰를 작성했습니다.</h5>
 
 		<!-- 평균 값 저장 -->
@@ -55,6 +55,9 @@
 			<!-- 기업 세부 평가점수 차트 -->
 			<div id="chart_div"></div>
 		</div>
+		
+		<h2>직접 쓴 리뷰 TALK</h2>
+		<br>
 
 		<!-- empname에 해당하는 데이터 반복출력 -->
 		<c:forEach items="${empdata }" var="data">

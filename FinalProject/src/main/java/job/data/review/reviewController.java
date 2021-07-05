@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import job.data.gonggo.CompanyDto;
+import job.data.gonggo.CompanyMapper;
 import job.data.userlogin.auth.PrincipalDetails;
 
 @Controller
@@ -70,7 +72,6 @@ public class reviewController {
 		  PrincipalDetails principalDetails = (PrincipalDetails)
 		  authentication.getPrincipal(); OAuth2User oauth2User =
 		  (OAuth2User)authentication.getPrincipal();
-		  System.out.println(userDetails.getUser());
 		  mview.addObject("auth",userDetails.getUsername());
 		}
 		
@@ -111,13 +112,15 @@ public class reviewController {
 		mview.addObject("empname",empname);
 		mview.addObject("list",list);
 		
-
+		int total=mapper.TotalCount();
+		
 		//출력에 필요한 변수들 모두 request에 저장(list.jsp에서 사용)
 		mview.addObject("no", no);
 		mview.addObject("startPage", startPage);
 		mview.addObject("endPage", endPage);
 		mview.addObject("currentPage", currentPage);
-		mview.addObject("totalPage", totalPage);
+		mview.addObject("total", total);
+		mview.addObject("totalCount", totalCount);
 		 
 		mview.setViewName("/review/reviewlist");
 		return mview;
@@ -264,8 +267,11 @@ public class reviewController {
 		//기업 단어 검색
 		List<reviewDto> searchlist=mapper.searchEmpname(empname);
 		
+		int total=mapper.TotalCountOfSearch(empname);
+		
 		//값 저장
 		mview.addObject("searchlist", searchlist);
+		mview.addObject("total", total);
 		mview.setViewName("/review/searchlist");
 		return mview;
 	}

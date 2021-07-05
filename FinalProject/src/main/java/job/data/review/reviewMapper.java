@@ -11,6 +11,12 @@ public interface reviewMapper {
 	//email별 리뷰 총 개수 반환
 	public int getTotalCount(String email);
 	
+	//총 리뷰 개수
+	public int TotalCount();
+	
+	//검색 리뷰 개수
+	public int TotalCountOfSearch(String empname);
+	
 	//review테이블 데이터 추가
 	public void insertReview(reviewDto dto);
 	

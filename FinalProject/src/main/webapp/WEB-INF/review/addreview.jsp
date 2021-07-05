@@ -21,7 +21,7 @@
 		margin-bottom: 50px;
 	}
 	button.menu:hover{
-		background-color: highlight;
+		background-color:  #021B80;
 		color: white;
 	}
 	
@@ -36,6 +36,7 @@
 	
 	div.statement{
 		font-size: 1.4em;
+		margin-top: 100px;
 	}
 	
 	span.star{
@@ -55,15 +56,30 @@
 		background-color: #eee;
 	}
 	
+	div.menu button.menu{
+		border-radius: 20px;
+		width: 150px;
+	}
+	
+	#alert:hover {
+	background-color:  #021B80;
+	color: white;
+	}
+	
+	button.delete:hover {
+	background-color:  #021B80;
+	color: white;
+	}
+	
 </style>
 </head>
 <body>
 	<!-- 로그인 username -->
 	<c:set var="email" value="${auth }"/>
 	<div class="menu">
-		<button type="button" class="menu btn btn-default"
+		<button type="button" class="menu btn btn-default btn-lg"
 			onclick="location.href='review'">기업리뷰</button>
-		<button type="button" class="menu btn btn-default"
+		<button type="button" class="menu btn btn-default btn-lg"
 			onclick="location.href='addreview'">my리뷰</button>
 	</div>
 	<div class="myreview">
@@ -80,7 +96,7 @@
 			data-content="장점 : ${data.good } 단점 : ${data.bad}">
 				<tr>
 					<td width="70px;" align="center" style="height: 70px;">${n.count }</td>
-					<td width="500px;" >${data.empname }</td>
+					<td width="500px;">${data.empname }</td>
 					<td width="100px;" align="right">${data.prenow }</td>
 					<td width="100px;" align="right">
 						<fmt:formatDate value="${data.writeday}" pattern="MM-dd"/>
@@ -94,7 +110,7 @@
 		</c:forEach>
 		</div>
 	
-  		<h3 href="#demo" class="alert alert-default" data-toggle="collapse"
+  		<h3 href="#demo" class="alert alert-default" id="alert" data-toggle="collapse"
   			style="height:100px; border: 1px solid #dcdcdc;
   			padding: 30px 70px 30px 180px;
   			cursor: pointer;">
@@ -106,22 +122,22 @@
     <form action="add" method="post">
     	<input type="hidden" name="email" value="${email }">
     	
-    	<table class="table table-bordered" style="border: none;">
+    	<table class="formtable table" style=" width: 700px; margin-left: 100px; border: 1px solid #ccc;">
     		<tr>
-    			<th colspan="2" style="text-align: center; height: 100px;
-    				font-size: 1.5em; line-height: 100px;">기업 리뷰 작성</th>
+    			<th colspan="2" style="text-align: center; height: 150px;
+    				font-size: 2em; line-height: 150px;">기업 리뷰 작성</th>
     		</tr>    		
     		<tr>
     			<th>기업명</th>
     			<td>
     				<input type="text" name="empname" placeholder="기업명을 입력하세요"
-    					style="width: 300px; height: 40px;">
+    					style="width: 300px; height: 40px;" required="required">
     			</td>
     		</tr>
     		<tr>
     			<th>현 직장/전 직장</th>
     			<td>
-    				<select name="prenow" style="width: 300px; height: 40px;">
+    				<select name="prenow" style="width: 300px; height: 40px;" required="required">
     					<option value="전 직장">전 직장</option>
     					<option value="현 직장">현 직장</option>
     				</select>
@@ -130,7 +146,7 @@
     		<tr>
     			<th>직종</th>
     			<td>
-    				<select name="job_group" style="width: 300px; height: 40px;">
+    				<select name="job_group" style="width: 300px; height: 40px;" required="required">
     					<option value="IT/인터넷">IT/인터넷</option>
     					<option value="경영/기획/컨설팅">경영/기획/컨설팅</option>
     					<option value="디자인">디자인</option>
@@ -145,142 +161,142 @@
     		<tr>
     			<th>기업의 장점</th>
     			<td>
-    				<textarea name="good" style="width: 500px; height: 70px;"></textarea>
+    				<textarea name="good" style="width: 500px; height: 70px;" required="required"></textarea>
     			</td>
     		</tr>
     		<tr>
     			<th>기업의 단점</th>
     			<td>
-    				<textarea name="bad" style="width: 500px; height: 70px;"></textarea>
+    				<textarea name="bad" style="width: 500px; height: 70px;" required="required"></textarea>
     			</td>
     		</tr>
     		<tr>
-    			<th colspan="2" style="text-align: center; height: 100px;
-    				font-size: 1.5em; line-height: 100px;">기업 평점</th>
+    			<th colspan="2" style="text-align: center; height: 150px;
+    				font-size: 2em; line-height: 150px;">기업 평점</th>
     		</tr>
     		<tr>
-    			<th>기업 총 평가</th>
-    			<td>
-					<label class="radio-inline">
-      				<input type="radio" name="rating" value="1" >
-    				</label>
+    			<th >기업 총 평가 *</th>
+				<td>
+					<label class="radio-inline" style="margin-left: 50px;">
+      				<input type="radio" name="rating" value="1" > 1
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="rating" value="2" >
-    				</label>
-    				<label class="radio-inline">
-      				<input type="radio" name="rating" value="3" >
-    				</label>
+      				<input type="radio" name="rating" value="2" > 2
+    				</label>&nbsp;
+    				<label class="radio-inline"> 
+      				<input type="radio" name="rating" value="3" > 3
+    				</label>&nbsp;
      				<label class="radio-inline">
-      				<input type="radio" name="rating" value="4" >
-    				</label>
+      				<input type="radio" name="rating" value="4" > 4 
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="rating"  value="5">
-    				</label>   				
-    			</td>
-    		</tr>
+      				<input type="radio" name="rating"  value="5"> 5
+    				</label>  
+				</td>
+			</tr>
     		<tr>
     			<th>사내문화</th>
     			<td>
-					<label class="radio-inline">
-      				<input type="radio" name="cul" value="1" >
-    				</label>
+					<label class="radio-inline" style="margin-left: 50px;">
+      				<input type="radio" name="cul" value="1" > 1
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="cul" value="2" >
-    				</label>
+      				<input type="radio" name="cul" value="2" > 2
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="cul" value="3" >
-    				</label>
+      				<input type="radio" name="cul" value="3" > 3
+    				</label>&nbsp;
      				<label class="radio-inline">
-      				<input type="radio" name="cul" value="4" >
-    				</label>
+      				<input type="radio" name="cul" value="4" > 4
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="cul"  value="5">
+      				<input type="radio" name="cul"  value="5"> 5
     				</label>  				
     			</td>
     		</tr>
     		<tr>
     			<th>자기개발</th>
     			<td>
-					<label class="radio-inline">
-      				<input type="radio" name="imp" value="1" >
-    				</label>
+					<label class="radio-inline" style="margin-left: 50px;"> 
+      				<input type="radio" name="imp" value="1" > 1
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="imp" value="2" >
-    				</label>
+      				<input type="radio" name="imp" value="2" > 2 
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="imp" value="3" >
-    				</label>
+      				<input type="radio" name="imp" value="3" > 3
+    				</label>&nbsp;
      				<label class="radio-inline">
-      				<input type="radio" name="imp" value="4" >
-    				</label>
+      				<input type="radio" name="imp" value="4" > 4 
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="imp"  value="5">
+      				<input type="radio" name="imp"  value="5"> 5
     				</label>   				
     			</td>
     		</tr>
     		<tr>
     			<th>근무환경</th>
     			<td>
-					<label class="radio-inline">
-      				<input type="radio" name="env" value="1" >
-    				</label>
+					<label class="radio-inline" style="margin-left: 50px;">
+      				<input type="radio" name="env" value="1" > 1
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="env" value="2" >
-    				</label>
+      				<input type="radio" name="env" value="2" > 2
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="env" value="3" >
-    				</label>
+      				<input type="radio" name="env" value="3" > 3 
+    				</label>&nbsp;
      				<label class="radio-inline">
-      				<input type="radio" name="env" value="4" >
-    				</label>
+      				<input type="radio" name="env" value="4" > 4 
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="env"  value="5">
+      				<input type="radio" name="env"  value="5"> 5
     				</label>  				
     			</td>
     		</tr>
     		<tr>
     			<th>급여 및 복지</th>
     			<td>
-					<label class="radio-inline">
-      				<input type="radio" name="sal" value="1" >
-    				</label>
+					<label class="radio-inline" style="margin-left: 50px;">
+      				<input type="radio" name="sal" value="1" > 1
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="sal" value="2" >
-    				</label>
+      				<input type="radio" name="sal" value="2" > 2 
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="sal" value="3" >
-    				</label>
+      				<input type="radio" name="sal" value="3" > 3
+    				</label>&nbsp;
      				<label class="radio-inline">
-      				<input type="radio" name="sal" value="4" >
-    				</label>
+      				<input type="radio" name="sal" value="4" > 4
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="sal"  value="5">
+      				<input type="radio" name="sal"  value="5"> 5
     				</label>  				
     			</td>
     		</tr>
     		<tr>
     			<th>경영진</th>
     			<td>
-					<label class="radio-inline">
-      				<input type="radio" name="ceo" value="1" >
-    				</label>
+					<label class="radio-inline" style="margin-left: 50px;">
+      				<input type="radio" name="ceo" value="1" > 1
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="ceo" value="2" >
-    				</label>
+      				<input type="radio" name="ceo" value="2" > 2 
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="ceo" value="3" >
-    				</label>
+      				<input type="radio" name="ceo" value="3" > 3
+    				</label>&nbsp;
      				<label class="radio-inline">
-      				<input type="radio" name="ceo" value="4" >
-    				</label>
+      				<input type="radio" name="ceo" value="4" > 4
+    				</label>&nbsp;
     				<label class="radio-inline">
-      				<input type="radio" name="ceo" value="5">
+      				<input type="radio" name="ceo" value="5"> 5
     				</label> 				
     			</td>    			
     		</tr>
     	</table>
     	<br>
-    	<button type="submit" class="btn btn-default btn-lg" style="margin-left: 400px;">제출하기</button>
+    	<button type="submit" class="btnsubmit btn-default btn-lg" style="margin-left: 400px;">제출하기</button>
     	<br>
     </form>
   </div>
