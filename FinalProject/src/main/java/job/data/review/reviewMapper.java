@@ -67,5 +67,8 @@ public interface reviewMapper {
 
 	//my기업리뷰 email로 작성한 리뷰 출력
 	public List<reviewDto> myreviewOfEmail(String email);
+	
+	//my기업리뷰 삭제
+	public void deleteReview(int num);
 
 }

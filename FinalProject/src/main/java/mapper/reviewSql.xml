@@ -104,6 +104,11 @@
 	
 	<!-- my기업리뷰 email로 작성한 리뷰 출력 -->
 	<select id="myreviewOfEmail" parameterType="String" resultType="review">
-		select * from review where email=#{email}
+		select * from review where email=#{email} order by writeday desc
 	</select>
+	
+	<!-- my기업리뷰 삭제 -->
+	<delete id="deleteReview" parameterType="int">
+		delete from review where num=#{num}
+	</delete>
 </mapper>
