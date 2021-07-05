@@ -20,6 +20,10 @@ body *{
 		background-color: #F3F9FE
 	}
 	
+	div.skill{
+		
+	}
+	
 	button.add{
 		color: #021B80;
 		border: none;
@@ -363,6 +367,7 @@ window.onload = function() {
 		link.style.border="none";
 		link.style.fontWeight="bold";
 		link.setAttribute("placeholder","http://");
+		link.style.minWidth="500px";
 		
 		//객체에 삽입
 		var addlink =document.getElementById('addlink');

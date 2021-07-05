@@ -23,6 +23,9 @@
 	div.explanation{
 		background-color: #F3F9FE
 	}
+	div.carer{
+		min-width: 920px;
+	}
 	
 	button.add{
 		color: #021B80;
@@ -382,6 +385,7 @@ window.onload = function() {
 		link.style.border="none";
 		link.style.fontWeight="bold";
 		link.setAttribute("placeholder","http://");
+		link.style.minWidth="500px";
 		
 		//객체에 삽입
 		var addlink =document.getElementById('addlink');
