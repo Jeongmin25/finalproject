@@ -62,7 +62,7 @@
                                     </div>
                                     
                                     
-                                    <form class="user" action="loginprocess" method="post">
+                                    <form class="user" action="adminloginprocess" method="post">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="exampleInputId" style="font-size: 1.3em;"
@@ -75,7 +75,8 @@
                                         </div>
         
                                         <button type="submit" class="btn btn-primary btn-user btn-block"
-                                        style="font-size: 1.3em;">로그인</button>                                                                         
+                                        style="font-size: 1.3em;">로그인</button>   
+                                                                                                
                                     </form>
                                 </div>         
                             </div>                           
