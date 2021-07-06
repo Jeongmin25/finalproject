@@ -41,7 +41,9 @@
 	<update id="updateGonggo" parameterType="company">
 		update company set job=#{job},jobgroup=#{jobgroup},empcontent=#{empcontent},empimg=#{empimg},deadline=STR_TO_DATE(#{deadline},'%Y-%m-%d') where num=#{num}
 	</update>
-	
+	<update id="insertmoney" parameterType="company">
+		update company set amount=#{amount},guipday=now() where num=#{num}
+	</update>
 		<!-- bookmark -->
 	<select id="searchNum" parameterType="Hashmap" resultType="int">
 		select count(*) from bookmark where id=#{id} and num=#{num}

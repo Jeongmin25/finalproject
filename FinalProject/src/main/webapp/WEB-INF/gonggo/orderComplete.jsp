@@ -9,6 +9,6 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
-test
+<h2>결제 성공</h2>
 </body>
 </html>

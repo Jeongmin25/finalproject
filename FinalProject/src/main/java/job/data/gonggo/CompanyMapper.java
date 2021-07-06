@@ -19,6 +19,7 @@ public interface CompanyMapper {
 	
 	public void updateGonggo(CompanyDto dto);
 	public void updateCategory(CategoryDto dto);
+	public void insertmoney(CompanyDto dto);
 	
 	//bookmark되어있는지 확인
 	public int searchNum(Map<String, String>map);

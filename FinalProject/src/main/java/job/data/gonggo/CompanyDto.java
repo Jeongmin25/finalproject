@@ -20,5 +20,7 @@ public class CompanyDto {
 	private String empimg;
 	private String deadline;
 	private Timestamp writeday;
+	private String amount;
+	private Timestamp guipday;
 	private List<CategoryDto> category;
 }

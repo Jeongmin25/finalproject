@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -229,14 +230,12 @@ public class GonggoContoroller {
 				mapper.deleteCategory(num);
 				for(int i=0; i<ctg.length; i++) {
 					category.setCtg(ctg[i]);
-					//category.setCtg_idx(ctg_idx[i]);
 					category.setTag(tag[i]);
-					//category.setTag_idx(tag_idx[i]);
 					mapper.insertCategory(category);
 				}
 			
 			mview.addObject("num",num);
-			mview.setViewName("redirect:gonggodetail?num="+num);
+			mview.setViewName("redirect:gonggodetail?num="+dto.getNum());
 			return mview;
 
 	   }
@@ -249,6 +248,26 @@ public class GonggoContoroller {
 		   mapper.insertApply(adto);
 		   mv.setViewName("redirect:gonggodetail?num="+adto.getNum());
 		   return mv;
-	   }	   
+	   }
+	   
+	   @ResponseBody
+	   @GetMapping("/gonggo/premiumlist")
+	   public String buypremium(@RequestParam String amount,
+			   @RequestParam String num,
+			   @ModelAttribute CompanyDto dto)
+	   {
+		   String success;
+		   System.out.println(amount);
+		   String cnum=Integer.toString(dto.getNum());
+		   mapper.insertmoney(dto);
+		   success="성공";
 
+		   return success;
+	   }
+	   @GetMapping({"/orderComplete"})
+	   public String success()
+	   {
+		   	return "/gonggo/orderComplete";
+		}
+	   
 }

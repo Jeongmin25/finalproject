@@ -13,8 +13,8 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
   />
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-
+<!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+ -->
 <style type="text/css">
 .emplogo{
 max-width: 600px;
@@ -295,6 +295,7 @@ function submit2(frm){
 </div>
 
 </aside>
+
 <button type="button" class="golist" onclick="location.href='gonggolist'">목록</button>
 <button type="button" class="update" onclick="location.href='updategonggo?num=${dto.num}'">공고 수정</button>
 <button type="button" class="delete" onclick="location.href='delete?num=${dto.num}'">공고 삭제</button>
