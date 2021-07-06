@@ -264,6 +264,31 @@ public class ProfileController {
     	return mv;
     }
     
+    @GetMapping("/delBookmark")
+    public ModelAndView delBookmark(
+    		String num,
+    		String pageNum,
+    		Authentication authentication,
+ 			@AuthenticationPrincipal PrincipalDetails userDetails,
+ 			@AuthenticationPrincipal OAuth2User oauth
+    		) {
+    	
+    	ModelAndView mv=new ModelAndView();
+    	
+    	//북마크 삭제
+    	PrincipalDetails principalDetails = (PrincipalDetails)
+        authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+        String id=Long.toString(userDetails.getUser().getId());
+    	Map<String, String>map =new HashMap<String, String>();
+    	map.put("id", id);
+    	map.put("num", num);
+    	cmapper.deleteBookmark(map);
+    	
+    	mv.addObject("pageNum",pageNum);
+    	mv.setViewName("redirect:bookmark");
+    	return mv;
+    }
+    
     @GetMapping("/jobGroup")
 	   public ModelAndView jobGroup(String match) {
 		   ModelAndView mv = new ModelAndView();

@@ -25,28 +25,47 @@
 		background-size: cover;
 		text-align: right;
 	}
-	
+	div.bookmark_nobookmark{
+		border: 0px solid #ccc;
+		width: 600px;
+		height: 400px;
+		margin-left:160px;
+		border-radius: 5px;
+		padding: 10px 10px 10px 10px;
+		text-align: center;
+		margin-top: 100px;
+	}
+	a.gonggo_link:hover{
+		text-decoration: none;
+	}
 </style>
 </head>
 <body>
 <h3>북마크</h3>
 <ul class="bookmark_ul">
-	<c:forEach var="cdto" items="${cdto }">
-		<li>
-			<a href="gonggodetail?num=${cdto.num }">
+	<c:if test="${cdto.size()==0}">
+		<div class="bookmark_nobookmark">
+			<h4>북마크 내역이 없습니다.</h4>
+			<a href="gonggolist" class="gonggo_link">채용공고 둘러보기<i class="fas fa-chevron-right"></i></a>
+		</div>
+	</c:if>
+	<c:if test="${cdto.size()!=0}">
+		<c:forEach var="cdto" items="${cdto }">
+			<li>
 				<div style="float: left;">
 					<header class="bookmark_bookmarkul_header">
-						<i class="fas fa-bookmark" style="color: #021B80;padding-right: 5px;padding-top: 5px;"></i>
+						<i class="fas fa-bookmark" style="color: #021B80;padding-right: 5px;padding-top: 5px;cursor: pointer;" onclick="location.href='delBookmark?num=${cdto.num }&pageNum=${currentPage}'"></i>
 					</header>
-					<div>
+					<div onclick="location.href='gonggodetail?num=${cdto.num }'">
 						<h3 style="color: black;">${cdto.jobgroup }</h3>
 						<h6 style="color: black;">${cdto.job }</h6>
 						<h5 style="color: gray">${cdto.empname }</h5>
 					</div>
 				</div>
-			</a>
-		</li>
-	</c:forEach>
+			</li>
+		</c:forEach>
+	</c:if>
+	
 </ul>
 <!-- 페이지 번호 -->
 <div style="width:850px; text-align: center;position: absolute;top: 750px;margin: auto;">

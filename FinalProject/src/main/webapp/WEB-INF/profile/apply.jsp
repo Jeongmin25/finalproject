@@ -29,6 +29,19 @@
 	i.fa-angle-right:hover {
 		color: #176fd8;
 	}
+	div.apply_noapply{
+		border: 0px solid #ccc;
+		width: 600px;
+		height: 400px;
+		margin-left:160px;
+		border-radius: 5px;
+		padding: 10px 10px 10px 10px;
+		text-align: center;
+		margin-top: 100px;
+	}
+	a.gonggo_link:hover{
+		text-decoration: none;
+	}
 </style>
 <script type="text/javascript">
 function delapply(num,pageNum){
@@ -40,8 +53,14 @@ function delapply(num,pageNum){
 <body>
 <h3>지원 현황</h3>
 <ul class="apply_ul">
+	<c:if test="${cdto.size()==0}">
+		<div class="apply_noapply">
+			<h4>지원 내역이 없습니다.</h4>
+			<a href="gonggolist" class="gonggo_link">채용공고 둘러보기<i class="fas fa-chevron-right"></i></a>
+		</div>
+	</c:if>
+	<c:if test="${cdto.size()!=0}">
 	<c:forEach var="cdto" items="${cdto }">
-<!-- 	<button type="button" class="leave_btn" data-toggle="modal" data-target="#myModal">동의하기</button> -->
 		<li>
 			<a>
 				<div style="float: left;">
@@ -58,6 +77,7 @@ function delapply(num,pageNum){
 			</a>
 		</li>
 	</c:forEach>
+	</c:if>
 </ul>
 <!-- 페이지 번호 -->
 <div style="width:850px; text-align: center;position: absolute;top: 750px;margin: auto;">
