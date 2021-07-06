@@ -133,7 +133,7 @@ div.dataTables_filter {  /* 검색창 */
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" >
                 <img class="img-profile rounded-circle" src="/img/p.png" style="width:50px;">
-                <div class="sidebar-brand-text mx-3">Job+</div>
+                <div class="sidebar-brand-text mx-3">+Job</div>
             
             </a>
 
@@ -185,28 +185,14 @@ div.dataTables_filter {  /* 검색창 */
                 </a>
             </li>
             
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin2/adminpayment/list" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                   <i class="far fa-credit-card"></i>
-                    <span>결제내역관리</span>
-                </a>
-            </li>
                <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin2/adminjobnotice/list" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/admin2/adminmember/elist" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                  <i class="fas fa-list"></i>
-                    <span>채용공고관리</span>
+                  <i class="fas fa-users"></i>
+                    <span>기업회원관리</span>
                 </a>
             </li>
-               <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin2/adminempreview/list" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                   <i class="fas fa-list"></i>
-                    <span>기업리뷰관리</span>
-                </a>
-            </li>
-           
+              
 
            
             <!-- Divider -->
