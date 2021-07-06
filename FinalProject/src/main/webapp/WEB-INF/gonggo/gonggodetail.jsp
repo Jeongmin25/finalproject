@@ -76,7 +76,7 @@ button.bookmark_btn{
 	}
 	aside.bookmarkBox{
 		position: absolute;
-		left: 800px;
+		left: 1000px;
 		top: 160px;
 		float: left;
 		border: 0px solid gray;

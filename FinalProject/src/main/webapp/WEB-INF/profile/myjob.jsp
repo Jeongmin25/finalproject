@@ -100,6 +100,9 @@
 	h5.myjob_bookmark_gobk:hover {
 		color:  #258bf7;
 	}
+	span.apply_status:hover{
+		color: #0A31A6;
+	}
 </style>
 <script type="text/javascript">
 	function selresume(val){
@@ -128,7 +131,7 @@
 			<h4>지원 현황</h4>
 		</div>
 		<div style="text-align: center;">
-			<span style="font-size: 2em;cursor: pointer;" onclick="location.href='apply'">${apply_cnt }</span>
+			<span style="font-size: 2em;cursor: pointer;" onclick="location.href='apply'" class="apply_status">${apply_cnt }</span>
 			<h5>지원 완료</h5>
 		</div>
 	</div>

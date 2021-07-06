@@ -12,8 +12,9 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
   />
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
-	header.bookmark_bookmarkul_header{
+	header.apply_applyul_header{
 		background-image: url('image/company.png');
 		width: 150px;
 		height: 150px;
@@ -25,23 +26,33 @@
 		background-size: cover;
 		text-align: right;
 	}
-	
+	i.fa-angle-right:hover {
+		color: #176fd8;
+	}
 </style>
+<script type="text/javascript">
+function delapply(num,pageNum){
+	alert("지원을 취소하였습니다.");
+	location.href="delapply?num="+num+"&pageNum="+pageNum;
+}
+</script>
 </head>
 <body>
-<h3>북마크</h3>
-<ul class="bookmark_ul">
+<h3>지원 현황</h3>
+<ul class="apply_ul">
 	<c:forEach var="cdto" items="${cdto }">
+<!-- 	<button type="button" class="leave_btn" data-toggle="modal" data-target="#myModal">동의하기</button> -->
 		<li>
-			<a href="gonggodetail?num=${cdto.num }">
+			<a>
 				<div style="float: left;">
-					<header class="bookmark_bookmarkul_header">
-						<i class="fas fa-bookmark" style="color: #021B80;padding-right: 5px;padding-top: 5px;"></i>
+					<header class="apply_applyul_header">
+						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-right: 5px;" onclick="delapply(${cdto.num},${currentPage })"></span>
 					</header>
 					<div>
 						<h3 style="color: black;">${cdto.jobgroup }</h3>
 						<h6 style="color: black;">${cdto.job }</h6>
-						<h5 style="color: gray">${cdto.empname }</h5>
+						<h5 style="color: gray">${cdto.empname }<i class="fas fa-angle-right" onclick="location.href='gonggodetail?num=${cdto.num}'" style="margin-left: 90px;"></i></h5>
+						
 					</div>
 				</div>
 			</a>
@@ -60,19 +71,21 @@
 		<c:forEach var="pp" begin="${startPage }" end="${endPage }">
 			<!-- currentPage==pp -->
 			<c:if test="${currentPage==pp }">
-				<li class="active"><a href="bookmark?pageNum=${pp }">${pp }</a></li>
+				<li class="active"><a href="apply?pageNum=${pp }">${pp }</a></li>
 			</c:if>
 			<!-- currentPage!=pp -->
 			<c:if test="${currentPage!=pp }">
-				<li><a href="bookmark?pageNum=${pp }">${pp }</a></li>
+				<li><a href="apply?pageNum=${pp }">${pp }</a></li>
 			</c:if>
 		</c:forEach>
 		
 		<!-- 다음페이지 -->
 		<c:if test="${endPage<totalPage }">
-			<li><a href="bookmark?pageNum=${endPage+1}">다음</a></li>
+			<li><a href="apply?pageNum=${endPage+1}">다음</a></li>
 		</c:if>
 	</ul>
 </div>
+
+  
 </body>
 </html>
