@@ -128,7 +128,7 @@
 			<h4>지원 현황</h4>
 		</div>
 		<div style="text-align: center;">
-			<span style="font-size: 2em;">${apply_cnt }</span>
+			<span style="font-size: 2em;cursor: pointer;" onclick="location.href='apply'">${apply_cnt }</span>
 			<h5>지원 완료</h5>
 		</div>
 	</div>

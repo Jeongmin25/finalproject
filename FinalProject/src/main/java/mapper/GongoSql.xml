@@ -61,6 +61,13 @@
 		on company.num = bookmark.num
 		where id=#{id}
 	</select>
+	<select id="getListOfCompany_paging" parameterType="Hashmap" resultType="company">
+		select bookmark.id,company.num,company.empname,company.jobgroup,company.empcontent,company.empimg 
+		from company inner join bookmark
+		on company.num = bookmark.num
+		where id=#{id}
+		limit #{start},#{perpage};
+	</select>
 	
 	<!-- apply -->
 	<insert id="insertApply" parameterType="apply">

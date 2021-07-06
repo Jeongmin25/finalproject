@@ -1,6 +1,7 @@
 package job.data.profile;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -202,16 +203,61 @@ public class ProfileController {
     
     @GetMapping("/bookmark")
     public ModelAndView bookmark(
+    		@RequestParam(value = "pageNum",defaultValue = "1") int currentPage,
     		Authentication authentication,
  			@AuthenticationPrincipal PrincipalDetails userDetails,
  			@AuthenticationPrincipal OAuth2User oauth
     		) {
     		ModelAndView mv=new ModelAndView();
+    		
+    		 PrincipalDetails principalDetails = (PrincipalDetails)
+    		 authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+    		 String id=Long.toString(userDetails.getUser().getId());
+    				 
+    		int totalCount=cmapper.getCountOfBookmark(id);
+    		
+    		//페이징에 필요한 코드
+    		int totalPage;//전체 페이지
+    		int startPage;//각 블럭의 시작페이지
+    		int endPage;//각 블럭의 마지막페이지
+    		int start;//각 페이지의 시작번호
+    		int no;//각 페이지에서 출력을 시작할 번호
+    		int perPage=10;//한페이지에 보여질 글의 개수
+    		int perBlock=5;//한 블럭에 보여질 페이지의 개수
+
+    		//총 페이지수 구하기
+    		totalPage=totalCount/perPage+(totalCount%perPage>0?1:0); 
+    		//나머지가 있으면 1페이지 더하기(글개수13개면 페이지3장필요)
+
+    		//현재페이지가 3인경우 startPage는 1, endPage=5 / 현재페이지가 6인경우 startPage는 6, endPage=10
+    		startPage=(currentPage-1)/perBlock*perBlock+1;
+    		endPage=startPage+perBlock-1;
+
+    		//만약 총 페이지수가 8인경우 2번째 블럭은 startPage 6, endPage 10 BUT, 이때 endPage는 8로 표기되어야한다.
+    		if(totalPage<endPage)
+    			endPage=totalPage;
+
+    		//각 페이지의 시작번호 구하기(1일경우 0, 2일경우 3)
+    		//오라클 첫글:1, mysql 첫글:0
+    		start=(currentPage-1)*perPage;
+
+    		//각 글 앞에 붙일 시작번호구하기 
+    		//예: 총글이 20개일경우 1페이지는 20부터 2페이지는 15부터 출력해서 1씩 감소해가며 출력할것
+    		no=totalCount-(currentPage-1)*perPage;		
+    		
+    		//출력에 필요한 변수들 모두 저장
+    		mv.addObject("no", no);
+    		mv.addObject("startPage", startPage);
+    		mv.addObject("endPage", endPage);
+    		mv.addObject("currentPage", currentPage);
+    		mv.addObject("totalPage", totalPage);
+    		
     		//북마크한 기업 보내기
-    	 	PrincipalDetails principalDetails = (PrincipalDetails)
-    		authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
-    		String id=Long.toString(userDetails.getUser().getId());
-    		List<CompanyDto>cdto=cmapper.getListOfCompany(id);
+    		HashMap<String, Object> map = new HashMap<String, Object>();
+    		map.put("id", id);
+    		map.put("start",start);
+    		map.put("perpage",perPage);
+    		List<CompanyDto>cdto=cmapper.getListOfCompany_paging(map);
     		mv.addObject("cdto",cdto);
     		
     		mv.setViewName("/profile/bookmark");
@@ -267,6 +313,14 @@ public class ProfileController {
     	
     	
     	mv.setViewName("redirect:profile");
+    	return mv;
+    }
+    
+    @GetMapping("/apply")
+    public ModelAndView apply() {
+    	ModelAndView mv=new ModelAndView();
+    	
+    	mv.setViewName("/profile/apply");
     	return mv;
     }
 }

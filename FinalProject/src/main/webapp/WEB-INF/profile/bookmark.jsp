@@ -48,5 +48,31 @@
 		</li>
 	</c:forEach>
 </ul>
+<!-- 페이지 번호 -->
+<div style="width:850px; text-align: center;position: absolute;top: 750px;margin: auto;">
+	<ul class="pagination">
+		<!-- 이전페이지 -->
+		<c:if test="${startPage>1 }">
+			<li><a href="bookmark?pageNum=${startPage-1}">이전</a></li>
+		</c:if>
+		
+		<!-- 페이지번호 -->
+		<c:forEach var="pp" begin="${startPage }" end="${endPage }">
+			<!-- currentPage==pp -->
+			<c:if test="${currentPage==pp }">
+				<li class="active"><a href="bookmark?pageNum=${pp }">${pp }</a></li>
+			</c:if>
+			<!-- currentPage!=pp -->
+			<c:if test="${currentPage!=pp }">
+				<li><a href="bookmark?pageNum=${pp }">${pp }</a></li>
+			</c:if>
+		</c:forEach>
+		
+		<!-- 다음페이지 -->
+		<c:if test="${endPage<totalPage }">
+			<li><a href="bookmark?pageNum=${endPage+1}">다음</a></li>
+		</c:if>
+	</ul>
+</div>
 </body>
 </html>

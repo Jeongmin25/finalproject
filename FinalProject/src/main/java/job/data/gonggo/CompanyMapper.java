@@ -29,7 +29,9 @@ public interface CompanyMapper {
 	//북마크한 총 개수
 	public int getCountOfBookmark(String id);
 	//개인별 북마크한 값 가져오기
-	public List<CompanyDto> getListOfCompany(String id);
+	public List<CompanyDto> getListOfCompany(String idp);
+	//개인별 북마크한 값 가져오기-페이징 처리
+	public List<CompanyDto> getListOfCompany_paging(Map<String, Object>map);
 	
 	//apply 삽입
 	public void insertApply(ApplyDto dto);
