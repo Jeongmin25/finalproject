@@ -204,7 +204,7 @@
 
  	
 
-<!-- <form name="form1" method="get" action="">
+<form name="form1" method="get" action="">
 	<div>
 		<select name="code1" onchange="setComboBox(this)" style="width:100px;">
 		<option value="">- 전체 -</option>
@@ -243,7 +243,7 @@
 	}
 	});
 	}
-</script> -->
+</script>
 
 
 <script type="text/javascript">
@@ -299,6 +299,14 @@ $('document').ready(function() {
 
 
   });
+  
+  
+	$('document').ready(function() {
+		
+		
+		
+	});
+  
 
 </script>
 
@@ -307,14 +315,14 @@ $('document').ready(function() {
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js" ></script>
 <script type="text/javascript">
-/* $(function(){
+$(function(){
   $('.btn_show').click(function(){
     $('.btn_word').show();
   });
   $('.btn_hide').click(function(){
     $('.btn_word').hide();
   });
-}); */
+});
 
 
 $(document).ready(function () {
@@ -332,11 +340,15 @@ $("#btn_salary").on("click", function(e)){
 
 </script>
 
+<button class="btn_show" style="padding:3px">show</button>
+<button class="btn_hide" style="padding:3px">hide</button>
+<div class="btn_word">Hello world!!!</div>
+
 <select name="language" onchange="handleOnChange(this)">
-  <option value="korean">한국어</option>
-  <option value="english">영어</option>
-  <option value="chinese">중국어</option>
-  <option value="spanish">스페인어</option>
+  <option value="한국어">한국어</option>
+  <option value="영어">영어</option>
+  <option value="중국어">중국어</option>
+  <option value="스페인어">스페인어</option>
 </select>
 <div id='result'></div>
 
@@ -432,43 +444,102 @@ function handleOnChange(e) {
 })
 </script>
 
-
-
 <body>
-<button class="btn_show" style="padding:3px">show</button>
-<button class="btn_hide" style="padding:3px">hide</button>
-<div class="btn_word">Hello world!!!</div>
+    <div class="content">
+        <form action="writeDo.php" method="POST" id="tag-form">
+            <input type="hidden" value="" name="tag" id="rdTag" />
+            <button type="submit">태그등록</button>
+        </form>
 
+        <ul id="tag-list">
+        </ul>
+
+        <div>
+            <input type="button" id="tag" size="7" placeholder="태그입력" />
+        </div>
+
+    </div>
+</body>
+
+<script>
+    $(document).ready(function () {
+
+        var tag = {};
+        var counter = 0;
+
+        // 태그를 추가한다.
+        function addTag (value) {
+            tag[counter] = value; // 태그를 Object 안에 추가
+            counter++; // counter 증가 삭제를 위한 del-btn 의 고유 id 가 된다.
+        }
+
+        // 최종적으로 서버에 넘길때 tag 안에 있는 값을 array type 으로 만들어서 넘긴다.
+        function marginTag () {
+            return Object.values(tag).filter(function (word) {
+                return word !== "";
+            });
+        }
+    
+        // 서버에 넘기기
+        $("#tag-form").on("submit", function (e) {
+            var value = marginTag(); // return array
+            $("#rdTag").val(value); 
+
+            $(this).submit();
+        });
+
+        $("#tag").on("keypress", function (e) {
+            var self = $(this);
+
+            // input 에 focus 되있을 때 엔터 및 스페이스바 입력시 구동
+            if (e.key === "Enter" || e.keyCode == 32) {
+
+                var tagValue = self.val(); // 값 가져오기
+
+                // 값이 없으면 동작 ㄴㄴ
+                if (tagValue !== "") {
+
+                    // 같은 태그가 있는지 검사한다. 있다면 해당값이 array 로 return 된다.
+                    var result = Object.values(tag).filter(function (word) {
+                        return word === tagValue;
+                    })
+                
+                    // 태그 중복 검사
+                    if (result.length == 0) { 
+                        $("#tag-list").append("<li class='tag-item'>"+tagValue+"<span class='del-btn' idx='"+counter+"'>x</span></li>");
+                        addTag(tagValue);
+                        self.val("");
+                    } else {
+                        alert("태그값이 중복됩니다.");
+                    }
+                }
+                e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
+            }
+        });
+
+        // 삭제 버튼 
+        // 삭제 버튼은 비동기적 생성이므로 document 최초 생성시가 아닌 검색을 통해 이벤트를 구현시킨다.
+        $(document).on("click", ".del-btn", function (e) {
+            var index = $(this).attr("idx");
+            tag[index] = "";
+            $(this).parent().remove();
+        });
+})
+</script>
 
 <form class="list form-inline">
 <!-- <input type="hidden" name="empname" value="${dto.empname}"> -->
 <br>
 <h3>적극 채용 중인 회사</h3>
 <br>
-<div class="addgonggo form-control" OnClick="location.href='writegonggo'">
-	<div class="gonggoicon">
-	<span class="glyphicon glyphicon-file" ></span>
-	<p>공고list DB연결</p>
-	</div>
-</div>
 <c:set var="strPlanDate" value="${date}"/>
-<c:forEach var="dto" items="${gonggolist}" varStatus="n">
-	<c:set var="end_plan_date"  value="${dto.deadline}"/>
-	<fmt:parseNumber value="${strPlanDate.time/ (1000*60*60*24)}" integerOnly="true" var="strDate"/>
-	<fmt:parseDate value="${end_plan_date}" var="endPlanDate" pattern="yyyy-MM-dd"/>
-	<fmt:parseNumber value="${endPlanDate.time/ (1000*60*60*24)+1}" integerOnly="true" var="endDate"/>
-	
-	<c:if test="${(endDate - strDate)>=0}">
+<c:forEach var="dto" items="${gonggolist}" varStatus="n">	
 	<div class="gonggo-box form-control" OnClick="location.href='gonggodetail?num=${dto.num}'">
 		<input type="hidden" name="num" value="${dto.num}">
 		<h4 class="subject">${dto.jobgroup}</h4>
-	<c:set var="endday1" value="${end_plan_date.substring(0,4)}"/>
-	<c:set var="endday2" value="${end_plan_date.substring(5,7)}"/>
-	<c:set var="endday3" value="${end_plan_date.substring(8,10)}"/>
-	<h5 style="color:gray">마감일 : ${endday1}년 ${endday2}월 ${endday3}일</h5>
-	<h3 class="numdday">D - ${(endDate - strDate)}</h3>
+		<h6 class="empname">${dto.empname }</h6>
+		<h5 class="job">${dto.job }</h5>
 	</div>
-	</c:if>
 </c:forEach>
 </form>
 </body>
