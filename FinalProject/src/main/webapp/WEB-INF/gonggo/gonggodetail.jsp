@@ -67,7 +67,7 @@ button.bookmark_btn{
 		cursor: default;
 	}
 	div.bookmarkBox{
-		border: 1px solid #ccc;
+		border: 1px solid #eee;
 		width: 300px;
 		height: 200px;
 		text-align: center;
@@ -76,8 +76,8 @@ button.bookmark_btn{
 	}
 	aside.bookmarkBox{
 		position: absolute;
-		left: 1000px;
-		top: 200px;
+		left: 800px;
+		top: 160px;
 		float: left;
 		border: 0px solid gray;
 	}
@@ -109,8 +109,8 @@ button.bookmark_btn{
 	    text-align: center;
 	    line-height: 40px;
 	}
-	div.apply_resumelist:hover{
-		border: 1px solid #36f;
+	div.select-border{
+		border:2px solid #258bf7;
 	}
 	#apply_resume_submit{
 		background-color: white;
@@ -166,34 +166,33 @@ window.onload=function(){
 	}
 	
 	//지원할 이력서를 클릭했을 때 이벤트
-	var list=document.querySelectorAll("#apply_resumelist");
-	for(var i=0;list.length;i++){
-		list[i].onclick=function(){
-			var numr_cnt=document.querySelectorAll("#num_r");
-			console.log(numr_cnt.length);
-			if(numr_cnt.length==1)
-				
-			if(this.getAttribute("name")!="num_r"){
-				this.setAttribute("name","num_r");
-				
-				//input태그 만들기
-				var input=document.createElement("input");
-				var num_r=this.getAttribute("num");
-				input.setAttribute("value",num_r);
-				input.setAttribute("name","num_r");
-				input.setAttribute("type","hidden");
-				input.setAttribute("id","num_r");
-				this.appendChild(input);
-				
-				this.style.border="2px solid #258bf7";
-			}else{
-				this.setAttribute("name","");
-				this.style.border="1px solid #ccc";
-			}
+	$("div.apply_resumelist").click(function(){
+		//다른 클래스 지우기
+		$("div.apply_resumelist").removeClass("select-border");
+		$("div.apply_resumelist").removeAttr("name");
+		$("div.apply_resumelist").children("input").remove();
+		
+		if($(this).attr("name")!="num_r"){
+			$(this).attr("name", "num_r");
+			$(this).addClass("select-border");
+			var num_r=$(this).attr("num");
+			$(this).append("<input type='hidden' name='num_r' value='"+num_r+"'>");
+		}else{
+			$(this).attr("name","");
+			$(this).removeClass("select-border");
+			$(this).children("input").empty();
 		}
-	}
+		console.log($("div.select-border").length==0);
+		
+	});
 }
 function submit2(frm){
+	//이력서를 선택했는지 체크
+	if($("div.select-border").length==0){
+		alert("지원할 이력서를 선택해주세요.");
+		return false;
+	}
+	
 	frm.action='applyResume';
 	frm.submit();
 	return true;

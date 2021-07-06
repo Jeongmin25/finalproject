@@ -54,7 +54,7 @@ public class GonggoContoroller {
 	      mview.addObject("gonggolist",gonggolist);
 	      
 	      for(CompanyDto d:gonggolist)
-	    	  System.out.println(d.getDeadline());
+	    	 // System.out.println(d.getDeadline());
 	      
 	      mview.setViewName("/gonggo/gonggolist");
 	      return mview;
