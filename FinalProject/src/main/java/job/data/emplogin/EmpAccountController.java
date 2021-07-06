@@ -2,6 +2,7 @@ package job.data.emplogin;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -103,5 +104,30 @@ public class EmpAccountController {
 		return "layout";
 		
 	}
+	
+	//관리자페이지 출력//
+		@GetMapping({"/admin2/adminmember/elist"})
+		public ModelAndView list()
+		
+		{	ModelAndView mview=new ModelAndView();
+			
+			//목록 가져오기
+			List<EmpAccountDto> list=mapper.getAllEmpAccount();	
+			mview.addObject("list",list);
+			mview.setViewName("/admin2/adminmember/elist");
+			return mview;
+		}
+		
+		@GetMapping("/admin2/adminmember/empdelete")
+		public String delete(@RequestParam String num)
+		{
+			mapper.deleteEmpAccount(num);
+			return "redirect:list";
+		}
+		
+		
+		
+	
+	
 
 }

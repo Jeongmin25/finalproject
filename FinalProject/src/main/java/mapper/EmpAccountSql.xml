@@ -21,4 +21,13 @@
 		select count(*) from emp_account where email=#{email} and password=#{password}
 	</select>
 	
+		<!-- 관리자페이지에 출력--> 
+	<select id="getAllEmpAccount" resultType="empAccount">
+		select * from emp_account order by email desc
+	</select>
+	
+	<delete id="deleteEmpAccount" parameterType="String">
+		delete  from emp_account where num = #{num}
+	</delete>
+	
 </mapper>
