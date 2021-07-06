@@ -125,8 +125,11 @@ public class ProfileController {
 	}
 	
 	@GetMapping("/acntMngmn")
-	public ModelAndView acntMngmn(@RequestParam String type) {
+	public ModelAndView acntMngmn(
+			@RequestParam String type
+			) {
 		ModelAndView mv = new ModelAndView();
+		
 		if(type==null) {
 			type="changePassword";
 		}
@@ -159,14 +162,11 @@ public class ProfileController {
     	mailService.mailSend(mailDto);
     	ModelAndView mv = new ModelAndView();
     	mv.addObject("type","changePassword");
+    	mv.addObject("emailmes","emailmes");
     	mv.setViewName("redirect:acntMngmn");
     	return mv;
     }
     
-    @GetMapping("/mail")
-    public String mail() {
-    	return "/profile/mail";
-    }
     
     @GetMapping("/change_password")
     public String changePassword() {
@@ -190,7 +190,7 @@ public class ProfileController {
 		 map.put("user_id", user_id);
 		 map.put("password", password);
 		 umapper.updatePasswordOfuser(map);
-    	return "layout";
+    	return "redirect:/";
     }
     
     @PostMapping("/updateUser")

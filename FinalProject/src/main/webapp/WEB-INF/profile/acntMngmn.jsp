@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <style>
 	div.acntMngmn_title{
@@ -141,9 +143,32 @@
 		height: 40px;
 		margin-top: 10px;
 	}
+	.loader {
+		  border: 16px solid #f3f3f3;
+		  border-top: 16px solid #3498db;
+		  border-radius: 50%;
+		  width: 50px;
+		  height: 50px;
+		  animation: spin 2s linear infinite;
+		  position: fixed;
+		  top: 50%;
+		  left: 50%;
+		  transform: translate(-50%, -50%);
+   }
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
 </style>
 <script type="text/javascript">
+
 window.onload=function(e){
+	$('.loader').hide();
 	//로그인한 이메일을 입력시 메일 발송
 	document.getElementById("emailcheck_btn").onclick=function(e){
 		var email_input = document.getElementById("email_input").value;
@@ -153,13 +178,20 @@ window.onload=function(e){
 			alert("입력하신 이메일이 유효하지 않습니다.\n다시 입력해주세요.");
 			e.preventDefault();
 		}
+		//로딩 이미지 띄우기
+		$('.loader').fadeIn().delay('2000');
+		setTimeout(function() { 
+			alert("이메일을 확인해주세요");
+		},2000);
+		
+		
 	}
 }
-
 	function selresume(val){
 		location.href="profile?num_r="+val;
 		
 	}
+
 </script>
 <body>
 <div class="profile_entire">
@@ -200,6 +232,7 @@ window.onload=function(e){
 				<div style="text-align: right;margin-right: 50px;">
 					<button type="submit" class="emailcheck_btn" id="emailcheck_btn">전송</button>
 				</div>
+				<div class="loader"></div>
 			</form>
 		</c:if>
 		<c:if test="${type != 'changePassword' }">
