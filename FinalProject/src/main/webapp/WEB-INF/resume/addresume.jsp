@@ -718,6 +718,9 @@ document.addEventListener("click", function (e) {
 				</c:forEach>
 			</select>
 		</td>
+		<td>
+			<span class="glyphicon glyphicon-remove"></span>
+		</td>
 	</tr>
 </table>
 </div>

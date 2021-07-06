@@ -704,29 +704,25 @@ document.addEventListener("click", function (e) {
 </div>
 <br><br>
 <button type="button" class="add" id="btnaddfore">+ 추가</button>
-<div id="selfore">
-	<c:forEach var="fdto" items="${fdto }">
-		<select class="sel" name="lang">
-			<c:forEach var="lang" items="${lang }">
-				<c:if test="${fdto.lang==lang}">
-					<option selected>${lang }</option>
-				</c:if>
-				<c:if test="${fdto.lang!=lang}">
-					<option>${lang }</option>
-				</c:if>
-			</c:forEach>
-		</select>
-		<select class="sel" name="level">
-			<c:forEach var="level" items="${level }">
-				<c:if test="${fdto.level==level}">
-					<option selected>${level }</option>
-				</c:if>
-				<c:if test="${fdto.level!=level}">
-					<option>${level }</option>
-				</c:if>
-			</c:forEach>
-		</select>
-	</c:forEach>
+<table id="selfore">
+	<tr>
+		<td>
+			<select width="100" name="lang" class="sel">
+				<c:forEach var="lang" items="${lang }">
+					<option value="${lang }">${lang }</option>
+				</c:forEach>
+			</select>
+			<select width="100" name="level" class="sel">
+				<c:forEach var="level" items="${level }">
+					<option value="${level }">${level }</option>
+				</c:forEach>
+			</select>
+		</td>
+		<td>
+			<span class="glyphicon glyphicon-remove"></span>
+		</td>
+	</tr>
+</table>
 </div>
 </div>
 <br><br>
