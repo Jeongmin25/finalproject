@@ -15,6 +15,7 @@
 	div.addresume_entire{
 		width: auto;
 		margin: auto;
+		margin-left: 100px;
 	}
 	textarea.intro:focus{
 		outline: none;
@@ -736,7 +737,7 @@ document.addEventListener("click", function (e) {
 <button type="button" class="add" id="btnaddlink">+ 추가</button>
 <table id="addlink"></table>
 </div>
-<div class="botton" style="position: fixed; bottom: 10px;right: 10px;">
+<div class="botton" style="position: fixed; bottom: 10px;right: 270px;">
    <button type="submit" class="submit_resume" >작성 완료</button>
 </div>
 </form>

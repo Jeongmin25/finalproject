@@ -14,7 +14,7 @@
 <script type = "text/javascript" src = "https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <style type="text/css">
 	form.resumedetail{
-		padding: 10px 0px 230px 230px;
+		padding: 10px 0px 0px 200px;
 	}
 	div.fixbtn button{
 		background-color: #021B80;
@@ -29,9 +29,9 @@
 <script type="text/javascript">
 window.onload=function(){
 	//pdf파일로 변환해주는 이벤트
-	$('#create_pdf').click(function(e) {
+	$('#create_pdf').click(function() {
 		//이름 받아오기
-		var username=e.target.getAttribute("value");
+		var username=$(this).attr("value");
 		console.log(username);
 		  //pdf_wrap을 canvas객체로 변환
 		  html2canvas($('#pdf_wrap')[0]).then(function(canvas) {
@@ -46,64 +46,61 @@ window.onload=function(){
 </head>
 <body>
 <c:set var="username"><sec:authentication property="principal.username"/></c:set>
-<div style="position: fixed; bottom: 10px;right: 200px;" class="fixbtn">
+<div style="position: fixed; bottom: 10px;right: 500px;" class="fixbtn">
 <button type="button" onclick="location.href='updateresumeForm?num_r=${num_r}'">수정하기</button>
 <button type="button" id="create_pdf" value="${username }"><span class="glyphicon glyphicon-download-alt"></span></button>
 </div>
-
-<form action="#" class="resumedetail">
 <div id="pdf_wrap">
-	
-	<h2><sec:authentication property="principal.username"/></h2>
-	<br><br>
-	<h5><sec:authentication property="principal.username"/></h5>
-	<h5><sec:authentication property="principal.user.email"/></h5>
-	<h5><sec:authentication property="principal.user.hp"/></h5>
-	<br><br><br>
-	<table class="carer">
-		<tr style="border-bottom: 1px solid gray;">
-			<th style="width: 300px;height: 100px;">
-				<h4><b>경력</b></h4>
-			</th>
-			<td>
-				<c:forEach var="cdto" items="${cdto }">
-					<span>${cdto.company }</span>&nbsp;
-				</c:forEach>
-			</td>
-		</tr>
-		<tr style="border-bottom: 1px solid gray;">
-			<th style="width: 300px;height: 100px;">
-				<h4><b>학력</b></h4>
-			</th>
-			<td>
-				<c:forEach var="edto" items="${edto }">
-					<span>${edto.school }</span>&nbsp;
-				</c:forEach>
-			</td>
-		</tr>
-		<tr style="border-bottom: 1px solid gray;">
-			<th style="width: 300px;height: 100px;">
-				<h4><b>수상경력 및 활동</b></h4>
-			</th>
-			<td>
-				<c:forEach var="adto" items="${adto }">
-					<span>${adto.activity }</span>&nbsp;
-				</c:forEach>
-			</td>
-		</tr>
-		<tr>
-			<th style="width: 300px;height: 100px;">
-				<h4><b>외국어</b></h4>
-			</th>
-			<td>
-				<c:forEach var="fdto" items="${fdto }">
-					<span>${fdto.lang }</span>&nbsp;
-				</c:forEach>
-			</td>
-		</tr>
-	</table>
-</div>
+<form action="#" class="resumedetail">
+		<h2><sec:authentication property="principal.username"/></h2>
+		<br><br>
+		<h5><sec:authentication property="principal.username"/></h5>
+		<h5><sec:authentication property="principal.user.email"/></h5>
+		<h5><sec:authentication property="principal.user.hp"/></h5>
+		<br><br><br>
+		<table class="carer">
+			<tr style="border-bottom: 1px solid gray;">
+				<th style="width: 300px;height: 100px;">
+					<h4><b>경력</b></h4>
+				</th>
+				<td>
+					<c:forEach var="cdto" items="${cdto }">
+						<span>${cdto.company }</span>&nbsp;
+					</c:forEach>
+				</td>
+			</tr>
+			<tr style="border-bottom: 1px solid gray;">
+				<th style="width: 300px;height: 100px;">
+					<h4><b>학력</b></h4>
+				</th>
+				<td>
+					<c:forEach var="edto" items="${edto }">
+						<span>${edto.school }</span>&nbsp;
+					</c:forEach>
+				</td>
+			</tr>
+			<tr style="border-bottom: 1px solid gray;">
+				<th style="width: 300px;height: 100px;">
+					<h4><b>수상경력 및 활동</b></h4>
+				</th>
+				<td>
+					<c:forEach var="adto" items="${adto }">
+						<span>${adto.activity }</span>&nbsp;
+					</c:forEach>
+				</td>
+			</tr>
+			<tr>
+				<th style="width: 300px;height: 100px;">
+					<h4><b>외국어</b></h4>
+				</th>
+				<td>
+					<c:forEach var="fdto" items="${fdto }">
+						<span>${fdto.lang }</span>&nbsp;
+					</c:forEach>
+				</td>
+			</tr>
+		</table>
 </form>
-
+</div>
 </body>
 </html>

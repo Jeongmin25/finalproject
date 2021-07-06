@@ -223,6 +223,7 @@ public class JobResumeController {
 				) {
 		   ModelAndView mview = new ModelAndView();
 		   //resume insert하고, Num_r 값 보내기
+		   System.out.println(resume.getLink());
 		   mapper.updateResume(resume);
 		   String num_r=Integer.toString(resume.getNum_r());
 		   int num=resume.getNum_r();

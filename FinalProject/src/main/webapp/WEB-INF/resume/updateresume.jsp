@@ -13,6 +13,7 @@
 	div.updateresume_entire{
 		width: auto;
 		margin: auto;
+		margin-left: 100px;
 	}
 	textarea.intro:focus{
 		outline: none;
@@ -724,7 +725,7 @@ document.addEventListener("click", function (e) {
 	</tr>
 </table>
 </div>
-</div>
+
 <br><br>
 
 <div class="link" id="link">
@@ -736,22 +737,23 @@ document.addEventListener("click", function (e) {
 <br><br>
 <button type="button" class="add" id="btnaddlink">+ 추가</button>
 <table id="addlink">
-	<tr>
-		<td>
-			<c:forTokens items="${rdto.link}" delims="," var="link">
-				<span>${link }</span>
-			</c:forTokens>
-		</td>
-		<td>
-			<span class="glyphicon glyphicon-remove"></span>
-		</td>
-	</tr>
+<c:forTokens items="${rdto.link}" delims="," var="link">
+		<tr>
+			<td>
+				<input value="${link }" name="link" placeholder="http://" style="min-width: 400px;border: none;font-weight: bold;">
+			</td>
+			<td>
+				<span class="glyphicon glyphicon-remove"></span>
+			</td>
+		</tr>
+	</c:forTokens>
 </table>
 </div>
-<div class="botton" style="position: fixed; bottom: 10px;right: 10px;">
+<div class="botton" style="position: fixed; bottom: 10px;right: 270px;">
    <button type="submit" class="submit_resume" >작성 완료</button>
 </div>
 </form>
+</div>
 </div>
 </body>
 </html>
