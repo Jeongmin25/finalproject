@@ -133,4 +133,15 @@
 		ceo =#{ceo} WHERE num =#{num}
 	</update>
 	
+	
+	<!-- 관리자페이지에 출력--> 
+	<select id="getAllReview" resultType="review">
+		select * from review order by num desc
+	</select>
+	<delete id="deleteAdminReview" parameterType="String">
+		delete from review where num=#{num}
+	</delete>
+
+	
+	
 </mapper>

@@ -81,5 +81,11 @@ public interface reviewMapper {
 	public void updateReview(reviewDto dto);
 	
 	public List<reviewDto> getData(int num);
+	
+	
+	/* 관리자페이지에 출력 */
+	public List<reviewDto> getAllReview();
+	
+	public void deleteAdminReview(String num);	
 
 }

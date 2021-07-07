@@ -366,4 +366,31 @@ public class reviewController {
 		mview.setViewName("redirect:/addreview");
 		return mview;
 	}
+	
+	
+	//관리자페이지 출력//
+		@GetMapping({"/admin2/adminreview/list"})
+		public ModelAndView list()
+		
+		{	ModelAndView mview=new ModelAndView();
+			
+			//목록 가져오기
+			List<reviewDto> list=mapper.getAllReview();	
+			mview.addObject("list",list);
+			mview.setViewName("/admin2/adminreview/list");
+			return mview;
+		}
+		
+		@GetMapping("/admin2/adminreview/reviewdelete")
+		public String delete(@RequestParam String num)
+		{
+			mapper.deleteAdminReview(num);
+			return "redirect:list";
+		}
+		
+
+
+		
+	
+	
 }
