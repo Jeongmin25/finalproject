@@ -110,27 +110,29 @@
                 </a>
             </li>
             
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin2/adminpayment/list" data-toggle="collapse" data-target="#collapseTwo"
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin2/adminmember/elist" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                   <i class="far fa-credit-card"></i>
-                    <span>결제내역관리</span>
+                  <i class="fas fa-users"></i>
+                    <span>기업회원관리</span>
                 </a>
             </li>
-               <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin2/adminjobnotice/list" data-toggle="collapse" data-target="#collapseTwo"
+            
+             <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin2/admingonggo/list" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                  <i class="fas fa-list"></i>
+                  <i class="fas fa-users"></i>
                     <span>채용공고관리</span>
                 </a>
             </li>
-               <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin2/adminempreview/list" data-toggle="collapse" data-target="#collapseTwo"
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin2/adminreview/list" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                   <i class="fas fa-list"></i>
+                  <i class="fas fa-edit"></i>
                     <span>기업리뷰관리</span>
                 </a>
             </li>
+              
 
            
             <!-- Divider -->

@@ -198,6 +198,21 @@ ul.pagination { /* 페이징 */
                     <span>기업회원관리</span>
                 </a>
             </li>
+            
+             <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin2/admingonggo/list" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-users"></i>
+                    <span>채용공고관리</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin2/adminreview/list" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-edit"></i>
+                    <span>기업리뷰관리</span>
+                </a>
+            </li>
               
 
 
