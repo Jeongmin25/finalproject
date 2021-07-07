@@ -52,6 +52,9 @@ public class recommendController {
 		  authentication.getPrincipal(); OAuth2User oauth2User =
 		  (OAuth2User)authentication.getPrincipal();
 		  mview.addObject("auth",userDetails.getUsername());
+		}else {
+			mview.setViewName("/recommendation/recommendLogout");
+			return mview;
 		}
 		
 		//로그인된 username 얻기
