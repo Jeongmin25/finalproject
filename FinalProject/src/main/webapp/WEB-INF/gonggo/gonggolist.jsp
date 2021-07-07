@@ -17,7 +17,7 @@
 	<form class="list form-inline">
 		<!-- <input type="hidden" name="empname" value="${dto.empname}"> -->
 		<br>
-		<h3>채용 중</h3>
+		<h3>${empname} 채용 중</h3>
 		<br>
 		<div class="addgonggo form-control"
 			OnClick="location.href='writegonggo'">
@@ -57,7 +57,6 @@
 						</c:if>
 					</div>
 			</c:if>
-
 		</c:forEach>
 		<hr>
 		<!-- 마감 날짜가 현재 날짜를 지났을때 -->
@@ -77,7 +76,7 @@
 				<div class="gonggo-box form-control"
 					OnClick="location.href='gonggodetail?num=${dto.num}'">
 					<input type="hidden" name="num" value="${dto.num}">
-					<h4 class="subject1">${dto.jobgroup}</h4>
+					<h4 class="subject">${dto.jobgroup}</h4>
 					<c:set var="endday1" value="${end_plan_date.substring(0,4)}" />
 					<c:set var="endday2" value="${end_plan_date.substring(5,7)}" />
 					<c:set var="endday3" value="${end_plan_date.substring(8,10)}" />
@@ -89,6 +88,7 @@
 			</c:if>
 		</c:forEach>
 	</form>
+
 <script type="text/javascript">
 window.onload=function(){
 	$("button.premium").click(function(){

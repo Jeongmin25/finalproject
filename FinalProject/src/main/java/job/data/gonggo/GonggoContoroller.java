@@ -2,7 +2,7 @@ package job.data.gonggo;
 
 
 
-import java.awt.color.CMMException;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import job.data.emplogin.EmpAccountDto;
+import job.data.emplogin.EmpAccountMapper;
 import job.data.resume.ResumeDto;
 import job.data.resume.ResumeMapper;
 import job.data.userlogin.auth.PrincipalDetails;
@@ -39,26 +42,40 @@ public class GonggoContoroller {
 	  	CompanyMapper mapper;
 	  @Autowired
 	  	ResumeMapper rmapper;
-	  
+	  @Autowired
+	  	EmpAccountMapper emapper;
 		String uploadName;//photo 폴더에 업로드 되는 실제 사진 파일명
 
 	   @GetMapping("/gonggolist")
-	   public ModelAndView index() {
+	   public ModelAndView index(HttpSession session) {
 	      ModelAndView mview =new ModelAndView();
+	      session.getAttribute("loginok");
+	      String email=(String)session.getAttribute("myemail");
+	      String empname=emapper.searchEmpName(email);
+	      CompanyDto dto=new CompanyDto();
+
+	      if(email==null) {
+	    	 mview.setViewName( "redirect:/");
+	    	 return mview;
+	      }
+	      else{
 	      //목록 가져오기
-	      List<CompanyDto> gonggolist=mapper.getAlldatas();
-	      Date date=new Date();
-          long time= date.getTime();
-          
-          mview.addObject("date", date);
-          mview.addObject("time",time);
-	      mview.addObject("gonggolist",gonggolist);
+	    	  List<CompanyDto> gonggolist=mapper.getmygonggo(empname);
+		      Date date=new Date();
+	          long time= date.getTime();
+	          
+	          mview.addObject("date", date);
+	          mview.addObject("time",time);
+	          mview.addObject("empname", empname);
+		      mview.addObject("gonggolist",gonggolist);
 	      
 	      for(CompanyDto d:gonggolist)
 	    	 // System.out.println(d.getDeadline());
 	      
 	      mview.setViewName("/gonggo/gonggolist");
+	      
 	      return mview;
+	      }
 	   }
 	   
 	   @GetMapping({"/gonggodetail"})
@@ -67,14 +84,24 @@ public class GonggoContoroller {
 			    Authentication authentication,
 				@AuthenticationPrincipal PrincipalDetails userDetails,
 				@AuthenticationPrincipal OAuth2User oauth,
+				HttpSession session,
+				String empname,
 				String book
 				  )
 	   {
 		   ModelAndView mview=new ModelAndView();
 		   	CompanyDto dto=new CompanyDto();
 		    dto= mapper.getData(num);
+		    empname=dto.getEmpname();
+		    String edto=emapper.searchAddr(empname);
+		    System.out.println(edto);
+		    
+		    String email=(String)session.getAttribute("myemail");
+		    String loginname=emapper.searchEmpName(email);
+		    System.out.println(loginname);
 			mview.addObject("dto",dto);
-			
+			mview.addObject("edto",edto);
+			mview.addObject("loginname",loginname);
 			PrincipalDetails principalDetails = (PrincipalDetails)
 			authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
 			String id=Long.toString(userDetails.getUser().getId());
@@ -125,11 +152,14 @@ public class GonggoContoroller {
 		 * mapper.getData(num); }
 		 */
 	   @GetMapping({"/writegonggo"})
-	   public ModelAndView insertform()
+	   public ModelAndView insertform(HttpSession session)
 	   {
 		   ModelAndView mview =new ModelAndView();
 		   	  String cate[] = {"업계연봉수준","보상","출퇴근","식사/간식","기업문화"};
 		   	  mview.setViewName("/gonggo/writegonggo");
+		   	  String email=(String)session.getAttribute("myemail");
+		      String empname=emapper.searchEmpName(email);
+		      mview.addObject("empname",empname);
 		      return mview;
 		   }
 	   
@@ -257,18 +287,18 @@ public class GonggoContoroller {
 			   @ModelAttribute CompanyDto dto)
 	   {
 		   String success;
-		   System.out.println(amount);
-		   String cnum=Integer.toString(dto.getNum());
 		   mapper.insertmoney(dto);
 		   success="성공";
 
 		   return success;
 	   }
 	   @GetMapping({"/orderComplete"})
-	   public ModelAndView success()
+	   public ModelAndView success(HttpSession session)
 	   {
 		   ModelAndView mview =new ModelAndView();
-		   List<CompanyDto> gonggolist=mapper.getAlldatas();
+		   String email=(String)session.getAttribute("myemail");
+		     String empname=emapper.searchEmpName(email);
+		   List<CompanyDto> gonggolist=mapper.getmygonggo(empname);
 		   mview.addObject("gonggolist",gonggolist);
 		   mview.setViewName("/gonggo/orderComplete");
 		   	return mview;

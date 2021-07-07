@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="job.data.gonggo.CompanyMapper">
-	<select id="getAlldatas" resultType="company" >
-		select * from company order by 9 desc, 7 asc; 
+	<select id="getAlldatas" resultType="company">
+		select * from company 7 asc; 
 	</select>
-	
+	<select id="getmygonggo" resultType="company" parameterType="String">
+		select * from company where empname=#{empname} order by 9 desc, 7 asc; 
+	</select>
 	<resultMap type="company" id="company-selectmap">
 		<id property="num" column="NUM"/>
 		<collection property="category" ofType="category" column="num=NUM" javaType="list" select="getCtgData"/>
 	</resultMap>
-	
 	<select id="getData" resultMap="company-selectmap">
 		select * from company where num=#{num}
 	</select>
 	<select id="getCtgData" resultType="category">
 		select * from category where num=#{num}
+	</select>
+	<select id="searchaddr" parameterType="String" resultType="empAccount">
+	select addr from company left outer join emp_account on company.empname=emp_account.empname
 	</select>
 	<insert id="insertGonggo" parameterType="company">
 		insert into company (empname,job,jobgroup,empcontent,empimg,deadline,writeday) 

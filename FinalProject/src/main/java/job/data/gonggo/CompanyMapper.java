@@ -5,10 +5,14 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import job.data.emplogin.EmpAccountDto;
+
 @Mapper
 public interface CompanyMapper {
 	public List<CompanyDto> getAlldatas();
+	public List<CompanyDto> getmygonggo(String empname);
 	public CompanyDto getData(String num);
+	public EmpAccountDto searchaddr(String empname);
 	
 	public void insertGonggo(CompanyDto dto);
 	public int getInsertNum();

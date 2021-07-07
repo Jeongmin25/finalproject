@@ -84,17 +84,19 @@ border: none;
 			<select style="width: 200px; height: 35px;" name="hashtag" id="hashtag" 
 			class="sel form-control" onchange="selecttag(this.value)">
 				<option selected="selected">해시태그</option>
-			</select>
+			</select><br>
 			<!-- <button type="button" class="add" id="btnaddctg">+ 추가</button>-->
-			<div id="output1">
+			<div>
 			<c:forEach var="category" items="${category}">
 			<div class="form-control"><input type="text" name="ctg" id="ctg" value="${category.ctg}"> <span class="remove1 glyphicon glyphicon-remove"></span></div>
 			</c:forEach>
+			<div id="output1"></div>
 			</div>
-			<div id="output2">
+			<div>
 			<c:forEach var="category" items="${category}">
 			<div class="form-control"><input type="text" name="tag" id="tag" value="${category.tag}"> <span class="remove1 glyphicon glyphicon-remove"></span></div>
 			</c:forEach>
+			<div id="output2"></div>
 			</div>
 		</td>
 	</tr>
@@ -179,6 +181,7 @@ function selectctg(c) {
         opt.innerHTML = t[x];
         hashtag.appendChild(opt);
     }
+    
 }	
 function selecttag(t) {
 		var ipt = document.createElement("input");
@@ -196,6 +199,12 @@ function selecttag(t) {
 }
 
 $(document).on("click",".remove1",function(e){
+	var r1 = e.target;
+	var r2= r1.parentNode;
+	r2.parentNode.removeChild(r2);
+});
+
+$(document).on("click",".remove",function(e){
 	var r1 = e.target;
 	var r2= r1.parentNode;
 	r2.parentNode.removeChild(r2);

@@ -13,6 +13,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
   />
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0ae45bf90266e140c52136e8a7c89216"></script>
 <!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
  -->
 <style type="text/css">
@@ -213,7 +214,8 @@ function submit2(frm){
 <p>${dto.empcontent}<p><br>
 <hr class="seon">
 <h4>마감일&nbsp; ${dto.deadline}</h4>
-<h4>근무지역 &nbsp;</h4>
+<h4>근무지역 &nbsp; ${edto}</h4>
+<div id="map" style="width:500px;height:400px;"></div>
 <aside class="bookmarkBox">
 <c:set var="id"><sec:authentication property="principal.user.id"/></c:set>
 <input type="hidden" name="id" value="${id }">
@@ -297,9 +299,20 @@ function submit2(frm){
 </aside>
 
 <button type="button" class="golist" onclick="location.href='gonggolist'">목록</button>
+<c:if test="${dto.empname==loginname}">
 <button type="button" class="update" onclick="location.href='updategonggo?num=${dto.num}'">공고 수정</button>
 <button type="button" class="delete" onclick="location.href='delete?num=${dto.num}'">공고 삭제</button>
+</c:if>
 </form>
+<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+	</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-6093907a141e311e"></script>
 </body>
 </html>

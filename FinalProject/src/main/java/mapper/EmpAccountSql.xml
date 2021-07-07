@@ -11,6 +11,14 @@
 		select count(*) from emp_account where num=#{num} and email=#{email}
 	</select>
 	
+	<select id="searchEmpName" parameterType="String" resultType="String">
+		select empname from emp_account where email=#{email}
+	</select>
+	
+	<select id="searchAddr" parameterType="String" resultType="String">
+		select addr from emp_account where empname=#{empname}
+	</select>
+
 	<!-- create_date sql 컬럼 오타났지만 그냥 그대로 씀 -->
 	<insert id="insertOfEmp" parameterType="empAccount">
 	 	insert into emp_account (managername, team, hp, email, password, empname, empserial, country, area, addr, biztype, staffnum, establishyear,create_date)
