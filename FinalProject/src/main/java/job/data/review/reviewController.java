@@ -1,5 +1,6 @@
 package job.data.review;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,11 @@ public class reviewController {
 		    
 		    //usertname별 데이터 출력
 		    List<reviewDto> list=mapper.myreviewOfEmail(email);
-		    System.out.println("list:"+list);
+		    
+		    //날짜
+		    Date date=new Date();
+	        mview.addObject("date", date);
+	        System.out.println("날짜:"+date);
 
 		    mview.addObject("totalCount",totalCount);
 		    mview.addObject("list",list);
@@ -299,6 +304,7 @@ public class reviewController {
 			countOflikes=0;
 
 			//추천수 증가 insert
+			
 			mapper.insertReviewOflikes(num);
 
 			//추천 누른 id 데이터 추가
@@ -315,5 +321,49 @@ public class reviewController {
 		return "redirect:/addreview";
 	}
 	
+	@GetMapping("/updateReview")
+	public ModelAndView updateReview(@RequestParam int num,
+			Authentication authentication,
+			@AuthenticationPrincipal PrincipalDetails userDetails,
+			@AuthenticationPrincipal OAuth2User oauth) {
+		ModelAndView mview =new ModelAndView();
+		
+		//로그인할 시 정보를 전달
+		if(authentication!=null) {
+		  PrincipalDetails principalDetails = (PrincipalDetails)
+		  authentication.getPrincipal(); OAuth2User oauth2User =
+		  (OAuth2User)authentication.getPrincipal();
+		  System.out.println(userDetails.getUser());
+		  mview.addObject("auth",userDetails.getUsername());
+		}
+		
+		List<reviewDto> updatedata=mapper.getData(num);
+		mview.addObject("updatedata", updatedata);
+		
+		mview.setViewName("/review/updateform");
+		return mview;
+	}
 	
+	@PostMapping("/updateOfReview")
+	public ModelAndView update(@ModelAttribute reviewDto rdto,
+			Authentication authentication,
+			@AuthenticationPrincipal PrincipalDetails userDetails,
+			@AuthenticationPrincipal OAuth2User oauth) {
+		ModelAndView mview =new ModelAndView();
+		
+		//수정
+		mapper.updateReview(rdto);
+		
+		//로그인할 시 정보를 전달
+		if(authentication!=null) {
+		
+		  PrincipalDetails principalDetails = (PrincipalDetails)
+		  authentication.getPrincipal(); OAuth2User oauth2User =
+		  (OAuth2User)authentication.getPrincipal();
+		  System.out.println(userDetails.getUser());
+		  mview.addObject("auth",userDetails.getUsername());
+		}
+		mview.setViewName("redirect:/addreview");
+		return mview;
+	}
 }
