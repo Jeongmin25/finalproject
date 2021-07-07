@@ -133,7 +133,7 @@ div.gonggo{
 		var id=$(this).attr("id");
 		var css=$(this).attr("class");
 		
-		alert(num+", "+id+", "+css);
+		//alert(num+", "+id+", "+css);
 		
 		$(this).attr("class", "bookmark fas fa-bookmark");
 	    $(this).css("color", "blue");
@@ -158,7 +158,7 @@ div.gonggo{
 	                	$(this).css("color", "blue");
 	                }
 	                else if (data == 1){
-	                	alert("북마크 해제");
+	                	alert("북마크가 해제되었습니다.");
 	                	location.reload();
 	                	$(this).atrr("class", "bookmark far fa-bookmark");  
 	                	

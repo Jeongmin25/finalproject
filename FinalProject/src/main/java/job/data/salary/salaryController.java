@@ -3,12 +3,17 @@ package job.data.salary;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import job.data.userlogin.auth.PrincipalDetails;
 
 @Controller
 public class salaryController {
@@ -17,8 +22,21 @@ public class salaryController {
 	SalaryMapper mapper; 
 	
 	@GetMapping("/salary")
-	   public ModelAndView review() {
+	   public ModelAndView review(
+				Authentication authentication,
+				@AuthenticationPrincipal PrincipalDetails userDetails,
+				@AuthenticationPrincipal OAuth2User oauth
+			   ) {
 	      ModelAndView mview =new ModelAndView();
+	      
+			//로그인할 시 정보를 전달
+			if(authentication!=null) {
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =
+			  (OAuth2User)authentication.getPrincipal();
+			  System.out.println(userDetails.getUser());
+			  mview.addObject("auth",userDetails.getUsername());
+			}	
 	     
 	      //salary 초기값 
 	      List<salaryDto> saldefault=mapper.salarydefault();
@@ -34,7 +52,7 @@ public class salaryController {
 	public List<salaryDto> searchjob(
 			@RequestParam String job,
 			@RequestParam String jobgroup,
-			@RequestParam String career
+			@RequestParam String career	
 			) {
 	 
 	      System.out.println("job:"+job);
