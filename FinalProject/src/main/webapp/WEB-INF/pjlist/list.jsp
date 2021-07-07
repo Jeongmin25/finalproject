@@ -54,7 +54,7 @@
   <!-- Trigger the modal with a button -->
   <!-- 구동하고자 하는 버튼이나 링크에 data-toggle="modal"을 부여하면 modal을 띄울 준비가 되고 
   data-target="DOM선택자"를 입력하면 지정된 내용을 modal로 띄울 수 있다.-->
-  <button type="button" class="btn btn-default btn-ms" data-toggle="modal" data-target="#myModal_tag">
+  <button type="button" class="myModal_tag btn btn-default btn-ms" data-toggle="modal" data-target="#myModal_tag">
   	<span class="tag">태그</span>
   	<span class="tag_info" style="color: #021B80"><b>업계연봉수준</b></span>
   	<span class="tag_arrow">▼</span>
@@ -92,13 +92,13 @@
 
 
 <!-- 태그 Modal -->
-<form>
+
   <div class="modal fade" id="myModal_tag" tabindex="-1" role="dialog" aria-labelledby="myModal_80tagLabel">
     <div class="modal-dialog madal-fullsize" role="document">
     
       <!-- Modal content-->
       <div class="modal-content madal-fullsize">
-      
+      	<!-- <form id="tag" name="tag" method="get" action="/list" enctype="multipart/form-data"> -->
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" style="text-align: center;">태그</h4>
@@ -112,20 +112,20 @@
 			<table id="seltag" >
 				<tr>
 					<td>
-						<h4>1. 카테고리 선택</h4>
-							<select style="width: 200px; height: 35px;" name="cctg" id="cctg" class="sel form-control" 
-							onchange="selectctg(this.value)">
-								<option hidden disabled>카테고리</option>
-									<option value="보상">보상</option>
-									<option value="출퇴근">출퇴근</option>
-									<option value="식사/간식">식사/간식</option>
-									<option value="기업문화">기업문화</option>
-									
-							</select>
+					<h4>1. 카테고리 선택</h4>
+						<select style="width: 200px; height: 35px;" name="cctg" id="cctg" class="sel form-control" 
+						onchange="selectctg(this.value)">
+							<option hidden disabled>카테고리</option>
+								<option value="보상">보상</option>
+								<option value="출퇴근">출퇴근</option>
+								<option value="식사/간식">식사/간식</option>
+								<option value="기업문화">기업문화</option>
+								
+						</select>
 						
 					<h4>2. 태그 선택</h4>
 						<select style="width: 200px; height: 35px;" name="hashtag" id="hashtag" class="sel form-control" onchange="selecttag(this.value)">
-							<option selected="selected">해시태그</option>
+							<option >해시태그</option>
 						</select>
 							<!-- <button type="button" class="add" id="btnaddctg">+ 추가</button>-->
 						<div id="output1">
@@ -142,15 +142,16 @@
 					</td>
 				</tr>
 			</table>
-			
-	        <div class="modal-footer">
-	          <button type="submit" class="btn btn-defualt">확인</button>
-	        </div>
-     	</div>
+		</div>
+		
+        <div class="modal-footer">
+          <button type="submit" class="tagconfirm btn btn-defualt" id="tagModalConfirm">확인</button>
+        </div>
+     	<!-- </form> -->
      </div>
  </div>
  </div>
-</form>
+
 
 <script type="text/javascript">
 
@@ -211,18 +212,52 @@
 		var r1 = e.target;
 		var r2= r1.parentNode;
 		r2.parentNode.removeChild(r2);
+		
 	});
+	
+	
+	//확인버튼 클릭 시 이벤트
+	/* $(document).ready(function(){
+		$("#tagModalConfirm").on("")
+	}) */
+		
+	
+/* 	$(document).on("click", "#tagModalConfirm", function(e){
+		var tag1 = $(e.relatedTarget).data('#myModal_tag')
+		alert("데이터값:"+e.relatedTarget.data)
+	})
+	 */
+
 </script>
+
+
+
+<script type="text/javascript">
+	
+	var tag1="";
+	var tag2="";
+	var tag3="";
+	
+	$(document).ready(function(){
+		$('#tagModalConfirm').on('show.bs.modal', function(e){
+			tag1 = $(e.relatedTarget).data('')
+			tag2 = $(e.relatedTarget).data('')
+			tag3 = $(e.relatedTarget).data('')
+			console.log("데이터값:"+e.relatedTarget.data)
+		})
+	})
 	
 
+</script>
+
+
 <!-- 지역 Modal -->
-<form>
   <div class="modal fade" id="myModal_area" tabindex="-1" role="dialog" aria-labelledby="myModal_80tagLabel">
     <div class="modal-dialog madal-fullsize" role="document">
 	    
 	      <!-- Modal content-->
 	      <div class="modal-content">
-		      
+		     <form id="area" name="area" method="get" action="/list" enctype="multipart/form-data">
 		        <div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 		          <h4 class="modal-title" style="text-align: center;">지역</h4>
@@ -236,12 +271,12 @@
 		        <div class="modal-footer">
 		          <button type="submit" class="btn btn-primary">확인</button>
 		        </div>
-		        
+		      </form>  
 		    </div>
 		    
 		</div>
 	</div>
-</form>
+
 
 
 <script type="text/javascript">
@@ -301,13 +336,12 @@ $('document').ready(function() {
 
 
 <!-- 경력 Modal -->
-<form>
 <div class="modal fade" id="myModal_career" tabindex="-1" role="dialog" aria-labelledby="myModal_80tagLabel">
     <div class="modal-dialog madal-fullsize" role="document">
 		    
 		   <!-- Modal content-->
 		   <div class="modal-content">
-		   
+		   	 <form id="career" name="career" method="get" action="/list" enctype="multipart/form-data">
 		        <div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 		          <h4 class="modal-title" style="text-align: center;">경력</h4>
@@ -335,12 +369,12 @@ $('document').ready(function() {
 		        <div class="modal-footer">
 		          <button type="submit" class="btn btn-primary">확인</button>
 		       </div>
-		       
+		      </form>	
 			</div>
 			
 		</div>
 	</div>
-</form>	
+
 	
 
 <form class="list form-inline">
@@ -359,6 +393,8 @@ $('document').ready(function() {
 	</div>
 </c:forEach>
 </form>
+
+
 </body>
 
 </html>

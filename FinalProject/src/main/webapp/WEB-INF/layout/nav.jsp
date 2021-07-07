@@ -54,7 +54,7 @@
 					<li id="log">
 						<li>
 						<div>
-							<c:if test="${auth==null }">
+							<c:if test="${auth==null and sessionScope.loginok==null}">
 							<a onclick="location.href='/login'">회원가입/로그인</a>
 							</c:if>
 							<c:if test="${auth!=null }">
