@@ -11,6 +11,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/gonggo.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
 	<form class="list form-inline">
@@ -51,7 +52,8 @@
 						<button type="button" class="premium"  num="${dto.num}">프리미엄 등록</button>
 						</c:if>
 						<c:if test="${dto.amount ne null}">
-						<h4>프리미엄 공고</h4>
+						<h4><i class="fas fa-medal"></i> 프리미엄 공고</h4>
+						
 						</c:if>
 					</div>
 			</c:if>

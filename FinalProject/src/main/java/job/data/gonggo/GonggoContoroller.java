@@ -265,9 +265,13 @@ public class GonggoContoroller {
 		   return success;
 	   }
 	   @GetMapping({"/orderComplete"})
-	   public String success()
+	   public ModelAndView success()
 	   {
-		   	return "/gonggo/orderComplete";
+		   ModelAndView mview =new ModelAndView();
+		   List<CompanyDto> gonggolist=mapper.getAlldatas();
+		   mview.addObject("gonggolist",gonggolist);
+		   mview.setViewName("/gonggo/orderComplete");
+		   	return mview;
 		}
 	   
 }
