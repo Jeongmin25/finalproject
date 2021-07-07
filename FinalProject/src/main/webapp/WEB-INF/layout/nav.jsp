@@ -23,7 +23,7 @@
 <div id="nav" class="container-fluid">
 			<nav class="navbar navbar-default">
 				<ul class="navcategory">
-					<li id="gg"><a>채용공고</a>
+					<li id="gg"><a href="pjlist">채용공고</a>
 					</li>
 					<li id="ch"><a href="recommend">추천공고</a>
 					</li>
