@@ -43,6 +43,9 @@
 	});
 }); */
 
+
+
+
 </script>
 <style type="text/css">
 
@@ -73,7 +76,7 @@ div.dataTables_filter {  /* 검색창 */
 	
 	div.dataTables_info { /* 총 갯수 */
 		position: absolute;
-		margin-top: 800px;
+		margin-top: 600px;
 		left: 200px;
 		
 		
@@ -83,7 +86,7 @@ div.dataTables_filter {  /* 검색창 */
 	
 	ul.pagination{  /* 페이징 */
 	position: absolute;
-	top: 800px;
+	top: 600px;
 	left: 550px;
 	font-size: 1.5em;
 
@@ -192,6 +195,21 @@ div.dataTables_filter {  /* 검색창 */
                     <span>기업회원관리</span>
                 </a>
             </li>
+            
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin2/admingonggo/list" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-users"></i>
+                    <span>채용공고관리</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin2/adminreview/list" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-edit"></i>
+                    <span>기업리뷰관리</span>
+                </a>
+            </li>
               
 
            
@@ -226,6 +244,7 @@ div.dataTables_filter {  /* 검색창 */
                    		<h2 style="margin-left: 200px;margin-top: 50px;">공지관리</h2><button type="button" id="btnnotice" 
                    		
                    		onclick="location.href='/admin2/adminnotice/addform'">공지글쓰기<i class="fas fa-pencil-alt"></i></button>
+                   		
                    		
                    			
     
@@ -278,6 +297,9 @@ div.dataTables_filter {  /* 검색창 */
                                     
                                        
                             </div>
+                           
+                          
+                           
                       
                 </div>
                 <!-- /.container-fluid -->

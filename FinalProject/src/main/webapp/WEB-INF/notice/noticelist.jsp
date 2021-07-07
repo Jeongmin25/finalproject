@@ -76,7 +76,7 @@
 					<tr>
 						<td align="center">${a.count}</td>
 						<td align="center">${dto.category}</td>
-						<td align="center"><a href="noticecontent?num_n=${dto.num_n}"
+						<td align="center"><a href="noticecontent?num_n=${dto.num_n}&key=list"
 							style="color: black;">${dto.subject}</a></td> 
                         <td align="center"><fmt:formatDate value="${dto.writeday}"
 										pattern="yyyy-MM-dd" /></td>
