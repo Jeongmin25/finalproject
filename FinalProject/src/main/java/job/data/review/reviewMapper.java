@@ -76,5 +76,10 @@ public interface reviewMapper {
 	
 	//my기업리뷰 삭제
 	public void deleteReview(int num);
+	
+	//my기업리뷰 수정
+	public void updateReview(reviewDto dto);
+	
+	public List<reviewDto> getData(int num);
 
 }

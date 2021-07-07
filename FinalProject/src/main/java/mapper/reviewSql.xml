@@ -120,4 +120,17 @@
 	<delete id="deleteReview" parameterType="int">
 		delete from review where num=#{num}
 	</delete>
+	
+	<!-- num데이터 반환 -->
+	<select id="getData" parameterType="int" resultType="review">
+		select * from review where num=#{num}
+	</select>
+	
+	<!-- my기업리뷰 수정 -->
+	<update id="updateReview" parameterType="review">
+		UPDATE review SET good =#{good}, bad =#{bad}, 
+		rating =#{rating}, cul =#{cul}, imp =#{imp}, env =#{env}, sal =#{sal}, 
+		ceo =#{ceo} WHERE num =#{num}
+	</update>
+	
 </mapper>
