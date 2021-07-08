@@ -51,7 +51,7 @@
 		width: 900px;
 		height: 70px;
 		padding-left: 20px;
-		padding-top:10px;
+		padding-top:22px;
 		margin-bottom: 10px;
 		border: 1px solid gray;
 		border-radius: 20px;
@@ -59,16 +59,13 @@
 		font-size: 1.2em;
 	}
 	
-	div.empname:hover{
-		background-color: #ddd;
-	}
 	
 	a.empname{
-		margin-top:10px;
 		text-decoration: none;
 		color: #282828;
 		
 	}
+	
 	
 	div.menu button.menu{
 		border-radius: 20px;
@@ -114,12 +111,13 @@
 		<br>
 		<c:forEach items="${empname }" var="empname">
 			<div class="empname">
-			<a class="empname" href="reviewdetail?empname=${empname.empname }">
-			<img alt="" src="../image/+job.png" style="max-width: 50px; border: 1px solid gray; border-radius: 50px;">
-			&nbsp;&nbsp;
-			${empname.empname } 
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<b style="font-weight: normal; color: gray;"># ${empname.good}</b></a>
+				<img alt="" src="../image/ministar.png" style="max-width: 20px;">
+				<a class="empname" href="reviewdetail?empname=${empname.empname }" >
+				<b style="font-weight: normal; text-align: right;">${empname.rating}</b>
+				&nbsp;&nbsp;
+				${empname.empname } 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<b style="font-weight: normal; color: gray;"># ${empname.good}</b></a>
 			</div>
 		</c:forEach>
 	</div>
