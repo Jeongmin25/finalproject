@@ -5,7 +5,7 @@
 		select * from company order by num asc; 
 	</select>
 	<select id="getmygonggo" resultType="company" parameterType="String">
-		select * from company where empname=#{empname} order by 9 desc, 7 asc; 
+		select * from company where empname=#{empname} order by amount desc, guipday asc; 
 	</select>
 	<resultMap type="company" id="company-selectmap">
 		<id property="num" column="NUM"/>

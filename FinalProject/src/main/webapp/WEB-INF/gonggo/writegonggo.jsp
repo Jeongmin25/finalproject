@@ -30,7 +30,7 @@ div.output{
 <h2>채용공고 작성</h2><br>
 
 <h3>회사 이름<br><!-- account 연결 필요 -->
-<input value="${empname}" name="empname" class="form-control"></h3>
+<input value="${empname}" readonly="readonly" name="empname" class="form-control"></h3>
 
 <h3>직군/직무<br></h3>
 <select name="job" id="job" class="form-control" style="width: 200px; height: 35px;"
