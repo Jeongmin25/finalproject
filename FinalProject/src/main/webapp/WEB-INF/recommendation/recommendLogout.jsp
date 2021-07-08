@@ -47,10 +47,10 @@ div.position{
 </style>
 </head>
 <body>
-<h1>추천 공고</h1>
+<h2>추천 공고</h2>
 <h5 class="alert alert-default">
 	안녕하세요, 전문분야를 기반으로 포지션을 추천드립니다. 로그인 후 다양한 포지션을 받아보세요.
-</h5>
+</h5><br>
 <div class="position">
 	<div class="totaljob">
 		<a data-toggle="collapse" data-target="#demo" >포지션을 추천 받으시겠어요?</a><br>

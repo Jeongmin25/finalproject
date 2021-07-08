@@ -23,7 +23,12 @@
 	</delete>
 	
 	<!-- 북마크 전체 데이터 -->
-	<select id="bookdata" resultType="bookmark">
-		select * from bookmark
+	<select id="bookdata" resultType="bookmark" parameterType="int">
+		select * from bookmark where id=#{id}
+	</select>
+	
+	<!-- 공고 전체 데이터 -->
+	<select id="totalData" resultType="recommend">
+		select * from company order by writeday
 	</select>
 </mapper>

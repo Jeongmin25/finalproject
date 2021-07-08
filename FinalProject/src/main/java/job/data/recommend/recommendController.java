@@ -10,9 +10,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import antlr.StringUtils;
 import job.data.gonggo.CategoryDto;
 import job.data.gonggo.CompanyDto;
 import job.data.gonggo.CompanyMapper;
@@ -52,11 +55,13 @@ public class recommendController {
 		  authentication.getPrincipal(); OAuth2User oauth2User =
 		  (OAuth2User)authentication.getPrincipal();
 		  mview.addObject("auth",userDetails.getUsername());
-		}else {
+		
+		//미로그인 페이지
+		}else if(authentication==null){
 			mview.setViewName("/recommendation/recommendLogout");
 			return mview;
 		}
-		
+
 		//로그인된 username 얻기
 		String username=(String)userDetails.getUsername();
 		
@@ -65,25 +70,33 @@ public class recommendController {
 		int id=(int)user.getId();
 		
 		//로그인된 username의 num값으로 직군 얻기
-		JobGroupDto usernamejob=jobmapper.getDataOfJobGroup(id);
-		String job=usernamejob.getJob_group();		
+		String jobgroup=jobmapper.getJobdata(id);
 		
-		
-		System.out.println("username:"+username);
-		System.out.println("id:"+id);
-		System.out.println("usernamejob:"+usernamejob);
-		System.out.println("job:"+job);
+		//전체 공고
+		List<recommendDto> joblist=mapper.totalData();
+				
+		//이력서 직무분야 미선택시
+		if(jobgroup==null) {
+			jobgroup="없음";
+			
+			mview.addObject("username", username);
+			mview.addObject("jobgroup", jobgroup);
+			mview.addObject("joblist", joblist);
+			mview.setViewName("/recommendation/recommendNodata");
+			return mview;
+		}
 
 		//직군으로 공고 데이터 얻기
-		List<recommendDto> data=mapper.recommendData(job);
+		List<recommendDto> data=mapper.recommendData(jobgroup);
+		System.out.println("data:"+data);
 
-		List<bookmarkDto> bookdata=mapper.bookdata();
+		List<bookmarkDto> bookdata=mapper.bookdata(id);
 		System.out.println("bookdata:"+bookdata);
 		
 		mview.addObject("data",data);
 		mview.addObject("bookdata",bookdata);
 		mview.addObject("username", username);
-		mview.addObject("usernamejob", usernamejob);
+		mview.addObject("jobgroup", jobgroup);
 		mview.addObject("idx", id);
 		
 		mview.setViewName("/recommendation/recommendlist");
