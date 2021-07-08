@@ -20,6 +20,9 @@ public interface EmpAccountMapper {
 	public List<EmpAccountDto> getAllEmpAccount();
 	
 	public void deleteEmpAccount(String num);
+	
+	//지역으로 채용공고 검색
+	public List<EmpAccountDto> searchListByAddr(String area, String addr);
 
 
 }

@@ -6,8 +6,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import job.data.emplogin.EmpAccountDto;
 import job.data.emplogin.EmpAccountMapper;
 import job.data.gonggo.CategoryDto;
 import job.data.gonggo.CompanyDto;
@@ -34,28 +41,26 @@ public class Listcontroller {
 		return "/pjlist/list";	
 	}
 	
-	
-	 @GetMapping("/pjlist")
-	   public ModelAndView pjlist() {
-	      ModelAndView mview =new ModelAndView();
-	      //목록 가져오기
-	     List<CompanyDto> gonggolist=cmapper.getAlldatas();
-	     Date date=new Date();
+	 @RequestMapping(value="/pjlist" , method = {RequestMethod.GET, RequestMethod.POST})
+	 @PostMapping("/pjlist")
+	   public ModelAndView pjlist(@ModelAttribute listCategotyDto dto) {
+	    ModelAndView mview =new ModelAndView();
+	    //목록 가져오기
+	    List<CompanyDto> gonggolist=cmapper.getAlldatas();
+	    Date date=new Date();
         long time= date.getTime();
-        
+        System.out.println(dto.getTag());
         mview.addObject("date", date);
         mview.addObject("time",time);
 	    mview.addObject("gonggolist",gonggolist);
 	      
-	      for(CompanyDto d:gonggolist)
+	    for(CompanyDto d:gonggolist)
 	      
 	      mview.setViewName("/pjlist/list");
 	      return mview;
 	   }
 	 
-	 
-	 
-	 
+	
 		/*
 		 * //empname에 해당하는 데이터 출력 
 		 * HashMap<String, Object> map = new HashMap<String,Object>(); 
@@ -83,5 +88,35 @@ public class Listcontroller {
 			return mview;
 	   }
 	 
-
+	 
+	 @ResponseBody
+	 @PostMapping({"/pjlistsearchtag"})
+	 public List<CompanyDto> searchListByTag(@RequestParam String tag){
+		
+		 //tag가 들어간 공고리스트 전체 출력
+		 List<CompanyDto> listByTag=cmapper.searchListByTag(tag);
+		 System.out.println(listByTag);
+		 
+		 return listByTag;
+	 }
+	 
+	 
+		
+	  @ResponseBody
+	  
+	  @PostMapping({"/pjlistsearchaddr"}) 
+	  public List<EmpAccountDto>searchListByaddr(@RequestParam String area,@RequestParam String addr)
+	  
+	  { 
+		  //tag가 들어간 공고리스트 전체 출력 
+		  List<EmpAccountDto>listByAddr=empmapper.searchListByAddr(area,addr);
+		  System.out.println(listByAddr);
+	  
+		  return listByAddr; 
+	 }
+	 
+	 
+	 
+	 
+	
 }

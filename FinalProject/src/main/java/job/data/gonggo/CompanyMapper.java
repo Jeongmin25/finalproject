@@ -52,4 +52,10 @@ public interface CompanyMapper {
 	//관리자페이지 출력
 	public List<CompanyDto> getAllCompany();
 	
+
+	//태그로 채용공고 검색
+	public List<CompanyDto> searchListByTag(String tag);
+	//경력으로 채용공고 검색
+	public List<CompanyDto> searchListByCareer(String empcontent);
+	
 }

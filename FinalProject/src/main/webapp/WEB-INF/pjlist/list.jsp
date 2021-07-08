@@ -16,31 +16,17 @@
 	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/gonggo.css" />
 <style type="text/css">
-/* 	
-.container_tag{
-		flex-direction: row;
-	}
 
-.container_area{
-		flex-direction: row;
-		/* 기본값, 아이템을 왼쪽에서 오른쪽으로 수평 정렬함 */
-	} 
-	
-.modal-dialog.modal-80size {
-  width: 80%;
-  height: 80%;
-  margin: 0;
-  padding: 0;
-}
-
-.modal-content.modal-80size {
-  height: auto;
-  min-height: 80%;
-} 
- */
 
 </style>
 
+<script type="text/javascript">
+	function submit2(frm){
+		frm.action='/pjlist';
+		frm.submit();
+		return true;
+	}
+</script>
 </head>
 
 
@@ -90,7 +76,7 @@
 </div>
 
 
-
+<form id="tag" method="post" >
 <!-- 태그 Modal -->
 
   <div class="modal fade" id="myModal_tag" tabindex="-1" role="dialog" aria-labelledby="myModal_80tagLabel">
@@ -98,17 +84,16 @@
     
       <!-- Modal content-->
       <div class="modal-content madal-fullsize">
-      	<!-- <form id="tag" name="tag" method="get" action="/list" enctype="multipart/form-data"> -->
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" style="text-align: center;">태그</h4>
           <br/>
-          <b>기업의 특별한 복지, 혜택 등 태그를 선택하여</b><br/>
-          <b>나에게 꼭 맞는 포지션을 찾아보세요!</b>
+          <b style="margin-left: 35px;">기업의 특별한 복지, 혜택 등 태그를 선택하여
+         나에게 꼭 맞는 포지션을 찾아보세요!</b>
         </div>
         
         
-        <div class="modal-body">
+        <div class="modal-body" style="margin-left: 180px;">
 			<table id="seltag" >
 				<tr>
 					<td>
@@ -122,6 +107,7 @@
 								<option value="기업문화">기업문화</option>
 								
 						</select>
+	          	<br/>
 						
 					<h4>2. 태그 선택</h4>
 						<select style="width: 200px; height: 35px;" name="hashtag" id="hashtag" class="sel form-control" onchange="selecttag(this.value)">
@@ -129,15 +115,21 @@
 						</select>
 							<!-- <button type="button" class="add" id="btnaddctg">+ 추가</button>-->
 						<div id="output1">
-							<c:forEach var="category" items="${category}">
-							<div class="form-control"><input type="button" name="ctg" id="ctg" value="${category.ctg}"> <span class="remove1 glyphicon glyphicon-remove"></span></div>
-							</c:forEach>
+						 <c:forEach var="category" items="${category}">
+							<div class="form-control">
+								<input type="button" name="ctg" id="ctg" value="${category.ctg}"> 
+								<span class="remove1 glyphicon glyphicon-remove"></span>
+							</div>
+						 </c:forEach>
 						</div>
 						<br/>
 						<div id="output2">
-							<c:forEach var="category" items="${category}">
-							<div class="form-control"><input type="button" name="tag" id="tag" value="${category.tag}"> <span class="remove1 glyphicon glyphicon-remove"></span></div>
-							</c:forEach>
+						 <c:forEach var="category" items="${category}">
+							<div class="form-control">
+								<input type="button" name="tag" id="tag" value="${category.tag}"> 
+								<span class="remove1 glyphicon glyphicon-remove"></span>
+							</div>
+						 </c:forEach>
 						</div>
 					</td>
 				</tr>
@@ -145,13 +137,12 @@
 		</div>
 		
         <div class="modal-footer">
-          <button type="submit" class="tagconfirm btn btn-defualt" id="tagModalConfirm">확인</button>
+          <button type="submit" class="tagconfirm btn btn-defualt" id="tagModalConfirm1" onclick="return submit2(this.form)">확인</button>
         </div>
-     	<!-- </form> -->
      </div>
  </div>
  </div>
-
+ 
 
 <script type="text/javascript">
 
@@ -214,42 +205,95 @@
 		r2.parentNode.removeChild(r2);
 		
 	});
-	
-	
-	//확인버튼 클릭 시 이벤트
-	/* $(document).ready(function(){
-		$("#tagModalConfirm").on("")
-	}) */
 		
-	
-/* 	$(document).on("click", "#tagModalConfirm", function(e){
-		var tag1 = $(e.relatedTarget).data('#myModal_tag')
-		alert("데이터값:"+e.relatedTarget.data)
-	})
-	 */
 
+	$( document ).ready( function() {
+		$( 'button#tagModalConfirm1' ).click( function() {
+			var tag1 = $( 'input#tag' ).val();
+			alert( tag1 );
+			
+			$.ajax({
+		        type : "post",  
+		        url : "/pjlistsearch",        
+		        data : "tag1="+tag1,
+		        dataType: 'json',
+		        
+		        error : function(){
+		            alert("통신 에러","error","확인",function(){});
+		        },
+
+		        success : function(data) {
+		        	//console.log(data); list 데이터 확인 
+		        	var s="";
+		        	
+		        	if(data==""){
+		        		s+="<br><br><br>";
+		        		s+="<h3 style='margin-left: 300px;'>["+title+"] 검색 결과가 없습니다.</h3><br><br>";
+		        		s+='<button type="button" class="lostbtn btn-default btn" style="margin-left: 380px;">뒤로가기</button>';
+		        		
+		        	}else{
+		        	
+		        		
+			       		//반복문으로 값 출력
+			        	$.each(data, function(idx, val) {
+			        		s+='<table class="newstable table table" num="'+val.num+'" style="width: 900px;" id="newstable">';
+				        	s+='<tr>';
+			        		s+='<td style="width:210px; height: 150px;">';
+				        	s+='<img src="../newsImage/'+val.image+'" style="max-width: 200px; max-height: 150px;"></td>';
+				        	s+='<td><h4>'+val.title+'</h4><br>';
+				        	s+='<h5 style="color: gray;">'+val.content+'</h5><br>';
+				        	s+='<span class="glyphicon glyphicon-eye-open" style="font-size: 1.2em;"></span>&nbsp;';
+				        	s+=val.readcount;
+				        	s+='</h5></td></tr>';
+				        	s+='</table>';
+				        	
+			        	});
+		        		
+		        	}	        	
+		               	
+		        	$("div.newslist").html(s);
+		        }	
+			})	
+			
+			
+			
+			
+			
+		});
+	});
+	
+	
+	/*  $('#tagModalConfirm1').on('click', function(){
+    $.ajax({
+        url : '',
+        type : 'POST',
+        success : function(result){
+            $('#okky').modal('show');
+            // console.log(result);
+            if (서버에서 넘어온 값 == true){
+                $('#okky_con').html('사용 가능한 ID 입니다.');
+            }else{
+                $('#okky_con').html('이미 사용중인 ID 입니다.');
+        },
+
+        error : function(xhr, ajaxOptions, thrownError){
+            console.log('Error : ' + xhr.status + '\n' +
+            'Message : ' + xhr.statusText + '\n' +
+            'Response : ' + xhr.responseText + '\n' + thrownError);
+        }
+
+    });
+}); */
+
+	/* $(document).on("click", "#tagModalConfirm", function(e){
+		var categoty=$(this).attr("category");
+		var tag=$(this).attr("category.tag");
+		
+		alert(num+", "+id+", ");
+	
+	})	 */
+	
 </script>
-
-
-
-<script type="text/javascript">
-	
-	var tag1="";
-	var tag2="";
-	var tag3="";
-	
-	$(document).ready(function(){
-		$('#tagModalConfirm').on('show.bs.modal', function(e){
-			tag1 = $(e.relatedTarget).data('')
-			tag2 = $(e.relatedTarget).data('')
-			tag3 = $(e.relatedTarget).data('')
-			console.log("데이터값:"+e.relatedTarget.data)
-		})
-	})
-	
-
-</script>
-
 
 <!-- 지역 Modal -->
   <div class="modal fade" id="myModal_area" tabindex="-1" role="dialog" aria-labelledby="myModal_80tagLabel">
@@ -257,7 +301,7 @@
 	    
 	      <!-- Modal content-->
 	      <div class="modal-content">
-		     <form id="area" name="area" method="get" action="/list" enctype="multipart/form-data">
+		   <!--   <form id="area" name="area" method="post" enctype="multipart/form-data"> -->
 		        <div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 		          <h4 class="modal-title" style="text-align: center;">지역</h4>
@@ -269,14 +313,13 @@
 		        <br/><br/>
 		        </div>
 		        <div class="modal-footer">
-		          <button type="submit" class="btn btn-primary">확인</button>
+		          <button type="submit" class="btn btn-default" id="tagModalConfirm2" >확인</button>
 		        </div>
-		      </form>  
+		    <!--   </form>  --> 
 		    </div>
 		    
 		</div>
 	</div>
-
 
 
 <script type="text/javascript">
@@ -330,10 +373,17 @@ $('document').ready(function() {
   });
 
 
-	 });	
+	 });
+
+
+$( document ).ready( function() {
+	$( 'button#tagModalConfirm2' ).click( function() {
+		var tag1 = $( 'select#sido1' ).val();
+		var tag2 = $( 'select#gugun1' ).val();	
+		alert(tag1+" "+tag2);
+	} );
+} );
 </script>
-
-
 
 <!-- 경력 Modal -->
 <div class="modal fade" id="myModal_career" tabindex="-1" role="dialog" aria-labelledby="myModal_80tagLabel">
@@ -341,7 +391,7 @@ $('document').ready(function() {
 		    
 		   <!-- Modal content-->
 		   <div class="modal-content">
-		   	 <form id="career" name="career" method="get" action="/list" enctype="multipart/form-data">
+		 <!--  <form id="career" name="career" method="post" enctype="multipart/form-data">  -->
 		        <div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 		          <h4 class="modal-title" style="text-align: center;">경력</h4>
@@ -365,19 +415,29 @@ $('document').ready(function() {
 				</select>
 				<br/><br/>
 		        </div>
-		        
 		        <div class="modal-footer">
-		          <button type="submit" class="btn btn-primary">확인</button>
+		          <button type="submit" class="btn btn-default" id="tagModalConfirm3">확인</button>
 		       </div>
-		      </form>	
+		      <!-- </form> -->
 			</div>
 			
 		</div>
 	</div>
+</form>
 
-	
 
-<form class="list form-inline">
+<script type="text/javascript">
+
+$( document ).ready( function() {
+	$( 'button#tagModalConfirm3' ).click( function() {
+		var tag1 = $( 'select#career' ).val();
+		alert(tag1);
+	} );
+} );
+
+</script>
+
+ <form class="list form-inline">
 <!-- <input type="hidden" name="empname" value="${dto.empname}"> -->
 <br>
 <h3>적극 채용 중인 회사</h3>
@@ -385,7 +445,7 @@ $('document').ready(function() {
 <br>
 <c:set var="strPlanDate" value="${date}"/>
 <c:forEach var="dto" items="${gonggolist}" varStatus="n">	
-	<div class="gonggo-box form-control" onclick="location.href='pjlist/gonggodetail?num=${dto.num}'">
+	<div class="gonggo-box form-control" onclick="location.href='/pjlist/gonggodetail?num=${dto.num}'">
 		<input type="hidden" name="num" value="${dto.num}">
 		<h4 class="subject">${dto.jobgroup}</h4>
 		<h6 class="empname">${dto.empname }</h6>

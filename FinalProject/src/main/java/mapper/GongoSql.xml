@@ -102,4 +102,10 @@
 	<select id="getAllCompany" resultType="company" >
 		 select * from company order by num desc;  
 	</select>
+	
+	
+	<!-- 채용공고 list -->
+	<select id="searchListByTag" parameterType="String" resultType="int">
+		select * from company left outer join category on (company.num=category.num) where tag=#{tag1} ;
+	</select>
 </mapper>
