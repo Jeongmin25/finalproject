@@ -18,7 +18,7 @@ public class EmpAccountDto {
 	private String biztype ;
 	private String staffnum ; 
 	private String establishyear;
-	private Timestamp createDate;
+	private Timestamp create_date;
 	private String managername;
 	private String team;
 	private String hp ;

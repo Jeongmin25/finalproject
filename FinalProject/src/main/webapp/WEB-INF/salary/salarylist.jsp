@@ -15,13 +15,13 @@
 	div.chart{
 		position:absolute;
 		margin-left: 50px;
-		width: 800px; 
+		width: 700px; 
 		height: 500px;
 	}
 	
 	div.cate_job{
 		position:absolute;
-		top:700px;
+		top:750px;
 		margin-left: 50px;
 		width: 800px; 
 		height: 30px;
@@ -29,8 +29,8 @@
 	
 	div.detail{
 		position:absolute;
-		left:1250px;
-		top:300px;
+		left:1300px;
+		top:350px;
 		width: 300px;
 		height: 150px;
 	}
@@ -44,26 +44,31 @@
 	
 	div.choice{
 		position:absolute;
-		left:1250px;
-		top:440px;
+		left:1300px;
+		top:600px;
 		width: 240px;
 		height: 150px;
 	}
 	
-	span.detailjob, span.detailjobgroup, span.detailcareer{
+	span.detailjob, span.detailjobgroup, span.detailcareer, span.detailsalary{
 		height: 50px;
-		border: 1px solid #021B80;
-		background-color: #021B80;
-		border-radius: 20px;
-		color: white;
+		border: 3px solid #021B80;
+		background-color: white;
+		border-radius: 50px;
+		color: #021B80;
 		padding: 10px 10px 10px 10px;
-		font-size: 1.3em;	
+		font-size: 1.3em;
 	}
 
+	span.detailsalary{
+		font-size: 2.2em;
+	}
 
 </style>
 </head>
 <body>
+	<h1>직군별 연봉</h1>
+	<br><br>
 	<!-- salary 초기값 -->
 	<c:forEach var="item" items="${saldefault}" varStatus="status" >
 		<c:set value="${item.salary}" var="salary"/>
@@ -78,7 +83,6 @@
 	<!-- select -->
 	<div class="cate_job">
 		<select name="job" id="job" class="form-inline" style="width: 150px; height: 30px;" onchange="selectjob(this)">
-			<option >직군</option>
 			<option value="IT/인터넷" selected="selected">IT/인터넷</option>
 			<option value="경영/기획/컨설팅">경영/기획/컨설팅</option>
 			<option value="디자인">디자인</option>
@@ -89,8 +93,8 @@
 		</select>
 		&nbsp;
 		<select name="jobgroup" id="jobgroup" class="form-inline" style="width: 150px; height: 30px;">
-			<option>직무</option>
-			<option selected="selected" value="웹개발자">웹개발자</option>
+			<option selected="selected">직무</option>
+			<option  value="웹개발자">웹개발자</option>
 			<option value="프론트엔드개발자">프론트엔드개발자</option>
 			<option value="Node.js개발자">Node.js개발자</option>
 			<option value="빅데이터엔지니어">빅데이터엔지니어</option>
@@ -98,7 +102,8 @@
 		&nbsp;
 		<select name="career" id="career" class="form-inline" style="width: 150px; height: 30px;"
 			onchange="detail(this)">
-			<option value="0" selected="selected">신입</option>
+			<option selected="selected">연차</option>
+			<option value="0">신입</option>
 			<option value="1">1년</option>
 			<option value="2">2년</option>
 			<option value="3">3년</option>
@@ -119,14 +124,17 @@
 	
 	<!-- 선택 값 출력 div -->
 	<div class="detail">
-		<span class='detailjob'>IT/인터넷</span><br><br>
-		<span class='detailjobgroup'>웹개발자</span><br><br>
-		<span class='detailcareer'>0년차</span><br><br>
+		<span class='detailjob'>IT/인터넷</span><br><br><br>
+		<span class='detailjobgroup'>웹개발자</span><br><br><br>
+		<span class='detailcareer'>0년차</span><br><br><br>
+		<span class='detailsalary'>3037</span><br><br>
 	</div>
 	<div class="choice"></div>
 </body>
 
 <script type="text/javascript">
+
+//구글 차트 호출
 google.charts.load('current', {'packages':['bar']});
 google.charts.setOnLoadCallback(drawChart);
     
@@ -160,8 +168,7 @@ function selectjob(e) {
     }   
 }
 
-
-
+//구글 차트 초기값 설정(웹개발자-신입)
 function drawChart() {
 
 	//배열 생성
@@ -178,7 +185,7 @@ function drawChart() {
 
 	  var data = google.visualization.arrayToDataTable([
 	    
-	    ['Year', 'Salary'],
+	    ['Year', '연봉'],
 	    [career[0], salary[0]],
 	    [career[1], salary[1]],
 	    [career[2], salary[2]],
@@ -193,10 +200,25 @@ function drawChart() {
 	]);
 	         
 	  var options = {
-	     chart: {
-	             
-	   },
-	     vAxis: {format: 'decimal'}
+			  
+		// 범례 표시 삭제
+		legend : {
+			position : 'none'
+		},
+				
+	   //막대 차트 색상
+       series: {
+           0: { color: '#021B80' },
+         },
+	   
+         vAxis: {format: 'decimal',
+        	 
+        	//차트 최소,최대값 지정
+             viewWindow: {
+                 max:7000,
+                 min:2000
+               }
+           }
 	         
 	   };
 
@@ -260,18 +282,16 @@ $(".searchsal").click(function() {
         	//소수점 삭제(정수형)
         	var s = m.toFixed();
         	
-        	var print="<h2>*예상 연봉("+item+") 대비 "+s+"% "+text+"</h2>";
+        	var print="<h3>*예상 연봉("+item+")</h3>";
+        	print+="<h3>대비 "+s+"% "+text+"</h3>";
 
         	$("div.choice").html(print);
         	console.log(s+text);
         }
 	})
-	
-	
 });
 
-
-//select onchange 이벤트
+//input tags onchange 이벤트(차트 바로 반영)
 function detail(e) {
 	//직군,직무,연차
 	var job=$("#job").val();
@@ -279,10 +299,15 @@ function detail(e) {
 	var career=$("#career").val();
 	
 	var print="";
-	print+="<span class='detailjob'>"+job+"</span><br><br>";
-	print+="<span class='detailjobgroup'>"+jobgroup+"</span><br><br>";
-	print+="<span class='detailcareer'>"+career+"년차</span><br><br>";
+	print+="<span class='detailjob'>"+job+"</span><br><br><br>";
+	print+="<span class='detailjobgroup'>"+jobgroup+"</span><br><br><br>";
+	print+="<span class='detailcareer'>"+career+"년차</span><br><br><br>";
 	$("div.detail").html(print);
+	
+	//연봉 비교 수식 제거
+	$("div.choice").html("");
+	//연봉입력 제거
+	$("#sal").val("");
 	
     $.ajax({
         type : "post",  
@@ -296,16 +321,23 @@ function detail(e) {
 
         success : function(item) {
         	
-        console.log("인덱스:"+item[0].career);
-        console.log("연봉:"+item[0].salary);
-        
+        //데이터 출력 콘솔 확인
+        console.log("인덱스:"+item[career].career);
+        console.log("연봉:"+item[career].salary);
+        	
+       	//선택한 연차의 연봉 데이터 출력
+       	print+="<span class='detailsalary'>"+item[career].salary+"만원</span><br><br><br>";
+       	$("div.detail").html(print);
+   	       
+        //구글 차트 호출
 		google.charts.load('current', {'packages':['bar']});
 		google.charts.setOnLoadCallback(drawChart);
 		
+		//선택한 직군/직무에따른 데이터 차트에 넣기
         function drawChart() {
         	
         	var data = google.visualization.arrayToDataTable([
-                  	['Year', 'Salary'],
+                  	['Year', '연봉'],
                   	[item[0].career, item[0].salary],
                   	[item[1].career, item[1].salary],
                   	[item[2].career, item[2].salary],
@@ -321,10 +353,30 @@ function detail(e) {
                  ]);  
 
             var options = {
-                    chart: {
-                      
+            		
+            		// 범례 표시 삭제
+            		legend : {
+            			position : 'none'
+            		},
+                    
+             	   //막대 차트 색상
+                    series: {
+                    	0: { color: '#021B80' },
                     },
-                    vAxis: {format: 'decimal'}
+                    
+                   //y축 차트 옵션
+                    vAxis: {
+                    
+                    //주 단위(10진수)
+                    format: 'decimal',
+                    	
+                    //차트 최소,최대값 지정
+                    viewWindow: {
+                       max:7000,
+                       min:2000
+                      }
+                    }
+                  
                   
                   };
 

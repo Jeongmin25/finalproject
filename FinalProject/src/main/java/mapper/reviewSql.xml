@@ -17,10 +17,12 @@
 
 	<!-- review테이블 데이터 추가 -->
 	<insert id="insertReview" parameterType="review">
-		insert into review (email,empname,prenow,job_group,good,bad,rating,
-		cul,imp,env,sal,ceo,writeday) values(#{email},#{empname},#{prenow},#{job_group},#{good}
-		,#{bad},#{rating},#{cul},#{imp},#{env},#{sal},#{ceo},now())
+		insert into review (email,empname,prenow,job_group,good,bad,rating,cul,imp,env,sal,ceo,writeday) 
+		select #{email},#{empname},#{prenow},#{job_group},#{good},#{bad},#{rating},#{cul},#{imp},#{env},#{sal},#{ceo},now() 
+		FROM DUAL WHERE NOT EXISTS (select email,empname,prenow,job_group,good,bad,rating,cul,imp,env,sal,ceo,writeday 
+		FROM review where email=#{email} and empname=#{empname})
 	</insert>
+
 	
 	<!-- review테이블 전체 출력 -->
 	<select id="getReviewData" resultType="review" parameterType="String">
@@ -35,7 +37,7 @@
 	
 	<!-- 기업명 조회 -->
 	<select id="selectEmpname" resultType="review" parameterType="int">
-		select empname, good from review group by empname order by writeday desc 
+		select empname, good, round(avg(rating),1) as rating from review group by empname order by writeday desc 
 		limit #{start},#{perpage};
 		
 	</select>
@@ -81,7 +83,7 @@
 	
 	<!-- 기업이름 검색 -->
 	<select id="searchEmpname" resultType="review" parameterType="String">
-		SELECT empname,good FROM review WHERE empname LIKE CONCAT('%',#{empname},'%')
+		SELECT empname,good, round(avg(rating),1) as rating FROM review WHERE empname LIKE CONCAT('%',#{empname},'%')
 		 group by empname order by likes desc
 	</select>
 
@@ -120,4 +122,27 @@
 	<delete id="deleteReview" parameterType="int">
 		delete from review where num=#{num}
 	</delete>
+	
+	<!-- num데이터 반환 -->
+	<select id="getData" parameterType="int" resultType="review">
+		select * from review where num=#{num}
+	</select>
+	
+	<!-- my기업리뷰 수정 -->
+	<update id="updateReview" parameterType="review">
+		UPDATE review SET good =#{good}, bad =#{bad}, 
+		rating =#{rating}, cul =#{cul}, imp =#{imp}, env =#{env}, sal =#{sal}, 
+		ceo =#{ceo} WHERE num =#{num}
+	</update>	
+	
+	<!-- 관리자페이지에 출력--> 
+	<select id="getAllReview" resultType="review">
+		select * from review order by num desc
+	</select>
+	<delete id="deleteAdminReview" parameterType="String">
+		delete from review where num=#{num}
+	</delete>
+
+	
+	
 </mapper>

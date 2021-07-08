@@ -20,11 +20,11 @@ public class UserAccountDto {
 	private String role; //ROLE_USER, ROLE_ADMIN
 	private String provider;
 	private String providerId;
-	private Timestamp createDate;
+	private Timestamp create_date;
 	
 @Builder
 	public UserAccountDto(String username, String hp, String password, String email, String role,
-			String provider, String providerId, Timestamp createDate) {
+			String provider, String providerId, Timestamp create_date) {
 		super();
 		this.username = username;
 		this.hp = hp;
@@ -33,7 +33,7 @@ public class UserAccountDto {
 		this.role = role;
 		this.provider = provider;
 		this.providerId = providerId;
-		this.createDate = createDate;
+		this.create_date = create_date;
 	}
 	
 

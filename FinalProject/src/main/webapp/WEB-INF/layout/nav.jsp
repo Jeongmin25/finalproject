@@ -23,7 +23,7 @@
 <div id="nav" class="container-fluid">
 			<nav class="navbar navbar-default">
 				<ul class="navcategory">
-					<li id="gg"><a>채용공고</a>
+					<li id="gg"><a href="pjlist">채용공고</a>
 					</li>
 					<li id="ch"><a href="recommend">추천공고</a>
 					</li>
@@ -38,23 +38,29 @@
 					<li id="gs"><a>Mypage</a>
 						<div>
 							<ul class="Mypage">
+								<c:if test="${sessionScope.loginok==null}">
 								<li><a href="myjob">My +JOB</a></li>
 								<li><a href="profile">프로필</a></li>
-								<li><a href="bookmark">북마크</a></li>
 								<li><a href="resumelist">이력서</a></li>
+							</c:if>
+							<c:if test="${sessionScope.loginok!=null}">
+								<li><a href="empMyPage">My Company</a></li>
+								<li><a href="writegonggo">공고작성</a></li>
+								<li><a href="orderComplete">결제내역</a></li>
+							</c:if>
 							</ul>
 						</div></li>
 					<li id="gs"><a>고객센터</a>
 						<div>
 							<ul class="Support">
 							<li><a>자주하는 질문</a></li>
-								<li><a>공지사항</a></li>
+								<li><a href="notice">공지사항</a></li>
 							</ul>
 						</div></li>
 					<li id="log">
 						<li>
 						<div>
-							<c:if test="${auth==null }">
+							<c:if test="${auth==null and sessionScope.loginok==null}">
 							<a onclick="location.href='/login'">회원가입/로그인</a>
 							</c:if>
 							<c:if test="${auth!=null }">

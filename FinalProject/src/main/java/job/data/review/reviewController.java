@@ -1,5 +1,6 @@
 package job.data.review;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import job.data.gonggo.CompanyDto;
 import job.data.gonggo.CompanyMapper;
+import job.data.resume.CarerDto;
+import job.data.resume.ResumeMapper;
 import job.data.userlogin.auth.PrincipalDetails;
 
 @Controller
@@ -23,6 +26,9 @@ public class reviewController {
 
 	@Autowired
 	reviewMapper mapper;
+	
+	@Autowired
+	ResumeMapper rmapper;
 	
 	@GetMapping("/addreview")
 	   public ModelAndView review(
@@ -37,21 +43,30 @@ public class reviewController {
 			  PrincipalDetails principalDetails = (PrincipalDetails)
 			  authentication.getPrincipal(); OAuth2User oauth2User =
 			  (OAuth2User)authentication.getPrincipal();
-			  System.out.println(userDetails.getUser());
 			  mview.addObject("auth",userDetails.getUsername());
 			}	      
 			
 			//username 변수 지정
 			String email=userDetails.getUsername().toString();
 			
+			//user id(num)값
+			int id=(int)userDetails.getUser().getId();
+			
+			List<CarerDto> company=rmapper.getIdCareer(id);
+			System.out.println("회사:"+company);
+			
 			//username별 리뷰 총 개수
 		    int totalCount=mapper.getTotalCount(email);
 		    
 		    //usertname별 데이터 출력
 		    List<reviewDto> list=mapper.myreviewOfEmail(email);
-		    System.out.println("list:"+list);
+		    
+		    //날짜
+		    Date date=new Date();
+	        mview.addObject("date", date);
 
 		    mview.addObject("totalCount",totalCount);
+		    mview.addObject("company",company);
 		    mview.addObject("list",list);
 		    mview.setViewName("/review/addreview");
 		    return mview;
@@ -108,6 +123,7 @@ public class reviewController {
 		no=totalCount-(currentPage-1)*perPage;		
 		
 		List<reviewDto> empname=mapper.selectEmpname(start, perPage);
+		System.out.println(empname);
 		List<reviewDto> list=mapper.getReviewData();
 		mview.addObject("empname",empname);
 		mview.addObject("list",list);
@@ -124,6 +140,34 @@ public class reviewController {
 		 
 		mview.setViewName("/review/reviewlist");
 		return mview;
+	}
+	
+	
+	@GetMapping("/writeReview")
+	public ModelAndView writeReview(
+			@RequestParam String emp,
+			Authentication authentication,
+			@AuthenticationPrincipal PrincipalDetails userDetails,
+			@AuthenticationPrincipal OAuth2User oauth
+			) {
+		ModelAndView mview =new ModelAndView();
+		
+		
+		//로그인할 시 정보를 전달
+		if(authentication!=null) {
+				
+			PrincipalDetails principalDetails = (PrincipalDetails)
+			authentication.getPrincipal(); OAuth2User oauth2User =
+			(OAuth2User)authentication.getPrincipal();
+			System.out.println(userDetails.getUser());
+			mview.addObject("auth",userDetails.getUsername());
+		}
+		
+		//기업명 저장
+	    mview.addObject("emp",emp);
+	
+	    mview.setViewName("/review/writeform");
+		return mview; 
 	}
 	
 	@PostMapping("/add")
@@ -299,6 +343,7 @@ public class reviewController {
 			countOflikes=0;
 
 			//추천수 증가 insert
+			
 			mapper.insertReviewOflikes(num);
 
 			//추천 누른 id 데이터 추가
@@ -314,6 +359,77 @@ public class reviewController {
 		mapper.deleteReview(num);
 		return "redirect:/addreview";
 	}
+	
+	@GetMapping("/updateReview")
+	public ModelAndView updateReview(@RequestParam int num,
+			Authentication authentication,
+			@AuthenticationPrincipal PrincipalDetails userDetails,
+			@AuthenticationPrincipal OAuth2User oauth) {
+		ModelAndView mview =new ModelAndView();
+		
+		//로그인할 시 정보를 전달
+		if(authentication!=null) {
+		  PrincipalDetails principalDetails = (PrincipalDetails)
+		  authentication.getPrincipal(); OAuth2User oauth2User =
+		  (OAuth2User)authentication.getPrincipal();
+		  System.out.println(userDetails.getUser());
+		  mview.addObject("auth",userDetails.getUsername());
+		}
+		
+		List<reviewDto> updatedata=mapper.getData(num);
+		mview.addObject("updatedata", updatedata);
+		
+		mview.setViewName("/review/updateform");
+		return mview;
+	}
+	
+	@PostMapping("/updateOfReview")
+	public ModelAndView update(@ModelAttribute reviewDto rdto,
+			Authentication authentication,
+			@AuthenticationPrincipal PrincipalDetails userDetails,
+			@AuthenticationPrincipal OAuth2User oauth) {
+		ModelAndView mview =new ModelAndView();
+		
+		//수정
+		mapper.updateReview(rdto);
+		
+		//로그인할 시 정보를 전달
+		if(authentication!=null) {
+		
+		  PrincipalDetails principalDetails = (PrincipalDetails)
+		  authentication.getPrincipal(); OAuth2User oauth2User =
+		  (OAuth2User)authentication.getPrincipal();
+		  System.out.println(userDetails.getUser());
+		  mview.addObject("auth",userDetails.getUsername());
+		}
+		mview.setViewName("redirect:/addreview");
+		return mview;
+	}
+	
+	
+	//관리자페이지 출력//
+		@GetMapping({"/admin2/adminreview/list"})
+		public ModelAndView list()
+		
+		{	ModelAndView mview=new ModelAndView();
+			
+			//목록 가져오기
+			List<reviewDto> list=mapper.getAllReview();	
+			mview.addObject("list",list);
+			mview.setViewName("/admin2/adminreview/list");
+			return mview;
+		}
+		
+		@GetMapping("/admin2/adminreview/reviewdelete")
+		public String delete(@RequestParam String num)
+		{
+			mapper.deleteAdminReview(num);
+			return "redirect:list";
+		}
+		
+
+
+		
 	
 	
 }

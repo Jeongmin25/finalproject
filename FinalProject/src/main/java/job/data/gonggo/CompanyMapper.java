@@ -5,10 +5,14 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import job.data.emplogin.EmpAccountDto;
+
 @Mapper
 public interface CompanyMapper {
 	public List<CompanyDto> getAlldatas();
+	public List<CompanyDto> getmygonggo(String empname);
 	public CompanyDto getData(String num);
+	public EmpAccountDto searchaddr(String empname);
 	
 	public void insertGonggo(CompanyDto dto);
 	public int getInsertNum();
@@ -19,6 +23,7 @@ public interface CompanyMapper {
 	
 	public void updateGonggo(CompanyDto dto);
 	public void updateCategory(CategoryDto dto);
+	public void insertmoney(CompanyDto dto);
 	
 	//bookmark되어있는지 확인
 	public int searchNum(Map<String, String>map);
@@ -43,4 +48,14 @@ public interface CompanyMapper {
 	public List<CompanyDto> getApplyListOfCompany_paging(Map<String, Object>map);
 	//apply 삭제
 	public void deleteApply(Map<String, String>map);
+	
+	//관리자페이지 출력
+	public List<CompanyDto> getAllCompany();
+	
+
+	//태그로 채용공고 검색
+	public List<CompanyDto> searchListByTag(String tag);
+	//경력으로 채용공고 검색
+	public List<CompanyDto> searchListByCareer(String empcontent);
+	
 }

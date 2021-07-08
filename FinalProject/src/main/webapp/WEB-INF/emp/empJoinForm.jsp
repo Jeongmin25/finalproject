@@ -54,12 +54,12 @@
 						국가/지역*<br/>
 						<select name="country" id="country" class="form-inline" style="width: 400px; height: 40px;"
 							onchange="selectContry(this)">
-							<option >국가</option>
-							<option value="kr">한국</option>
-							<option value="tw">대만</option>
-							<option value="sg">싱가폴</option>
-							<option value="jp">일본</option>
-							<option value="others">기타</option>
+							<option value="국가" disabled>국가</option>
+							<option value="한국">한국</option>
+							<option value="대만">대만</option>
+							<option value="싱가폴">싱가폴</option>
+							<option value="일본">일본</option>
+							<option value="기타">기타</option>
 						</select>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
@@ -84,27 +84,27 @@
 				<div class="join-input-wrap biztype-wrap" style="float: left;">
 					산업군*<br/>
 					<select name="biztype" id="biztype" class="form-inline" style="width: 400px; height: 40px;">
-						<option value="disabled">산업군</option>
-						<option value="9927">IT,컨텐츠</option>
-						<option value="9924">판매, 유통</option>
-						<option value="9920">제조</option>
-						<option value="9933">교육</option>
-						<option value="9928">금융</option>
-						<option value="9930">전문, 과학기술</option>
-						<option value="9935">예술, 스포츠, 여가</option>
-						<option value="9931">사업지원</option>
-						<option value="9925">물류,운송</option>
-						<option value="9929">부동산</option>
-						<option value="9923">건설</option>
-						<option value="9934">보건, 사회복지</option>
-						<option value="9926">숙박, 음식점</option>
-						<option value="9919">광업</option>
-						<option value="9922">상수도,환경</option>
-						<option value="9932">공공행정, 국방</option>
-						<option value="9921">전기, 가스</option>
-						<option value="9918">농림,어업</option>
-						<option value="9937">가사, 가정</option>
-						<option value="9938">국제,외국기관</option>
+						<option value="산업군" disabled>산업군</option>
+						<option value="IT,컨텐츠">IT,컨텐츠</option>
+						<option value="판매, 유통">판매, 유통</option>
+						<option value="제조">제조</option>
+						<option value="교육">교육</option>
+						<option value="금융">금융</option>
+						<option value="전문, 과학기술">전문, 과학기술</option>
+						<option value="예술, 스포츠, 여가">예술, 스포츠, 여가</option>
+						<option value="사업지원">사업지원</option>
+						<option value="물류,운송">물류,운송</option>
+						<option value="부동산">부동산</option>
+						<option value="건설">건설</option>
+						<option value="보건, 사회복지">보건, 사회복지</option>
+						<option value="숙박, 음식점">숙박, 음식점</option>
+						<option value="광업">광업</option>
+						<option value="상수도,환경">상수도,환경</option>
+						<option value="공공행정, 국방">공공행정, 국방</option>
+						<option value="전기, 가스">전기, 가스</option>
+						<option value="농림,어업">농림,어업</option>
+						<option value="가사, 가정">가사, 가정</option>
+						<option value="국제,외국기관">국제,외국기관</option>
 					</select>
 					&nbsp;&nbsp;&nbsp;&nbsp;
 				</div>
@@ -112,7 +112,7 @@
 				<div class="join-input-wrap staffnum-wrap">	
 					직원수*<small> (승인기준 : 팀원 10명 이상)</small><br/>
 					<select name="staffnum" id="staffnum" class="form-inline" style="width: 400px; height: 40px;">
-						<option value="disabled">회사규모</option>
+						<option value="회사규모" disabled>회사규모</option>
 						<option value="1~4">1~4명</option>
 						<option value="5~10">5~10명</option>
 						<option value="11~50">11~50명</option>
@@ -183,11 +183,11 @@ function selectContry(e) {
     var others = ["All"];
     var target = document.getElementById("area");
 
-    if(e.value == "kr") var d = kr;
-    else if(e.value == "tw") var d = tw;
-    else if(e.value == "sg") var d = sg;
-    else if(e.value == "jp") var d = jp;
-    else if(e.value == "others") var d = others;
+    if(e.value == "한국") var d = kr;
+    else if(e.value == "대만") var d = tw;
+    else if(e.value == "싱가폴") var d = sg;
+    else if(e.value == "일본") var d = jp;
+    else if(e.value == "기타") var d = others;
     
     target.options.length = 0;
 

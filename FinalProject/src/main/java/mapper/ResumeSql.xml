@@ -82,4 +82,10 @@
 	<update id="updateResume" parameterType="resume">
 		update resume set intro=#{intro},skill=#{skill},link=#{link} where num_r=#{num_r}
 	</update>
+	
+	<!-- 기업리뷰 사용 -->
+	<!-- 로그인시 경력사항 기업 출력 -->
+	<select id="getIdCareer" resultType="carer" parameterType="int">
+		select company, department, startday as c_startday, endday as c_endday from carer left join resume on carer.num_r = resume.num_r where resume.user_id=#{user_id}
+	</select>
 </mapper>

@@ -13,8 +13,9 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
   />
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0ae45bf90266e140c52136e8a7c89216&libraries=services"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+ -->
 <style type="text/css">
 .emplogo{
 max-width: 600px;
@@ -213,7 +214,9 @@ function submit2(frm){
 <p>${dto.empcontent}<p><br>
 <hr class="seon">
 <h4>마감일&nbsp; ${dto.deadline}</h4>
-<h4>근무지역 &nbsp;</h4>
+<h4>근무지역 &nbsp; ${edto}</h4>
+<input type="hidden" name="edto" id="edto" value="${edto}">
+<div id="map" style="width:500px;height:400px;"></div>
 <aside class="bookmarkBox">
 <c:set var="id"><sec:authentication property="principal.user.id"/></c:set>
 <input type="hidden" name="id" value="${id }">
@@ -295,10 +298,53 @@ function submit2(frm){
 </div>
 
 </aside>
+
 <button type="button" class="golist" onclick="location.href='gonggolist'">목록</button>
+<c:if test="${dto.empname==loginname}">
 <button type="button" class="update" onclick="location.href='updategonggo?num=${dto.num}'">공고 수정</button>
 <button type="button" class="delete" onclick="location.href='delete?num=${dto.num}'">공고 삭제</button>
+</c:if>
 </form>
+<script>
+var edto=$("#edto").val();
+console.log(edto);
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+}; 
+//지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch(edto, function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.empname}</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+	</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-6093907a141e311e"></script>
 </body>
 </html>

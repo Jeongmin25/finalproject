@@ -34,6 +34,9 @@
 </script>
 <style type="text/css">
 
+	div.noticelist{
+		font-size: 1.2em;
+	}
 
 
  
@@ -50,8 +53,8 @@
 			style="width: 1000px;">
 			<thead>
 				<tr>
-					<th bgcolor="#021B80" style="color: white;width:27px;">번호</th>
-					<th bgcolor="#021B80" style="color: white;width:60px;">카테고리</th>
+					<th bgcolor="#021B80" style="color: white;width:50px;">번호</th>
+					<th bgcolor="#021B80" style="color: white;width:70px;align:center;">카테고리</th>
 					<th bgcolor="#021B80" style="color: white;">제목</th>
 					<th bgcolor="#021B80" style="color: white;width:80px;">작성일</th>
 
@@ -76,7 +79,7 @@
 					<tr>
 						<td align="center">${a.count}</td>
 						<td align="center">${dto.category}</td>
-						<td align="center"><a href="noticecontent?num_n=${dto.num_n}"
+						<td align="center"><a href="noticecontent?num_n=${dto.num_n}&key=list"
 							style="color: black;">${dto.subject}</a></td> 
                         <td align="center"><fmt:formatDate value="${dto.writeday}"
 										pattern="yyyy-MM-dd" /></td>

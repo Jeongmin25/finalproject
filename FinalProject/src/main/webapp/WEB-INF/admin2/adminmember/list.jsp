@@ -79,32 +79,41 @@ table.dataTable {
 }
 
 div.dataTables_info { /* 총 갯수 */
-	position: absolute;
-	margin-top: 800px;
-	left: 200px;
+	position:relative;
+	left:100px;
+	top:750px;
+	
 }
 
 ul.pagination { /* 페이징 */
-	position: absolute;
-	top: 800px;
-	left: 550px;
+	position:relative;
+	left:150px;
+	top:750px;
 	font-size: 1.5em;
 }
 
- #btnadd {
-		width: 130px;
-		float: right;
-	position: absolute;
-	top:130px;
-	left: 800px;
-		font-size: 1.5em;
+
+	#btnExcel {
+		position:relative;
+		top:30px;
+		left:600px;
+		width: 150px;
 		
 		background-color:#021B80;
 		color: white;
+		font-size:1.5em;
 		border-radius: 5px; 
 		border-style: none;
-	}
 	
+	
+	
+	
+	
+	}
+ 
+ 
+ 
+ 
 	 #btndel {
 		width: 50px;
 		float: right;
@@ -199,6 +208,21 @@ ul.pagination { /* 페이징 */
                 </a>
             </li>
               
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin2/admingonggo/list" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-users"></i>
+                    <span>채용공고관리</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin2/adminreview/list" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-edit"></i>
+                    <span>기업리뷰관리</span>
+                </a>
+            </li>
+              
 
 
 			<!-- Divider -->
@@ -238,22 +262,12 @@ ul.pagination { /* 페이징 */
 								<th bgcolor="#021B80" style="color: white;">이름</th>
 								<th bgcolor="#021B80" style="color: white;">이메일</th>
 								<th bgcolor="#021B80" style="color: white;">전화번호</th>
+								<th bgcolor="#021B80" style="color: white;">가입일</th>
 								<th bgcolor="#021B80" style="color: white;">Role</th>
 								<th bgcolor="#021B80" style="color: white;">삭제</th>
 							</tr>
 						</thead>
-						<tfoot>
-							<tr>
-								<th bgcolor="#021B80" style="color: white;">번호</th>
-								<th bgcolor="#021B80" style="color: white;">이름</th>
-								<th bgcolor="#021B80" style="color: white;">이메일</th>
-								<th bgcolor="#021B80" style="color: white;">전화번호</th>
-								<th bgcolor="#021B80" style="color: white;">Role</th>
-								<th bgcolor="#021B80" style="color: white;">삭제</th>
-
-
-							</tr>
-						</tfoot>
+						
 						<tbody>
 							<c:forEach var="dto" items="${list}" varStatus="m">
 								<tr>
@@ -261,7 +275,12 @@ ul.pagination { /* 페이징 */
 									<td align="center">${dto.username}</td>
 									<td align="center">${dto.email}</td>
 									<td align="center">${dto.hp}</td>
+									<td align="center" >
+												<fmt:formatDate value="${dto.create_date}"
+													pattern="yyyy-MM-dd"/>
+											</td>
 									<td align="center">${dto.role}</td>
+									
 									<div class="float">
 									<td colspan="2" >	
 									<button type="button" id="btndel"
@@ -278,6 +297,56 @@ ul.pagination { /* 페이징 */
 
 
 				</div>
+				 <button type="button" id="btnExcel" onclick="fnExcelDownload('dataTable','회원목록')"><span>엑셀다운로드<i class="fas fa-download"></i></span></button>
+
+
+  <script type="text/javascript">
+                         // 엑셀 다운로드
+                            function fnExcelDownload(id, title) {
+                                var tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
+                                tab_text += '<head><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
+                                tab_text += '<xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+                                tab_text += '<x:Name>Sheet</x:Name>';
+                                tab_text += '<x:WorksheetOptions><x:Panes></x:Panes></x:WorksheetOptions></x:ExcelWorksheet>';
+                                tab_text += '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
+                                tab_text += "<table border='1px'>";
+                                var exportTable = $('#' + id).clone();
+                                exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+                                tab_text += exportTable.html();
+                                tab_text += '</table></body></html>';
+                                var data_type = 'data:application/vnd.ms-excel';
+                                var ua = window.navigator.userAgent;
+                                var msie = ua.indexOf("MSIE ");
+                                var fileName = title + '.xls';
+
+                                // IE 환경에서 다운로드
+                                if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+                                if (window.navigator.msSaveBlob) {
+                                var blob = new Blob([tab_text], {
+                                type: "application/csv;charset=utf-8;"
+                                });
+                                navigator.msSaveBlob(blob, fileName);
+                                }
+                                } else {
+                                var blob2 = new Blob([tab_text], {
+                                type: "application/csv;charset=utf-8;"
+                                });
+                                var filename = fileName;
+                                var elem = window.document.createElement('a');
+                                elem.href = window.URL.createObjectURL(blob2);
+                                elem.download = filename;
+                                document.body.appendChild(elem);
+                                elem.click();
+                                document.body.removeChild(elem);
+                                }
+
+                            };
+                            
+                            
+                            
+                            </script>
+				
+				
 				
 				
 				

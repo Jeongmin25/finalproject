@@ -13,4 +13,9 @@
 	<select id="getDataOfJobGroup" parameterType="int" resultType="jobgroup">
 		select * from specialixed_field where id=#{id}
 	</select>
+	
+	<!-- 추천공고 -->
+	<select id="getJobdata" resultType="String" parameterType="int">
+		select job_group from specialixed_field where id=#{id}
+	</select>
 </mapper>

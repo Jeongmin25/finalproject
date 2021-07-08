@@ -30,13 +30,13 @@ div.output{
 <h2>채용공고 작성</h2><br>
 
 <h3>회사 이름<br><!-- account 연결 필요 -->
-<input type="text" name="empname" class="form-control"></h3>
+<input value="${empname}" name="empname" class="form-control"></h3>
 
 <h3>직군/직무<br></h3>
 <select name="job" id="job" class="form-control" style="width: 200px; height: 35px;"
 			onchange="selectjob(this)">
-			<option selected="selected">직군</option>
-			<option value="IT/인터넷">IT/인터넷</option>
+			<option>직군</option>
+			<option value="IT/인터넷" selected="selected">IT/인터넷</option>
 			<option value="경영/기획/컨설팅">경영/기획/컨설팅</option>
 			<option value="디자인">디자인</option>
 			<option value="미디어/홍보/마케팅">미디어/홍보/마케팅</option>
@@ -56,7 +56,7 @@ div.output{
 		<td>
 			<select style="width: 200px; height: 35px;" name="cctg" id="cctg" class="sel form-control" 
 			onchange="selectctg(this.value)">
-				<option selected="selected">카테고리</option>
+				<option>카테고리</option>
 					<option value="업계연봉수준">업계연봉수준</option>
 					<option value="보상">보상</option>
 					<option value="출퇴근">출퇴근</option>
@@ -66,7 +66,7 @@ div.output{
 			</select>
 			<select style="width: 200px; height: 35px;" name="hashtag" id="hashtag" 
 			class="sel form-control" onchange="selecttag(this.value)">
-				<option selected="selected">해시태그</option>	
+				<option>해시태그</option>	
 			</select>
 			<!-- <button type="button" class="add" id="btnaddctg">+ 추가</button>-->
 			<div id="output1"></div>
@@ -124,10 +124,15 @@ function selectctg(c) {
 	
 	var ipt = document.createElement("input");
 	ipt.setAttribute("type","text");
+	ipt.setAttribute("class","form-control");
 	ipt.setAttribute("name","ctg");
+	ipt.setAttribute("id","ctg");
 	ipt.setAttribute("value",c);
 	var space= document.getElementById("output1");
-	space.appendChild(ipt);
+	var spanx=document.createElement("span");
+	spanx.setAttribute("class","remove glyphicon glyphicon-remove");
+	space.appendChild(ipt);	
+	space.appendChild(spanx);
 	
     var pay = ["연봉업계평균이상","연봉상위1%","연봉상위2~5%","연봉상위6~10%","연봉상위11~20%"];
     var com = ["성과급", "상여금", "연말보너스","스톡옵션"];
@@ -155,10 +160,20 @@ function selectctg(c) {
 function selecttag(t) {
 		var ipt = document.createElement("input");
 		ipt.setAttribute("type","text");
+		ipt.setAttribute("class","form-control");
 		ipt.setAttribute("name","tag");
+		ipt.setAttribute("id","tag");
 		ipt.setAttribute("value",t);
 		var space= document.getElementById("output2");
+		var spanx=document.createElement("span");
+		spanx.setAttribute("class","remove glyphicon glyphicon-remove");
 		space.appendChild(ipt);	
+		space.appendChild(spanx);
 }
+$(document).on("click",".remove",function(e){
+	var r1 = e.target;
+	var r2= r1.parentNode;
+	r2.parentNode.removeChild(r2);
+});
 </script>
 </html>

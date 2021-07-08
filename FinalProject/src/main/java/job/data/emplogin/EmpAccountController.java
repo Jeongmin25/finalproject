@@ -2,6 +2,7 @@ package job.data.emplogin;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,11 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import job.data.gonggo.CompanyDto;
+import job.data.gonggo.CompanyMapper;
+
 @Controller
 public class EmpAccountController {
 	
 	@Autowired
 	EmpAccountMapper mapper;
+	@Autowired
+	CompanyMapper cmapper;
 	
 	@GetMapping("/emplist")
 	public ModelAndView emplist(@ModelAttribute EmpAccountDto dto)
@@ -103,5 +109,61 @@ public class EmpAccountController {
 		return "layout";
 		
 	}
+	
+	@GetMapping({"/updateEmp"})
+	public ModelAndView empUpdateForm(@RequestParam String num)
+	{
+		ModelAndView mview=new ModelAndView();
+		EmpAccountDto dto=mapper.getdataOfEmp(num);
+		
+		mview.addObject("dto",dto);
+		mview.setViewName("/emp/empUpdateForm");
+		return mview;
+	}
+	
+	@GetMapping({"/empMyPage"})
+	public ModelAndView Mypageemp(@RequestParam String num)
+	{
+		ModelAndView mview=new ModelAndView();
+		EmpAccountDto dto=mapper.getdataOfEmp(num);
+		List<CompanyDto> cdto=cmapper.getmygonggo(dto.getEmpname());
+		mview.addObject("dto",dto);
+		mview.addObject("cdto",cdto);
+		System.out.println(cdto);
+		mview.setViewName("/emp/empMyPage");
+		return mview;
+	}
+	
+	@PostMapping("/empupdate")
+	public String updateemp(@ModelAttribute EmpAccountDto dto)
+	{
+		mapper.updateOfEmp(dto);
+		return "redirect:empMyPage";
+	}
+	
+	//관리자페이지 출력//
+		@GetMapping({"/admin2/adminmember/elist"})
+		public ModelAndView list()
+		
+		{	ModelAndView mview=new ModelAndView();
+			
+			//목록 가져오기
+			List<EmpAccountDto> list=mapper.getAllEmpAccount();	
+			mview.addObject("list",list);
+			mview.setViewName("/admin2/adminmember/elist");
+			return mview;
+		}
+		
+		@GetMapping("/admin2/adminmember/empdelete")
+		public String delete(@RequestParam String num)
+		{
+			mapper.deleteEmpAccount(num);
+			return "redirect:list";
+		}
+		
+		
+		
+	
+	
 
 }
