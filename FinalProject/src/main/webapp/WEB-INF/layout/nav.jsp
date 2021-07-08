@@ -38,10 +38,16 @@
 					<li id="gs"><a>Mypage</a>
 						<div>
 							<ul class="Mypage">
+								<c:if test="${sessionScope.loginok==null}">
 								<li><a href="myjob">My +JOB</a></li>
 								<li><a href="profile">프로필</a></li>
-								<li><a href="bookmark">북마크</a></li>
 								<li><a href="resumelist">이력서</a></li>
+							</c:if>
+							<c:if test="${sessionScope.loginok!=null}">
+								<li><a href="empMyPage">My Company</a></li>
+								<li><a href="writegonggo">공고작성</a></li>
+								<li><a href="orderComplete">결제내역</a></li>
+							</c:if>
 							</ul>
 						</div></li>
 					<li id="gs"><a>고객센터</a>
