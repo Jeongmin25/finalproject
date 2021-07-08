@@ -37,7 +37,7 @@
 	
 	<!-- 기업명 조회 -->
 	<select id="selectEmpname" resultType="review" parameterType="int">
-		select empname, good from review group by empname order by writeday desc 
+		select empname, good, round(avg(rating),1) as rating from review group by empname order by writeday desc 
 		limit #{start},#{perpage};
 		
 	</select>
@@ -83,7 +83,7 @@
 	
 	<!-- 기업이름 검색 -->
 	<select id="searchEmpname" resultType="review" parameterType="String">
-		SELECT empname,good FROM review WHERE empname LIKE CONCAT('%',#{empname},'%')
+		SELECT empname,good, round(avg(rating),1) as rating FROM review WHERE empname LIKE CONCAT('%',#{empname},'%')
 		 group by empname order by likes desc
 	</select>
 

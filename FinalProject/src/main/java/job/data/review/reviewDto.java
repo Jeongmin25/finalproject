@@ -17,7 +17,7 @@ public class reviewDto {
 	private String job_group;
 	private String good;
 	private String bad;
-	private int rating;
+	private float rating;
 	private int cul;
 	private int imp;
 	private int env;

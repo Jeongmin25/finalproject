@@ -32,7 +32,7 @@
 		width: 900px;
 		height: 70px;
 		padding-left: 20px;
-		padding-top:10px;
+		padding-top:22px;
 		margin-bottom: 10px;
 		border: 1px solid gray;
 		border-radius: 20px;
@@ -40,10 +40,7 @@
 		font-size: 1.2em;
 	}
 	
-	div.empname:hover{
-		background-color: #ddd;
-	}
-	
+
 	a.empname{
 		text-decoration: none;
 		color: #282828;
@@ -72,14 +69,18 @@
 	<br>
 	<c:forEach items="${searchlist }" var="data">
 
-		<div class="empname">
-		<a class="empname" href="reviewdetail?empname=${data.empname }">
-		<img alt="" src="../image/+job.png" style="max-width: 50px; border: 1px solid gray; border-radius: 50px;">
-		&nbsp;&nbsp;${data.empname }
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<b style="font-weight: normal; color: gray;"># ${data.good}</b></a>
-		</a>
-		</div>
+			<div class="empname">
+			<img alt="" src="../image/ministar.png" style="max-width: 20px;">
+			<a class="empname" href="reviewdetail?empname=${data.empname }" >
+			<b style="font-weight: normal; text-align: right;">${data.rating}
+				
+			</b>
+			&nbsp;&nbsp;
+			${data.empname } 
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<b style="font-weight: normal; color: gray;"># ${data.good}</b></a>
+			
+			</div>
 	</c:forEach>
 </div>	
 	<br>
