@@ -48,4 +48,8 @@ public interface CompanyMapper {
 	public List<CompanyDto> getApplyListOfCompany_paging(Map<String, Object>map);
 	//apply 삭제
 	public void deleteApply(Map<String, String>map);
+	
+	//관리자페이지 출력
+	public List<CompanyDto> getAllCompany();
+	
 }

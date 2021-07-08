@@ -97,4 +97,9 @@
 	<delete id="deleteApply" parameterType="Hashmap">
 		delete from apply where id=#{id} and num=#{num}
 	</delete>
+	
+	<!-- 관리자 페이지 출력 -->
+	<select id="getAllCompany" resultType="company" >
+		 select * from company order by num desc;  
+	</select>
 </mapper>

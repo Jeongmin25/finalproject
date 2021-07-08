@@ -304,4 +304,25 @@ public class GonggoContoroller {
 		   	return mview;
 		}
 	   
+	   //관리자페이지 출력//
+		@GetMapping({"/admin2/admingonggo/list"})
+		public ModelAndView list()
+		
+		{	ModelAndView mview=new ModelAndView();
+			
+			//목록 가져오기
+		List<CompanyDto> list=mapper.getAllCompany();
+		mview.addObject("list",list);
+			mview.setViewName("/admin2/admingonggo/list");
+			return mview;
+		}
+		
+		@GetMapping("/admin2/admingonggo/gonggodelete")
+		public String gonggodelete(@RequestParam String num)
+		{
+			mapper.deleteGonggo(num);
+			mapper.deleteCategory(num);
+			return "redirect:list";
+		}
+	   
 }
