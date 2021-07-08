@@ -46,6 +46,7 @@
 							<c:if test="${sessionScope.loginok!=null}">
 								<li><a href="empMyPage">My Company</a></li>
 								<li><a href="writegonggo">공고작성</a></li>
+								<li><a href="gonggolist">공고목록</a></li>
 								<li><a href="orderComplete">결제내역</a></li>
 							</c:if>
 							</ul>
