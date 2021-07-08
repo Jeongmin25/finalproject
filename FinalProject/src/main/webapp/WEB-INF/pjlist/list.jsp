@@ -209,13 +209,13 @@
 
 	$( document ).ready( function() {
 		$( 'button#tagModalConfirm1' ).click( function() {
-			var tag1 = $( 'input#tag' ).val();
-			alert( tag1 );
+			var tag = $( 'input#tag' ).val();
+			//alert( tag );
 			
 			$.ajax({
 		        type : "post",  
-		        url : "/pjlistsearch",        
-		        data : "tag1="+tag1,
+		        url : "/pjlistsearchtag",        
+		        data : "tag="+tag,
 		        dataType: 'json',
 		        
 		        error : function(){

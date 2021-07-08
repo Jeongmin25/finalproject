@@ -25,11 +25,8 @@ import job.data.gonggo.CompanyMapper;
 public class Listcontroller {
 	
 	
-	@Autowired 
-	PjlistMapper mapper;
-	
 	@Autowired
-	CompanyMapper cmapper;
+	CompanyMapper datamapper;
 	
 	@Autowired
 	EmpAccountMapper empmapper;
@@ -46,7 +43,7 @@ public class Listcontroller {
 	   public ModelAndView pjlist(@ModelAttribute listCategotyDto dto) {
 	    ModelAndView mview =new ModelAndView();
 	    //목록 가져오기
-	    List<CompanyDto> gonggolist=cmapper.getAlldatas();
+	    List<CompanyDto> gonggolist=datamapper.getAlldatas();
 	    Date date=new Date();
         long time= date.getTime();
         System.out.println(dto.getTag());
@@ -77,7 +74,7 @@ public class Listcontroller {
 	   {
 		   ModelAndView mview=new ModelAndView();
 		   	CompanyDto dto=new CompanyDto();
-		    dto= cmapper.getData(num);
+		    dto= datamapper.getData(num);
 			mview.addObject("dto",dto);
 									
 			List<CategoryDto>cdto=dto.getCategory();
@@ -94,7 +91,7 @@ public class Listcontroller {
 	 public List<CompanyDto> searchListByTag(@RequestParam String tag){
 		
 		 //tag가 들어간 공고리스트 전체 출력
-		 List<CompanyDto> listByTag=cmapper.searchListByTag(tag);
+		 List<CompanyDto> listByTag=datamapper.searchListByTag(tag);
 		 System.out.println(listByTag);
 		 
 		 return listByTag;
@@ -108,7 +105,7 @@ public class Listcontroller {
 	  public List<EmpAccountDto>searchListByaddr(@RequestParam String area,@RequestParam String addr)
 	  
 	  { 
-		  //tag가 들어간 공고리스트 전체 출력 
+		  //area,addr이 들어간 공고리스트 전체 출력 
 		  List<EmpAccountDto>listByAddr=empmapper.searchListByAddr(area,addr);
 		  System.out.println(listByAddr);
 	  
