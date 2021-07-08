@@ -105,6 +105,24 @@ public class EmpAccountController {
 		
 	}
 	
+	@GetMapping({"/updateEmp"})
+	public ModelAndView empUpdateForm(@RequestParam String num)
+	{
+		ModelAndView mview=new ModelAndView();
+		EmpAccountDto dto=mapper.getdataOfEmp(num);
+		
+		mview.addObject("dto",dto);
+		mview.setViewName("/emp/empUpdateForm");
+		return mview;
+	}
+	
+	@PostMapping("/empupdate")
+	public String updateemp(@ModelAttribute EmpAccountDto dto)
+	{
+		mapper.updateOfEmp(dto);
+		return "redirect:emplist";
+	}
+	
 	//관리자페이지 출력//
 		@GetMapping({"/admin2/adminmember/elist"})
 		public ModelAndView list()

@@ -12,41 +12,39 @@
 </head>
 <body>
 
-<form action="/insertemp" method="post" class="form-inline">
+<form action="/empupdate" method="post" class="form-inline">
 	<div class="main-container">
+		<input type="hidden" name="num" value="${dto.num}">
 		<section class="intro-ment1-section-wrap">
-			<h3><b>관리자 계정 만들기</b></h3>
+			<h3><b>관리자 계정 수정하기</b></h3>
 		</section>
 		<br/>
 			담당자성함*<br/>
-			<input type="text" name="managername" placeholder="담당자성함" required="required" style="width: 500px; height: 40px;"/>
+			<input type="text" name="managername" value="${dto.managername}" required="required" style="width: 500px; height: 40px;"/>
 			<br/><br/>
 			직책(or팀)*<br/>
-			<input type="text" name="team" placeholder="직책 또는 팀명을 입력해주세요" required="required" style="width: 500px; height: 40px;"/>
+			<input type="text" name="team" value="${dto.team}" required="required" style="width: 500px; height: 40px;"/>
 			<br/><br/>
 			연락처*<br/>
-			<input type="text" name="hp" placeholder="예시)01020203030" required="required" style="width: 500px; height: 40px;"/>
+			<input type="text" name="hp" value="${dto.hp}" required="required" style="width: 500px; height: 40px;"/>
 			<br/><br/>
 			회사이메일*<br/>
-			<input type="email" name="email" placeholder="회사이메일(로그인 아이디로 사용됩니다)" required="required" style="width: 500px; height: 40px;"/> 
-			<button type="button" class="btn btn-default" id="btncheck" style="height: 35px;">중복체크</button> 
+			<input type="email" name="email" value="${dto.email}"  readonly="readonly" style="width: 500px; height: 40px;"/> 
 			<br/><br/>
 			비밀번호*<br/>
-			<input type="password" name="password" placeholder="6자리 이상 비밀번호" required="required" style="width: 500px; height: 40px;"/> 
+			<input type="password" name="password" value="${dto.password}" required="required" style="width: 500px; height: 40px;"/> 
 			<br/><br/>
 		<hr>
 		
 		<section class="intro-ment2-section-wrap">
-			<h3 color="#333333" class="intro-ment">회사 정보를 등록해주세요</h3>
-			<h5 color="#757575" class="intro-ment">+JOB은 추천인/후보자들에게 좋은 일자리를 제공하기 위해, 
-			다음 정보를 리뷰하여 회사등록을 승인하고 있습니다.</h5>
+			<h3 color="#333333" class="intro-ment">회사 정보를 수정해주세요</h3>
 		</section>
 		<br/><br/>
 	
 		<section class="join-input-section-wrap">
 				<div class="join-input-wrap empname-wrap">	
 					회사이름*<br/>
-						<input type="text" name="empname" placeholder="회사명" required="required" style="width: 820px; height: 40px;"/>
+						<input type="text" name="empname" value="${dto.empname}" required="required" style="width: 820px; height: 40px;"/>
 				</div> 
 				<br/>
 				<div class="cate_job">
@@ -54,7 +52,7 @@
 						국가/지역*<br/>
 						<select name="country" id="country" class="form-inline" style="width: 400px; height: 40px;"
 							onchange="selectContry(this)">
-							<option value="국가" disabled>국가</option>
+							<option value="${dto.country}" disabled>${dto.country}</option>
 							<option value="한국">한국</option>
 							<option value="대만">대만</option>
 							<option value="싱가폴">싱가폴</option>
@@ -66,25 +64,25 @@
 					<div class="join-input-wrap area-wrap">
 					<br/>
 						<select name="area" id="area" class="form-inline" style="width: 400px; height: 40px;">
-							<option>지역</option>
+						<option>${dto.area}</option>
 						</select>
 					</div>
 				</div>
 				<br/>
 				<div class="join-input-wrap addr-wrap">	
 					대표 주소*<br/>
-						<input type="text" name="addr" placeholder="대표 주소" required="required" style="width: 820px; height: 40px;"/>
+						<input type="text" name="addr" value="${dto.addr}" required="required" style="width: 820px; height: 40px;"/>
 				</div> 
 				<br/>
 				<div class="join-input-wrap empserial-wrap">	
 					사업자등록번호*<br/>
-						<input type="text" name="empserial" placeholder="사업자등록번호" required="required" style="width: 820px; height: 40px;"/>
+						<input type="text" name="empserial" value="${dto.empserial}"  required="required" style="width: 820px; height: 40px;"/>
 				</div> 
 				<br/>
 				<div class="join-input-wrap biztype-wrap" style="float: left;">
 					산업군*<br/>
 					<select name="biztype" id="biztype" class="form-inline" style="width: 400px; height: 40px;">
-						<option value="산업군" disabled>산업군</option>
+						<option value="${dto.biztype}" disabled>${dto.biztype}</option>
 						<option value="IT,컨텐츠">IT,컨텐츠</option>
 						<option value="판매, 유통">판매, 유통</option>
 						<option value="제조">제조</option>
@@ -112,7 +110,7 @@
 				<div class="join-input-wrap staffnum-wrap">	
 					직원수*<small> (승인기준 : 팀원 10명 이상)</small><br/>
 					<select name="staffnum" id="staffnum" class="form-inline" style="width: 400px; height: 40px;">
-						<option value="회사규모" disabled>회사규모</option>
+						<option value="${dto.staffnum}명" disabled>${dto.staffnum}명</option>
 						<option value="1~4">1~4명</option>
 						<option value="5~10">5~10명</option>
 						<option value="11~50">11~50명</option>
@@ -127,16 +125,12 @@
 				<br/>
 				<div class="join-input-wrap establishyear-wrap">	
 					설립연도*<br/>
-					<input type="text" name="establishyear" placeholder="ex)2012년" required="required" style="width: 820px; height: 40px;"/>
+					<input type="text" name="establishyear" value="${dto.establishyear}" required="required" style="width: 820px; height: 40px;"/>
 				</div> 
 				
 				<br/><br/>
 				<div class="w3-container w3-cardd-4">
-				  <p>
-				  <input class="w3-check" type="checkbox" checked="checked">
-					<b>이용약관 및 원티드 기업회원 가입에 동의합니다.</b>
-				  </p>
-				  <button type="submit" class="btn btn-default" style="width: 150px; float: right;">제출하기</button>
+				  <button type="submit" class="btn btn-default" style="width: 150px; float: right;">수정하기</button>
 				</div>
 				<br/>
 				<hr>
@@ -148,30 +142,6 @@
 </form>
 
 <script type="text/javascript">
-
-$(function(){
-	$("#btncheck").click(function(){
-		//email 읽기
-		var email=$("#email").val();
-		$.ajax({
-			type:"get",
-			url:"emailcheck",
-			dataType:"json",
-			data:{"email":email},
-			success:function(data){
-				if(data.count==1){
-					alert("이미 가입된 이메일입니다\n다시 입력해주세요");
-					$("#email").val("");
-					$("#email").focus();
-				}else{
-					alert("가입이 가능한 이메일입니다");
-				}
-					
-			}
-		})
-	});
-});
-
 
 
 //국가 onchange 이벤트

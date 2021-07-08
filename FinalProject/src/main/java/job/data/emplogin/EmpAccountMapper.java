@@ -13,7 +13,8 @@ public interface EmpAccountMapper {
 	public String searchAddr(String empname);
 	//@Select("SELECT * FROM user_account WHERE username = #{username}")
 	public EmpAccountDto findByEmpname(String Empname);
-	
+	public EmpAccountDto getdataOfEmp(String num);
+	public void updateOfEmp(EmpAccountDto dto);
 	/* 관리자페이지에 출력 */
 	public List<EmpAccountDto> getAllEmpAccount();
 	

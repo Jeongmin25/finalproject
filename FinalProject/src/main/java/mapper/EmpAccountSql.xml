@@ -29,6 +29,15 @@
 		select count(*) from emp_account where email=#{email} and password=#{password}
 	</select>
 	
+	<select id="getdataOfEmp" resultType="empAccount">
+		select * from emp_account where num=#{num}
+	</select>
+	
+	<update id="updateOfEmp" parameterType="empAccount">
+		update emp_account set managername=#{managername},team=#{team},hp=#{hp},email=#{email},password=#{password},
+		empname=#{empname},empserial=#{empserial},country=#{country},area=#{area},addr=#{addr},biztype=#{biztype},staffnum=#{staffnum},establishyear=#{establishyear} where num=#{num}   
+	</update>
+	
 		<!-- 관리자페이지에 출력--> 
 	<select id="getAllEmpAccount" resultType="empAccount">
 		select * from emp_account order by email desc
