@@ -36,7 +36,7 @@ div.recommed{
  div.totaljob{
  	position:absolute;
  	top: 150px;
- 	left:1150px;
+ 	left:1050px;
  	border-radius:10px;
  	font-size: 1.5em;
  	padding: 10px 10px;
@@ -73,12 +73,12 @@ div.gonggo{
 <c:set var="id" value="${username }"/>
 <h2>추천 공고</h2>
 <h5 class="alert alert-default">
-	안녕하세요 ${id }님, 기입하신 전문분야를 기반으로 포지션을 추천드립니다.
+	안녕하세요 ${id }님, 전문분야를 설정하여 다양한 포지션을 추천받아보세요.
 </h5><br>
 <!-- 추천공고 -->
 <div class="recommed">
 <c:set var="id" value="${idx }"/>
-<c:forEach var="dto" items="${data}" varStatus="n">
+<c:forEach var="dto" items="${joblist}" varStatus="n">
 	<div class="gonggo-box">
 		<input type="hidden" name="num" value="${dto.num}">
 			<div class="image" style="background-image: url('../gonggophoto/${dto.empimg }');">
@@ -115,13 +115,13 @@ div.gonggo{
 <!-- 전문분야 변경 -->
 
 <div class="totaljob">
-	<a data-toggle="collapse" data-target="#demo" >다른 포지션을 원하시나요?</a><br>
+	<a data-toggle="collapse" data-target="#demo" >아직 전문문야가 설정되지 않았어요!</a><br>
   	<div id="demo" class="collapse">
   		<div class="statement">
 			<button type="button" class="btn btn-default"
-				style="margin-left: 30px; margin-top: 10px;"
+				style="margin-left: 70px; margin-top: 10px;"
 				onclick="location.href='profile'"
-			>전문분야 변경하러가기 ></button>
+			>전문분야 설정하러가기 ></button>
  	 	</div>
 	</div>
 	

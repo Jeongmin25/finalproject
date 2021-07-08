@@ -20,5 +20,8 @@ public interface recommendMapper {
 	public void deleteBookmark(int id, int num);
 	
 	//북마크 데이터 출력
-	public List<bookmarkDto> bookdata();
+	public List<bookmarkDto> bookdata(int id);
+	
+	//전체 공고
+	public List<recommendDto> totalData();
 }
