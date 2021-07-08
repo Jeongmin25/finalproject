@@ -46,7 +46,7 @@ public class Listcontroller {
 	    List<CompanyDto> gonggolist=datamapper.getAlldatas();
 	    Date date=new Date();
         long time= date.getTime();
-        System.out.println(dto.getTag());
+        //System.out.println(dto.getTag());
         mview.addObject("date", date);
         mview.addObject("time",time);
 	    mview.addObject("gonggolist",gonggolist);
@@ -92,25 +92,26 @@ public class Listcontroller {
 		
 		 //tag가 들어간 공고리스트 전체 출력
 		 List<CompanyDto> listByTag=datamapper.searchListByTag(tag);
-		 System.out.println(listByTag);
+		 System.out.println("list="+listByTag);
 		 
 		 return listByTag;
 	 }
 	 
 	 
 		
-	  @ResponseBody
-	  
-	  @PostMapping({"/pjlistsearchaddr"}) 
-	  public List<EmpAccountDto>searchListByaddr(@RequestParam String area,@RequestParam String addr)
-	  
-	  { 
-		  //area,addr이 들어간 공고리스트 전체 출력 
-		  List<EmpAccountDto>listByAddr=empmapper.searchListByAddr(area,addr);
-		  System.out.println(listByAddr);
-	  
-		  return listByAddr; 
-	 }
+		/*
+		 * @ResponseBody
+		 * 
+		 * @PostMapping({"/pjlistsearchaddr"}) public
+		 * List<EmpAccountDto>searchListByaddr(@RequestParam String area,@RequestParam
+		 * String addr)
+		 * 
+		 * { //area,addr이 들어간 공고리스트 전체 출력
+		 * List<EmpAccountDto>listByAddr=empmapper.searchListByAddr(area,addr);
+		 * System.out.println(listByAddr);
+		 * 
+		 * return listByAddr; }
+		 */
 	 
 	 
 	 
