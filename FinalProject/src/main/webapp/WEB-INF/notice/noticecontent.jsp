@@ -38,8 +38,8 @@
 	<hr style="border: solid 1px black;">
 
 	<b style="font-size: 2em;">${dto.subject}</b>
-	 <b style="color: gray; float: right;"> 
-	 	<fmt:formatDate value="${dto.writeday}"pattern="yyyy-MM-dd"/></b>
+ 
+	 	<fmt:formatDate value="${dto.writeday}"pattern="yyyy-MM-dd"/>
 
 			<br><br><div class="text">카테고리:<b style="margin-right: 20px;">${dto.category}</b>작성자:<b>${dto.writer}</b></div>
 
@@ -48,7 +48,7 @@
 				<br><br><br><br>
 		<h4>${dto.content}</h4> <br> <c:if test="${dto.photo!='no'}">
 		
-					<img src="/noticephoto/${dto.photo}" style="max-width: 500px;">
+					<img src="/noticephoto/${dto.photo}" style="max-width: 600px;">
 
 					</c:if>
 				
