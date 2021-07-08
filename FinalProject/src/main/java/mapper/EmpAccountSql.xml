@@ -15,6 +15,10 @@
 		select empname from emp_account where email=#{email}
 	</select>
 	
+	<select id="searchEmpNum" parameterType="String" resultType="String">
+		select num from emp_account where email=#{email}
+	</select>
+	
 	<select id="searchAddr" parameterType="String" resultType="String">
 		select addr from emp_account where empname=#{empname}
 	</select>

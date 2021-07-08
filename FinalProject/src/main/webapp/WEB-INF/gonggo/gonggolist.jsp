@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-	<form class="list form-inline">
+	<form class="gonggolist form-inline">
 		<!-- <input type="hidden" name="empname" value="${dto.empname}"> -->
 		<br>
 		<h3>${empname} 채용 중</h3>

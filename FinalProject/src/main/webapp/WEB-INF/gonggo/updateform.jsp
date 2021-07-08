@@ -52,7 +52,7 @@ border: none;
 <h3>직군/직무</h3>
 <select name="job" id="job" class="form-inline" style="width: 200px; height: 30px;"
 			onchange="selectjob(this)">
-			<option selected="selected">${dto.job}</option>
+			<option value="${dto.job}" disabled>${dto.job}</option>
 			<option value="IT/인터넷">IT/인터넷</option>
 			<option value="경영/기획/컨설팅">경영/기획/컨설팅</option>
 			<option value="디자인">디자인</option>
@@ -74,7 +74,7 @@ border: none;
 		<td>
 			<select style="width: 200px; height: 35px;" name="cctg" id="cctg" class="sel form-control" 
 			onchange="selectctg(this.value)">
-				<option selected="selected">카테고리</option>
+				<option disabled>카테고리</option>
 					<option value="보상">보상</option>
 					<option value="출퇴근">출퇴근</option>
 					<option value="식사/간식">식사/간식</option>
@@ -83,7 +83,7 @@ border: none;
 			</select>
 			<select style="width: 200px; height: 35px;" name="hashtag" id="hashtag" 
 			class="sel form-control" onchange="selecttag(this.value)">
-				<option selected="selected">해시태그</option>
+				<option disabled>해시태그</option>
 			</select><br>
 			<!-- <button type="button" class="add" id="btnaddctg">+ 추가</button>-->
 			<div>

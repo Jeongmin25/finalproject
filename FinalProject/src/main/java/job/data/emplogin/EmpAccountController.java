@@ -16,11 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import job.data.gonggo.CompanyDto;
+import job.data.gonggo.CompanyMapper;
+
 @Controller
 public class EmpAccountController {
 	
 	@Autowired
 	EmpAccountMapper mapper;
+	@Autowired
+	CompanyMapper cmapper;
 	
 	@GetMapping("/emplist")
 	public ModelAndView emplist(@ModelAttribute EmpAccountDto dto)
@@ -116,11 +121,24 @@ public class EmpAccountController {
 		return mview;
 	}
 	
+	@GetMapping({"/empMyPage"})
+	public ModelAndView Mypageemp(@RequestParam String num)
+	{
+		ModelAndView mview=new ModelAndView();
+		EmpAccountDto dto=mapper.getdataOfEmp(num);
+		List<CompanyDto> cdto=cmapper.getmygonggo(dto.getEmpname());
+		mview.addObject("dto",dto);
+		mview.addObject("cdto",cdto);
+		System.out.println(cdto);
+		mview.setViewName("/emp/empMyPage");
+		return mview;
+	}
+	
 	@PostMapping("/empupdate")
 	public String updateemp(@ModelAttribute EmpAccountDto dto)
 	{
 		mapper.updateOfEmp(dto);
-		return "redirect:emplist";
+		return "redirect:empMyPage";
 	}
 	
 	//관리자페이지 출력//

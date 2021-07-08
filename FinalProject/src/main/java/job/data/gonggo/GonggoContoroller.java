@@ -47,16 +47,23 @@ public class GonggoContoroller {
 		String uploadName;//photo 폴더에 업로드 되는 실제 사진 파일명
 
 	   @GetMapping("/gonggolist")
-	   public ModelAndView index(HttpSession session) {
+	   public ModelAndView index(HttpSession session, @RequestParam String num) {
 	      ModelAndView mview =new ModelAndView();
 	      session.getAttribute("loginok");
 	      String email=(String)session.getAttribute("myemail");
 	      String empname=emapper.searchEmpName(email);
-	      CompanyDto dto=new CompanyDto();
-
+	      String empnum=emapper.searchEmpNum(email);
+	      
+	      CompanyDto dto=mapper.getData(empname);
+	      System.out.println(dto.getEmpname());
+	      
 	      if(email==null) {
 	    	 mview.setViewName( "redirect:/");
 	    	 return mview;
+	      }else if(dto.getEmpname()!=empname){
+	    	  mview.setViewName("gonggo/gonggolist");
+		      
+		      return mview;
 	      }
 	      else{
 	      //목록 가져오기
@@ -72,7 +79,7 @@ public class GonggoContoroller {
 	      for(CompanyDto d:gonggolist)
 	    	 // System.out.println(d.getDeadline());
 	      
-	      mview.setViewName("/gonggo/gonggolist");
+	      mview.setViewName("gonggo/gonggolist");
 	      
 	      return mview;
 	      }

@@ -10,6 +10,7 @@ public interface EmpAccountMapper {
 	public void insertOfEmp(EmpAccountDto dto);
 	public int loginCheckOfEmp(String email,String password);
 	public String searchEmpName(String email);
+	public String searchEmpNum(String email);
 	public String searchAddr(String empname);
 	//@Select("SELECT * FROM user_account WHERE username = #{username}")
 	public EmpAccountDto findByEmpname(String Empname);
