@@ -23,7 +23,7 @@
 
 	div.empreview{
 		width: 400px;
-		height: 200px;
+		height: 150px;
 		margin-left: 10px;
 	}
 	div.runsearch{
@@ -49,8 +49,9 @@
 	
 	div.empname{
 		width: 900px;
-		height: 100px;
+		height: 70px;
 		padding-left: 20px;
+		padding-top:10px;
 		margin-bottom: 10px;
 		border: 1px solid gray;
 		border-radius: 20px;
@@ -63,10 +64,10 @@
 	}
 	
 	a.empname{
-		font-size: 1.5em;
+		margin-top:10px;
 		text-decoration: none;
 		color: #282828;
-		top: 20px;
+		
 	}
 	
 	div.menu button.menu{
@@ -91,7 +92,7 @@
 	</div>
 	
 	<div class="empreview">
-		<h1>기업 리뷰</h1>
+		<h2>기업 리뷰</h2>
 		<br>
 		<h4 style="color: gray;">앞으로 근무할 기업은 어떤 모습일까 궁금하시죠?</h4>
 		<div class="inputserach">
@@ -109,11 +110,10 @@
 	<!-- 기업 이미지  -->
 	
 	<div class="list">
-		<h2>전체 기업리뷰 (${total})</h2>
+		<h3>전체 기업리뷰 (${total})</h3>
 		<br>
 		<c:forEach items="${empname }" var="empname">
 			<div class="empname">
-			<br>
 			<a class="empname" href="reviewdetail?empname=${empname.empname }">
 			<img alt="" src="../image/+job.png" style="max-width: 50px; border: 1px solid gray; border-radius: 50px;">
 			&nbsp;&nbsp;

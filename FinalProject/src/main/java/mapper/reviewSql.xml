@@ -17,10 +17,12 @@
 
 	<!-- review테이블 데이터 추가 -->
 	<insert id="insertReview" parameterType="review">
-		insert into review (email,empname,prenow,job_group,good,bad,rating,
-		cul,imp,env,sal,ceo,writeday) values(#{email},#{empname},#{prenow},#{job_group},#{good}
-		,#{bad},#{rating},#{cul},#{imp},#{env},#{sal},#{ceo},now())
+		insert into review (email,empname,prenow,job_group,good,bad,rating,cul,imp,env,sal,ceo,writeday) 
+		select #{email},#{empname},#{prenow},#{job_group},#{good},#{bad},#{rating},#{cul},#{imp},#{env},#{sal},#{ceo},now() 
+		FROM DUAL WHERE NOT EXISTS (select email,empname,prenow,job_group,good,bad,rating,cul,imp,env,sal,ceo,writeday 
+		FROM review where email=#{email} and empname=#{empname})
 	</insert>
+
 	
 	<!-- review테이블 전체 출력 -->
 	<select id="getReviewData" resultType="review" parameterType="String">
@@ -131,8 +133,7 @@
 		UPDATE review SET good =#{good}, bad =#{bad}, 
 		rating =#{rating}, cul =#{cul}, imp =#{imp}, env =#{env}, sal =#{sal}, 
 		ceo =#{ceo} WHERE num =#{num}
-	</update>
-	
+	</update>	
 	
 	<!-- 관리자페이지에 출력--> 
 	<select id="getAllReview" resultType="review">

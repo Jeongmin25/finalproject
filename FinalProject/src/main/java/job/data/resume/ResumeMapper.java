@@ -35,6 +35,8 @@ public interface ResumeMapper {
 	public void updateFore(ForeDto fdto);
 	
 	
-	
+	//기업리뷰 사용
+	//로그인시 경력사항 기업출력
+	public List<CarerDto> getIdCareer(int user_id);
 	
 }

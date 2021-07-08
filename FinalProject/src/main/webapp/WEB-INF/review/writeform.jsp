@@ -88,22 +88,26 @@
 			onclick="location.href='addreview'">my리뷰</button>
 	</div>
 	<div class="myreview">
-		<h2>MY 기업리뷰 수정</h2>
-		<br>
+	
+		<!-- 기업 저장 -->
+		<c:set var="emp" value="${emp }"></c:set>
 		<!-- 작성리뷰 출력 -->
 		<div class="mylist">
-		<c:forEach var="data" items="${updatedata }" varStatus="n">
+		
 			<table class="reviewtable table table" style="font-size: 1.3em;">
-			<form action="updateOfReview" method="post">
-			<input type="hidden" name="num" value="${data.num }">
-    	<table class="formtable table" style=" width: 700px; margin-left: 100px; border: 1px solid #ccc;">    		
+    		<form action="add" method="post">
+    	<input type="hidden" name="email" value="${email }">
+    	
+    	<table class="formtable table" style=" width: 700px; margin-left: 100px; border: 1px solid #ccc;">
+    	
+    		<h3 style="margin-left: 100px;">${emp } 기업리뷰 작성</h3>    		
     		<tr>
     			<th>
     				<h5>기업명</h5>
     			</th>
     			<td>
-    				<h5>${data.empname }</h5>
-    				
+    				<input type="hidden" name="empname" value="${emp }"
+    					style="width: 300px; height: 40px;" required="required" class="form-control"> ${emp }
     			</td>
     		</tr>
     		<tr>
@@ -111,7 +115,10 @@
     				<h5>현 직장/전 직장</h5>
     			</th>
     			<td>
-    				<h5>${data.prenow }</h5>
+    				<select name="prenow" style="width: 300px; height: 40px;" required="required" class="form-control">
+    					<option value="전 직장">전 직장</option>
+    					<option value="현 직장">현 직장</option>
+    				</select>
     			</td>
     		</tr>
     		<tr>
@@ -119,7 +126,16 @@
     				<h5>직종</h5>
     			</th>
     			<td>
-    				<h5>${data.job_group }</h5>
+    				<select name="job_group" style="width: 300px; height: 40px;" required="required" class="form-control">
+    					<option value="IT/인터넷">IT/인터넷</option>
+    					<option value="경영/기획/컨설팅">경영/기획/컨설팅</option>
+    					<option value="디자인">디자인</option>
+    					<option value="미디어/홍보/마케팅">미디어/홍보/마케팅</option>
+    					<option value="생산/제조">생산/제조</option>
+    					<option value="유통/무역">유통/무역</option>
+    					<option value="서비스/고객지원">서비스/고객지원</option>
+    					<option value="인사/총무">인사/총무</option>
+    				</select>
     			</td>
     		</tr>
     		<tr>
@@ -127,7 +143,7 @@
     				<h5>기업의 장점</h5>
     			</th>
     			<td>
-    				<textarea name="good" style="width: 500px; height: 70px;" required="required" class="form-control">${data.good }</textarea>
+    				<textarea name="good" style="width: 500px; height: 70px;" required="required" class="form-control"></textarea>
     			</td>
     		</tr>
     		<tr>
@@ -135,7 +151,7 @@
     				<H5>기업의 단점</H5>
     			</th>
     			<td>
-    				<textarea name="bad" style="width: 500px; height: 70px;" required="required" class="form-control">${data.bad }</textarea>
+    				<textarea name="bad" style="width: 500px; height: 70px;" required="required" class="form-control"></textarea>
     			</td>
     		</tr>
  
@@ -269,10 +285,10 @@
     		</tr>
     	</table>
     	<br>
-    	<button type="submit" class="btnsubmit btn btn-default" style="margin-left: 400px;">수정하기</button>
+    	<button type="submit" class="btnsubmit btn btn-default" style="margin-left: 400px;">제출하기</button>
     	<br><br><br>
+    </form>
 	</table>
-	</c:forEach>
 	</div>
 </div>
 </body>
