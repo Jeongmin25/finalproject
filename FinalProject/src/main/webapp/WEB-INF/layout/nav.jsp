@@ -48,7 +48,7 @@
 						<div>
 							<ul class="Support">
 							<li><a>자주하는 질문</a></li>
-								<li><a>공지사항</a></li>
+								<li><a href="notice">공지사항</a></li>
 							</ul>
 						</div></li>
 					<li id="log">
