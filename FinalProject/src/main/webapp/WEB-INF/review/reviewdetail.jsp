@@ -35,7 +35,7 @@
 		<c:set var="email" value="${auth }"/>
 		<!-- 기업이름 저장 -->
 		<c:set value="${empname }" var="empname" />
-		<h1>${empname }&nbsp;기업리뷰</h1>
+		<h2>${empname }&nbsp;기업리뷰</h2>
 		<h5 style="color: gray;">전/현직자들이 ${review0fEmp}개의 리뷰를 작성했습니다.</h5>
 
 		<!-- 평균 값 저장 -->
@@ -56,7 +56,7 @@
 			<div id="chart_div"></div>
 		</div>
 		
-		<h2>직접 쓴 리뷰 TALK</h2>
+		<h3>직접 쓴 리뷰 TALK</h3>
 		<br>
 
 		<!-- empname에 해당하는 데이터 반복출력 -->
@@ -188,8 +188,15 @@ function drawBasic() {
         
         chartArea: {width: '50%'},
         hAxis: {
-            minValue: 1
+            minValue: 1,
+            maxValue: 5
           },
+          
+  		// 범례 표시 삭제
+  		legend : {
+  			position : 'none'
+  		}
+ 
         
       };
 

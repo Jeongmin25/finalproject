@@ -30,8 +30,9 @@
 	
 	div.empname{
 		width: 900px;
-		height: 100px;
+		height: 70px;
 		padding-left: 20px;
+		padding-top:10px;
 		margin-bottom: 10px;
 		border: 1px solid gray;
 		border-radius: 20px;
@@ -44,16 +45,15 @@
 	}
 	
 	a.empname{
-		font-size: 1.5em;
 		text-decoration: none;
 		color: #282828;
-		top: 20px;
+		
 	}
 </style>
 </head>
 <body>
 <div class="searchtitle">
-	<h1>기업검색 > 리뷰 검색</h1>
+	<h2>기업검색 > 리뷰 검색</h2>
 </div>
 <div class="search">
 	<form action="searchlist" method="get">
@@ -68,12 +68,11 @@
 <!-- 기업 단어 검색에 해당하는 데이터 반복출력 -->
 <div class="list">
 	<br><br><br><br>
-	<h2>검색 기업리뷰 (${total })</h2>
+	<h3>검색 기업리뷰 (${total })</h3>
 	<br>
 	<c:forEach items="${searchlist }" var="data">
 
 		<div class="empname">
-		<br>
 		<a class="empname" href="reviewdetail?empname=${data.empname }">
 		<img alt="" src="../image/+job.png" style="max-width: 50px; border: 1px solid gray; border-radius: 50px;">
 		&nbsp;&nbsp;${data.empname }
