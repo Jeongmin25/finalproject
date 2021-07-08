@@ -14,7 +14,6 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <style type="text/css">
 	header.bookmark_bookmarkul_header{
-		background-image: url('image/company.png');
 		width: 150px;
 		height: 150px;
 		min-width: 150px;
@@ -52,8 +51,8 @@
 	<c:if test="${cdto.size()!=0}">
 		<c:forEach var="cdto" items="${cdto }">
 			<li>
-				<div style="float: left;">
-					<header class="bookmark_bookmarkul_header">
+				<div style="float: left;margin-left: 10px;">
+					<header class="bookmark_bookmarkul_header" style="background-image: url('gonggophoto/${cdto.empimg}');">
 						<i class="fas fa-bookmark" style="color: #021B80;padding-right: 5px;padding-top: 5px;cursor: pointer;" onclick="location.href='delBookmark?num=${cdto.num }&pageNum=${currentPage}'"></i>
 					</header>
 					<div onclick="location.href='gonggodetail?num=${cdto.num }'">

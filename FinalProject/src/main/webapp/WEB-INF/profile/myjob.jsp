@@ -87,7 +87,6 @@
 		cursor: pointer;
 	}
 	header.bookmark_bookmarkul_header{
-		background-image: url('image/company.png');
 		width: 100px;
 		height: 100px;
 		min-width: 100px;
@@ -150,7 +149,7 @@
 						<li>
 							<a href="gonggodetail?num=${cdto.num }">
 								<div style="float: left;">
-									<header class="bookmark_bookmarkul_header"></header>
+									<header class="bookmark_bookmarkul_header" style="background-image: url('gonggophoto/${cdto.empimg}');"></header>
 									<div>
 										<h5 style="color: black;">${cdto.jobgroup }</h5>
 										<h6 style="color: gray;">${cdto.empname }</h6>

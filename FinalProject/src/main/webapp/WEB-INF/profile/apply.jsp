@@ -15,7 +15,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 	header.apply_applyul_header{
-		background-image: url('image/company.png');
 		width: 150px;
 		height: 150px;
 		min-width: 150px;
@@ -63,8 +62,8 @@ function delapply(num,pageNum){
 	<c:forEach var="cdto" items="${cdto }">
 		<li>
 			<a>
-				<div style="float: left;">
-					<header class="apply_applyul_header">
+				<div style="float: left;margin-left: 10px;">
+					<header class="apply_applyul_header" style="background-image: url('gongophoto/${cdto.empimg}');">
 						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-right: 5px;" onclick="delapply(${cdto.num},${currentPage })"></span>
 					</header>
 					<div>
