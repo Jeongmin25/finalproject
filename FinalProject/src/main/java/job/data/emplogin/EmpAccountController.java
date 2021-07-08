@@ -1,9 +1,8 @@
 package job.data.emplogin;
 
 
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import job.data.gonggo.CompanyDto;
@@ -122,14 +120,21 @@ public class EmpAccountController {
 	}
 	
 	@GetMapping({"/empMyPage"})
-	public ModelAndView Mypageemp(@RequestParam String num)
+	public ModelAndView Mypageemp(HttpSession session)
 	{
 		ModelAndView mview=new ModelAndView();
-		EmpAccountDto dto=mapper.getdataOfEmp(num);
-		List<CompanyDto> cdto=cmapper.getmygonggo(dto.getEmpname());
-		mview.addObject("dto",dto);
+         
+         String email=(String)session.getAttribute("myemail");
+	     String empname=mapper.searchEmpName(email);
+	     String addr=mapper.searchAddr(empname);
+	     String num=mapper.searchEmpNum(email);
+	     
+	     List<CompanyDto> cdto=cmapper.getmygonggo(empname);
+	     mview.addObject("num",num);
+		mview.addObject("addr",addr);
+		mview.addObject("email",email);
+		mview.addObject("empname",empname);
 		mview.addObject("cdto",cdto);
-		System.out.println(cdto);
 		mview.setViewName("/emp/empMyPage");
 		return mview;
 	}

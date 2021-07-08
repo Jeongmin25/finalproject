@@ -52,7 +52,7 @@
 						국가/지역*<br/>
 						<select name="country" id="country" class="form-inline" style="width: 400px; height: 40px;"
 							onchange="selectContry(this)">
-							<option value="${dto.country}" disabled>${dto.country}</option>
+							<option disabled="disabled">${dto.country}</option>
 							<option value="한국">한국</option>
 							<option value="대만">대만</option>
 							<option value="싱가폴">싱가폴</option>
@@ -82,7 +82,7 @@
 				<div class="join-input-wrap biztype-wrap" style="float: left;">
 					산업군*<br/>
 					<select name="biztype" id="biztype" class="form-inline" style="width: 400px; height: 40px;">
-						<option value="${dto.biztype}" disabled>${dto.biztype}</option>
+						<option value="${dto.biztype}">${dto.biztype}</option>
 						<option value="IT,컨텐츠">IT,컨텐츠</option>
 						<option value="판매, 유통">판매, 유통</option>
 						<option value="제조">제조</option>
@@ -110,7 +110,7 @@
 				<div class="join-input-wrap staffnum-wrap">	
 					직원수*<small> (승인기준 : 팀원 10명 이상)</small><br/>
 					<select name="staffnum" id="staffnum" class="form-inline" style="width: 400px; height: 40px;">
-						<option value="${dto.staffnum}명" disabled>${dto.staffnum}명</option>
+						<option value="${dto.staffnum}">${dto.staffnum}명</option>
 						<option value="1~4">1~4명</option>
 						<option value="5~10">5~10명</option>
 						<option value="11~50">11~50명</option>
