@@ -1,7 +1,11 @@
 package job.data.profile;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -101,6 +105,7 @@ public class ProfileController {
 	
 	@GetMapping("/myjob")
 	public ModelAndView myjob(
+	@RequestParam(value = "state",defaultValue = "default") String state,
 	Authentication authentication,
 	@AuthenticationPrincipal PrincipalDetails userDetails,
 	@AuthenticationPrincipal OAuth2User oauth
@@ -116,13 +121,157 @@ public class ProfileController {
 		//북마크한 회사 정보 얻기
 		List<CompanyDto>cdto =cmapper.getListOfCompany(id);
 		
+		
+		//지원한 회사중 마감된 정보의 개수 구하기
+		int failCnt=0;
+		List<CompanyDto>adto = cmapper.getApplyListOfCompany(id);
+		if(adto.size()>0) {
+			for(CompanyDto a:adto) {
+				Calendar getToday = Calendar.getInstance();
+				getToday.setTime(new Date()); //금일 날짜
+				String deadline = a.getDeadline();
+				Date date;
+				try {
+					date = new SimpleDateFormat("yyyy-MM-dd").parse(deadline);
+					Calendar cmpDate = Calendar.getInstance();
+					cmpDate.setTime(date); //특정 일자
+					
+					long diffSec = (getToday.getTimeInMillis() - cmpDate.getTimeInMillis()) / 1000;
+					long diffDays = diffSec / (24*60*60); //일자수 차이
+					
+					if(diffDays <0) 
+						++failCnt;
+					
+					
+					
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				
+			}
+		}
+		
+		mv.addObject("failCnt",failCnt);
 		mv.addObject("cdto",cdto);
+		mv.addObject("adto",adto);
 		mv.addObject("apply_cnt",apply_cnt);
 		mv.addObject("bookmark_cnt",bookmark_cnt);
 		
 		mv.setViewName("/profile/myjob");
 		return mv;
 	}
+	
+	  @GetMapping("/apply")
+	    public ModelAndView apply(
+	    		@RequestParam(value = "pageNum",defaultValue = "1") int currentPage,
+	    		@RequestParam(value = "state",defaultValue = "default") String state,
+	    		Authentication authentication,
+	 			@AuthenticationPrincipal PrincipalDetails userDetails,
+	 			@AuthenticationPrincipal OAuth2User oauth
+	    		) {
+	    	ModelAndView mv=new ModelAndView();
+	    	
+	    	 PrincipalDetails principalDetails = (PrincipalDetails)
+	        		 authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+	        		 String id=Long.toString(userDetails.getUser().getId());
+	        		 int apply_cnt= cmapper.getCountOfApply(id);
+	        		 int bookmark_cnt=cmapper.getCountOfBookmark(id);
+	        			
+	        				 
+	        		int totalCount=cmapper.getCountOfApply(id);
+	        		
+	        		//페이징에 필요한 코드
+	        		int totalPage;//전체 페이지
+	        		int startPage;//각 블럭의 시작페이지
+	        		int endPage;//각 블럭의 마지막페이지
+	        		int start;//각 페이지의 시작번호
+	        		int no;//각 페이지에서 출력을 시작할 번호
+	        		int perPage=8;//한페이지에 보여질 글의 개수
+	        		int perBlock=5;//한 블럭에 보여질 페이지의 개수
+
+	        		//총 페이지수 구하기
+	        		totalPage=totalCount/perPage+(totalCount%perPage>0?1:0); 
+	        		//나머지가 있으면 1페이지 더하기(글개수13개면 페이지3장필요)
+
+	        		//현재페이지가 3인경우 startPage는 1, endPage=5 / 현재페이지가 6인경우 startPage는 6, endPage=10
+	        		startPage=(currentPage-1)/perBlock*perBlock+1;
+	        		endPage=startPage+perBlock-1;
+
+	        		//만약 총 페이지수가 8인경우 2번째 블럭은 startPage 6, endPage 10 BUT, 이때 endPage는 8로 표기되어야한다.
+	        		if(totalPage<endPage)
+	        			endPage=totalPage;
+
+	        		//각 페이지의 시작번호 구하기(1일경우 0, 2일경우 3)
+	        		//오라클 첫글:1, mysql 첫글:0
+	        		start=(currentPage-1)*perPage;
+
+	        		//각 글 앞에 붙일 시작번호구하기 
+	        		//예: 총글이 20개일경우 1페이지는 20부터 2페이지는 15부터 출력해서 1씩 감소해가며 출력할것
+	        		no=totalCount-(currentPage-1)*perPage;		
+	        		
+	        		//출력에 필요한 변수들 모두 저장
+	        		mv.addObject("no", no);
+	        		mv.addObject("startPage", startPage);
+	        		mv.addObject("endPage", endPage);
+	        		mv.addObject("currentPage", currentPage);
+	        		mv.addObject("totalPage", totalPage);
+	        		
+	        		//지원한 기업 보내기
+	        		HashMap<String, Object> map = new HashMap<String, Object>();
+	        		map.put("id", id);
+	        		map.put("start",start);
+	        		map.put("perpage",perPage);
+	        		List<CompanyDto>cdto=cmapper.getApplyListOfCompany_paging(map);
+	        		mv.addObject("cdto",cdto);
+	    	
+
+	        		//마감일 계산을 위한 시간 보내기
+	        		Date date2 = new Date();
+	    			long time = date2.getTime();
+	    			mv.addObject("date", date2);
+	    			mv.addObject("time", time);
+
+	    			List<CompanyDto>adto = cmapper.getApplyListOfCompany(id);
+	    			//불합격한 지원 회사 list
+	    			List<CompanyDto>failAdto=new ArrayList<CompanyDto>();
+	    			if(adto.size()>0) {
+	    				for(CompanyDto a:adto) {
+	    					Calendar getToday = Calendar.getInstance();
+	    					getToday.setTime(new Date()); //금일 날짜
+	    					String deadline = a.getDeadline();
+	    					Date date;
+	    					try {
+	    						date = new SimpleDateFormat("yyyy-MM-dd").parse(deadline);
+	    						Calendar cmpDate = Calendar.getInstance();
+	    						cmpDate.setTime(date); //특정 일자
+	    						
+	    						long diffSec = (getToday.getTimeInMillis() - cmpDate.getTimeInMillis()) / 1000;
+	    						long diffDays = diffSec / (24*60*60); //일자수 차이
+	    						
+	    						if(diffDays <0) 
+	    							failAdto.add(a);
+	    						
+	    						
+	    						
+	    					} catch (ParseException e) {
+	    						// TODO Auto-generated catch block
+	    						e.printStackTrace();
+	    					}
+	    				
+	    					
+	    				}
+	    			}
+	    			mv.addObject("failCnt",failAdto.size());
+	    			mv.addObject("state",state);
+	    			mv.addObject("apply_cnt",apply_cnt);
+	    			mv.addObject("bookmark_cnt",bookmark_cnt);
+	    			mv.addObject("failAdto",failAdto);
+	    	
+	    	mv.setViewName("/profile/apply");
+	    	return mv;
+	    }
 	
 	@GetMapping("/acntMngmn")
 	public ModelAndView acntMngmn(
@@ -197,7 +346,8 @@ public class ProfileController {
     public ModelAndView updateUser(@ModelAttribute UserAccountDto dto) {
     	ModelAndView mv=new ModelAndView();
     	umapper.updateUser(dto);
-    	mv.setViewName("redirect:profile");
+    	
+    	mv.setViewName("user/loginForm");
     	return mv;
     }
     
@@ -259,6 +409,12 @@ public class ProfileController {
     		map.put("perpage",perPage);
     		List<CompanyDto>cdto=cmapper.getListOfCompany_paging(map);
     		mv.addObject("cdto",cdto);
+    	
+    		//마감일 계산을 위한 시간 보내기
+    		Date date = new Date();
+			long time = date.getTime();
+			mv.addObject("date", date);
+			mv.addObject("time", time);
     		
     		mv.setViewName("/profile/bookmark");
     	return mv;
@@ -341,70 +497,6 @@ public class ProfileController {
     	return mv;
     }
     
-    @GetMapping("/apply")
-    public ModelAndView apply(
-    		@RequestParam(value = "pageNum",defaultValue = "1") int currentPage,
-    		Authentication authentication,
- 			@AuthenticationPrincipal PrincipalDetails userDetails,
- 			@AuthenticationPrincipal OAuth2User oauth
-    		) {
-    	ModelAndView mv=new ModelAndView();
-    	
-    	 PrincipalDetails principalDetails = (PrincipalDetails)
-        		 authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
-        		 String id=Long.toString(userDetails.getUser().getId());
-        				 
-        		int totalCount=cmapper.getCountOfApply(id);
-        		
-        		//페이징에 필요한 코드
-        		int totalPage;//전체 페이지
-        		int startPage;//각 블럭의 시작페이지
-        		int endPage;//각 블럭의 마지막페이지
-        		int start;//각 페이지의 시작번호
-        		int no;//각 페이지에서 출력을 시작할 번호
-        		int perPage=10;//한페이지에 보여질 글의 개수
-        		int perBlock=5;//한 블럭에 보여질 페이지의 개수
-
-        		//총 페이지수 구하기
-        		totalPage=totalCount/perPage+(totalCount%perPage>0?1:0); 
-        		//나머지가 있으면 1페이지 더하기(글개수13개면 페이지3장필요)
-
-        		//현재페이지가 3인경우 startPage는 1, endPage=5 / 현재페이지가 6인경우 startPage는 6, endPage=10
-        		startPage=(currentPage-1)/perBlock*perBlock+1;
-        		endPage=startPage+perBlock-1;
-
-        		//만약 총 페이지수가 8인경우 2번째 블럭은 startPage 6, endPage 10 BUT, 이때 endPage는 8로 표기되어야한다.
-        		if(totalPage<endPage)
-        			endPage=totalPage;
-
-        		//각 페이지의 시작번호 구하기(1일경우 0, 2일경우 3)
-        		//오라클 첫글:1, mysql 첫글:0
-        		start=(currentPage-1)*perPage;
-
-        		//각 글 앞에 붙일 시작번호구하기 
-        		//예: 총글이 20개일경우 1페이지는 20부터 2페이지는 15부터 출력해서 1씩 감소해가며 출력할것
-        		no=totalCount-(currentPage-1)*perPage;		
-        		
-        		//출력에 필요한 변수들 모두 저장
-        		mv.addObject("no", no);
-        		mv.addObject("startPage", startPage);
-        		mv.addObject("endPage", endPage);
-        		mv.addObject("currentPage", currentPage);
-        		mv.addObject("totalPage", totalPage);
-        		
-        		//지원한 기업 보내기
-        		HashMap<String, Object> map = new HashMap<String, Object>();
-        		map.put("id", id);
-        		map.put("start",start);
-        		map.put("perpage",perPage);
-        		List<CompanyDto>cdto=cmapper.getApplyListOfCompany_paging(map);
-        		mv.addObject("cdto",cdto);
-    	
-    	
-    	
-    	mv.setViewName("/profile/apply");
-    	return mv;
-    }
     
     @GetMapping("/delapply")
     public ModelAndView delaply(

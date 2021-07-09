@@ -94,13 +94,18 @@
 		margin-right: 15px;
 		max-height: 100px;
 		max-width: 100px;
-		background-size: cover;
+		background-size: 100px 100px;
 	}
 	h5.myjob_bookmark_gobk:hover {
 		color:  #258bf7;
 	}
 	span.apply_status:hover{
 		color: #0A31A6;
+	}
+	div.myjob_apply_div div{
+		float: left;
+		margin-left: 110px;
+		text-align: center;
 	}
 </style>
 <script type="text/javascript">
@@ -129,9 +134,19 @@
 		<div class="myjob_title">
 			<h4>지원 현황</h4>
 		</div>
-		<div style="text-align: center;">
-			<span style="font-size: 2em;cursor: pointer;" onclick="location.href='apply'" class="apply_status">${apply_cnt }</span>
-			<h5>지원 완료</h5>
+		<div class="myjob_apply_div">
+			<div>
+				<span style="font-size: 2em;cursor: pointer;" onclick="location.href='apply'" class="apply_status">${apply_cnt }</span>
+				<h5>지원 완료</h5>
+			</div>
+			<div>
+				<span style="font-size: 2em;cursor: pointer;" class="apply_status">0</span>
+				<h5>합격</h5>
+			</div>
+			<div>
+				<span style="font-size: 2em;cursor: pointer;" class="apply_status" onclick="location.href='apply?state=fail'">${failCnt }</span>
+				<h5>불합격</h5>
+			</div>
 		</div>
 	</div>
 	<div class="myjob_bookmarks">

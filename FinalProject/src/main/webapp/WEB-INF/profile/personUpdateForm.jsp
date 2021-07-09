@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
 </head>
 <style>
 	div.profile_title{
@@ -100,11 +101,12 @@
 		margin-right: 20px;
 	}
 </style>
-<script type="text/javascript">
+<script type="text/javascript">	
 	function selresume(val){
 		location.href="profile?num_r="+val;
 		
 	}
+	
 </script>
 <body>
 <c:set var="name"><sec:authentication property="principal.username"/></c:set>
@@ -126,7 +128,7 @@
 			<button type="button" class="profile_update" style="color: #021B80;">기본정보 수정</button>
 		</div>
 	</div>
-	<form action="updateUser" method="post">
+	<form action="updateUser" method="post" onsubmit="alert('개인정보를 변경하였습니다. 바뀐 정보로 다시 로그인해주세요.')">
 		<input type="hidden" name="id" value="${id }">
 		<div class="profile_personInfo">
 			<div class="personInfo_title">

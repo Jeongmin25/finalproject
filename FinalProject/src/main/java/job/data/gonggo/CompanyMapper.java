@@ -46,6 +46,8 @@ public interface CompanyMapper {
 	public int checkApply(Map<String, String>map);
 	//개인별 지원한 기업 가져오기-페이징 처리
 	public List<CompanyDto> getApplyListOfCompany_paging(Map<String, Object>map);
+	//개인별 지원한 기업 가져오기
+	public List<CompanyDto> getApplyListOfCompany(String id);
 	//apply 삭제
 	public void deleteApply(Map<String, String>map);
 	

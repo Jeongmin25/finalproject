@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+      <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@
 		margin-right: 15px;
 		max-height: 150px;
 		max-width: 150px;
-		background-size: cover;
+		background-size: 150px 150px;
 		text-align: right;
 	}
 	i.fa-angle-right:hover {
@@ -41,6 +42,46 @@
 	a.gonggo_link:hover{
 		text-decoration: none;
 	}
+		div.myjob_apply{
+		border: 1px solid #ccc;
+		width: 600px;
+		height: 130px;
+		margin-left: 230px;
+		border-radius: 5px;
+		padding: 10px 10px 10px 10px;
+	}
+		div.myjob_apply_div div{
+		float: left;
+		margin-left: 110px;
+		text-align: center;
+	}
+	div.table-wrap{
+		margin-left: 200px;
+		margin-top: 10px;
+	}
+	table.table{
+		width: 600px;
+		height: 400px;
+	}
+	table.table thead{
+		background: #1089ff;
+	}
+	table.table tbody tr:hover{
+		background: #eee;
+	}
+	img.applyFail_empimg{
+		border-radius: 100px;
+		border: none;
+		width: 30px;
+		height: 30px;
+	}
+	div.myjob_apply{
+		margin-left: 200px;
+	}
+	div.apply_default{
+		margin-left: 100px;
+		margin-top: 20px;
+	}
 </style>
 <script type="text/javascript">
 function delapply(num,pageNum){
@@ -50,7 +91,27 @@ function delapply(num,pageNum){
 </script>
 </head>
 <body>
-<h3>지원 현황</h3>
+<div class="myjob_apply">
+		<div class="myjob_title">
+			<h4>지원 현황</h4>
+		</div>
+		<div class="myjob_apply_div">
+			<div>
+				<span style="font-size: 2em;cursor: pointer;" onclick="location.href='apply'" class="apply_status">${apply_cnt }</span>
+				<h5>지원 완료</h5>
+			</div>
+			<div>
+				<span style="font-size: 2em;cursor: pointer;" class="apply_status">0</span>
+				<h5>합격</h5>
+			</div>
+			<div>
+				<span style="font-size: 2em;cursor: pointer;" class="apply_status" onclick="location.href='apply?state=fail'">${failCnt }</span>
+				<h5>불합격</h5>
+			</div>
+		</div>
+	</div>
+<c:if test="${state != 'fail' }">
+<div class="apply_default">
 <ul class="apply_ul">
 	<c:if test="${cdto.size()==0}">
 		<div class="apply_noapply">
@@ -58,8 +119,38 @@ function delapply(num,pageNum){
 			<a href="gonggolist" class="gonggo_link">채용공고 둘러보기<i class="fas fa-chevron-right"></i></a>
 		</div>
 	</c:if>
+	
 	<c:if test="${cdto.size()!=0}">
 	<c:forEach var="cdto" items="${cdto }">
+		<c:set var="end_plan_date" value="${cdto.deadline}" />
+		<c:set var="strPlanDate" value="${date}" />
+		<fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}"
+				integerOnly="true" var="strDate" />
+		<fmt:parseDate value="${end_plan_date}" var="endPlanDate"
+				pattern="yyyy-MM-dd" />
+		<fmt:parseNumber value="${endPlanDate.time / (1000*60*60*24)+1}"
+				integerOnly="true" var="endDate" />
+			
+		<c:if test="${(endDate - strDate)<0}">	
+		<li>
+			<a>
+				<div style="float: left;margin-left: 10px;">
+					<header class="apply_applyul_header" style="background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('gongophoto/${cdto.empimg}');">
+						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-right: 5px;" onclick="delapply(${cdto.num},${currentPage })"></span>
+						<p style="color: #fff;text-align: center;padding-top: 25%;font-size: 1.1em;">지원 마감</p>
+					</header>
+					<div>
+						<h4 style="color: black;">${cdto.jobgroup }</h4>
+						<h6 style="color: black;">${cdto.job }</h6>
+						<h5 style="color: gray">${cdto.empname }</h5>
+						
+					</div>
+				</div>
+			</a>
+		</li>
+		</c:if>
+		
+		<c:if test="${(endDate - strDate)>=0}">
 		<li>
 			<a>
 				<div style="float: left;margin-left: 10px;">
@@ -67,7 +158,7 @@ function delapply(num,pageNum){
 						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-right: 5px;" onclick="delapply(${cdto.num},${currentPage })"></span>
 					</header>
 					<div>
-						<h3 style="color: black;">${cdto.jobgroup }</h3>
+						<h4 style="color: black;">${cdto.jobgroup }</h4>
 						<h6 style="color: black;">${cdto.job }</h6>
 						<h5 style="color: gray">${cdto.empname }<i class="fas fa-angle-right" onclick="location.href='gonggodetail?num=${cdto.num}'" style="margin-left: 90px;"></i></h5>
 						
@@ -75,11 +166,14 @@ function delapply(num,pageNum){
 				</div>
 			</a>
 		</li>
+		</c:if>
 	</c:forEach>
 	</c:if>
 </ul>
-<!-- 페이지 번호 -->
-<div style="width:850px; text-align: center;position: absolute;top: 750px;margin: auto;">
+</div>
+
+  <!-- 페이지 번호 -->
+<div style="width:850px; text-align: center;position: absolute;top: 850px;margin: auto;">
 	<ul class="pagination">
 		<!-- 이전페이지 -->
 		<c:if test="${startPage>1 }">
@@ -105,6 +199,31 @@ function delapply(num,pageNum){
 	</ul>
 </div>
 
+</c:if>
+  <c:if test="${state == 'fail' }">
+  	<div class="table-wrap">
+ 		<table class="table">
+ 			<thead>
+ 				<tr>
+ 					<th style="color: #fff;text-align: center;max-width: 100px;">지원 회사</th>
+ 					<th style="color: #fff;text-align: center;max-width: 100px;">지원 포지션</th>
+ 					<th style="color: #fff;text-align: center;max-width: 100px;">지원상태</th>
+ 				</tr>
+ 			</thead>
+ 			<tbody>
+ 				<c:forEach var="adto" items="${failAdto }">
+ 					<tr align="center">
+ 						<td><img  src="gonggo/${adto.empimg }" class="applyFail_empimg">&nbsp;${adto.empname }</td>
+ 						<td>${adto.jobgroup }</td>
+ 						<td style="color: #bbb;">불합격</td>
+ 					</tr>
+ 				</c:forEach>
+ 			</tbody>
+ 		</table>
+  	</div>
+  </c:if>
   
+  
+
 </body>
 </html>

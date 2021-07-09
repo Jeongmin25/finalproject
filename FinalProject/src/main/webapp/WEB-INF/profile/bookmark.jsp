@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +22,7 @@
 		margin-right: 15px;
 		max-height: 150px;
 		max-width: 150px;
-		background-size: cover;
+		background-size: 150px 150px;
 		text-align: right;
 	}
 	div.bookmark_nobookmark{
@@ -48,20 +49,48 @@
 			<a href="gonggolist" class="gonggo_link">채용공고 둘러보기<i class="fas fa-chevron-right"></i></a>
 		</div>
 	</c:if>
+	
 	<c:if test="${cdto.size()!=0}">
 		<c:forEach var="cdto" items="${cdto }">
-			<li>
+			<c:set var="end_plan_date" value="${cdto.deadline}" />
+			<c:set var="strPlanDate" value="${date}" />
+			<fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}"
+				integerOnly="true" var="strDate" />
+			<fmt:parseDate value="${end_plan_date}" var="endPlanDate"
+				pattern="yyyy-MM-dd" />
+			<fmt:parseNumber value="${endPlanDate.time / (1000*60*60*24)+1}"
+				integerOnly="true" var="endDate" />
+
+			<c:if test="${(endDate - strDate)<0}">
+				<li>
 				<div style="float: left;margin-left: 10px;">
-					<header class="bookmark_bookmarkul_header" style="background-image: url('gonggophoto/${cdto.empimg}');">
+					<header class="bookmark_bookmarkul_header" style="background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('gonggophoto/${cdto.empimg}');">
 						<i class="fas fa-bookmark" style="color: #021B80;padding-right: 5px;padding-top: 5px;cursor: pointer;" onclick="location.href='delBookmark?num=${cdto.num }&pageNum=${currentPage}'"></i>
+						<p style="color: #fff;text-align: center;padding-top: 25%;font-size: 1.1em;">마감</p>
 					</header>
-					<div onclick="location.href='gonggodetail?num=${cdto.num }'">
-						<h3 style="color: black;">${cdto.jobgroup }</h3>
+					<div>
+						<h4 style="color: black;">${cdto.jobgroup }</h4>
 						<h6 style="color: black;">${cdto.job }</h6>
 						<h5 style="color: gray">${cdto.empname }</h5>
 					</div>
 				</div>
 			</li>
+			</c:if>
+			
+			<c:if test="${(endDate - strDate)>=0}">
+			<li>
+				<div style="float: left;margin-left: 10px;">
+					<header class="bookmark_bookmarkul_header" style="background-image: url('gonggophoto/${cdto.empimg}');">
+						<i class="fas fa-bookmark" style="color: #021B80;padding-right: 5px;padding-top: 5px;cursor: pointer;" onclick="location.href='delBookmark?num=${cdto.num }&pageNum=${currentPage}'"></i>
+					</header>
+					<div onclick="location.href='gonggodetail?num=${cdto.num }'" style="cursor: pointer;">
+						<h4 style="color: black;">${cdto.jobgroup }</h4>
+						<h6 style="color: black;">${cdto.job }</h6>
+						<h5 style="color: gray">${cdto.empname }</h5>
+					</div>
+				</div>
+			</li>
+			</c:if>
 		</c:forEach>
 	</c:if>
 	
