@@ -28,12 +28,21 @@ div.premium{
     min-height: 700px;
     padding: 20px 20px;
 }
+
+.empimg{
+max-width: 210px;
+height: 100px;
+max-height: 100px;
+}
 </style>
 </head>
 <body>
 <form action="#" class="form-inline">
 <h2>My Company</h2>
 <div class="giup">
+<c:forEach var="cdto" items="${cdto}" end="0">
+<img class="empimg" src="/gonggophoto/${cdto.empimg}">
+</c:forEach>
 <h3>${empname}</h3>
 <h4>(${email})</h4>
 
