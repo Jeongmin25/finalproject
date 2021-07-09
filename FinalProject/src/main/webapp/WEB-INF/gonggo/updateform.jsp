@@ -14,6 +14,10 @@ width: 120px;
 background-color: #021B80;
 border: none;
 }
+div.output{
+	width: 200px;
+	height: 200px;
+}
 div.output1{
 	border: 2px solid #021B80;
     border-radius: 20px 20px;
@@ -90,14 +94,19 @@ border: none;
 			<c:forEach var="category" items="${category}">
 			<div class="form-control"><input type="text" name="ctg" id="ctg" value="${category.ctg}"> <span class="remove1 glyphicon glyphicon-remove"></span></div>
 			</c:forEach>
-			<div id="output1"></div>
+			
 			</div>
+			
 			<div>
 			<c:forEach var="category" items="${category}">
 			<div class="form-control"><input type="text" name="tag" id="tag" value="${category.tag}"> <span class="remove1 glyphicon glyphicon-remove"></span></div>
 			</c:forEach>
-			<div id="output2"></div>
+			
 			</div>
+			<div id="output">
+			<div id="output1">
+			<div id="inner"></div></div>
+			<div id="output2"></div></div>
 		</td>
 	</tr>
 </table>
@@ -147,19 +156,23 @@ function selectjob(e) {
 }
 function selectctg(c) {
 	
-	var ipt = document.createElement("input");
+	/* var ipt = document.createElement("input");
 	ipt.setAttribute("type","text");
-	ipt.setAttribute("class","form-control");
+	ipt.setAttribute("class","form-control remove glyphicon glyphicon-remove");
 	ipt.setAttribute("name","ctg");
 	ipt.setAttribute("id","ctg");
 	ipt.setAttribute("value",c);
-	var space= document.getElementById("output1");
+	var space= document.getElementById("inner");
+	space.appendChild(ipt); 
 	var spanx=document.createElement("span");
-	spanx.setAttribute("class","remove glyphicon glyphicon-remove");
-	space.appendChild(ipt);
-	space.appendChild(spanx);	
+	spanx.setAttribute("class","remove glyphicon glyphicon-remove");  */
+    
+    var newDiv = document.createElement("div");
+	const text=document.createTextNode('안녕');
+	newDiv.apppendChild(text);
+	document.body.appendChild(newDiv);
 	
-    var pay = ["연봉업계평균이상","연봉상위1%","연봉상위2~5%","연봉상위6~10%","연봉상위11~20%"];
+	var pay = ["연봉업계평균이상","연봉상위1%","연봉상위2~5%","연봉상위6~10%","연봉상위11~20%"];
     var com = ["성과급", "상여금", "연말보너스","스톡옵션"];
     var work = ["택시비", "차량지원", "재택근무", "원격근무"];
     var eat = ["조식제공", "중식제공", "석식제공", "식비","커피","간식"];
@@ -180,6 +193,8 @@ function selectctg(c) {
         opt.value = t[x];
         opt.innerHTML = t[x];
         hashtag.appendChild(opt);
+        
+
     }
     
 }	
@@ -205,6 +220,8 @@ $(document).on("click",".remove1",function(e){
 });
 
 $(document).on("click",".remove",function(e){
+	var inputtag = document.getElementById("#ctg");
+	console.log(inputtag);
 	var r1 = e.target;
 	var r2= r1.parentNode;
 	r2.parentNode.removeChild(r2);
