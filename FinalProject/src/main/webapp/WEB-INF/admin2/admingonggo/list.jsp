@@ -296,8 +296,7 @@ table tbody td {
 									<td align="center">${dto.amount}</td>
 
 									<td colspan="2">
-										<button type="button" id="btndel"
-											onclick="location.href='gonggodelete?num=${dto.num}'">삭제</button>
+									<button type="button" id="btndel" onclick="javascript:deleteConfirm()" num="${dto.num}">삭제</button>
 									</td>
 
 
@@ -311,6 +310,17 @@ table tbody td {
 
 
 				</div>
+				<script type="text/javascript">
+				function deleteConfirm(){
+					var isDelete=confirm("삭제하시겠습니까?");
+					var num=$("#btndel").attr("num");
+					if(isDelete){
+						location.href='gonggodelete?num='+num;
+							alert("삭제되었습니다")
+						}
+					}
+				</script>
+				
 
 
 
