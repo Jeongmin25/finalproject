@@ -65,6 +65,14 @@ div.gonggo{
 	margin-top: 10px;
 }
 
+div.nodata{
+	width: 900px;
+	height: 100px;
+	border: 1px solid #ccc;
+	border-radius: 30px;
+	padding-top: 17px;
+	padding-left: 130px;
+}
 
 
 </style>
@@ -78,6 +86,16 @@ div.gonggo{
 <!-- 추천공고 -->
 <div class="recommed">
 <c:set var="id" value="${idx }"/>
+<c:set var="job" value="${jobgroup }"/>
+
+<!-- 추천공고 직군 데이터 없을 경우 -->
+<c:if test="${empty data }">
+	<div class="nodata">
+		<h3>죄송합니다. 현재 [${job}] 직군은 채용 공고가 없습니다.</h3>
+	</div>
+	
+</c:if>
+
 <c:forEach var="dto" items="${data}" varStatus="n">
 	<div class="gonggo-box">
 		<input type="hidden" name="num" value="${dto.num}">
