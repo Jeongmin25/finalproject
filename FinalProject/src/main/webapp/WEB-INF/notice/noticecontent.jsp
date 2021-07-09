@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +24,7 @@
 	}
 	
 	div.text {
-		font-size: 1.5em;
+		font-size: 1.3em;
 	}
 	
 
@@ -39,18 +41,20 @@
 
 	<b style="font-size: 2em;">${dto.subject}</b>
  
-	 	<fmt:formatDate value="${dto.writeday}"pattern="yyyy-MM-dd"/>
+	 	<span style="float: right;font-size: 1.2em;"> 등록일: <fmt:formatDate
+										value="${dto.writeday}" pattern="yyyy-MM-dd" />
+							&nbsp &nbsp 조회수: ${dto.viewcount}</span>
 
-			<br><br><div class="text">카테고리:<b style="margin-right: 20px;">${dto.category}</b>작성자:<b>${dto.writer}</b></div>
-
-				<span style="float: right;font-size: 1.5em;">조회 ${dto.viewcount}</span>
+			<br><br>
+			<div class="text">카테고리:${dto.category}&nbsp &nbsp작성자:${dto.writer}</div>
+			
 				
-				<br><br><br><br>
-		<h4>${dto.content}</h4> <br> <c:if test="${dto.photo!='no'}">
+				<br><br>
+		<h4>${dto.content}</h4> <br> 
 		
-					<img src="/noticephoto/${dto.photo}" style="max-width: 600px;">
+					<img src="/noticephoto/${dto.photo}" style="max-width: 600px;"onerror="this.src='/noticephoto/+job.png'">
 
-					</c:if>
+		
 				
 		<hr style="border: solid 1px black;">		
 

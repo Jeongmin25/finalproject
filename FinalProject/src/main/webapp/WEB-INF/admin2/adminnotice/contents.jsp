@@ -49,8 +49,10 @@
 	background-color: #021B80;
 	color: white;
 	border-radius: 5px;
-	"
+	
 }
+
+
 </style>
 
 </head>
@@ -173,10 +175,11 @@
 						</tr>
 						<tr>
 							<td align="center">${dto.content} <br>
-							<br> <c:if test="${dto.photo!='no'}">
+							<br> 
 									<img src="/noticephoto/${dto.photo}" style="
-									max-width: 500px;">
-								</c:if>
+									max-width: 500px;"onerror="this.src='/noticephoto/+job.png'">
+				
+								
 							</td>
 						</tr>
 						<tr>
@@ -187,20 +190,38 @@
 
 
 								<button type="button" id="btn"
-									onclick="location.href='updateform?num_n=${dto.num_n}'">수정</button>
+									onclick="javascript:updateConfirm()">수정</button>
 
 								<button type="button" id="btn"
-									onclick="location.href='delete?num_n=${dto.num_n}'">삭제</button>
+									onclick="javascript:deleteConfirm()"
+									>삭제</button>
 
 								<button type="button" id="btn" onclick="location.href='list'">목록</button>
 							</td>
 						</tr>
 					</table>
 
-
-
-
+			
 				</div>
+				<script type="text/javascript">
+				function deleteConfirm(){
+					var isDelete=confirm("삭제하시겠습니까?");
+					if(isDelete){
+						location.href='delete?num_n=${dto.num_n}'
+							alert("삭제되었습니다")
+						}
+					}
+
+				function updateConfirm(){
+					var isUpdate=confirm("수정하시겠습니까?");
+					if(isUpdate){
+						location.href='updateform?num_n=${dto.num_n}'
+							
+						}
+					}
+
+				</script>
+				
 				<!-- /.container-fluid -->
 
 			</div>

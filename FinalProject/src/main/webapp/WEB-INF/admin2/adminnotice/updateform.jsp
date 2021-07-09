@@ -257,7 +257,8 @@
 								
 									<button type="submit"
 									style="width: 120px;font-size: 1em;font-weight: bold;margin-left: 80px;
-									border-radius: 5px;background-color: #021B80;color:white;">글수정</button>
+									border-radius: 5px;background-color: #021B80;color:white;"
+									onclick="alert('수정되었습니다.')">글수정</button>
 				
 									<button type="button"
 									style="width: 120px;font-size: 1em;font-weight: bold;

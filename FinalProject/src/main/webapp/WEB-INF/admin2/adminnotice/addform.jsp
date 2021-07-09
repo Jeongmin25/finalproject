@@ -258,7 +258,8 @@
 							<br>
 									<button type="submit"
 									style="width: 120px;font-size: 1em;font-weight: bold;margin-left: 80px;
-									border-radius: 5px;background-color: #021B80;color:white;">글등록</button>
+									border-radius: 5px;background-color: #021B80;color:white;"
+									onclick="alert('등록되었습니다.')">글등록</button>
 				
 									<button type="button"
 									style="width: 120px;font-size: 1em;font-weight: bold;
