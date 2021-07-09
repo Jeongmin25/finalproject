@@ -18,10 +18,13 @@
 <title></title>
 
 <!-- Custom fonts for this template-->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css" />
 <script
@@ -76,47 +79,35 @@ table.dataTable {
 	top: 100px;
 	left: 100px;
 	font-size: 1.2em;
-	
 }
 
 div.dataTables_info { /* 총 갯수 */
 	position: absolute;
-	margin-top: 800px;
-	left: 200px;
+	margin-top: 60px;
+	left: 700px;
+	font-size: 1.2em;
+
 }
 
 ul.pagination { /* 페이징 */
 	position: absolute;
-	top: 800px;
-	left: 550px;
+	top: 60px;
+	left: 1000px;
 	font-size: 1.5em;
 }
 
- #btnadd {
-		width: 130px;
-		float: right;
+#btnadd {
+	width: 130px;
+	float: right;
 	position: absolute;
-	top:130px;
+	top: 130px;
 	left: 800px;
-		font-size: 1.5em;
-		
-		background-color:#021B80;
-		color: white;
-		border-radius: 5px; 
-		border-style: none;
-	}
-	
-	 #btndel {
-		width: 50px;
-		float: right;
-		background-color:#021B80;
-		color: white;
-		border-radius: 5px; 
-		border-style: none;
-		}
-		
-     
-	
+	font-size: 1.5em;
+	background-color: #021B80;
+	color: white;
+	border-radius: 5px;
+	border-style: none;
+}
 
 #btnlogout {
 	text-align: left;
@@ -124,18 +115,21 @@ ul.pagination { /* 페이징 */
 	background-color: #021B80;
 	color: white;
 	border-radius: 5px;
-	}
-	
-	th{
-	
-	width:100px;
-	}
-	
-	
-	
-	
-	
 }
+
+#btndel {
+	width: 100%;
+	float: right;
+	background-color: #021B80;
+	color: white;
+	border-radius: 50px;
+	border-style: 1px solid gray;
+}
+
+table tbody td {
+	min-width: 100px;
+}
+
 </style>
 </head>
 
@@ -197,30 +191,24 @@ ul.pagination { /* 페이징 */
 				aria-controls="collapseTwo"> <i class="fas fa-users-cog"></i> <span>회원관리</span>
 			</a></li>
 
-			
-			          <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin2/adminmember/elist" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                  <i class="fas fa-users"></i>
-                    <span>기업회원관리</span>
-                </a>
-            </li>
-            
-             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin2/admingonggo/list" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                  <i class="fas fa-users"></i>
-                    <span>채용공고관리</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin2/adminreview/list" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                  <i class="fas fa-edit"></i>
-                    <span>기업리뷰관리</span>
-                </a>
-            </li>
-              
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="/admin2/adminmember/elist" data-toggle="collapse"
+				data-target="#collapseTwo" aria-expanded="true"
+				aria-controls="collapseTwo"> <i class="fas fa-users"></i> <span>기업회원관리</span>
+			</a></li>
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="/admin2/admingonggo/list" data-toggle="collapse"
+				data-target="#collapseTwo" aria-expanded="true"
+				aria-controls="collapseTwo"> <i class="fas fa-users"></i> <span>채용공고관리</span>
+			</a></li>
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="/admin2/adminreview/list" data-toggle="collapse"
+				data-target="#collapseTwo" aria-expanded="true"
+				aria-controls="collapseTwo"> <i class="fas fa-edit"></i> <span>기업리뷰관리</span>
+			</a></li>
+
 
 
 
@@ -248,14 +236,14 @@ ul.pagination { /* 페이징 */
 
 
 				<!-- Page Heading -->
-			
+
 
 				<!-- DataTales Example -->
 				<h2 style="margin-left: 200px; margin-top: 50px;">채용공고 관리</h2>
-				  
-				
-                
-                   		
+
+
+
+
 
 
 				<div class="gonggo">
@@ -292,34 +280,30 @@ ul.pagination { /* 페이징 */
 							</tr>
 						</tfoot>
 						<tbody>
-								<c:forEach var="dto" items="${list}" varStatus="n">
-								<tr>
+							<c:forEach var="dto" items="${list}" varStatus="n">
+									<tr bgcolor="white" style="color:black; font-size: 1.1em;">
 									<td>${n.count}</td>
 									<td align="center">${dto.empname}</td>
 									<td align="center">${dto.job}</td>
 									<td align="center">${dto.jobgroup}</td>
 									<td align="center">${dto.empcontent}</td>
-									
-									<td align="center" >
-												<fmt:formatDate value="${dto.writeday}"
-													pattern="yyyy-MM-dd"/>
-											</td>
-									<td align="center">${dto.deadline}</td>		
-									<td align="center" >
-												<fmt:formatDate value="${dto.guipday}"
-													pattern="yyyy-MM-dd"/>
-											</td>		
-									<td align="center">${dto.amount}</td>				
-								
-									<td colspan="2" >	
-									<button type="button" id="btndel"
-									onclick="location.href='gonggodelete?num=${dto.num}'">삭제</button>				
+
+									<td align="center"><fmt:formatDate
+											value="${dto.writeday}" pattern="yyyy-MM-dd" /></td>
+									<td align="center">${dto.deadline}</td>
+									<td align="center"><fmt:formatDate value="${dto.guipday}"
+											pattern="yyyy-MM-dd" /></td>
+									<td align="center">${dto.amount}</td>
+
+									<td colspan="2">
+										<button type="button" id="btndel"
+											onclick="location.href='gonggodelete?num=${dto.num}'">삭제</button>
 									</td>
-									
+
 
 								</tr>
 							</c:forEach>
-								
+
 
 
 						</tbody>
@@ -327,9 +311,9 @@ ul.pagination { /* 페이징 */
 
 
 				</div>
-				
-				
-				
+
+
+
 			</div>
 			<!-- /.container-fluid -->
 
