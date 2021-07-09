@@ -217,6 +217,7 @@ function submit2(frm){
 <h4>근무지역 &nbsp; ${edto}</h4>
 <input type="hidden" name="edto" id="edto" value="${edto}">
 <div id="map" style="width:500px;height:400px;"></div>
+<c:if test="${auth =='ok' }">
 <aside class="bookmarkBox">
 <c:set var="id"><sec:authentication property="principal.user.id"/></c:set>
 <input type="hidden" name="id" value="${id }">
@@ -298,7 +299,7 @@ function submit2(frm){
 </div>
 
 </aside>
-
+</c:if>
 <button type="button" class="golist" onclick="location.href='gonggolist'">목록</button>
 <c:if test="${dto.empname==loginname}">
 <button type="button" class="update" onclick="location.href='updategonggo?num=${dto.num}'">공고 수정</button>

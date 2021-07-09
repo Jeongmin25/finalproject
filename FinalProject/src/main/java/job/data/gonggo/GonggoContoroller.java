@@ -85,59 +85,73 @@ public class GonggoContoroller {
 	public ModelAndView gonggo(String num, Authentication authentication,
 			@AuthenticationPrincipal PrincipalDetails userDetails, @AuthenticationPrincipal OAuth2User oauth,
 			HttpSession session, String empname, String book) {
-		ModelAndView mview = new ModelAndView();
-		CompanyDto dto = new CompanyDto();
-		dto = mapper.getData(num);
-		empname = dto.getEmpname();
-		String edto = emapper.searchAddr(empname);
-		System.out.println(edto);
+			ModelAndView mview = new ModelAndView();
+			CompanyDto dto = new CompanyDto();
+			dto = mapper.getData(num);
+			empname = dto.getEmpname();
+			String edto = emapper.searchAddr(empname);
+			System.out.println(edto);
+	
+			String email = (String) session.getAttribute("myemail");
+			String loginname = emapper.searchEmpName(email);
+			System.out.println(loginname);
+			mview.addObject("dto", dto);
+			mview.addObject("edto", edto);
+			mview.addObject("loginname", loginname);
+	
+			
+		//로그인할 시 정보를 전달
+		if(authentication!=null) {
+				
+		  PrincipalDetails principalDetails = (PrincipalDetails)
+		  authentication.getPrincipal(); OAuth2User oauth2User =
+		  (OAuth2User)authentication.getPrincipal();
+		  String id = Long.toString(userDetails.getUser().getId());
+		  
+			List<CategoryDto> cdto = dto.getCategory();
+			mview.addObject("cdto", cdto);
+			mview.addObject("num", dto.getNum());
 
-		String email = (String) session.getAttribute("myemail");
-		String loginname = emapper.searchEmpName(email);
-		System.out.println(loginname);
-		mview.addObject("dto", dto);
-		mview.addObject("edto", edto);
-		mview.addObject("loginname", loginname);
-		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-		OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
-		String id = Long.toString(userDetails.getUser().getId());
+			// 이력서 목록 가져오기
+			List<ResumeDto> list = rmapper.getDataOfResume(id);
+			mview.addObject("list", list);
 
-		List<CategoryDto> cdto = dto.getCategory();
-		mview.addObject("cdto", cdto);
-		mview.addObject("num", dto.getNum());
+			// 북마크 체크 여부
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("id", id);
+			map.put("num", num);
 
-		// 이력서 목록 가져오기
-		List<ResumeDto> list = rmapper.getDataOfResume(id);
-		mview.addObject("list", list);
+			if (book != null) {// 북마크 값이 넘어온 경우
+				if (book.equals("yes")) {// 북마크 값이 "yes"인 경우
+					// insert
+					mapper.insertBookmark(map);
+					mview.addObject("book", "yes");
+				} else if (book.equals("no")) {// 북마크 값이 "no"인 경우
+					// delete
+					mapper.deleteBookmark(map);
+					mview.addObject("book", "no");
+				}
+			} else if (book == null) {// 북마트 값이 넘어오지 않은 경우
+				int cnt = mapper.searchNum(map);
 
-		// 북마크 체크 여부
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("id", id);
-		map.put("num", num);
-
-		if (book != null) {// 북마크 값이 넘어온 경우
-			if (book.equals("yes")) {// 북마크 값이 "yes"인 경우
-				// insert
-				mapper.insertBookmark(map);
-				mview.addObject("book", "yes");
-			} else if (book.equals("no")) {// 북마크 값이 "no"인 경우
-				// delete
-				mapper.deleteBookmark(map);
-				mview.addObject("book", "no");
+				if (cnt == 0) {
+					mview.addObject("book", "no");
+				} else if (cnt == 1) {
+					mview.addObject("book", "yes");
+				}
 			}
-		} else if (book == null) {// 북마트 값이 넘어오지 않은 경우
-			int cnt = mapper.searchNum(map);
 
-			if (cnt == 0) {
-				mview.addObject("book", "no");
-			} else if (cnt == 1) {
-				mview.addObject("book", "yes");
-			}
+			// 지원여부 체크
+			int apply_cnt = mapper.checkApply(map);
+			mview.addObject("apply_cnt", apply_cnt);
+			 mview.addObject("auth","ok");
+		  
+		
 		}
+		
+	
 
-		// 지원여부 체크
-		int apply_cnt = mapper.checkApply(map);
-		mview.addObject("apply_cnt", apply_cnt);
+	
 
 		mview.setViewName("/gonggo/gonggodetail");
 		return mview;

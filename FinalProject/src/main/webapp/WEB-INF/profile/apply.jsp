@@ -33,7 +33,7 @@
 		border: 0px solid #ccc;
 		width: 600px;
 		height: 400px;
-		margin-left:160px;
+		margin-left:60px;
 		border-radius: 5px;
 		padding: 10px 10px 10px 10px;
 		text-align: center;
@@ -61,7 +61,6 @@
 	}
 	table.table{
 		width: 600px;
-		height: 400px;
 	}
 	table.table thead{
 		background: #1089ff;
@@ -116,7 +115,7 @@ function delapply(num,pageNum){
 	<c:if test="${cdto.size()==0}">
 		<div class="apply_noapply">
 			<h4>지원 내역이 없습니다.</h4>
-			<a href="gonggolist" class="gonggo_link">채용공고 둘러보기<i class="fas fa-chevron-right"></i></a>
+			<a href="pjlist" class="gonggo_link">채용공고 둘러보기<i class="fas fa-chevron-right"></i></a>
 		</div>
 	</c:if>
 	
@@ -201,28 +200,36 @@ function delapply(num,pageNum){
 
 </c:if>
   <c:if test="${state == 'fail' }">
-  	<div class="table-wrap">
- 		<table class="table">
- 			<thead>
- 				<tr>
- 					<th style="color: #fff;text-align: center;max-width: 100px;">지원 회사</th>
- 					<th style="color: #fff;text-align: center;max-width: 100px;">지원 포지션</th>
- 					<th style="color: #fff;text-align: center;max-width: 100px;">지원상태</th>
- 				</tr>
- 			</thead>
- 			<tbody>
- 				<c:forEach var="adto" items="${failAdto }">
- 					<tr align="center">
- 						<td><img  src="gonggo/${adto.empimg }" class="applyFail_empimg">&nbsp;${adto.empname }</td>
- 						<td>${adto.jobgroup }</td>
- 						<td style="color: #bbb;">불합격</td>
- 					</tr>
- 				</c:forEach>
- 			</tbody>
- 		</table>
-  	</div>
-  </c:if>
-  
+	  <c:if test="${failCnt=='0' }">
+		 <div style="margin-top: 120px;text-align: center;">
+			<h4>불합격한 내역이 없습니다.</h4>
+			<a href="pjlist" class="gonggo_link">채용공고 둘러보기<i class="fas fa-chevron-right"></i></a>
+		</div>
+		  </c:if>
+		    <c:if test="${failCnt!='0' }">
+		  	<div class="table-wrap">
+		 		<table class="table">
+		 			<thead>
+		 				<tr>
+		 					<th style="color: #fff;text-align: center;max-width: 100px;">지원 회사</th>
+		 					<th style="color: #fff;text-align: center;max-width: 100px;">지원 포지션</th>
+		 					<th style="color: #fff;text-align: center;max-width: 100px;">지원상태</th>
+		 				</tr>
+		 			</thead>
+		 			<tbody>
+		 				<c:forEach var="adto" items="${failAdto }">
+		 			
+		 					<tr align="center">
+		 						<td><img  src="gonggo/${adto.empimg }" class="applyFail_empimg">&nbsp;${adto.empname }</td>
+		 						<td>${adto.jobgroup }</td>
+		 						<td style="color: #bbb;">불합격</td>
+		 					</tr>
+		 				</c:forEach>
+		 			</tbody>
+		 		</table>
+		  	</div>
+	 	 </c:if>
+    </c:if>
   
 
 </body>
