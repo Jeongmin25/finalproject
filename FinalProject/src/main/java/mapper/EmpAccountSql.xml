@@ -51,4 +51,9 @@
 		delete  from emp_account where num = #{num}
 	</delete>
 	
+	<!-- 기업리뷰 -->
+	<!-- 기업 데이터 출력 -->
+	<select id="getEmpData" parameterType="String" resultType="empAccount">
+		select * from emp_account where empname=#{empname}
+	</select>
 </mapper>

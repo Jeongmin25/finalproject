@@ -34,14 +34,33 @@
 		select * from review where empname=#{empname} order by writeday desc 
 		limit #{start},#{perpage};
 	</select>
+
 	
 	<!-- 기업명 조회 -->
 	<select id="selectEmpname" resultType="review" parameterType="int">
 		select empname, good, round(avg(rating),1) as rating from review group by empname order by writeday desc 
 		limit #{start},#{perpage};
-		
 	</select>
 	
+	<!-- 기업명 조회 리뷰많은 순-->
+	<select id="selectEmpnameOflargest" resultType="review" parameterType="int">
+		select empname, good, round(avg(rating),1) as rating, count(*) as reviewcount from review group by empname order by count(*) desc 
+		limit #{start},#{perpage};
+	</select>
+	
+	<!-- 기업명 조회 평점높은 순-->
+	<select id="selectEmpnameOfrating" resultType="review" parameterType="int">
+		select empname, good, round(avg(rating),1) as rating from review group by empname order by rating desc 
+		limit #{start},#{perpage};
+	</select>
+	
+	<!-- 기업명 조회  도움이돼요 순-->
+	<select id="selectEmpnameOfhelpful" resultType="review" parameterType="int">
+		select empname, good, round(avg(rating),1) as rating from review group by empname order by likes desc 
+		limit #{start},#{perpage};
+	</select>
+	
+		
 	<select id="selectEmpnameCount" resultType="int">
 		select count(DISTINCT empname) from review
 	</select>

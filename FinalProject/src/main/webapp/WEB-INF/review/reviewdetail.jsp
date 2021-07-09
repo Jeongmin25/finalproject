@@ -14,9 +14,27 @@
 		width: 700px;
 		height: 400px;
 		border: 1px solid #ddd;
-		border-radius: 10px;
+		border-radius: 30px;
 		margin: 50px 50px 100px 100px;
-		padding: 20px 20px 20px 20px;
+		padding: 40px 40px 40px 40px;
+	}
+	
+	div.reviewdetail{
+		margin-left:100px;
+		width: 700px;
+		height: 200px;
+		background-image: url("../image/review5.jpg");
+		background-size: 700px 200px;
+	}
+	
+	div.table{
+		margin-left: 100px;
+		width: 700px;
+		border: 1px solid #ddd;
+		border-radius: 30px;
+		padding-left: 30px;
+		padding-top: 20px;
+		padding-bottom: 20px;
 	}
 	
 .star-rating { width:304px; }
@@ -35,9 +53,6 @@
 		<c:set var="email" value="${auth }"/>
 		<!-- 기업이름 저장 -->
 		<c:set value="${empname }" var="empname" />
-		<h2>${empname }&nbsp;기업리뷰</h2>
-		<h5 style="color: gray;">전/현직자들이 ${review0fEmp}개의 리뷰를 작성했습니다.</h5>
-
 		<!-- 평균 값 저장 -->
 		<c:set value="${avgRating }" var="avgRating" />
 		<c:set value="${avgCul }" var="avgCul" />
@@ -45,10 +60,38 @@
 		<c:set value="${avgEnv }" var="avgEnv" />
 		<c:set value="${avgSal }" var="avgSal" />
 		<c:set value="${avgCeo }" var="avgCeo" />
+		
+		<!-- image -->
+		<div class="reviewdetail"></div>
+		
+		
 
+		
+
+	<!-- 기업명/별점/업계 -->
+		<div class="company" style="margin-left: 100px;">
+			<div >
+				<h2 >${empname }&nbsp;</h2>
+			</div>
+			<div>	
+			<img alt="" src="../image/ministar.png" width="25px" style="float: left; ">
+			<h3 >${avgRating }</h3>
+				<!-- 기업 정보 저장 -->	
+					<c:if test="${!empty empAccount }">
+						<c:forEach var="emp" items="${empAccount }">
+							<h5 style="color: #bbb;">
+							${emp.country }(${emp.area })&nbsp;&nbsp;${emp.biztype }&nbsp;&nbsp;${emp.email } </h5>
+						</c:forEach>
+					</c:if>
+			</div>
+		</div>
+
+		
+		<!-- 전체 리뷰 통계 -->
 		<div class="total">
 			<!-- 기업 총 평가 평균 -->
-			<b style="font-size: 5em;">${avgRating }</b>&nbsp;&nbsp;&nbsp; <span
+			전체 리뷰 통계 (${review0fEmp}명)<br>
+			<b style="font-size: 4em;">${avgRating }</b>&nbsp;&nbsp;&nbsp; <span
 				class="star-rating"> <!-- 너비 100%에 맞추려면 (rating*10)*2 --> <span
 				style="width:${(avgRating*10)*2}%"></span>
 			</span>
@@ -56,25 +99,28 @@
 			<div id="chart_div"></div>
 		</div>
 		
-		<h3>직접 쓴 리뷰 TALK</h3>
-		<br>
+		<h4 style="margin-left: 100px;">직접 쓴 리뷰 TALK</h4>
+		<h5 style="margin-left: 100px;">총 <b style="color: #021B80;">${review0fEmp}</b>개의 기업리뷰</h5>
+
 
 		<!-- empname에 해당하는 데이터 반복출력 -->
 		<c:forEach items="${empdata }" var="data">
-			<table class="table table-bordered"
-				style="width: 700px; margin-left: 100px;">
+			<div class="table">
+				<table>
+				
 				<tr>
 					<td colspan="2">
-						<h4 style="color: gray;">${data.job_group}
+						<img alt="" src="../image/who.PNG" style="float: left; margin-right: 10px;">
+						<h5 style="color: gray; margin-top: 20px;">${data.job_group}
 							| ${data.prenow} |
 							<fmt:formatDate value="${data.writeday }" pattern="MM-dd"
 								var="date" />${date}
-						</h4>
+						</h5>
 					</td>
 				</tr>
 				<tr>
 					<td width="100px;">
-						<!-- 총 평가 --> <span class="pinkstar-rating"> <span
+						<!-- 총 평가 --> <span class="pinkstar-rating" style="margin-bottom: 10px;"> <span
 							style="width:${(data.rating*10)*2}%"></span>
 					</span> 사내문화
 						<div class="progress">
@@ -109,7 +155,7 @@
 						</div>
 
 					</td>
-					<td>
+					<td style="padding-left: 40px;">
 						<h4 style="color: #28AEFF;">장점</h4>
 						<br>
 						<p>${data.good}</p>
@@ -123,15 +169,17 @@
 				<tr>
 					<td colspan="2" align="center"><label class="inline">
 
-							<button type="button" class="btn btn-default btnlikes"
+							<button type="button" class="btn btn-default btnlikes" style="margin-left: 220px;"
 								num="${data.num}" email="${email}">
-								<span class="glyphicon glyphicon-thumbs-up" style="color: blue;"></span>
+								<span class="glyphicon glyphicon-thumbs-up" style="color: blue; "></span>
 								도움이 돼요 ${data.likes }
 							</button>
 
 					</label></td>
 				</tr>
 			</table>
+			</div>
+
 		</c:forEach>
 
 		<!-- 페이지 번호 -->

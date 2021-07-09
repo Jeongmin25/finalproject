@@ -162,7 +162,7 @@ $("#searchbtn").click(function() {
 	        },
 
 	        success : function(data) {
-	        	//console.log(data); list 데이터 확인 
+	        	console.log(data);
 	        	var s="";
 	        	
 	        	if(data==""){

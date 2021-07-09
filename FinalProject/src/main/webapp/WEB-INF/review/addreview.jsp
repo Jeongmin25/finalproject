@@ -94,7 +94,7 @@
 		<button type="button" class="menu btn btn-default btn-lg"
 			onclick="location.href='review'">기업리뷰</button>
 		<button type="button" class="menu btn btn-default btn-lg"
-			onclick="location.href='addreview'">my리뷰</button>
+			onclick="location.href='addreview'">my기업리뷰</button>
 	</div>
 	
 	<!-- my 기업리뷰 -->
@@ -195,7 +195,7 @@
 						<!-- 기준날짜보다 지남 -->
 						<c:if test="${expired>write}">
 							<button class="pastupdate btn btn-default" disabled>수정</button>
-							<button class="pastedelete btn btn-default" disabled>삭제</button>
+							<button class="pastedelete btn btn-default"  disabled >삭제</button>
 						</c:if>			
 					</td>
 				</tr>
@@ -212,8 +212,9 @@
      					<!-- 기업 확인 -->
   					<div id="demo" class="collapse">
   						<div class="statement">
+  							<hr>
   							<c:forEach var="com" items="${company }">
-  								<table class="com table table" style="width: 400px; margin-left: 300px;">
+  								<table class="com " style="width: 400px; margin-left: 300px;">
   									<tr>
   										<td>
   											<h4>${com.company }</h4>
@@ -228,6 +229,7 @@
   										</td>
   									</tr>
   								</table>
+  								<hr>
   							</c:forEach>
  						 </div>
  					</div> 	
