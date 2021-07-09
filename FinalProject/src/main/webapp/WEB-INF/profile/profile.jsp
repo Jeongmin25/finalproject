@@ -136,7 +136,7 @@
 				<select class="sel" onchange="selresume(this.value)"  >
 					<c:forEach var="rdto" items="${list }" varStatus="n">
 						<c:if test="${rdto.num_r==num_r }">
-							<option value="${rdto.num_r }" selected>${n.count }번 이력서</option>
+							<option value="${rdto.num_r }" selected>이력서(${n.count })</option>
 						</c:if>
 						<c:if test="${rdto.num_r!=num_r }">
 							<option value="${rdto.num_r }">${n.count }번 이력서</option>

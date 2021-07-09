@@ -274,8 +274,7 @@ function submit2(frm){
 			<td>
 				<div class="apply_resumelist" id="apply_resumelist" num="${rdto.num_r }">
 					<div>
-						<i class="far fa-square"></i>
-						<span>${n.count }번 이력서</span>&nbsp;
+						<span>이력서(${n.count})</span>&nbsp;
 						<span>
 							<fmt:formatDate value="${rdto.nowdate }" pattern="YYYY-MM-dd"/>
 						</span>
