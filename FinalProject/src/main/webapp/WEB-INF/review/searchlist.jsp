@@ -46,6 +46,11 @@
 		color: #282828;
 		
 	}
+	
+	div.empname:hover{
+		border: 2px solid #021B80;
+		
+	}
 </style>
 </head>
 <body>

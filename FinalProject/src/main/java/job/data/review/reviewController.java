@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import job.data.emplogin.EmpAccountDto;
+import job.data.emplogin.EmpAccountMapper;
 import job.data.gonggo.CompanyDto;
 import job.data.gonggo.CompanyMapper;
 import job.data.resume.CarerDto;
@@ -29,6 +32,9 @@ public class reviewController {
 	
 	@Autowired
 	ResumeMapper rmapper;
+	
+	@Autowired
+	EmpAccountMapper emapper;
 	
 	@GetMapping("/addreview")
 	   public ModelAndView review(
@@ -217,6 +223,8 @@ public class reviewController {
 		String emp=empname;
 		mview.addObject("empname",emp);
 		
+		System.out.println("empname:"+empname);
+		
 		//총 개수
 		int review0fEmp=mapper.review0fEmp(empname);
 		mview.addObject("review0fEmp",review0fEmp);
@@ -264,6 +272,11 @@ public class reviewController {
 		List<reviewDto> empdata=mapper.getReviewDataOfEmp(map);
 		mview.addObject("empdata",empdata);
 		
+		//기업정보 출력
+		List<EmpAccountDto> empDataOfAccount=emapper.getEmpData(empname);
+		System.out.println("empdataofaccount:"+empDataOfAccount);
+		
+		
 		//평가 평균
 		float avgRating=mapper.avgRating(empname);
 		float avgCul=mapper.avgCul(empname);
@@ -284,6 +297,7 @@ public class reviewController {
 		mview.addObject("endPage", endPage);
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("totalPage", totalPage);
+		mview.addObject("empAccount", empDataOfAccount);
 		
 		mview.setViewName("/review/reviewdetail");
 		return mview;
@@ -428,8 +442,237 @@ public class reviewController {
 		}
 		
 
+		@ResponseBody
+		@PostMapping("/reviewlargest")
+		public List<reviewDto> reviewlargest(
+				@RequestParam(value = "pageNum",defaultValue = "1") int currentPage,
+				Authentication authentication,
+				@AuthenticationPrincipal PrincipalDetails userDetails,
+				@AuthenticationPrincipal OAuth2User oauth,
+				Model model
+				){
+			
+			
+			//로그인할 시 정보를 전달
+			if(authentication!=null) {
+			
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =
+			  (OAuth2User)authentication.getPrincipal();
+			  model.addAttribute("auth",userDetails.getUsername());
+			}
+			
+			int totalCount=mapper.selectEmpnameCount();
+			
+			//페이징에 필요한 코드
+			int totalPage;//전체 페이지
+			int startPage;//각 블럭의 시작페이지
+			int endPage;//각 블럭의 마지막페이지
+			int start;//각 페이지의 시작번호
+			int no;//각 페이지에서 출력을 시작할 번호
+			int perPage=5;//한페이지에 보여질 글의 개수
+			int perBlock=5;//한 블럭에 보여질 페이지의 개수
 
+			//총 페이지수 구하기
+			totalPage=totalCount/perPage+(totalCount%perPage>0?1:0); 
+			//나머지가 있으면 1페이지 더하기(글개수13개면 페이지3장필요)
+
+			//현재페이지가 3인경우 startPage는 1, endPage=5 / 현재페이지가 6인경우 startPage는 6, endPage=10
+			startPage=(currentPage-1)/perBlock*perBlock+1;
+			endPage=startPage+perBlock-1;
+
+			//만약 총 페이지수가 8인경우 2번째 블럭은 startPage 6, endPage 10 BUT, 이때 endPage는 8로 표기되어야한다.
+			if(totalPage<endPage)
+				endPage=totalPage;
+
+			//각 페이지의 시작번호 구하기(1일경우 0, 2일경우 3)
+			//오라클 첫글:1, mysql 첫글:0
+			start=(currentPage-1)*perPage;
+
+			//각 글 앞에 붙일 시작번호구하기 
+			//예: 총글이 20개일경우 1페이지는 20부터 2페이지는 15부터 출력해서 1씩 감소해가며 출력할것
+			no=totalCount-(currentPage-1)*perPage;		
+
+			//리뷰많은 순
+			List<reviewDto> reviewlargest=mapper.selectEmpnameOflargest(start, perPage);
+			
+			return reviewlargest;
+			
+		}
 		
-	
+		
+		@ResponseBody
+		@PostMapping("/reviewrating")
+		public List<reviewDto> reviewrating(
+				@RequestParam(value = "pageNum",defaultValue = "1") int currentPage,
+				Authentication authentication,
+				@AuthenticationPrincipal PrincipalDetails userDetails,
+				@AuthenticationPrincipal OAuth2User oauth,
+				Model model
+				){
+			
+			
+			//로그인할 시 정보를 전달
+			if(authentication!=null) {
+			
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =
+			  (OAuth2User)authentication.getPrincipal();
+			  model.addAttribute("auth",userDetails.getUsername());
+			}
+			
+			int totalCount=mapper.selectEmpnameCount();
+			
+			//페이징에 필요한 코드
+			int totalPage;//전체 페이지
+			int startPage;//각 블럭의 시작페이지
+			int endPage;//각 블럭의 마지막페이지
+			int start;//각 페이지의 시작번호
+			int no;//각 페이지에서 출력을 시작할 번호
+			int perPage=5;//한페이지에 보여질 글의 개수
+			int perBlock=5;//한 블럭에 보여질 페이지의 개수
+
+			//총 페이지수 구하기
+			totalPage=totalCount/perPage+(totalCount%perPage>0?1:0); 
+			//나머지가 있으면 1페이지 더하기(글개수13개면 페이지3장필요)
+
+			//현재페이지가 3인경우 startPage는 1, endPage=5 / 현재페이지가 6인경우 startPage는 6, endPage=10
+			startPage=(currentPage-1)/perBlock*perBlock+1;
+			endPage=startPage+perBlock-1;
+
+			//만약 총 페이지수가 8인경우 2번째 블럭은 startPage 6, endPage 10 BUT, 이때 endPage는 8로 표기되어야한다.
+			if(totalPage<endPage)
+				endPage=totalPage;
+
+			//각 페이지의 시작번호 구하기(1일경우 0, 2일경우 3)
+			//오라클 첫글:1, mysql 첫글:0
+			start=(currentPage-1)*perPage;
+
+			//각 글 앞에 붙일 시작번호구하기 
+			//예: 총글이 20개일경우 1페이지는 20부터 2페이지는 15부터 출력해서 1씩 감소해가며 출력할것
+			no=totalCount-(currentPage-1)*perPage;		
+
+			//리뷰많은 순
+			List<reviewDto> reviewrating=mapper.selectEmpnameOfrating(start, perPage);
+			
+			return reviewrating;
+			
+		}	
+		
+		@ResponseBody
+		@PostMapping("/reviewhelpful")
+		public List<reviewDto> reviewhelpful(
+				@RequestParam(value = "pageNum",defaultValue = "1") int currentPage,
+				Authentication authentication,
+				@AuthenticationPrincipal PrincipalDetails userDetails,
+				@AuthenticationPrincipal OAuth2User oauth,
+				Model model
+				){
+			
+			
+			//로그인할 시 정보를 전달
+			if(authentication!=null) {
+			
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =
+			  (OAuth2User)authentication.getPrincipal();
+			  model.addAttribute("auth",userDetails.getUsername());
+			}
+			
+			int totalCount=mapper.selectEmpnameCount();
+			
+			//페이징에 필요한 코드
+			int totalPage;//전체 페이지
+			int startPage;//각 블럭의 시작페이지
+			int endPage;//각 블럭의 마지막페이지
+			int start;//각 페이지의 시작번호
+			int no;//각 페이지에서 출력을 시작할 번호
+			int perPage=5;//한페이지에 보여질 글의 개수
+			int perBlock=5;//한 블럭에 보여질 페이지의 개수
+
+			//총 페이지수 구하기
+			totalPage=totalCount/perPage+(totalCount%perPage>0?1:0); 
+			//나머지가 있으면 1페이지 더하기(글개수13개면 페이지3장필요)
+
+			//현재페이지가 3인경우 startPage는 1, endPage=5 / 현재페이지가 6인경우 startPage는 6, endPage=10
+			startPage=(currentPage-1)/perBlock*perBlock+1;
+			endPage=startPage+perBlock-1;
+
+			//만약 총 페이지수가 8인경우 2번째 블럭은 startPage 6, endPage 10 BUT, 이때 endPage는 8로 표기되어야한다.
+			if(totalPage<endPage)
+				endPage=totalPage;
+
+			//각 페이지의 시작번호 구하기(1일경우 0, 2일경우 3)
+			//오라클 첫글:1, mysql 첫글:0
+			start=(currentPage-1)*perPage;
+
+			//각 글 앞에 붙일 시작번호구하기 
+			//예: 총글이 20개일경우 1페이지는 20부터 2페이지는 15부터 출력해서 1씩 감소해가며 출력할것
+			no=totalCount-(currentPage-1)*perPage;		
+
+			//리뷰많은 순
+			List<reviewDto> reviewhelpful=mapper.selectEmpnameOfhelpful(start, perPage);
+			
+			return reviewhelpful;
+			
+		}
+		
+		@ResponseBody
+		@PostMapping("/reviewlatest")
+		public List<reviewDto> reviewlatest(
+				@RequestParam(value = "pageNum",defaultValue = "1") int currentPage,
+				Authentication authentication,
+				@AuthenticationPrincipal PrincipalDetails userDetails,
+				@AuthenticationPrincipal OAuth2User oauth,
+				Model model
+				){
+			
+			
+			//로그인할 시 정보를 전달
+			if(authentication!=null) {
+			
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =
+			  (OAuth2User)authentication.getPrincipal();
+			  model.addAttribute("auth",userDetails.getUsername());
+			}
+			
+			int totalCount=mapper.selectEmpnameCount();
+			
+			//페이징에 필요한 코드
+			int totalPage;//전체 페이지
+			int startPage;//각 블럭의 시작페이지
+			int endPage;//각 블럭의 마지막페이지
+			int start;//각 페이지의 시작번호
+			int no;//각 페이지에서 출력을 시작할 번호
+			int perPage=5;//한페이지에 보여질 글의 개수
+			int perBlock=5;//한 블럭에 보여질 페이지의 개수
+
+			//총 페이지수 구하기
+			totalPage=totalCount/perPage+(totalCount%perPage>0?1:0); 
+			//나머지가 있으면 1페이지 더하기(글개수13개면 페이지3장필요)
+
+			//현재페이지가 3인경우 startPage는 1, endPage=5 / 현재페이지가 6인경우 startPage는 6, endPage=10
+			startPage=(currentPage-1)/perBlock*perBlock+1;
+			endPage=startPage+perBlock-1;
+
+			//만약 총 페이지수가 8인경우 2번째 블럭은 startPage 6, endPage 10 BUT, 이때 endPage는 8로 표기되어야한다.
+			if(totalPage<endPage)
+				endPage=totalPage;
+
+			//각 페이지의 시작번호 구하기(1일경우 0, 2일경우 3)
+			//오라클 첫글:1, mysql 첫글:0
+			start=(currentPage-1)*perPage;
+
+			//각 글 앞에 붙일 시작번호구하기 
+			//예: 총글이 20개일경우 1페이지는 20부터 2페이지는 15부터 출력해서 1씩 감소해가며 출력할것
+			no=totalCount-(currentPage-1)*perPage;		
+
+			//리뷰많은 순
+			List<reviewDto> reviewlatest=mapper.selectEmpname(start, perPage);
+			
+			return reviewlatest;
+			
+		}
 	
 }

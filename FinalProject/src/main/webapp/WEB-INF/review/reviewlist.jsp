@@ -25,6 +25,7 @@
 		width: 400px;
 		height: 150px;
 		margin-left: 10px;
+		
 	}
 	div.runsearch{
 		cursor: pointer;
@@ -72,6 +73,28 @@
 		width: 150px;
 	}
 	
+	div.reviewimg{
+		position: absolute;
+		left: 950px;
+		top: 200px;
+		width:400px;
+		height:250px;
+		background-image: url("../image/review.jpg");
+		background-size: 400px 250px;
+	}
+	
+	div.empname:hover{
+		border: 2px solid #021B80;
+		
+	}
+	
+	div.choice{
+		margin-left: 50px;
+		width: 900px;
+		height: 100px;
+		
+	}
+	
 </style>
 <title>Insert title here</title>
 </head>
@@ -83,7 +106,7 @@
 		<!--  -->
 		<c:if test="${auth!=null }">
 		<button type="button" class="menu btn btn-default btn-lg"
-			onclick="location.href='addreview'">my리뷰</button>		
+			onclick="location.href='addreview'">my기업리뷰</button>		
 		</c:if>
 
 	</div>
@@ -102,6 +125,9 @@
 			</form>
 		</div>
 	</div>
+	
+	<div class="reviewimg"></div>
+	
 	<br><br><br>
 	
 	<!-- 기업 이미지  -->
@@ -109,17 +135,32 @@
 	<div class="list">
 		<h3>전체 기업리뷰 (${total})</h3>
 		<br>
-		<c:forEach items="${empname }" var="empname">
-			<div class="empname">
-				<img alt="" src="../image/ministar.png" style="max-width: 20px;">
-				<a class="empname" href="reviewdetail?empname=${empname.empname }" >
-				<b style="font-weight: normal; text-align: right;">${empname.rating}</b>
-				&nbsp;&nbsp;
-				${empname.empname } 
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<b style="font-weight: normal; color: gray;"># ${empname.good}</b></a>
-			</div>
-		</c:forEach>
+		<!-- 리뷰정렬 -->
+		<div class="choice">
+			<h4 style="float: left; margin-top: 30px; margin-right: 20px; color: gray;">리뷰 보기</h4>
+			<button type="button" class="latest btn btn-default" style="width: 120px; height: 50px; 
+				margin-left:10px; margin-top:10px;  border-radius: 20px; background-color: white;">최신순</button>
+			<button type="button" class="largest btn btn-default" style="width: 120px; height: 50px; 
+				margin-left:10px; margin-top:10px;  border-radius: 20px; background-color: white;">리뷰많은순</button>
+			<button type="button" class="highrating btn btn-default" style="width: 120px; height: 50px; 
+				margin-left:10px; margin-top:10px;  border-radius: 20px; background-color: white;">평점높은순</button>
+			<button type="button" class="helpful btn btn-default" style="width: 120px; height: 50px; 
+				margin-left:10px; margin-top:10px;  border-radius: 20px; background-color: white;">도움이돼요순</button>
+		</div>
+		<div class="print">
+				<c:forEach items="${empname }" var="empname">
+					<div class="empname">
+					<img alt="" src="../image/ministar.png" style="max-width: 20px;">
+					<a class="empname" href="reviewdetail?empname=${empname.empname }" >
+					<b style="font-weight: normal; text-align: right;">${empname.rating}</b>
+					&nbsp;&nbsp;
+					${empname.empname } 
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<b style="font-weight: normal; color: gray;"># ${empname.good}</b></a>
+				</div>
+			</c:forEach>
+		</div>
+
 	</div>
 	
 	
@@ -150,4 +191,155 @@
 	</ul>
 </div>
 </body>
+<script type="text/javascript">
+
+//리뷰많은 순
+$("button.largest").click(function() {
+	$.ajax({
+        type : "post",  
+        url : "/reviewlargest",        
+        dataType: 'json',
+        
+        error : function(){
+            alert("통신 에러","error","확인",function(){});
+        },
+
+        success : function(data) {
+        	console.log(data);
+        	var s="";
+
+
+       		//반복문으로 값 출력
+        	$.each(data, function(idx, val) {
+        	
+        		s+="<div class='empname'>";
+        		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px;">';
+        		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" >';
+        		s+='<b style="font-weight: normal; text-align: right;">'+val.rating+'</b>';
+        		s+='&nbsp;&nbsp;';
+        		s+=val.empname;
+        		s+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';    
+        		s+='<b style="font-weight: normal; color: gray;"># '+val.good+'</b></a>';
+        		s+="</div>";
+    
+        	});
+        	
+        	$("div.print").html(s);
+        }	
+	})
+	
+});
+
+//평점높은 순
+$("button.highrating").click(function() {
+	$.ajax({
+        type : "post",  
+        url : "/reviewrating",        
+        dataType: 'json',
+        
+        error : function(){
+            alert("통신 에러","error","확인",function(){});
+        },
+
+        success : function(data) {
+        	console.log(data);
+        	var s="";
+
+
+       		//반복문으로 값 출력
+        	$.each(data, function(idx, val) {
+        	
+        		s+="<div class='empname'>";
+        		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px;">';
+        		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" >';
+        		s+='<b style="font-weight: normal; text-align: right;">'+val.rating+'</b>';
+        		s+='&nbsp;&nbsp;';
+        		s+=val.empname;
+        		s+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';    
+        		s+='<b style="font-weight: normal; color: gray;"># '+val.good+'</b></a>';
+        		s+="</div>";
+    
+        	});
+        	
+        	$("div.print").html(s);
+        }	
+	})
+	
+});
+
+//도움이돼요 순
+$("button.helpful").click(function() {
+	$.ajax({
+        type : "post",  
+        url : "/reviewhelpful",        
+        dataType: 'json',
+        
+        error : function(){
+            alert("통신 에러","error","확인",function(){});
+        },
+
+        success : function(data) {
+        	console.log(data);
+        	var s="";
+
+
+       		//반복문으로 값 출력
+        	$.each(data, function(idx, val) {
+        	
+        		s+="<div class='empname'>";
+        		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px;">';
+        		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" >';
+        		s+='<b style="font-weight: normal; text-align: right;">'+val.rating+'</b>';
+        		s+='&nbsp;&nbsp;';
+        		s+=val.empname;
+        		s+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';    
+        		s+='<b style="font-weight: normal; color: gray;"># '+val.good+'</b></a>';
+        		s+="</div>";
+    
+        	});
+        	
+        	$("div.print").html(s);
+        }	
+	})
+	
+});
+
+//최신순
+$("button.latest").click(function() {
+	$.ajax({
+        type : "post",  
+        url : "/reviewlatest",        
+        dataType: 'json',
+        
+        error : function(){
+            alert("통신 에러","error","확인",function(){});
+        },
+
+        success : function(data) {
+        	console.log(data);
+        	var s="";
+
+
+       		//반복문으로 값 출력
+        	$.each(data, function(idx, val) {
+        	
+        		s+="<div class='empname'>";
+        		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px;">';
+        		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" >';
+        		s+='<b style="font-weight: normal; text-align: right;">'+val.rating+'</b>';
+        		s+='&nbsp;&nbsp;';
+        		s+=val.empname;
+        		s+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';    
+        		s+='<b style="font-weight: normal; color: gray;"># '+val.good+'</b></a>';
+        		s+="</div>";
+    
+        	});
+        	
+        	$("div.print").html(s);
+        }	
+	})
+	
+});
+
+</script>
 </html>

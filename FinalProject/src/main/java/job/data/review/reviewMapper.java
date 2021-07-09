@@ -23,11 +23,17 @@ public interface reviewMapper {
 	//review테이블 테이터 출력
 	public List<reviewDto> getReviewData();
 	
-	//review테이블 데이터 출력
-	public List<reviewDto> getReviewDataOfEmp(HashMap<String, Object> map);
-	
 	//review기업명 조회
 	public List<reviewDto> selectEmpname(int start, int perpage);
+	
+	//review기업명 조회- 리뷰많은 순
+	public List<reviewDto> selectEmpnameOflargest(int start, int perpage);
+	
+	//review기업명 조회- 평점높은 순
+	public List<reviewDto> selectEmpnameOfrating(int start, int perpage);
+	
+	//review기업명 조회 - 도움이돼요 순
+	public List<reviewDto> selectEmpnameOfhelpful(int start, int perpage);
 	
 	//review기업명 개수(중복제외)
 	public int selectEmpnameCount();
@@ -86,6 +92,8 @@ public interface reviewMapper {
 	/* 관리자페이지에 출력 */
 	public List<reviewDto> getAllReview();
 	
-	public void deleteAdminReview(String num);	
+	public void deleteAdminReview(String num);
+
+	public List<reviewDto> getReviewDataOfEmp(HashMap<String, Object> map);	
 
 }
