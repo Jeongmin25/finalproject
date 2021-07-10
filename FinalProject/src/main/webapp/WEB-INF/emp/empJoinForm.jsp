@@ -28,7 +28,7 @@
 			<input type="text" name="hp" placeholder="예시)01020203030" required="required" style="width: 500px; height: 40px;"/>
 			<br/><br/>
 			회사이메일*<br/>
-			<input type="email" name="email" placeholder="회사이메일(로그인 아이디로 사용됩니다)" required="required" style="width: 500px; height: 40px;"/> 
+			<input type="email" class="email" name="email" placeholder="회사이메일(로그인 아이디로 사용됩니다)" required="required" style="width: 500px; height: 40px;"/> 
 			<button type="button" class="btn btn-default" id="btncheck" style="height: 35px;">중복체크</button> 
 			<br/><br/>
 			비밀번호*<br/>
@@ -152,7 +152,9 @@
 $(function(){
 	$("#btncheck").click(function(){
 		//email 읽기
-		var email=$("#email").val();
+		var email=$(".email").val();
+		alert( email );
+		
 		$.ajax({
 			type:"get",
 			url:"emailcheck",
