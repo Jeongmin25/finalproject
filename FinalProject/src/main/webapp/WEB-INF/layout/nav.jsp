@@ -56,7 +56,7 @@
 					<li id="gs"><a>고객센터</a>
 						<div>
 							<ul class="Support">
-							<li><a>자주하는 질문</a></li>
+							<li><a href="Faq">자주하는 질문</a></li>
 								<li><a href="notice">공지사항</a></li>
 							</ul>
 						</div></li>

@@ -103,7 +103,7 @@ window.onload=function(){
 	         merchant_uid: 'merchant_' + new Date().getTime(),
 			 num: num,
 	         name: '주문명 : 프리미엄 공고',
-	         amount: 100,
+	         amount: 100000,
 	         buyer_email: 'iamport@siot.do',
 	         buyer_name: '구매자이름',
 	         buyer_tel: '010-1234-5678',
