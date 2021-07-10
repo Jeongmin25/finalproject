@@ -111,4 +111,9 @@
 	<select id="searchListByTag" parameterType="String" resultType="company">
 		select * from company left outer join category on (company.num=category.num) where tag=#{tag};
 	</select>
+	
+	<select id="searchByJob" parameterType="String" resultType="company">
+		select * from company where jobgroup=#{jobgroup};
+	</select>
+	
 </mapper>

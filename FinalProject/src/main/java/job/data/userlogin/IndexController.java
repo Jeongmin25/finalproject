@@ -65,6 +65,12 @@ public class IndexController {
 		return "user/loginForm";
 	}
 	
+	
+	 @GetMapping("/logout") public String logout(@AuthenticationPrincipal
+	  PrincipalDetails principalDetails) { 
+		 return "user/loginForm"; }
+	
+	
 //	@GetMapping("/emp") //매니저로 로그인했을경우 이경로로 갔을때 이용가능함. 유저는 이용못하는 페이지
 //	public @ResponseBody String emp() {
 //		return "emp/loginForm";

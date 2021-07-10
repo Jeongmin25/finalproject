@@ -57,7 +57,7 @@ public interface CompanyMapper {
 
 	//태그로 채용공고 검색
 	public List<CompanyDto> searchListByTag(String tag);
-	//경력으로 채용공고 검색
-	public List<CompanyDto> searchListByCareer(String empcontent);
+	//jobgroup 으로 채용공고 검색
+	public List<CompanyDto> searchByJob(String jobgroup);
 	
 }

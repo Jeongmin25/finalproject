@@ -69,22 +69,19 @@ public class Listcontroller {
 		 */
 	 
 	 
-	 @GetMapping({"pjlist/gonggodetail"})
-	   public ModelAndView gonggo(String num)
-	   {
-		   ModelAndView mview=new ModelAndView();
-		   	CompanyDto dto=new CompanyDto();
-		    dto= datamapper.getData(num);
-			mview.addObject("dto",dto);
-									
-			List<CategoryDto>cdto=dto.getCategory();
-			mview.addObject("cdto",cdto);
-			mview.addObject("num",dto.getNum());
-	
-			mview.setViewName("gonggo/gonggodetail");
-			return mview;
-	   }
-	 
+		/*
+		 * @GetMapping({"/pjlist/gonggodetail"}) public ModelAndView
+		 * gonggo(@RequestParam String num,String empname) { ModelAndView mview=new
+		 * ModelAndView(); CompanyDto dto=new CompanyDto(); dto=
+		 * datamapper.getData(num); empname=dto.getEmpname(); String
+		 * edto=empmapper.searchAddr(empname); System.out.println(edto);
+		 * mview.addObject("dto",dto); mview.addObject("edto",edto);
+		 * 
+		 * List<CategoryDto>cdto=dto.getCategory(); mview.addObject("cdto",cdto);
+		 * mview.addObject("num",dto.getNum());
+		 * 
+		 * mview.setViewName("gonggo/gonggodetail"); return mview; }
+		 */
 	 
 	 @ResponseBody
 	 @PostMapping({"/pjlistsearchtag"})
@@ -96,22 +93,21 @@ public class Listcontroller {
 		 
 		 return listByTag;
 	 }
-	 
-	 
+	 	
 		
-		/*
-		 * @ResponseBody
-		 * 
-		 * @PostMapping({"/pjlistsearchaddr"}) public
-		 * List<EmpAccountDto>searchListByaddr(@RequestParam String area,@RequestParam
-		 * String addr)
-		 * 
-		 * { //area,addr이 들어간 공고리스트 전체 출력
-		 * List<EmpAccountDto>listByAddr=empmapper.searchListByAddr(area,addr);
-		 * System.out.println(listByAddr);
-		 * 
-		 * return listByAddr; }
-		 */
+	  @ResponseBody
+	  @PostMapping({"/pjlistsearchjob"}) 
+	  public List<CompanyDto>searchByJob(@RequestParam String jobgroup)
+	  
+	  { //직무에 따른 공고리스트 출력
+		//System.out.println(jobgroup);
+	  List<CompanyDto>listByJob=datamapper.searchByJob(jobgroup);
+	  System.out.println("list="+listByJob);
+	  
+	  return listByJob; 
+	 
+	 }
+		 
 	 
 	 
 	 
