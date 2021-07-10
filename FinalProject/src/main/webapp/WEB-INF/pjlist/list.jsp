@@ -290,7 +290,7 @@ $(document).ready(function(){
 		
 	});
 	
-	
+	/* 태그 검색 시 리스트 재출력 */
 	$( document ).ready( function() {
 		$( 'button#tagConfirm' ).click( function() {
 			
@@ -327,7 +327,7 @@ $(document).ready(function(){
 		        	}else{
 			       		//반복문으로 값 출력
 			        	$.each(data, function(idx, val) {
-			        		s+='<div class="gonggo-box form-control">';
+			        		s+='<div class="gonggo-box form-control" num="'+val.num+'">';
 			        		s+='<input type="hidden" name="num" value="'+val.num+'">';
 				        	s+='<h4>'+val.jobgroup+'</h4></br>';
 				        	s+='<h5>'+val.empname+'</h5>';
@@ -351,10 +351,10 @@ $(document).ready(function(){
 <script type="text/javascript">
 
 $('document').ready(function() {
-	 var area0 = ["서울","인천","대전","광주","대구","울산","부산","경기","강원","충북","충남","전북","전남","경북","경남","제주"];
-	 var area1 = ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
-	  var area2 = ["계양구","남구","남동구","동구","부평구","서구","연수구","중구","강화군","옹진군"];
-	  var area3 = ["대덕구","동구","서구","유성구","중구"];
+	 var area0 = ["전국","서울","인천","대전","광주","대구","울산","부산","경기","강원","충북","충남","전북","전남","경북","경남","제주"];
+	 var area1 = ["전체","강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
+	  var area2 = ["전체","계양구","남구","남동구","동구","부평구","서구","연수구","중구","강화군","옹진군"];
+	  var area3 = ["전체","대덕구","동구","서구","유성구","중구"];
 	  var area4 = ["전체","광산구","남구","동구","북구","서구"];
 	  var area5 = ["전체","남구","달서구","동구","북구","서구","수성구","중구","달성군"];
 	  var area6 = ["전체","남구","동구","북구","중구","울주군"];
@@ -400,16 +400,60 @@ $('document').ready(function() {
 
 
 	 });
+	 
 
-
+/* 지역 검색 시 리스트 재출력 */
 $( document ).ready( function() {
 	$( 'button#searcharea' ).click( function() {
-		var tag1 = $( 'select#sido1' ).val();
-		var tag2 = $( 'select#gugun1' ).val();	
-		alert(tag1+" "+tag2);
-	} );
-} );
+		
+		
+		var addr = $( 'select#gugun1' ).val();
+		//alert( addr );
+		
+		$.ajax({
+	        type : "post",  
+	        url : "/pjlistsearcharea",        
+	        data : "addr="+addr,
+	        dataType: 'json',
+	        
+	        error : function(){
+	            alert("통신 에러","error","확인",function(){
+	            	
+		            });
+		        },
+		        
+		    success : function(data) {
+		    	//console.log(data); //list 데이터 확인 
+	        	//alert(data);
+		    	
+	        	var s="";
+	        	
+	        	if(data==""){
+	        		s+="<br><br><br>";
+	        		s+="<h3 style='margin-left: 300px;'>["+addr+"] 해당 검색 결과가 없습니다.</h3><br><br>";
+	        	}else{
+		       		//반복문으로 값 출력
+		        	$.each(data, function(idx, val) {
+		        		//alert(val.num);
+		        		s+='<div class="gonggo-box form-control" num="'+val.num+'">';
+		        		s+='<input type="hidden" name="num" value="'+val.num+'">';
+			        	s+='<h4>'+val.jobgroup+'</h4></br>';
+			        	s+='<h5>'+val.empname+'</h5>';
+			        	s+='<h5 class="job">'+val.job+'</h5>';
+			        	s+='<h5 style="color: gray"> 마감 '+val.deadline+'</h5>';
+			        	s+='</div>';
+			        	
+		        	});		
+	        	}	
+	        	
+	        	$("div.pjlist").html(s);	
 
+		    	}	
+		    })	
+		});	
+			
+	});
+		
 
 $(document).ready(function(){
     //지역선택 초기화btn을 클릭했을 때의 함수
@@ -419,6 +463,7 @@ $(document).ready(function(){
         });
     });
 });
+
 
 </script>
 
@@ -456,7 +501,7 @@ function selectjob(e) {
 
 }
 
-
+/* 직군 직무 검색 시 리스트 재출력 */
 $( document ).ready( function() {
 	$( 'button#searchjob' ).click( function() {
 		
@@ -488,7 +533,8 @@ $( document ).ready( function() {
 	    	}else{
        		//반복문으로 값 출력
         	$.each(data, function(idx, val) {
-        		s+='<div class="gonggo-box form-control">';
+        		alert(val);
+        		s+='<div class="gonggo-box form-control" num="'+val.num+'">';
         		s+='<input type="hidden" name="num" value="'+val.num+'">';
 	        	s+='<h4>'+val.jobgroup+'</h4></br>';
 	        	s+='<h5>'+val.empname+'</h5>';

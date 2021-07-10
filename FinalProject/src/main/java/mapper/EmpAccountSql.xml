@@ -56,4 +56,5 @@
 	<select id="getEmpData" parameterType="String" resultType="empAccount">
 		select * from emp_account where empname=#{empname}
 	</select>
+	
 </mapper>

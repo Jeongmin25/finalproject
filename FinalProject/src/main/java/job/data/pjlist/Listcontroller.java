@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import job.data.emplogin.EmpAccountDto;
 import job.data.emplogin.EmpAccountMapper;
-import job.data.gonggo.CategoryDto;
 import job.data.gonggo.CompanyDto;
 import job.data.gonggo.CompanyMapper;
 
@@ -89,7 +88,7 @@ public class Listcontroller {
 		
 		 //tag가 들어간 공고리스트 전체 출력
 		 List<CompanyDto> listByTag=datamapper.searchListByTag(tag);
-		 System.out.println("list="+listByTag);
+		 //System.out.println("list="+listByTag);
 		 
 		 return listByTag;
 	 }
@@ -99,12 +98,28 @@ public class Listcontroller {
 	  @PostMapping({"/pjlistsearchjob"}) 
 	  public List<CompanyDto>searchByJob(@RequestParam String jobgroup)
 	  
-	  { //직무에 따른 공고리스트 출력
-		//System.out.println(jobgroup);
-	  List<CompanyDto>listByJob=datamapper.searchByJob(jobgroup);
-	  System.out.println("list="+listByJob);
+	  { 
+		  //직무에 따른 공고리스트 출력
+			//System.out.println(jobgroup);
+			List<CompanyDto>listByJob=datamapper.searchByJob(jobgroup);
+			//System.out.println("list="+listByJob);
+		  
+			return listByJob; 
+	 
+	 }
 	  
-	  return listByJob; 
+	  @ResponseBody
+	  @PostMapping({"/pjlistsearcharea"}) 
+	  public List<CompanyDto>searchByArea(@RequestParam String addr)
+	  
+	  { 	
+		  //지역에 따른 공고리스트 출력
+			//System.out.println(addr);
+		  	List<CompanyDto>listByArea=datamapper.searchByArea(addr);
+		  	System.out.println("list="+listByArea);
+		  	
+		  	
+		  	return listByArea; 
 	 
 	 }
 		 

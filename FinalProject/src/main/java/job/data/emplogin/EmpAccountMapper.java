@@ -21,9 +21,6 @@ public interface EmpAccountMapper {
 	
 	public void deleteEmpAccount(String num);
 	
-	//지역으로 채용공고 검색
-	public List<EmpAccountDto> searchListByAddr(String area, String addr);
-
 	//기업리뷰 사용
 	//회사 정보 출력
 	public List<EmpAccountDto> getEmpData(String empname);

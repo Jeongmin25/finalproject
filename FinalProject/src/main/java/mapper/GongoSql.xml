@@ -116,4 +116,8 @@
 		select * from company where jobgroup=#{jobgroup};
 	</select>
 	
+	<select id="searchByArea" parameterType="String" resultType="company">
+		select * from company inner join emp_account on company.empname=emp_account.empname where emp_account.addr LIKE CONCAT('%',#{addr},'%');
+	</select>
+	
 </mapper>

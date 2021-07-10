@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-
 import job.data.emplogin.EmpAccountDto;
 
 @Mapper
@@ -59,5 +58,7 @@ public interface CompanyMapper {
 	public List<CompanyDto> searchListByTag(String tag);
 	//jobgroup 으로 채용공고 검색
 	public List<CompanyDto> searchByJob(String jobgroup);
+	//지역으로 채용공고 검색
+	public List<CompanyDto> searchByArea(String addr);
 	
 }
