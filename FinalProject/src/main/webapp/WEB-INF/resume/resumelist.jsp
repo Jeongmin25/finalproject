@@ -12,7 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <style type="text/css">
 	body{
-		background-color: #F8F8FA;
+	
 	}
 	  div.resume-entire{
 	padding-left: 100px;
@@ -77,7 +77,10 @@
 	background-color: #eee;
 	color: black;
 }
-
+	div.explanation{
+		background-color: #F3F9FE;
+		width: 800px;
+	}
  
 </style>
 <script type="text/javascript">
@@ -155,6 +158,11 @@ function godel(e){
 		</ul>
 	</div>
 </c:forEach>
+
+<div class="explanation" style="margin-top: 500px;margin-left: 200px;">
+	<h6>• 이력서 공개 설정은 1개의 이력서만 가능합니다</h6>
+	<h6>• 이력서, 파일+ 이력서 각각 최대 10개까지 등록 가능합니다. (총 최대 20개)</h6>
+</div>
 </div>
 </body>
 </html>

@@ -74,6 +74,21 @@
 		where id=#{id}
 		limit #{start},#{perpage};
 	</select>
+	<select id="getListOfCompany_paging_book" parameterType="Hashmap" resultType="company">
+		select bookmark.id,company.num,company.empname,company.jobgroup,company.job,company.empimg,company.deadline 
+		from company inner join bookmark
+		on company.num = bookmark.num
+		where id=#{id} and company.empname like concat('%',#{keyword},'%') or company.job like concat('%',#{keyword},'%')
+		or company.jobgroup like concat('%',#{keyword},'%')
+		limit #{start},#{perpage};
+	</select>
+		<select id="getCountOfBookmark_search" parameterType="Hashmap" resultType="int">
+		select count(*)
+		from company inner join bookmark
+		on company.num = bookmark.num
+		where id=#{id} and company.empname like concat('%',#{keyword},'%') or company.job like concat('%',#{keyword},'%')
+		or company.jobgroup like concat('%',#{keyword},'%')
+	</select>
 	
 	<!-- apply -->
 	<insert id="insertApply" parameterType="apply">

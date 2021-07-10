@@ -36,7 +36,9 @@ public interface CompanyMapper {
 	public List<CompanyDto> getListOfCompany(String idp);
 	//개인별 북마크한 값 가져오기-페이징 처리
 	public List<CompanyDto> getListOfCompany_paging(Map<String, Object>map);
-	
+	//개인별 북마크한 값에서 검색한 값-페이징 처리
+	public List<CompanyDto> getListOfCompany_paging_book(Map<String, Object>map);
+	public int getCountOfBookmark_search(Map<String, Object>map);
 	//apply 삽입
 	public void insertApply(ApplyDto dto);
 	//apply 개수

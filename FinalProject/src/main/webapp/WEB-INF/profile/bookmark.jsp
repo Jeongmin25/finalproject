@@ -38,10 +38,40 @@
 	a.gonggo_link:hover{
 		text-decoration: none;
 	}
+	input.searchBookmark_keyword{
+	        padding: 0 12px 2px;
+	    height: 40px;
+	    border: 1px solid #d7dce5;
+	    border-radius: 4px;
+	    box-sizing: border-box;
+	    color: #373f57;
+	    font-family: "Malgun Gothic",gulim,dotum,sans-serif;
+	    font-size: 14px;
+	    letter-spacing: -1px;
+	    line-height: 36px;
+	    vertical-align: middle;
+	    background-color: #fff;
+	}
+	input.searchBookmark_keyword:focus {
+		outline: none;
+	}
 </style>
 </head>
+<script type="text/javascript">
+window.onload=function(){
+	//검색했을 때
+	document.getElementById('search_bookmark_icon').onclick=function(){
+		var text=document.getElementById('searchBookmark_keyword').value;
+		location.href="bookmark?keyword="+text;
+	}
+}
+</script>
 <body>
 <h3>북마크</h3>
+<div style="margin-left: 600px;margin-bottom: 30px;">
+	<input type="text" class="searchBookmark_keyword" name="keyword" value="" placeholder="키워드 입력" id="searchBookmark_keyword">
+	<i class="fas fa-search" style="cursor: pointer;" id="search_bookmark_icon"></i>
+</div>
 <ul class="bookmark_ul">
 	<c:if test="${cdto.size()==0}">
 		<div class="bookmark_nobookmark">

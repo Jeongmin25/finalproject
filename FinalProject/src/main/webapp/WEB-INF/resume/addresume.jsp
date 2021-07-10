@@ -8,7 +8,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+  />
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
 <style type="text/css">
@@ -146,6 +149,19 @@ input[type=submit] {
   /*when navigating through the items using the arrow keys:*/
   background-color: DodgerBlue !important;
   color: #ffffff;
+}
+progress::-webkit-progress-value { background: #010D26; }
+div.resume-toolbar{
+	position: fixed;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0 50px;
+    background-color: white;
+    border-top: 1px solid #e0e0e0;
+    border: none;
 }
 </style>
 <script type="text/javascript">
@@ -449,6 +465,12 @@ window.onload = function() {
 
 }	
 
+//글자수 세주는 함수
+function calc(){
+	document.getElementById('result').value=document.getElementById('content').value.length;
+	document.getElementById('b_result').innerHTML=document.getElementById('content').value.length+"자 작성했습니다!";
+}
+
 //스킬 검색
 //컬럼명은 skill_name
 function searchskill() {
@@ -594,7 +616,7 @@ document.addEventListener("click", function (e) {
 	<h6>• 본인의 업무 경험을 기반으로 핵심역량과 업무 스킬을 간단히 작성해주세요. </h6>
 	<h6>• 3~5줄로 요약하여 작성하는 것을 추천합니다! </h6>
 </div>
-<textarea class="intro" name="intro" placeholder="간단한 자기소개를 통해 이력서를 돋보이게 만들어보세요.(3~5줄 권장)"  style="width: 800px;height: 200px;border: none"></textarea>
+<textarea class="intro" name="intro" onkeyup="calc()" placeholder="간단한 자기소개를 통해 이력서를 돋보이게 만들어보세요.(3~5줄 권장)"  style="width: 800px;height: 200px;border: none" id="content"></textarea>
 </div>
 <br><br>
 
@@ -737,8 +759,16 @@ document.addEventListener("click", function (e) {
 <button type="button" class="add" id="btnaddlink">+ 추가</button>
 <table id="addlink"></table>
 </div>
+<div style="background-color: white;wid">
+<div class="resume-toolbar" style="position: fixed; bottom: 10px;left: 300px;">
+		<progress max="1000" value="0" id="result" style="height: 20px;"></progress>
+		<br>
+		<i class="fab fa-angellist" style="color: #7AACBF;font-size: 1.2em;"></i>
+		<span id="b_result" style="margin-right: 20px;font-size: 0.8em;"></span>
+</div>
 <div class="botton" style="position: fixed; bottom: 10px;right: 270px;">
    <button type="submit" class="submit_resume" >작성 완료</button>
+</div>
 </div>
 </form>
 </div>
