@@ -89,6 +89,11 @@ ul.navcategory ul {
 
 ul.navcategory li:hover ul {
    display: block;
+} 
+
+ul.navcategory li ul>li{
+	line-height: 20px;
+	margin-bottom: 0px;
 }
 
 ul.navcategory ul>li>a {
