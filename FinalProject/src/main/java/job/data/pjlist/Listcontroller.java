@@ -49,7 +49,7 @@ public class Listcontroller {
 	    List<CompanyDto> gonggolist=datamapper.getAlldatas(num);
 	    CompanyDto cdto=new CompanyDto();
 		cdto=datamapper.getData(num);
-	    System.out.println("getnum:"+num);
+	    //System.out.println("getnum:"+num);
 	    Date date=new Date();
         long time= date.getTime();
         //System.out.println(dto.getTag());
