@@ -155,7 +155,7 @@
 				<c:forEach items="${empname }" var="empname">
 					<div class="empname">
 					<img alt="" src="../image/ministar.png" style="max-width: 20px;">
-					<a class="empname" href="reviewdetail?empname=${empname.empname }" >
+					<a class="empname" href="reviewdetail?empname=${empname.empname }" style="text-decoration: none;" >
 					<b style="font-weight: normal; text-align: right;">${empname.rating}</b>
 					&nbsp;&nbsp;
 					${empname.empname } 
@@ -216,7 +216,7 @@ $("button.largest").click(function() {
         	
         		s+="<div class='empname'>";
         		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px; margin-right:5px;">';
-        		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" >';
+        		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" style="text-decoration: none;">';
         		s+='<b style="font-weight: normal; text-align: right;">'+val.rating.toFixed(1)+'</b>';
         		s+='&nbsp;&nbsp;&nbsp;';
         		s+=val.empname;
@@ -251,7 +251,7 @@ $("button.highrating").click(function() {
         	
         		s+="<div class='empname'>";
         		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px; margin-right:5px;">';
-        		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" >';
+        		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" style="text-decoration: none;">';
         		s+='<b style="font-weight: normal; text-align: right;">'+val.rating.toFixed(1)+'</b>';
         		s+='&nbsp;&nbsp;&nbsp;';
         		s+=val.empname;
@@ -286,7 +286,7 @@ $("button.helpful").click(function() {
         	
         		s+="<div class='empname'>";
         		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px; margin-right:5px;">';
-        		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" >';
+        		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" style="text-decoration: none;">';
         		s+='<b style="font-weight: normal; text-align: right;">'+val.rating.toFixed(1)+'</b>';
         		s+='&nbsp;&nbsp;&nbsp;';
         		s+=val.empname;
@@ -321,7 +321,7 @@ $("button.latest").click(function() {
         		
         		s+="<div class='empname'>";
         		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px; margin-right:5px;">';
-        		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" >';
+        		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" style="text-decoration: none;">';
         		s+='<b style="font-weight: normal; text-align: right;">'+val.rating.toFixed(1)+'</b>';
         		s+='&nbsp;&nbsp;&nbsp;';
         		s+=val.empname;

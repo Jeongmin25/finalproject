@@ -77,6 +77,7 @@
 	</c:forEach>
 	
 	<!-- chart -->
+	<div>
 	<div id="columnchart_material" class="chart"></div>
 	
 	
@@ -130,6 +131,7 @@
 		<span class='detailsalary'>3037만원</span><br><br>
 	</div>
 	<div class="choice"></div>
+</div>
 </body>
 
 <script type="text/javascript">
@@ -210,7 +212,7 @@ function drawChart() {
        series: {
            0: { color: '#021B80' },
          },
-	   
+         
          vAxis: {format: 'decimal',
         	 
         	//차트 최소,최대값 지정
