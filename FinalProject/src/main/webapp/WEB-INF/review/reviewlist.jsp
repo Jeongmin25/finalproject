@@ -95,6 +95,10 @@
 		
 	}
 	
+	div.choice button:hover{
+		border: 2px solid #021B80;
+	}
+	
 </style>
 <title>Insert title here</title>
 </head>
@@ -139,13 +143,13 @@
 		<div class="choice">
 			<h4 style="float: left; margin-top: 30px; margin-right: 20px; color: gray;">리뷰 보기</h4>
 			<button type="button" class="latest btn btn-default" style="width: 120px; height: 50px; 
-				margin-left:10px; margin-top:10px;  border-radius: 20px; background-color: white;">최신순</button>
+				margin-left:20px; margin-top:10px;  border-radius: 20px; background-color: white;">최신순</button>
 			<button type="button" class="largest btn btn-default" style="width: 120px; height: 50px; 
-				margin-left:10px; margin-top:10px;  border-radius: 20px; background-color: white;">리뷰많은순</button>
+				margin-left:20px; margin-top:10px;  border-radius: 20px; background-color: white;">리뷰많은순</button>
 			<button type="button" class="highrating btn btn-default" style="width: 120px; height: 50px; 
-				margin-left:10px; margin-top:10px;  border-radius: 20px; background-color: white;">평점높은순</button>
+				margin-left:20px; margin-top:10px;  border-radius: 20px; background-color: white;">평점높은순</button>
 			<button type="button" class="helpful btn btn-default" style="width: 120px; height: 50px; 
-				margin-left:10px; margin-top:10px;  border-radius: 20px; background-color: white;">도움이돼요순</button>
+				margin-left:20px; margin-top:10px;  border-radius: 20px; background-color: white;">도움이돼요순</button>
 		</div>
 		<div class="print">
 				<c:forEach items="${empname }" var="empname">
@@ -205,18 +209,16 @@ $("button.largest").click(function() {
         },
 
         success : function(data) {
-        	console.log(data);
         	var s="";
-
 
        		//반복문으로 값 출력
         	$.each(data, function(idx, val) {
         	
         		s+="<div class='empname'>";
-        		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px;">';
+        		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px; margin-right:5px;">';
         		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" >';
-        		s+='<b style="font-weight: normal; text-align: right;">'+val.rating+'</b>';
-        		s+='&nbsp;&nbsp;';
+        		s+='<b style="font-weight: normal; text-align: right;">'+val.rating.toFixed(1)+'</b>';
+        		s+='&nbsp;&nbsp;&nbsp;';
         		s+=val.empname;
         		s+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';    
         		s+='<b style="font-weight: normal; color: gray;"># '+val.good+'</b></a>';
@@ -242,18 +244,16 @@ $("button.highrating").click(function() {
         },
 
         success : function(data) {
-        	console.log(data);
         	var s="";
-
 
        		//반복문으로 값 출력
         	$.each(data, function(idx, val) {
         	
         		s+="<div class='empname'>";
-        		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px;">';
+        		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px; margin-right:5px;">';
         		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" >';
-        		s+='<b style="font-weight: normal; text-align: right;">'+val.rating+'</b>';
-        		s+='&nbsp;&nbsp;';
+        		s+='<b style="font-weight: normal; text-align: right;">'+val.rating.toFixed(1)+'</b>';
+        		s+='&nbsp;&nbsp;&nbsp;';
         		s+=val.empname;
         		s+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';    
         		s+='<b style="font-weight: normal; color: gray;"># '+val.good+'</b></a>';
@@ -279,18 +279,16 @@ $("button.helpful").click(function() {
         },
 
         success : function(data) {
-        	console.log(data);
         	var s="";
-
 
        		//반복문으로 값 출력
         	$.each(data, function(idx, val) {
         	
         		s+="<div class='empname'>";
-        		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px;">';
+        		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px; margin-right:5px;">';
         		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" >';
-        		s+='<b style="font-weight: normal; text-align: right;">'+val.rating+'</b>';
-        		s+='&nbsp;&nbsp;';
+        		s+='<b style="font-weight: normal; text-align: right;">'+val.rating.toFixed(1)+'</b>';
+        		s+='&nbsp;&nbsp;&nbsp;';
         		s+=val.empname;
         		s+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';    
         		s+='<b style="font-weight: normal; color: gray;"># '+val.good+'</b></a>';
@@ -316,18 +314,16 @@ $("button.latest").click(function() {
         },
 
         success : function(data) {
-        	console.log(data);
         	var s="";
-
 
        		//반복문으로 값 출력
         	$.each(data, function(idx, val) {
-        	
+        		
         		s+="<div class='empname'>";
-        		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px;">';
+        		s+='<img alt="" src="../image/ministar.png" style="max-width: 20px; margin-right:5px;">';
         		s+='<a class="empname" href="reviewdetail?empname='+val.empname+'" >';
-        		s+='<b style="font-weight: normal; text-align: right;">'+val.rating+'</b>';
-        		s+='&nbsp;&nbsp;';
+        		s+='<b style="font-weight: normal; text-align: right;">'+val.rating.toFixed(1)+'</b>';
+        		s+='&nbsp;&nbsp;&nbsp;';
         		s+=val.empname;
         		s+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';    
         		s+='<b style="font-weight: normal; color: gray;"># '+val.good+'</b></a>';
