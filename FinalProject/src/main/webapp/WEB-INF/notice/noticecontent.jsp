@@ -27,6 +27,18 @@
 		font-size: 1.3em;
 	}
 	
+	pre{
+ 	
+ 	background-color:white;
+ 	font-family:'ELAND_Choice_M';
+ 	font-size:1em;
+ 	border:none;
+    padding:10px;
+    overflow: auto;
+    white-space: pre-wrap; /* pre tag내에 word wrap */
+}  
+
+
 
 	
 
@@ -50,7 +62,7 @@
 			
 				
 				<br><br>
-		<h4>${dto.content}</h4> <br> 
+			<h4><pre>${dto.content}</pre></h4> <br> 
 		
 					<img src="/noticephoto/${dto.photo}" style="max-width: 600px;"onerror="this.src='/noticephoto/+job.png'">
 

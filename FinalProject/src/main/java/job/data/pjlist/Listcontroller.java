@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import job.data.emplogin.EmpAccountDto;
+
 import job.data.emplogin.EmpAccountMapper;
 import job.data.gonggo.CompanyDto;
 import job.data.gonggo.CompanyMapper;
@@ -29,7 +29,8 @@ public class Listcontroller {
 	
 	@Autowired
 	EmpAccountMapper empmapper;
-
+	
+	
 	
 	@GetMapping("/pjlist/list")
 	public String list(){
@@ -39,13 +40,20 @@ public class Listcontroller {
 	
 	 @RequestMapping(value="/pjlist" , method = {RequestMethod.GET, RequestMethod.POST})
 	 @PostMapping("/pjlist")
-	   public ModelAndView pjlist(@ModelAttribute listCategotyDto dto) {
+	   public ModelAndView pjlist(@ModelAttribute listCategotyDto dto,String num) {
 	    ModelAndView mview =new ModelAndView();
+	
+	   
+	    
 	    //목록 가져오기
-	    List<CompanyDto> gonggolist=datamapper.getAlldatas();
+	    List<CompanyDto> gonggolist=datamapper.getAlldatas(num);
+	    CompanyDto cdto=new CompanyDto();
+		cdto=datamapper.getData(num);
+	    System.out.println("getnum:"+num);
 	    Date date=new Date();
         long time= date.getTime();
         //System.out.println(dto.getTag());
+        mview.addObject("num", num);
         mview.addObject("date", date);
         mview.addObject("time",time);
 	    mview.addObject("gonggolist",gonggolist);
@@ -56,31 +64,27 @@ public class Listcontroller {
 	      return mview;
 	   }
 	 
-	
-		/*
-		 * //empname에 해당하는 데이터 출력 
-		 * HashMap<String, Object> map = new HashMap<String,Object>(); 
-		 * map.put("empname", empname); map.put("start", start);
-		 * map.put("perpage", perPage);
-		 * 
-		 * List<reviewDto> empdata=mapper.getReviewDataOfEmp(map);
-		 * mview.addObject("empdata",empdata);
-		 */
-	 
-	 
-		/*
-		 * @GetMapping({"/pjlist/gonggodetail"}) public ModelAndView
-		 * gonggo(@RequestParam String num,String empname) { ModelAndView mview=new
-		 * ModelAndView(); CompanyDto dto=new CompanyDto(); dto=
-		 * datamapper.getData(num); empname=dto.getEmpname(); String
-		 * edto=empmapper.searchAddr(empname); System.out.println(edto);
-		 * mview.addObject("dto",dto); mview.addObject("edto",edto);
-		 * 
-		 * List<CategoryDto>cdto=dto.getCategory(); mview.addObject("cdto",cdto);
-		 * mview.addObject("num",dto.getNum());
-		 * 
-		 * mview.setViewName("gonggo/gonggodetail"); return mview; }
-		 */
+		
+//	  @GetMapping({"/pjlist/gonggodetail"}) 
+//	  public ModelAndView gonggo(@RequestParam String num,String empname) 
+//	  { 
+//		  ModelAndView mview=new ModelAndView(); 
+//		  CompanyDto dto=new CompanyDto(); 
+//		  dto=datamapper.getData(num);
+//		  System.out.println("getnum:"+num);
+//		  empname=dto.getEmpname(); 
+//		  String edto=empmapper.searchAddr(empname); 
+//		  System.out.println(edto);
+//		  mview.addObject("dto",dto); mview.addObject("edto",edto);
+//		  
+//		  List<CategoryDto>cdto=dto.getCategory(); 
+//		  mview.addObject("cdto",cdto);
+//		  mview.addObject("num",dto.getNum());
+//		  
+//		  mview.setViewName("gonggo/gonggodetail"); 
+//		  return mview; 
+//		}
+		 
 	 
 	 @ResponseBody
 	 @PostMapping({"/pjlistsearchtag"})

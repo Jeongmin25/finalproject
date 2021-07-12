@@ -58,24 +58,24 @@ ul.tabs li.current{
 .tab-content.current{
 	display: inherit;
 }
+
+ div.gonggo-box2{
+ 	max-width: 200px;
+ 	min-width: 200px;
+	height: 150px;
+	cursor: pointer;
+	margin-left:30px;
+	margin-bottom: 20px;
+	text-align:center;
+	padding-top: 10px;
+ }
+ 
 	
 </style>
 
 </head>
 
-<script type="text/javascript">
 
-//gonggo 클릭 이벤트(상세페이지 이동)
-$(document).on('click', '.gonggo-box', function() {
-	//num값 저장
-	var num=$(this).attr("num");
-	alert(num);
-	
-	//num값을 컨트롤러로 전달
-	location.href="/gonggodetail?num="+num;
-})
-
-</script>
 
 <body>
 
@@ -327,7 +327,7 @@ $(document).ready(function(){
 		        	}else{
 			       		//반복문으로 값 출력
 			        	$.each(data, function(idx, val) {
-			        		s+='<div class="gonggo-box form-control" num="'+val.num+'">';
+			        		s+='<div class="gonggo-box2 form-control" num="'+val.num+'">';
 			        		s+='<input type="hidden" name="num" value="'+val.num+'">';
 				        	s+='<h4>'+val.jobgroup+'</h4></br>';
 				        	s+='<h5>'+val.empname+'</h5>';
@@ -435,7 +435,7 @@ $( document ).ready( function() {
 		       		//반복문으로 값 출력
 		        	$.each(data, function(idx, val) {
 		        		//alert(val.num);
-		        		s+='<div class="gonggo-box form-control" num="'+val.num+'">';
+		        		s+='<div class="gonggo-box2 form-control" num="'+val.num+'">';
 		        		s+='<input type="hidden" name="num" value="'+val.num+'">';
 			        	s+='<h4>'+val.jobgroup+'</h4></br>';
 			        	s+='<h5>'+val.empname+'</h5>';
@@ -533,8 +533,8 @@ $( document ).ready( function() {
 	    	}else{
        		//반복문으로 값 출력
         	$.each(data, function(idx, val) {
-        		alert(val);
-        		s+='<div class="gonggo-box form-control" num="'+val.num+'">';
+        		//alert(val);
+        		s+='<div class="gonggo-box2 form-control" num="'+val.num+'">';
         		s+='<input type="hidden" name="num" value="'+val.num+'">';
 	        	s+='<h4>'+val.jobgroup+'</h4></br>';
 	        	s+='<h5>'+val.empname+'</h5>';
@@ -586,7 +586,7 @@ $(document).ready(function(){
 	
 				<c:if test="${(endDate - strDate)>=0}">
 					<div class="gonggo-box form-control">
-						<div OnClick="location.href='gonggodetail?num=${dto.num}'">
+						  <div OnClick="location.href='gonggodetail?num=${dto.num}'">
 							<input type="hidden" name="num" value="${dto.num}">
 								<h4 class="subject">${dto.jobgroup}</h4>
 								<h6 class="empname" style="color: #021B80">${dto.empname }</h6>
@@ -597,11 +597,24 @@ $(document).ready(function(){
 							<h5 style="color: gray">마감 ${endday1}-${endday2}-${endday3}</h5>
 	
 							</div>
-						</div>
+						</div> 
 				</c:if>
 			</c:forEach>		
 	</div>
 </div>
 </form>
+<script type="text/javascript">
+
+//gonggo 클릭 이벤트(상세페이지 이동)
+$(document).on('click', '.gonggo-box2', function() {
+	//num값 저장
+	var num=$(this).attr("num");
+	//alert(num);
+	
+	//num값을 컨트롤러로 전달
+	location.href="/gonggodetail?num="+num;
+})
+
+</script>
 </body>
 </html>

@@ -220,6 +220,8 @@ table tbody td {
 								<th bgcolor="#021B80" style="color: white;">도움이돼요</th>
 								<th bgcolor="#021B80" style="color: white;">작성일</th>
 								<th bgcolor="#021B80" style="color: white;">삭제</th>
+						
+								
 
 
 
@@ -245,6 +247,7 @@ table tbody td {
 								<th bgcolor="#021B80" style="color: white;">도움이돼요</th>
 								<th bgcolor="#021B80" style="color: white;">작성일</th>
 								<th bgcolor="#021B80" style="color: white;">삭제</th>
+								
 
 
 
@@ -274,9 +277,11 @@ table tbody td {
 									<td align="center"><fmt:formatDate
 											value="${dto.writeday}" pattern="yyyy-MM-dd" /></td>
 
-									<td colspan="2">
+									<td >
 										<button type="button" id="btndel" onclick="javascript:deleteConfirm()" num="${dto.num}">삭제</button>
 									</td>
+									
+									
 								</tr>
 							</c:forEach>
 
@@ -287,6 +292,9 @@ table tbody td {
 
 				</div>
 				
+		
+			
+				
 				<script type="text/javascript">
 				function deleteConfirm(){
 					var isDelete=confirm("삭제하시겠습니까?");
@@ -296,6 +304,8 @@ table tbody td {
 							alert("삭제되었습니다")
 						}
 					}
+				
+				
 				</script>
 				
 

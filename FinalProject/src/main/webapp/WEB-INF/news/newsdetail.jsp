@@ -17,7 +17,7 @@
 </style>
 </head>
 <body>
-<h3>기업뉴스</h3>
+<h2>기업뉴스</h2>
 <div class="content">
 	<!-- newsdetail클릭 시 조회수 증가 조회수 저장 -->
 	<c:set var="count" value="${readcount }"/>

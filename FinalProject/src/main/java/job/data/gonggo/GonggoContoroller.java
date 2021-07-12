@@ -98,7 +98,10 @@ public class GonggoContoroller {
 			mview.addObject("dto", dto);
 			mview.addObject("edto", edto);
 			mview.addObject("loginname", loginname);
-	
+			
+			List<CategoryDto> cdto = dto.getCategory();
+			mview.addObject("cdto", cdto);
+			
 			
 		//로그인할 시 정보를 전달
 		if(authentication!=null) {
@@ -108,8 +111,7 @@ public class GonggoContoroller {
 		  (OAuth2User)authentication.getPrincipal();
 		  String id = Long.toString(userDetails.getUser().getId());
 		  
-			List<CategoryDto> cdto = dto.getCategory();
-			mview.addObject("cdto", cdto);
+			
 			mview.addObject("num", dto.getNum());
 
 			// 이력서 목록 가져오기

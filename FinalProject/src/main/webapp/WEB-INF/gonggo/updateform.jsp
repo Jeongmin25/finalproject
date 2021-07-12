@@ -156,23 +156,19 @@ function selectjob(e) {
 }
 function selectctg(c) {
 	
-	/* var ipt = document.createElement("input");
+	var ipt = document.createElement("input");
 	ipt.setAttribute("type","text");
-	ipt.setAttribute("class","form-control remove glyphicon glyphicon-remove");
+	ipt.setAttribute("class","form-control");
 	ipt.setAttribute("name","ctg");
 	ipt.setAttribute("id","ctg");
 	ipt.setAttribute("value",c);
-	var space= document.getElementById("inner");
-	space.appendChild(ipt); 
+	var space= document.getElementById("output1");
 	var spanx=document.createElement("span");
-	spanx.setAttribute("class","remove glyphicon glyphicon-remove");  */
-    
-    var newDiv = document.createElement("div");
-	const text=document.createTextNode('안녕');
-	newDiv.apppendChild(text);
-	document.body.appendChild(newDiv);
+	spanx.setAttribute("class","remove glyphicon glyphicon-remove");
+	space.appendChild(ipt);	
+	space.appendChild(spanx);
 	
-	var pay = ["연봉업계평균이상","연봉상위1%","연봉상위2~5%","연봉상위6~10%","연봉상위11~20%"];
+    var pay = ["연봉업계평균이상","연봉상위1%","연봉상위2~5%","연봉상위6~10%","연봉상위11~20%"];
     var com = ["성과급", "상여금", "연말보너스","스톡옵션"];
     var work = ["택시비", "차량지원", "재택근무", "원격근무"];
     var eat = ["조식제공", "중식제공", "석식제공", "식비","커피","간식"];
@@ -193,10 +189,7 @@ function selectctg(c) {
         opt.value = t[x];
         opt.innerHTML = t[x];
         hashtag.appendChild(opt);
-        
-
     }
-    
 }	
 function selecttag(t) {
 		var ipt = document.createElement("input");
@@ -209,8 +202,7 @@ function selecttag(t) {
 		var spanx=document.createElement("span");
 		spanx.setAttribute("class","remove glyphicon glyphicon-remove");
 		space.appendChild(ipt);	
-		space.appendChild(spanx);	
-	
+		space.appendChild(spanx);
 }
 
 $(document).on("click",".remove1",function(e){

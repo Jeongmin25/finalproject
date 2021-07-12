@@ -39,7 +39,7 @@
 </style>
 </head>
 <body>
-<h1>최신뉴스</h1><br>
+<h2>최신뉴스</h2><br>
 <div class="newstitle">
 	<c:forEach var="news" items="${latest}" varStatus="n">
 		<table style="width: 900px;">

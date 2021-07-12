@@ -17,7 +17,7 @@
 </style>
 </head>
 <body>
-<div class="logo">
+<div class="logo" onclick="location.href='/'">
 	<img src="/image/loggo.png">
 </div>
 <div id="nav" class="container-fluid">
@@ -35,6 +35,7 @@
 								<li><a href="news">최신뉴스</a></li>
 							</ul>
 						</div></li>
+					<c:if test="${auth!=null or sessionScope.loginok!=null}">
 					<li id="gs"><a>Mypage</a>
 						<div>			
 							<ul class="Mypage">
@@ -53,6 +54,7 @@
 							</c:if>
 							</ul>
 						</div></li>
+					</c:if>
 					<li id="gs"><a>고객센터</a>
 						<div>
 							<ul class="Support">

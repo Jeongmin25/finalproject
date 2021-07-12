@@ -8,7 +8,7 @@ import job.data.emplogin.EmpAccountDto;
 
 @Mapper
 public interface CompanyMapper {
-	public List<CompanyDto> getAlldatas();
+	public List<CompanyDto> getAlldatas(String num);
 	public List<CompanyDto> getmygonggo(String empname);
 	public CompanyDto getData(String num);
 	public EmpAccountDto searchaddr(String empname);
