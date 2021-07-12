@@ -38,9 +38,18 @@ public class JobResumeController {
 		 ModelAndView mview = new ModelAndView();
 		 mview.setViewName("/resume/resumelist");
 		 
+		  //로그인이 안되있을 시 메인으로 이동
+		 if(authentication==null) {
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =
+			  (OAuth2User)authentication.getPrincipal();
+			  mview.setViewName("/");
+			  return mview;
+		 }	
 		  PrincipalDetails principalDetails = (PrincipalDetails)
 		  authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
 		  String user_id=Long.toString(userDetails.getUser().getId());
+		  mview.addObject("auth",userDetails.getUsername());
 		 
 		 //목록 가져오기
 		 List<ResumeDto> list=mapper.getDataOfResume(user_id);
@@ -49,8 +58,26 @@ public class JobResumeController {
 	 }
 	 
 	 @GetMapping({"/addresume"})
-	   public ModelAndView index() {
+	   public ModelAndView index(
+				 Authentication authentication,
+				@AuthenticationPrincipal PrincipalDetails userDetails,
+				@AuthenticationPrincipal OAuth2User oauth
+			   ) {
 	      ModelAndView mview =new ModelAndView();
+	      
+	      //로그인이 안되있을 시 메인으로 이동
+			 if(authentication==null) {
+				  PrincipalDetails principalDetails = (PrincipalDetails)
+				  authentication.getPrincipal(); OAuth2User oauth2User =
+				  (OAuth2User)authentication.getPrincipal();
+				  mview.setViewName("/");
+				  return mview;
+			 }	
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+			  String user_id=Long.toString(userDetails.getUser().getId());
+			  mview.addObject("auth",userDetails.getUsername());
+			  
 	      //외국어 select 태그 배열값 보내기
 		   String lang [] = {"영어","중국어 북경어","중국어 광동어","일본어","한국어","독일어"
 				   ,"스페인어","프랑스어","네덜란드어","노르웨이어","덴마크어"};
@@ -63,14 +90,31 @@ public class JobResumeController {
 	   }
 	   
 	   @PostMapping("/insertresume")
-		public String insertresume(
+		public ModelAndView insertresume(
 				@ModelAttribute ResumeDto resume,
 				@ModelAttribute AwardDto award,
 				@ModelAttribute CarerDto carer,
 				@ModelAttribute EducationDto education,
-				@ModelAttribute ForeDto fore
+				@ModelAttribute ForeDto fore,
+				 Authentication authentication,
+				@AuthenticationPrincipal PrincipalDetails userDetails,
+				@AuthenticationPrincipal OAuth2User oauth
 
 				) {
+		   ModelAndView mview =new ModelAndView();
+		   //로그인이 안되있을 시 메인으로 이동
+			 if(authentication==null) {
+				  PrincipalDetails principalDetails = (PrincipalDetails)
+				  authentication.getPrincipal(); OAuth2User oauth2User =
+				  (OAuth2User)authentication.getPrincipal();
+				  mview.setViewName("/");
+				  return mview;
+			 }	
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+			  String user_id=Long.toString(userDetails.getUser().getId());
+			  mview.addObject("auth",userDetails.getUsername());
+		   
 		   //resume insert하고, num_r값 가져오기
 		   mapper.insertResume(resume);
 		   int num_r= mapper.getInsertNum();
@@ -136,26 +180,67 @@ public class JobResumeController {
 			   mapper.insertFore(fore);
 		   }
 		   
-
-			return "redirect:resumelist";
+		   mview.setViewName("redirect:resumelist");
+			return mview;
 		}
 	   
 	   @GetMapping("/delresume")
-	   public String delresume(String num_r) {
+	   public ModelAndView delresume(
+			   String num_r,
+			   Authentication authentication,
+			   @AuthenticationPrincipal PrincipalDetails userDetails,
+			   @AuthenticationPrincipal OAuth2User oauth
+			   ) {
+		   ModelAndView mview =new ModelAndView();
+		   //로그인이 안되있을 시 메인으로 이동
+			 if(authentication==null) {
+				  PrincipalDetails principalDetails = (PrincipalDetails)
+				  authentication.getPrincipal(); OAuth2User oauth2User =
+				  (OAuth2User)authentication.getPrincipal();
+				  mview.setViewName("/");
+				  return mview;
+			 }	
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+			  String user_id=Long.toString(userDetails.getUser().getId());
+			  mview.addObject("auth",userDetails.getUsername());
 		   
 		   mapper.delresume(num_r);
 		   mapper.delAward(num_r);
 		   mapper.delCarer(num_r);
 		   mapper.delEducation(num_r);
 		   mapper.delFore(num_r);
-		 
-		   return "redirect:resumelist";
+		   
+		   mview.setViewName("redirect:resumelist");
+		   return mview;
 	   }
 	   
 	   //num_r에 해당하는 데이터 반환
 	   @GetMapping("/resumedetail")
-	   public ModelAndView getResumeOneData(String num_r) {
+	   public ModelAndView getResumeOneData(
+			   String num_r,
+			   Authentication authentication,
+			   @AuthenticationPrincipal PrincipalDetails userDetails,
+			   @AuthenticationPrincipal OAuth2User oauth
+			   ) {
 		   ModelAndView mview =new ModelAndView();
+		   
+		   
+		   //로그인이 안되있을 시 메인으로 이동
+			 if(authentication==null) {
+				  PrincipalDetails principalDetails = (PrincipalDetails)
+				  authentication.getPrincipal(); OAuth2User oauth2User =
+				  (OAuth2User)authentication.getPrincipal();
+				  mview.setViewName("/");
+				  return mview;
+			 }	
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+			  String user_id=Long.toString(userDetails.getUser().getId());
+			  mview.addObject("auth",userDetails.getUsername());
+		   
+		   
+		   
 		   ResumeDto dto=new ResumeDto();
 		   //resume 데이터를 받아온다
 		   dto= mapper.getResumeOneData(num_r);
@@ -180,8 +265,28 @@ public class JobResumeController {
 	   }
 	   
 	   @GetMapping("/updateresumeForm")
-	   public ModelAndView updateresume(String num_r) {
+	   public ModelAndView updateresume(
+			   String num_r,
+			   Authentication authentication,
+			   @AuthenticationPrincipal PrincipalDetails userDetails,
+			   @AuthenticationPrincipal OAuth2User oauth
+			   ) {
 		   ModelAndView mview = new ModelAndView();
+		   
+		   
+		   //로그인이 안되있을 시 메인으로 이동
+			 if(authentication==null) {
+				  PrincipalDetails principalDetails = (PrincipalDetails)
+				  authentication.getPrincipal(); OAuth2User oauth2User =
+				  (OAuth2User)authentication.getPrincipal();
+				  mview.setViewName("/");
+				  return mview;
+			 }	
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+			  String user_id=Long.toString(userDetails.getUser().getId());
+			  mview.addObject("auth",userDetails.getUsername());
+		   
 		   
 		   //num_r에 해당하는 정보 가져오기
 		   ResumeDto rdto= mapper.getResumeOneData(num_r);
@@ -218,10 +323,27 @@ public class JobResumeController {
 				@ModelAttribute AwardDto award,
 				@ModelAttribute CarerDto carer,
 				@ModelAttribute EducationDto education,
-				@ModelAttribute ForeDto fore
+				@ModelAttribute ForeDto fore,
+				 Authentication authentication,
+				   @AuthenticationPrincipal PrincipalDetails userDetails,
+				   @AuthenticationPrincipal OAuth2User oauth
 
 				) {
 		   ModelAndView mview = new ModelAndView();
+		   
+		   //로그인이 안되있을 시 메인으로 이동
+			 if(authentication==null) {
+				  PrincipalDetails principalDetails = (PrincipalDetails)authentication.getPrincipal(); 
+				  OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+				  mview.setViewName("/");
+				  return mview;
+			 }	
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+			  String user_id=Long.toString(userDetails.getUser().getId());
+			  mview.addObject("auth",userDetails.getUsername());
+		   
+		   
 		   //resume insert하고, Num_r 값 보내기
 		   System.out.println(resume.getLink());
 		   mapper.updateResume(resume);

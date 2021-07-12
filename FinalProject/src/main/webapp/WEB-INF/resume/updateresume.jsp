@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+  />
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <style type="text/css">
 	div.updateresume_entire{
@@ -19,12 +23,24 @@
 		outline: none;
 	}
 	div.explanation{
-		background-color: #F3F9FE
+		background-color: #F3F9FE;
+		width: 800px;
 	}
 	
 	div.skill{
 		height: auto;
 		padding-bottom: 50px;
+	}
+	div.carer{
+		min-width: 850px;
+		max-width: 850px;
+		width: 850px;
+	}
+	table.addcarer tr{
+		max-width: 800px;
+		min-width: 800px;
+	
+		width: 800px;
 	}
 	
 	button.add{
@@ -170,12 +186,19 @@ window.onload = function() {
 	//객체 속성,css지정
 	spanx.setAttribute("class","glyphicon glyphicon-remove");
 	
+	td1.style.width="279.72px";
+	td3.style.width="177.2px";
+
+	tr.style.float="left";
+	
 	startday.setAttribute("placeholder","YYYY-MM");
 	startday.setAttribute("class","day");
 	startday.setAttribute("name","c_startday");
+	startday.setAttribute("maxlength","7");
 	endday.setAttribute("placeholder","YYYY-MM");
 	endday.setAttribute("class","day");
 	endday.setAttribute("name","c_endday");
+	endday.setAttribute("maxlength","7");
 
 	company.style.border="none";
 	company.style.fontWeight="bold";
@@ -219,7 +242,11 @@ window.onload = function() {
 		var spanx=document.createElement("span");
 		
 		//객체 속성,css지정
+		tr.style.float="left";
+		td1.style.width="279.72px";
+		td3.style.width="177.2px";
 		spanx.setAttribute("class","glyphicon glyphicon-remove");
+		spanx.setAttribute("onclick","delspanx()")
 		
 		startday.setAttribute("placeholder","YYYY-MM");
 		startday.setAttribute("class","day");
@@ -227,6 +254,7 @@ window.onload = function() {
 		endday.setAttribute("placeholder","YYYY-MM");
 		endday.setAttribute("class","day");
 		endday.setAttribute("name","e_endday");
+		endday.setAttribute("maxlength","7");
 
 		school.style.border="none";
 		school.style.fontWeight="bold";
@@ -323,6 +351,9 @@ window.onload = function() {
 		var spanx=document.createElement("span");
 		
 		//객체 속성,css지정
+		td1.style.width="279.72px";
+		td3.style.width="177.2px";
+		tr.style.float="left";
 		spanx.setAttribute("class","glyphicon glyphicon-remove");
 		
 		startday.setAttribute("placeholder","YYYY-MM");
@@ -331,6 +362,7 @@ window.onload = function() {
 		endday.setAttribute("placeholder","YYYY-MM");
 		endday.setAttribute("class","day");
 		endday.setAttribute("name","a_endday");
+		endday.setAttribute("maxlength","7");
 
 		activity.style.border="none";
 		activity.style.fontWeight="bold";
@@ -365,6 +397,7 @@ window.onload = function() {
 		var spanx=document.createElement("span");
 		
 		//객체 속성,css지정
+		tr.style.float="left";
 		spanx.setAttribute("class","glyphicon glyphicon-remove");
 		tr.setAttribute("width","200px");
 		link.style.border="none";
@@ -434,6 +467,13 @@ window.onload = function() {
 	
 
 }	
+
+
+//글자수 세어주는 함수
+function calc(){
+	document.getElementById('result').value=document.getElementById('content').value.length;
+	document.getElementById('b_result').innerHTML=document.getElementById('content').value.length+"자 작성했습니다!";
+}
 
 //스킬 검색
 //컬럼명은 skill_name
@@ -578,7 +618,7 @@ document.addEventListener("click", function (e) {
 	<h6>• 본인의 업무 경험을 기반으로 핵심역량과 업무 스킬을 간단히 작성해주세요. </h6>
 	<h6>• 3~5줄로 요약하여 작성하는 것을 추천합니다! </h6>
 </div>
-<textarea class="intro" name="intro" placeholder="간단한 자기소개를 통해 이력서를 돋보이게 만들어보세요.(3~5줄 권장)"  style="width: 800px;height: 200px;border: none">
+<textarea class="intro" name="intro" onkeyup="calc()" placeholder="간단한 자기소개를 통해 이력서를 돋보이게 만들어보세요.(3~5줄 권장)"  style="width: 800px;height: 200px;border: none" id="content">
 	${rdto.intro}
 </textarea>
 </div>
@@ -595,12 +635,12 @@ document.addEventListener("click", function (e) {
 <br><br>
 <button type="button" class="add" id="btnaddcarer">+ 추가</button>
 <br><br>
-<table id="addcarer">
+<table id="addcarer" class="addcarer">
 	<c:forEach var="cdto" items="${cdto }">
 		<tr style="float: left;">
 			<td>
-				<input  placeholder="YYYY-MM" class="day" name="c_startday" value="${cdto.c_startday }">
-				<input placeholder="YYYY_MM" class="day" name="c_endday" value="${cdto.c_endday }">
+				<input  placeholder="YYYY-MM" class="day" name="c_startday" value="${cdto.c_startday }" maxlength="7">
+				<input placeholder="YYYY-MM" class="day" name="c_endday" value="${cdto.c_endday }" maxlength="7">
 			</td>
 			<td>
 				<input placeholder="회사명" name="company" value="${cdto.company }" style="border: none;font-weight: bold;">
@@ -627,8 +667,8 @@ document.addEventListener("click", function (e) {
 	<c:forEach var="edto" items="${edto }">
 		<tr style="float: left;">
 			<td>
-				<input  placeholder="YYYY-MM" class="day" name="e_startday" value="${edto.e_startday }">
-				<input placeholder="YYYY_MM" class="day" name="e_endday" value="${edto.e_endday }">
+				<input  placeholder="YYYY-MM" class="day" name="e_startday" value="${edto.e_startday }" maxlength="7">
+				<input placeholder="YYYY-MM" class="day" name="e_endday" value="${edto.e_endday }" maxlength="7">
 			</td>
 			<td>
 				<input placeholder="학교명" name="school" value="${edto.school }" style="border: none;font-weight: bold;">
@@ -681,7 +721,7 @@ document.addEventListener("click", function (e) {
 		<tr style="float: left;">
 			<td>
 				<input  placeholder="YYYY-MM" class="day" name="a_startday" value="${adto.a_startday }">
-				<input placeholder="YYYY_MM" class="day" name="a_endday" value="${adto.a_endday }">
+				<input placeholder="YYYY-MM" class="day" name="a_endday" value="${adto.a_endday }">
 			</td>
 			<td>
 				<input placeholder="활동명" name="activity" value="${adto.activity }" style="border: none;font-weight: bold;">
@@ -749,7 +789,13 @@ document.addEventListener("click", function (e) {
 	</c:forTokens>
 </table>
 </div>
-<div class="botton" style="position: fixed; bottom: 10px;right: 270px;">
+<div class="resume-toolbar" style="position: fixed; bottom: 10px;left: 1300px;">
+		<progress max="1000" value="0" id="result" style="height: 20px;"></progress>
+		<br>
+		<i class="fab fa-angellist" style="color: #7AACBF;font-size: 1.2em;"></i>
+		<span id="b_result" style="margin-right: 20px;font-size: 0.8em;"></span>
+</div>
+<div class="botton" style="position: fixed; bottom: 10px;right: 100px;">
    <button type="submit" class="submit_resume" >작성 완료</button>
 </div>
 </form>

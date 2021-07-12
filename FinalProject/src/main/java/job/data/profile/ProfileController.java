@@ -57,9 +57,19 @@ public class ProfileController {
 			String num_r) {
 		
 				ModelAndView mv=new ModelAndView();
-				PrincipalDetails principalDetails = (PrincipalDetails)
-				authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
-				
+				 //로그인이 안되있을 시 메인으로 이동
+				 if(authentication==null) {
+					  PrincipalDetails principalDetails = (PrincipalDetails)
+					  authentication.getPrincipal(); OAuth2User oauth2User =
+					  (OAuth2User)authentication.getPrincipal();
+					  mv.setViewName("/");
+					  return mv;
+				 }	
+				  PrincipalDetails principalDetails = (PrincipalDetails)
+				  authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+				  String user_id=Long.toString(userDetails.getUser().getId());
+				  mv.addObject("auth",userDetails.getUsername());
+				  
 				 //전문 분야 설정
 				int id=(int)userDetails.getUser().getId();
 				int cnt= jmapper.searchIdOfJobGroup(id);
@@ -68,7 +78,6 @@ public class ProfileController {
 				 mv.addObject("gdto",gdto);
 				 
 				
-				String user_id=Long.toString(userDetails.getUser().getId());
 				//목록 가져오기
 				List<ResumeDto> list=rmapper.getDataOfResume(user_id);
 				mv.addObject("list",list);
@@ -97,8 +106,28 @@ public class ProfileController {
 	}
 	
 	@GetMapping("/personUpdateForm")
-	public ModelAndView personUpdateForm() {
+	public ModelAndView personUpdateForm(
+			Authentication authentication,
+			@AuthenticationPrincipal PrincipalDetails userDetails,
+			@AuthenticationPrincipal OAuth2User oauth
+			) {
 		ModelAndView mv=new ModelAndView();
+		
+		
+		//로그인이 안되있을 시 메인으로 이동
+		 if(authentication==null) {
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =
+			  (OAuth2User)authentication.getPrincipal();
+			  mv.setViewName("/");
+			  return mv;
+		 }	
+		  PrincipalDetails principalDetails = (PrincipalDetails)
+		  authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+		  String user_id=Long.toString(userDetails.getUser().getId());
+		  mv.addObject("auth",userDetails.getUsername());
+		  
+		
 		mv.setViewName("/profile/personUpdateForm");
 		return mv;
 	}
@@ -111,10 +140,23 @@ public class ProfileController {
 	@AuthenticationPrincipal OAuth2User oauth
 	) {
 		ModelAndView mv = new ModelAndView();
+		
+		
+		//로그인이 안되있을 시 메인으로 이동
+		 if(authentication==null) {
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =
+			  (OAuth2User)authentication.getPrincipal();
+			  mv.setViewName("/");
+			  return mv;
+		 }	
+		 
+		
 		//지원한 개수, 북마크한 개수 구하기
-		PrincipalDetails principalDetails = (PrincipalDetails)
-		authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+		PrincipalDetails principalDetails = (PrincipalDetails)authentication.getPrincipal();
+		OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
 		String id=Long.toString(userDetails.getUser().getId());
+		 mv.addObject("auth",userDetails.getUsername());
 		int apply_cnt= cmapper.getCountOfApply(id);
 		int bookmark_cnt=cmapper.getCountOfBookmark(id);
 		
@@ -173,9 +215,20 @@ public class ProfileController {
 	    		) {
 	    	ModelAndView mv=new ModelAndView();
 	    	
+	    	
+			//로그인이 안되있을 시 메인으로 이동
+			 if(authentication==null) {
+				  PrincipalDetails principalDetails = (PrincipalDetails)
+				  authentication.getPrincipal(); OAuth2User oauth2User =
+				  (OAuth2User)authentication.getPrincipal();
+				  mv.setViewName("/");
+				  return mv;
+			 }	
+	    	
 	    	 PrincipalDetails principalDetails = (PrincipalDetails)
 	        		 authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
 	        		 String id=Long.toString(userDetails.getUser().getId());
+	        		  mv.addObject("auth",userDetails.getUsername());
 	        		 int apply_cnt= cmapper.getCountOfApply(id);
 	        		 int bookmark_cnt=cmapper.getCountOfBookmark(id);
 	        			
@@ -275,9 +328,26 @@ public class ProfileController {
 	
 	@GetMapping("/acntMngmn")
 	public ModelAndView acntMngmn(
-			@RequestParam String type
+			@RequestParam String type,
+			Authentication authentication,
+ 			@AuthenticationPrincipal PrincipalDetails userDetails,
+ 			@AuthenticationPrincipal OAuth2User oauth
+			
 			) {
 		ModelAndView mv = new ModelAndView();
+		
+		//로그인이 안되있을 시 메인으로 이동
+		 if(authentication==null) {
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =
+			  (OAuth2User)authentication.getPrincipal();
+			  mv.setViewName("/");
+			  return mv;
+		 }	
+   	
+		 PrincipalDetails principalDetails = (PrincipalDetails)
+       	 authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+   		  mv.addObject("auth",userDetails.getUsername());
 		
 		if(type==null) {
 			type="changePassword";
@@ -307,9 +377,30 @@ public class ProfileController {
 
 
     @PostMapping("/send")
-    public ModelAndView sendTestMail(@ModelAttribute MailDto mailDto) {
+    public ModelAndView sendTestMail(
+    		@ModelAttribute MailDto mailDto,
+    		Authentication authentication,
+ 			@AuthenticationPrincipal PrincipalDetails userDetails,
+ 			@AuthenticationPrincipal OAuth2User oauth
+    		) {
     	mailService.mailSend(mailDto);
     	ModelAndView mv = new ModelAndView();
+    	
+
+		//로그인이 안되있을 시 메인으로 이동
+		 if(authentication==null) {
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =
+			  (OAuth2User)authentication.getPrincipal();
+			  mv.setViewName("/");
+			  return mv;
+		 }	
+   	
+		 PrincipalDetails principalDetails = (PrincipalDetails)
+       	 authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+   		  mv.addObject("auth",userDetails.getUsername());
+    	
+    	
     	mv.addObject("type","changePassword");
     	mv.addObject("emailmes","emailmes");
     	mv.setViewName("redirect:acntMngmn");
@@ -329,7 +420,7 @@ public class ProfileController {
  			@AuthenticationPrincipal PrincipalDetails userDetails,
  			@AuthenticationPrincipal OAuth2User oauth
     		) {
-
+    	
 		 PrincipalDetails principalDetails = (PrincipalDetails)
 		 authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
 		 String user_id=Long.toString(userDetails.getUser().getId());
@@ -343,7 +434,12 @@ public class ProfileController {
     }
     
     @PostMapping("/updateUser")
-    public ModelAndView updateUser(@ModelAttribute UserAccountDto dto) {
+    public ModelAndView updateUser(
+    		@ModelAttribute UserAccountDto dto,
+    		Authentication authentication,
+ 			@AuthenticationPrincipal PrincipalDetails userDetails,
+ 			@AuthenticationPrincipal OAuth2User oauth
+    		) {
     	ModelAndView mv=new ModelAndView();
     	umapper.updateUser(dto);
     	
@@ -361,10 +457,22 @@ public class ProfileController {
     		) {
     		ModelAndView mv=new ModelAndView();
     		
+
+    		//로그인이 안되있을 시 메인으로 이동
+    		 if(authentication==null) {
+    			  PrincipalDetails principalDetails = (PrincipalDetails)
+    			  authentication.getPrincipal(); OAuth2User oauth2User =
+    			  (OAuth2User)authentication.getPrincipal();
+    			  mv.setViewName("/");
+    			  return mv;
+    		 }	
+    
+    		
     		 PrincipalDetails principalDetails = (PrincipalDetails)
     		 authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
     		 String id=Long.toString(userDetails.getUser().getId());
-    				 
+    		  mv.addObject("auth",userDetails.getUsername());
+    		  
     		//페이징에 필요한 코드
      		int totalPage;//전체 페이지
      		int startPage;//각 블럭의 시작페이지
@@ -482,10 +590,25 @@ public class ProfileController {
     	
     	ModelAndView mv=new ModelAndView();
     	
-    	//북마크 삭제
+    	//로그인이 안되있을 시 메인으로 이동
+		 if(authentication==null) {
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =
+			  (OAuth2User)authentication.getPrincipal();
+			  mv.setViewName("/");
+			  return mv;
+		 }	
+
+		
+		
+    	
+    
     	PrincipalDetails principalDetails = (PrincipalDetails)
         authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
         String id=Long.toString(userDetails.getUser().getId());
+        mv.addObject("auth",userDetails.getUsername());
+        
+    	//북마크 삭제
     	Map<String, String>map =new HashMap<String, String>();
     	map.put("id", id);
     	map.put("num", num);
@@ -497,8 +620,28 @@ public class ProfileController {
     }
     
     @GetMapping("/jobGroup")
-	   public ModelAndView jobGroup(String match) {
+	   public ModelAndView jobGroup(
+			   String match,
+				Authentication authentication,
+	 			@AuthenticationPrincipal PrincipalDetails userDetails,
+	 			@AuthenticationPrincipal OAuth2User oauth
+			   ) {
 		   ModelAndView mv = new ModelAndView();
+		   
+			//로그인이 안되있을 시 메인으로 이동
+			 if(authentication==null) {
+				  PrincipalDetails principalDetails = (PrincipalDetails)
+				  authentication.getPrincipal(); OAuth2User oauth2User =
+				  (OAuth2User)authentication.getPrincipal();
+				  mv.setViewName("/");
+				  return mv;
+			 }	
+				PrincipalDetails principalDetails = (PrincipalDetails)
+		        authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+		        String id=Long.toString(userDetails.getUser().getId());
+		        mv.addObject("auth",userDetails.getUsername());
+			 
+			 
 		   String jobGroup[]= {"IT/인터넷", "경영/기획/컨설팅", "디자인", "미디어/홍보/마케팅", "생산/제조", "유통/무역","서비스/고객지원"};
 		   String it[]= {"웹개발자", "프론트엔드개발자", "Node.js개발자", "빅데이터엔지니어"};
 		   String business[]= {"사업개발기획자", "컨설턴트", "경영지원"};
@@ -558,9 +701,23 @@ public class ProfileController {
  			@AuthenticationPrincipal OAuth2User oauth
     		) {
     	ModelAndView mv=new ModelAndView();
+    	
+    	//로그인이 안되있을 시 메인으로 이동
+		 if(authentication==null) {
+			  PrincipalDetails principalDetails = (PrincipalDetails)
+			  authentication.getPrincipal(); OAuth2User oauth2User =
+			  (OAuth2User)authentication.getPrincipal();
+			  mv.setViewName("/");
+			  return mv;
+		 }	
+		
+	      
+		 
     	PrincipalDetails principalDetails = (PrincipalDetails)
         authentication.getPrincipal(); OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
         String id=Long.toString(userDetails.getUser().getId());
+        mv.addObject("auth",userDetails.getUsername());
+        
     	//삭제
     	HashMap<String, String> map = new HashMap<String, String>();
 		map.put("id",id);
