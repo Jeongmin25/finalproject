@@ -37,7 +37,9 @@
 	div.noticelist{
 		font-size: 1.2em;
 	}
-
+table tbody td {
+	min-width: 110px;
+}
 
  
 </style>
@@ -64,15 +66,7 @@
 				</tr>
 			</thead>
 			<tfoot>
-				<tr>
-
-					<th bgcolor="#021B80" style="color: white;">번호</th>
-					<th bgcolor="#021B80" style="color: white;">카테고리</th>
-					<th bgcolor="#021B80" style="color: white;">제목</th>
-					<th bgcolor="#021B80" style="color: white;">작성일</th>
-
-
-				</tr>
+				
 			</tfoot>
 			<tbody>
 				<c:forEach var="dto" items="${list}" varStatus="a">

@@ -27,8 +27,8 @@
 		font-size: 1.3em;
 	}
 	
-	pre{
- 	
+	pre.content{
+ 	text-decoration:none;
  	background-color:white;
  	font-family:'ELAND_Choice_M';
  	font-size:1em;
@@ -55,14 +55,14 @@
  
 	 	<span style="float: right;font-size: 1.2em;"> 등록일: <fmt:formatDate
 										value="${dto.writeday}" pattern="yyyy-MM-dd" />
-							&nbsp &nbsp 조회수: ${dto.viewcount}</span>
+							&nbsp; &nbsp; 조회수: ${dto.viewcount}</span>
 
 			<br><br>
-			<div class="text">카테고리:${dto.category}&nbsp &nbsp작성자:${dto.writer}</div>
+			<div class="text">카테고리:${dto.category}&nbsp; &nbsp;작성자:${dto.writer}</div>
 			
 				
 				<br><br>
-			<h4><pre>${dto.content}</pre></h4> <br> 
+			<pre class="content">${dto.content}</pre><br> 
 		
 					<img src="/noticephoto/${dto.photo}" style="max-width: 600px;"onerror="this.src='/noticephoto/+job.png'">
 
@@ -73,6 +73,7 @@
 			<button type="button" id="btnlist" style="float: right;"
 				
 				onclick="location.href='notice'">목록</button>
+				
 				</div>
 </body>
 </html>
