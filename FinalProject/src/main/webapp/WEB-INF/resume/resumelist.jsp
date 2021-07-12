@@ -126,6 +126,11 @@ function godel(e){
 <div>
 	<h4>최근 문서</h4>
 </div>
+<br><br>
+<div class="explanation" style="margin-top: 10px;margin-left: 10px;">
+	<h6>• 이력서 공개 설정은 1개의 이력서만 가능합니다</h6>
+	<h6>• 이력서, 파일+ 이력서 각각 최대 10개까지 등록 가능합니다. (총 최대 20개)</h6>
+</div>
 <br>
 <table class="resumebox" onclick="location.href='addresume'" style="cursor: pointer;">
  	<tr>
@@ -158,11 +163,6 @@ function godel(e){
 		</ul>
 	</div>
 </c:forEach>
-
-<div class="explanation" style="margin-top: 500px;margin-left: 200px;">
-	<h6>• 이력서 공개 설정은 1개의 이력서만 가능합니다</h6>
-	<h6>• 이력서, 파일+ 이력서 각각 최대 10개까지 등록 가능합니다. (총 최대 20개)</h6>
-</div>
 </div>
 </body>
 </html>

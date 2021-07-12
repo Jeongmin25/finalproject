@@ -56,17 +56,17 @@
 		text-align: center;
 	}
 	div.table-wrap{
-		margin-left: 200px;
-		margin-top: 10px;
+		margin-left: 100px;
+		margin-top: 40px;
 	}
 	table.table{
-		width: 600px;
+		width: 800px;
 	}
 	table.table thead{
-		background: #1089ff;
+		background: #F3F9FE;
 	}
 	table.table tbody tr:hover{
-		background: #eee;
+		background: #F3F9FE;
 	}
 	img.applyFail_empimg{
 		border-radius: 100px;
@@ -111,6 +111,7 @@ function delapply(num,pageNum){
 	</div>
 <c:if test="${state != 'fail' }">
 <div class="apply_default">
+<br><br>
 <ul class="apply_ul">
 	<c:if test="${cdto.size()==0}">
 		<div class="apply_noapply">
@@ -133,7 +134,7 @@ function delapply(num,pageNum){
 		<c:if test="${(endDate - strDate)<0}">	
 		<li>
 			<a>
-				<div style="float: left;margin-left: 10px;">
+				<div style="float: left;margin-left: 10px;min-width:170px;max-width: 170px; ">
 					<header class="apply_applyul_header" style="background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('gongophoto/${cdto.empimg}');">
 						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-right: 5px;" onclick="delapply(${cdto.num},${currentPage })"></span>
 						<p style="color: #fff;text-align: center;padding-top: 25%;font-size: 1.1em;">지원 마감</p>
@@ -152,7 +153,7 @@ function delapply(num,pageNum){
 		<c:if test="${(endDate - strDate)>=0}">
 		<li>
 			<a>
-				<div style="float: left;margin-left: 10px;">
+				<div style="float: left;margin-left: 10px;min-width:170px;max-width: 170px;">
 					<header class="apply_applyul_header" style="background-image: url('gongophoto/${cdto.empimg}');">
 						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-right: 5px;" onclick="delapply(${cdto.num},${currentPage })"></span>
 					</header>
@@ -211,9 +212,9 @@ function delapply(num,pageNum){
 		 		<table class="table">
 		 			<thead>
 		 				<tr>
-		 					<th style="color: #fff;text-align: center;max-width: 100px;">지원 회사</th>
-		 					<th style="color: #fff;text-align: center;max-width: 100px;">지원 포지션</th>
-		 					<th style="color: #fff;text-align: center;max-width: 100px;">지원상태</th>
+		 					<td style="color: black;text-align: center;max-width: 200px;">지원 회사</td>
+		 					<td style="color: black;text-align: center;max-width: 100px;">지원 포지션</td>
+		 					<td style="color: black;text-align: center;max-width: 100px;">지원상태</td>
 		 				</tr>
 		 			</thead>
 		 			<tbody>

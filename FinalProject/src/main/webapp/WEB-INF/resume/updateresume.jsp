@@ -36,12 +36,6 @@
 		max-width: 850px;
 		width: 850px;
 	}
-	table.addcarer tr{
-		max-width: 800px;
-		min-width: 800px;
-	
-		width: 800px;
-	}
 	
 	button.add{
 		color: #021B80;
