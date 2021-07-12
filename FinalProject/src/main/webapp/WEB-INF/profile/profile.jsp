@@ -26,6 +26,21 @@
 		border-radius: 5px;
 		
 	}
+	div.rcmnd{
+	
+		width: 200px;
+		border-radius: 5px;
+		position:absolute;
+		height: 80px;
+		float: left;
+		margin-top: 420px;
+		margin-left: 0px;
+		background: #ffe776 url('image/email_img.png');
+		background-size: 90px 100px;
+		background-repeat: no-repeat;
+		background-position:10px -10px;
+	
+	}
 	div.profile_resume{
 		border: 1px solid #ccc;
 		width: 600px;
@@ -102,6 +117,7 @@
 	a.addresume_link:hover{
 		text-decoration: none;
 	}
+	
 </style>
 <script type="text/javascript">
 	function selresume(val){
@@ -125,6 +141,9 @@
 			<br>
 			<button type="button" class="profile_update" onclick="location.href='personUpdateForm'" style="color: #021B80;">기본정보 수정</button>
 		</div>
+	</div>
+	<div class="rcmnd">
+		<h5 style="margin-top: 35px;margin-left: 70px;color: #595959;cursor: pointer;" onclick="location.href='recommend'">추천공고 보러가기 ></h5>
 	</div>
 	<c:if test="${type != 'no' }">
 		<div class="profile_resume">
