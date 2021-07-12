@@ -14,8 +14,6 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
   />
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0ae45bf90266e140c52136e8a7c89216&libraries=services"></script>
-<!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
- -->
 <style type="text/css">
 .emplogo{
 max-width: 600px;
@@ -142,6 +140,17 @@ button.bookmark_btn{
 		font-weight: bold;
 		cursor: pointer;
 	}
+	
+	pre.content{
+	border: none;
+	font-size: 1.3em;
+	font-family: 'ELAND_Choice_M';
+	}
+	.btn{
+	float: right;
+	margin-left: 10px;
+	margin-bottom: 300px;
+	}
 </style>
 <script type="text/javascript">
 window.onload=function(){
@@ -211,7 +220,7 @@ function submit2(frm){
 </c:forEach>
 </div>
 <hr class="seon">
-<p>${dto.empcontent}<p><br>
+<pre class="content">${dto.empcontent}</pre><br>
 <hr class="seon">
 <h4>마감일&nbsp; ${dto.deadline}</h4>
 <h4>근무지역 &nbsp; ${edto}</h4>
@@ -299,11 +308,12 @@ function submit2(frm){
 
 </aside>
 </c:if>
-<button type="button" class="golist" onclick="location.href='gonggolist'">목록</button>
+<button type="button" class="btn" onclick="location.href='gonggolist'">목록</button>
 <c:if test="${dto.empname==loginname}">
-<button type="button" class="update" onclick="location.href='updategonggo?num=${dto.num}'">공고 수정</button>
-<button type="button" class="delete" onclick="location.href='delete?num=${dto.num}'">공고 삭제</button>
+<button type="button" class="btn" onclick="location.href='updategonggo?num=${dto.num}'">공고 수정</button>
+<button type="button" class="btn" onclick="location.href='delete?num=${dto.num}'">공고 삭제</button>
 </c:if>
+
 </form>
 <script>
 var edto=$("#edto").val();
