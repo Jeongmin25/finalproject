@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -152,6 +153,14 @@
  						 </div>
  					</div> 				
   				</c:if>
+  			</div>	
+	 <div class="reviewInfo">
+ 	<h3>기업리뷰 안내사항</h3><br><br>
+ 	<p>- 기업리뷰는 +JOB 이력서 내 경력사항이 작성된 경우 등록이 가능합니다.</p>
+ 	<p>- 현직자 퇴사자가 직접 입력한 데이터로 실제 기업의 내용과 차이가 발생할 수 있으므로 참고하는 자료로 활용하시기를 권장해드립니다.</p>
+ 	<p>- 최초 작성 후 7일까지 수정/삭제가 가능하며 이후에는 수정/삭제가 불가합니다.</p>
+ 	<p>- 본 자료의 저작권은 +JOB에 있으며 동의 없이 재가공 및 재배포 할 수 없음을 알려드립니다.</p><br><br>
+ </div>
 		</c:if>
 		
 		<!-- 기업리뷰 있음 -->
@@ -164,9 +173,9 @@
 				<table class="reviewtable table table" style="font-size: 1.3em;">
 				<tr>
 					<td width="70px;" align="center" style="height: 70px;">${n.count }</td>
-					<td width="500px;"
-						data-toggle="popover" title="${data.empname }" data-placement="bottom"
-						data-content="장점 : ${data.good } 단점 : ${data.bad}">${data.empname }</td>
+					<td width="500px;" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">${data.empname }
+					</td>
+				  
 					<td width="100px;" align="right">${data.prenow }</td>
 					<td width="100px;" align="right">
 						<fmt:formatDate value="${data.writeday}" pattern="MM-dd"/>
@@ -233,28 +242,25 @@
   							</c:forEach>
  						 </div>
  					</div> 	
-
-  
   </c:if>
 	</div>	
-	</div>
-	</c:if>	
-
- <div class="reviewInfo">
+	 <div class="reviewInfo">
  	<h3>기업리뷰 안내사항</h3><br><br>
  	<p>- 기업리뷰는 +JOB 이력서 내 경력사항이 작성된 경우 등록이 가능합니다.</p>
  	<p>- 현직자 퇴사자가 직접 입력한 데이터로 실제 기업의 내용과 차이가 발생할 수 있으므로 참고하는 자료로 활용하시기를 권장해드립니다.</p>
  	<p>- 최초 작성 후 7일까지 수정/삭제가 가능하며 이후에는 수정/삭제가 불가합니다.</p>
  	<p>- 본 자료의 저작권은 +JOB에 있으며 동의 없이 재가공 및 재배포 할 수 없음을 알려드립니다.</p><br><br>
  </div>
-</body>
-<script>
+	</div>
+	</c:if>	
 
-//팝오버 - 내용확인
+
+</body>
+<script type="text/javascript">
+
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();   
 });
-
 //삭제버튼
 $(".delete").click(function() {
 	
@@ -275,4 +281,5 @@ $("button.update").click(function() {
 	
 });
 </script>
+
 </html>
