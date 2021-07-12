@@ -29,13 +29,13 @@ div.img{
 div.gaein{
  	margin-left: 50px;
 	width: 450px;
-	height: 900px;
+	height: 700px;
 	float:left;
 }
 div.giup{
  margin-left: 20px;
 	width: 450px;
-	height: 900px;
+	height: 700px;
 	float:right;
 }
 
