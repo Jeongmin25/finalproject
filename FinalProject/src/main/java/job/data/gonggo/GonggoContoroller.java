@@ -110,6 +110,7 @@ public class GonggoContoroller {
 		  authentication.getPrincipal(); OAuth2User oauth2User =
 		  (OAuth2User)authentication.getPrincipal();
 		  String id = Long.toString(userDetails.getUser().getId());
+		  mview.addObject("auth",userDetails.getUsername());
 		  
 			
 			mview.addObject("num", dto.getNum());
@@ -146,7 +147,7 @@ public class GonggoContoroller {
 			// 지원여부 체크
 			int apply_cnt = mapper.checkApply(map);
 			mview.addObject("apply_cnt", apply_cnt);
-			 mview.addObject("auth","ok");
+			mview.addObject("authok","ok");
 		  
 		
 		}

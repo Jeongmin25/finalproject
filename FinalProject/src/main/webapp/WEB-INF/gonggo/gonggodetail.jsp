@@ -226,7 +226,7 @@ function submit2(frm){
 <h4>근무지역 &nbsp; ${edto}</h4>
 <input type="hidden" name="edto" id="edto" value="${edto}">
 <div id="map" style="width:400px;height:300px;"></div>
-<c:if test="${auth =='ok' }">
+<c:if test="${authok =='ok' }">
 <aside class="bookmarkBox">
 <c:set var="id"><sec:authentication property="principal.user.id"/></c:set>
 <input type="hidden" name="id" value="${id }">
