@@ -197,11 +197,9 @@ public class GonggoContoroller {
 		int num = mapper.getInsertNum();
 		category.setNum(num);
 
-		String ctg[] = category.getCtg().split(",", -1);
 		String tag[] = category.getTag().split(",", -1);
 
-		for (int i = 0; i < ctg.length; i++) {
-			category.setCtg(ctg[i]);
+		for (int i = 0; i < tag.length; i++) {
 			category.setTag(tag[i]);
 			mapper.insertCategory(category);
 		}
@@ -256,12 +254,10 @@ public class GonggoContoroller {
 		mapper.updateGonggo(dto);
 		int cnum = dto.getNum();
 		category.setNum(cnum);
-		String ctg[] = category.getCtg().split(",", -1);
 		String tag[] = category.getTag().split(",", -1);
 
 		mapper.deleteCategory(num);
-		for (int i = 0; i < ctg.length; i++) {
-			category.setCtg(ctg[i]);
+		for (int i = 0; i < tag.length; i++) {
 			category.setTag(tag[i]);
 			mapper.insertCategory(category);
 		}
