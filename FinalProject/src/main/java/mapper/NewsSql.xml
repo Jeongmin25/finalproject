@@ -9,7 +9,7 @@
 	
 	<!-- 전체 데이터 반환(메인페이지-페이징처리) -->
 	<select id="getDataOfNews" resultType="news" parameterType="int">
-		select * from news limit #{start},#{perpage};
+		select * from news order by writeday desc limit #{start},#{perpage};
 	</select>
 	
 	<!-- num에 해당하는 데이터 반환(상세페이지) -->

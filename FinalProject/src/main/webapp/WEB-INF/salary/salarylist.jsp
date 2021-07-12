@@ -67,7 +67,7 @@
 </style>
 </head>
 <body>
-	<h1>직군별 연봉</h1>
+	<h2>직군별 연봉</h2>
 	<br><br>
 	<!-- salary 초기값 -->
 	<c:forEach var="item" items="${saldefault}" varStatus="status" >
@@ -127,7 +127,7 @@
 		<span class='detailjob'>IT/인터넷</span><br><br><br>
 		<span class='detailjobgroup'>웹개발자</span><br><br><br>
 		<span class='detailcareer'>0년차</span><br><br><br>
-		<span class='detailsalary'>3037</span><br><br>
+		<span class='detailsalary'>3037만원</span><br><br>
 	</div>
 	<div class="choice"></div>
 </body>
@@ -301,7 +301,12 @@ function detail(e) {
 	var print="";
 	print+="<span class='detailjob'>"+job+"</span><br><br><br>";
 	print+="<span class='detailjobgroup'>"+jobgroup+"</span><br><br><br>";
-	print+="<span class='detailcareer'>"+career+"년차</span><br><br><br>";
+	if(career==0){
+		print+="<span class='detailcareer'>신입</span><br><br><br>";
+	}else{
+		print+="<span class='detailcareer'>"+career+"년차</span><br><br><br>";
+	}
+	
 	$("div.detail").html(print);
 	
 	//연봉 비교 수식 제거
@@ -323,10 +328,17 @@ function detail(e) {
         	
         //데이터 출력 콘솔 확인
         console.log("인덱스:"+item[career].career);
+        var newsalary=item[0].salary;
         console.log("연봉:"+item[career].salary);
+        console.log("신입연봉:"+newsalary);
         	
        	//선택한 연차의 연봉 데이터 출력
-       	print+="<span class='detailsalary'>"+item[career].salary+"만원</span><br><br><br>";
+    	if(career==0){
+    		print+="<span class='detailsalary'>"+newsalary+"만원</span><br><br><br>";
+    	}else{
+    		print+="<span class='detailsalary'>"+item[career].salary+"만원</span><br><br><br>";
+    	}
+       
        	$("div.detail").html(print);
    	       
         //구글 차트 호출
