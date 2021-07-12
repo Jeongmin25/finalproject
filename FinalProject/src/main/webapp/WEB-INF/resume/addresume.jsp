@@ -30,7 +30,10 @@
 	div.carer{
 		min-width: 920px;
 	}
-	
+	div.skill{
+		height: auto;
+		padding-bottom: 50px;
+	}
 	button.add{
 		color: #021B80;
 		border: none;
@@ -465,7 +468,7 @@ window.onload = function() {
 
 }	
 
-//글자수 세주는 함수
+//글자수 세어주는 함수
 function calc(){
 	document.getElementById('result').value=document.getElementById('content').value.length;
 	document.getElementById('b_result').innerHTML=document.getElementById('content').value.length+"자 작성했습니다!";
@@ -759,16 +762,14 @@ document.addEventListener("click", function (e) {
 <button type="button" class="add" id="btnaddlink">+ 추가</button>
 <table id="addlink"></table>
 </div>
-<div style="background-color: white;wid">
-<div class="resume-toolbar" style="position: fixed; bottom: 10px;left: 300px;">
+<div class="resume-toolbar" style="position: fixed; bottom: 10px;left: 1300px;">
 		<progress max="1000" value="0" id="result" style="height: 20px;"></progress>
 		<br>
 		<i class="fab fa-angellist" style="color: #7AACBF;font-size: 1.2em;"></i>
 		<span id="b_result" style="margin-right: 20px;font-size: 0.8em;"></span>
 </div>
-<div class="botton" style="position: fixed; bottom: 10px;right: 270px;">
+<div class="botton" style="position: fixed; bottom: 10px;right: 100px;">
    <button type="submit" class="submit_resume" >작성 완료</button>
-</div>
 </div>
 </form>
 </div>
