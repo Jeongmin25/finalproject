@@ -42,7 +42,7 @@ public void setAttach(String displayFileName, MultipartFile file) throws Messagi
 }
 
 public void setInline(String contentId, MultipartFile file) throws MessagingException, IOException {
-	msgHelper.addInline(contentId, new ByteArrayResource(file.getBytes()), "image/jpeg");
+	msgHelper.addInline(contentId, new ByteArrayResource(file.getBytes()), "image/email_img.png");
 }
 
 public void send() {
