@@ -278,6 +278,9 @@ function submit2(frm){
 <br>
 <table>
 	<caption><b>첨부파일</b></caption>
+	<tr>
+		<td align="center" colspan="2"><img alt="" src="image/resume.png" style="width: 100px;height: 100px;"></td>
+	</tr>
 	<c:forEach var="rdto" items="${list }" varStatus="n">
 		<tr>
 			<td>
