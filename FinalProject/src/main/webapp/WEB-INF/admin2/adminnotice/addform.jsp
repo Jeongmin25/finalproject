@@ -251,8 +251,8 @@
 								
 									<b>내용</b>
 						
-									<textarea name="content" class="form-control"
-									required="required" style="width: 450px;height: 100px;"></textarea>
+									<input type="text" name="content" class="form-control"
+									required="required" style="width: 450px;height: 100px;">
 								
 
 							<br>
