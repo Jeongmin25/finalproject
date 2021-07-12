@@ -258,25 +258,7 @@ table tbody td {
 
 							</tr>
 						</thead>
-						<tfoot>
-							<tr>
-								<th bgcolor="#021B80" style="color: white;">번호</th>
-								<th bgcolor="#021B80" style="color: white;">회사이름</th>
-								<th bgcolor="#021B80" style="color: white;">국가</th>
-								<th bgcolor="#021B80" style="color: white;">지역</th>
-								<th bgcolor="#021B80" style="color: white;">산업군</th>
-								<th bgcolor="#021B80" style="color: white;">직원수</th>
-								<th bgcolor="#021B80" style="color: white;">설립연도</th>
-								<th bgcolor="#021B80" style="color: white;">가입일</th>
-								<th bgcolor="#021B80" style="color: white;">담당자</th>
-								<th bgcolor="#021B80" style="color: white;">직책</th>
-								<th bgcolor="#021B80" style="color: white;">전화번호</th>
-								<th bgcolor="#021B80" style="color: white;">이메일</th>
-								<th bgcolor="#021B80" style="color: white;">비밀번호</th>
-								<th bgcolor="#021B80" style="color: white;">삭제</th>
-
-							</tr>
-						</tfoot>
+						
 						<tbody>
 							<c:forEach var="dto" items="${list}" varStatus="m">
 								<tr bgcolor="white" style="color:black; font-size: 1.1em;">
@@ -297,7 +279,7 @@ table tbody td {
 
 								
 										<td colspan="2">
-										<button type="button" id="btndel" onclick="javascript:deleteConfirm()" num="${dto.num}">삭제</button>
+										<button type="button" id="btndel" onclick="location.href='empdelete?num=${dto.num}'">삭제</button>
 									
 										</td>
 									</div>
@@ -311,17 +293,7 @@ table tbody td {
 
 
 				</div>
-				<script type="text/javascript">
-				function deleteConfirm(){
-					var isDelete=confirm("삭제하시겠습니까?");
-					var num=$("#btndel").attr("num");
-					if(isDelete){
-						location.href='empdelete?num='+num;
-							alert("삭제되었습니다")
-						}
-					}
-				</script>
-
+				
 
 
 			</div>

@@ -263,22 +263,7 @@ table tbody td {
 								<th bgcolor="#021B80" style="color: white;">삭제</th>
 							</tr>
 						</thead>
-						<tfoot>
-							<tr>
-								<th bgcolor="#021B80" style="color: white;">번호</th>
-								<th bgcolor="#021B80" style="color: white;">회사</th>
-								<th bgcolor="#021B80" style="color: white;">직종</th>
-								<th bgcolor="#021B80" style="color: white;">직군</th>
-								<th bgcolor="#021B80" style="color: white;">내용</th>
-								<th bgcolor="#021B80" style="color: white;">등록일</th>
-								<th bgcolor="#021B80" style="color: white;">마감일</th>
-								<th bgcolor="#021B80" style="color: white;">결제일</th>
-								<th bgcolor="#021B80" style="color: white;">결제금액</th>
-								<th bgcolor="#021B80" style="color: white;">삭제</th>
-
-
-							</tr>
-						</tfoot>
+						
 						<tbody>
 							<c:forEach var="dto" items="${list}" varStatus="n">
 									<tr bgcolor="white" style="color:black; font-size: 1.1em;">
@@ -296,7 +281,7 @@ table tbody td {
 									<td align="center">${dto.amount}</td>
 
 									<td colspan="2">
-									<button type="button" id="btndel" onclick="javascript:deleteConfirm()" num="${dto.num}">삭제</button>
+									<button type="button" class="btndel" onclick="location.href='gonggodelete?num=${dto.num}'">삭제</button>
 									</td>
 
 
@@ -310,16 +295,6 @@ table tbody td {
 
 
 				</div>
-				<script type="text/javascript">
-				function deleteConfirm(){
-					var isDelete=confirm("삭제하시겠습니까?");
-					var num=$("#btndel").attr("num");
-					if(isDelete){
-						location.href='gonggodelete?num='+num;
-							alert("삭제되었습니다")
-						}
-					}
-				</script>
 				
 
 

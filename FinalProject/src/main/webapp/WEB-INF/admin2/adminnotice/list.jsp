@@ -105,8 +105,10 @@ ul.pagination { /* 페이징 */
 	background-color: #021B80;
 	color: white;
 	border-radius: 5px;
-	"
+	
 }
+
+
 </style>
 </head>
 
@@ -233,14 +235,7 @@ ul.pagination { /* 페이징 */
 								<th>작성일</th>
 							</tr>
 						</thead>
-						<tfoot>
-							<tr bgcolor="#021B80" style="color:white">
-								<th>번호</th>
-								<th>카테고리</th>
-								<th>제목</th>
-								<th>작성일</th>
-							</tr>
-						</tfoot>
+						
 						<tbody>
 							<c:forEach var="dto" items="${list}" varStatus="n">
 								<tr bgcolor="white" style="color:black;">

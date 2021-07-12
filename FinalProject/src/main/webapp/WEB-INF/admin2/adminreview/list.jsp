@@ -220,39 +220,10 @@ table tbody td {
 								<th bgcolor="#021B80" style="color: white;">도움이돼요</th>
 								<th bgcolor="#021B80" style="color: white;">작성일</th>
 								<th bgcolor="#021B80" style="color: white;">삭제</th>
-						
-								
-
-
-
-
+					
 							</tr>
 						</thead>
-						<tfoot>
-							<tr>
-
-								<th bgcolor="#021B80" style="color: white;">번호</th>
-								<th bgcolor="#021B80" style="color: white;">아이디</th>
-								<th bgcolor="#021B80" style="color: white;">회사이름</th>
-								<th bgcolor="#021B80" style="color: white;">전/현직장</th>
-								<th bgcolor="#021B80" style="color: white;">직군</th>
-								<th bgcolor="#021B80" style="color: white;">장점</th>
-								<th bgcolor="#021B80" style="color: white;">단점</th>
-								<th bgcolor="#021B80" style="color: white;">별점평균</th>
-								<th bgcolor="#021B80" style="color: white;">사내문화</th>
-								<th bgcolor="#021B80" style="color: white;">자기계발</th>
-								<th bgcolor="#021B80" style="color: white;">근무환경</th>
-								<th bgcolor="#021B80" style="color: white;">급여및복지</th>
-								<th bgcolor="#021B80" style="color: white;">경영진</th>
-								<th bgcolor="#021B80" style="color: white;">도움이돼요</th>
-								<th bgcolor="#021B80" style="color: white;">작성일</th>
-								<th bgcolor="#021B80" style="color: white;">삭제</th>
-								
-
-
-
-							</tr>
-						</tfoot>
+						
 						<tbody>
 							<c:forEach var="dto" items="${list}" varStatus="n">
 								<tr bgcolor="white" style="color:black; font-size: 1.1em;">
@@ -278,7 +249,7 @@ table tbody td {
 											value="${dto.writeday}" pattern="yyyy-MM-dd" /></td>
 
 									<td >
-										<button type="button" id="btndel" onclick="javascript:deleteConfirm()" num="${dto.num}">삭제</button>
+										<button type="button" id="btndel" onclick="location.href='reviewdelete?num=${dto.num}'">삭제</button>
 									</td>
 									
 									
@@ -295,20 +266,7 @@ table tbody td {
 		
 			
 				
-				<script type="text/javascript">
-				function deleteConfirm(){
-					var isDelete=confirm("삭제하시겠습니까?");
-					var num=$("#btndel").attr("num");
-					if(isDelete){
-						location.href='reviewdelete?num='+num;
-							alert("삭제되었습니다")
-						}
-					}
 				
-				
-				</script>
-				
-
 			</div>
 			<!-- /.container-fluid -->
 
