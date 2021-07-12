@@ -153,21 +153,22 @@ $(function(){
 	$("#btncheck").click(function(){
 		//email 읽기
 		var email=$(".email").val();
-		alert( email );
+		//alert( email );
 		
 		$.ajax({
 			type:"get",
 			url:"emailcheck",
-			dataType:"json",
 			data:{"email":email},
+			dataType:"json",
+
 			success:function(data){
 				if(data.count==1){
 					alert("이미 가입된 이메일입니다\n다시 입력해주세요");
-					$("#email").val("");
-					$("#email").focus();
+					$(".email").val("");
+					$(".email").focus();
 				}else{
 					alert("가입이 가능한 이메일입니다");
-				}
+				} 
 					
 			}
 		})

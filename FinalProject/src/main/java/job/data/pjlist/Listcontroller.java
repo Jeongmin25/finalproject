@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import job.data.emplogin.EmpAccountMapper;
-import job.data.gonggo.CategoryDto;
 import job.data.gonggo.CompanyDto;
 import job.data.gonggo.CompanyMapper;
 

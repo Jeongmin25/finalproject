@@ -50,8 +50,8 @@
 				<p class="term-of-service">
 				<span><b>걱정마세요! 여러분의 지원활동은 SNS에 노출되지 않습니다.</b></span>
 				<br>
-				<span><b>회원가입 시 <a class="login-anchor" href="https://help.wanted.co.kr/hc/ko/articles/360035484292">개인정보 처리방침</a>과
-				<a class="login-anchor" href="https://help.wanted.co.kr/hc/ko/articles/360035844551">이용약관</a>을 확인하였으며, 동의합니다.</b></span>
+				<span><b>회원가입 시 <a class="login-anchor" onClick="location.href='Faq'">개인정보 처리방침</a>과
+				<a class="login-anchor" onClick="location.href='Faq'">이용약관</a>을 확인하였으며, 동의합니다.</b></span>
 				</p>
 				<br>
 				<span>Copyright © +JOB Corp. All Rights Reserved.</span>
