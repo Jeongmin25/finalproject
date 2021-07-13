@@ -270,7 +270,7 @@ window.onload=function(e){
           		<option disabled selected hidden>선택하기</option>
           		<option>구직/이직할 생각이 없음</option>
           		<option>개인정보 유출 우려</option>
-          		<option>원티드를 통해 구직완료</option>
+          		<option>+JOB을 통해 구직완료</option>
           		<option>홍보성 메일/메세지</option>
           		<option>타 서비스를 통해 구직완료</option>
           		<option>채용 공고 부족</option>
