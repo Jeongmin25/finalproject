@@ -571,6 +571,7 @@ $(document).ready(function(){
 <br>
 
 <h3>프리미엄 채용관</h3>
+<br/>
 <c:set var="strPlanDate" value="${date}" />
 	<div class="premiumlist">
 	<c:forEach var="dto" items="${gonggolist}" varStatus="n">
@@ -600,9 +601,8 @@ $(document).ready(function(){
 		</c:if>
 	</c:forEach>
 </div>
-
-<h3>적극 채용 중인 회사</h3>
-<br>
+<h3>채용공고</h3>
+<br> 
 <c:set var="strPlanDate" value="${date}" />
 	<div class="pjlist">
 			<c:forEach var="dto" items="${gonggolist}" varStatus="n">
