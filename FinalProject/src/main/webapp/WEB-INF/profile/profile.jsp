@@ -137,7 +137,7 @@
 	</div>
 	<div class="profile_personW">
 		<div class="profile_img">
-			<img alt="없음" src="image/profile.png">
+			<img alt="없음" src="image/profile.png" style="border: 3px solid #F2F2F2;">
 			<br><br>
 			<h4><sec:authentication property="principal.username"/></h4>
 			<h5 style="color: #ccc;"><sec:authentication property="principal.user.email"/></h5>
