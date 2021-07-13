@@ -33,7 +33,7 @@ public class DatabaseConfig {
          	{ 
                        	SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
                        	sqlSessionFactoryBean.setDataSource(mysqlDataSource);
-         	 sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mapper/*.xml")); 
+         	 sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath*:mapper/*.xml")); 
 sqlSessionFactoryBean.setTypeAliasesPackage("job.*");
                        	return sqlSessionFactoryBean.getObject();
                        	} 
