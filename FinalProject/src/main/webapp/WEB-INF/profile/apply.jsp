@@ -135,7 +135,7 @@ function delapply(num,pageNum){
 		<li>
 			<a>
 				<div style="float: left;margin-left: 10px;min-width:170px;max-width: 170px; ">
-					<header class="apply_applyul_header" style="background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('gongophoto/${cdto.empimg}');">
+					<header class="apply_applyul_header" style="background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('gonggophoto/${cdto.empimg}');">
 						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-right: 5px;" onclick="delapply(${cdto.num},${currentPage })"></span>
 						<p style="color: #fff;text-align: center;padding-top: 25%;font-size: 1.1em;">지원 마감</p>
 					</header>
@@ -154,13 +154,13 @@ function delapply(num,pageNum){
 		<li>
 			<a>
 				<div style="float: left;margin-left: 10px;min-width:170px;max-width: 170px;">
-					<header class="apply_applyul_header" style="background-image: url('gongophoto/${cdto.empimg}');">
+					<header class="apply_applyul_header" style="background-image: url('gonggophoto/${cdto.empimg}');">
 						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-right: 5px;" onclick="delapply(${cdto.num},${currentPage })"></span>
 					</header>
-					<div>
+					<div onclick="location.href='gonggodetail?num=${cdto.num}'" >
 						<h4 style="color: black;">${cdto.jobgroup }</h4>
 						<h6 style="color: black;">${cdto.job }</h6>
-						<h5 style="color: gray">${cdto.empname }<i class="fas fa-angle-right" onclick="location.href='gonggodetail?num=${cdto.num}'" style="margin-left: 90px;"></i></h5>
+						<h5 style="color: gray">${cdto.empname }</h5>
 						
 					</div>
 				</div>

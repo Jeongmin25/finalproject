@@ -370,7 +370,7 @@ public class ProfileController {
 		String id=Long.toString(userDetails.getUser().getId());
 		umapper.deleteUserAccount(id);
 		
-		mv.setViewName("layout");
+		mv.setViewName("/");
 		return mv;
 	}
 	
