@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/gonggo.css" />
+
 <style type="text/css">
 
 body{
@@ -59,6 +59,12 @@ ul.tabs li.current{
 	display: inherit;
 }
 
+div.premiumlist{
+	width: 900px;
+	height:350px;
+}
+
+
  div.gonggo-box2{
  	max-width: 200px;
  	min-width: 200px;
@@ -69,8 +75,36 @@ ul.tabs li.current{
 	text-align:center;
 	padding-top: 10px;
  }
- 
 	
+div.gonggo-box{
+ 	max-width: 200px;
+ 	min-width: 200px;
+	height: 200px;
+	cursor: pointer;
+	margin-left:30px;
+	margin-bottom: 100px;
+	padding-top: 10px;
+	float: left;
+	border: none;
+}
+
+div.image{
+	width: 200px;
+	height: 150px;
+	background-size: 200px 150px;
+	border-radius: 10px;
+}
+
+div.gonggo{
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+#tab-1, #tab-2{
+	border-radius: 30px;
+	margin-bottom: 20px;
+}
+
 </style>
 
 </head>
@@ -78,9 +112,54 @@ ul.tabs li.current{
 
 
 <body>
+<h3>프리미엄 채용관</h3><br>
+<c:set var="strPlanDate" value="${date}" />
+	<div class="premiumlist">
+	<c:forEach var="dto" items="${gonggolist}" varStatus="n">
+	<c:if test="${dto.amount ne null}">
+		<c:set var="end_plan_date" value="${dto.deadline}" />
+			<fmt:parseNumber value="${strPlanDate.time/ (1000*60*60*24)}"
+				integerOnly="true" var="strDate" />
+			<fmt:parseDate value="${end_plan_date}" var="endPlanDate"
+				pattern="yyyy-MM-dd" />
+			<fmt:parseNumber value="${endPlanDate.time/ (1000*60*60*24)+1}"
+				integerOnly="true" var="endDate" />
+			
+			<c:if test="${(endDate - strDate)>=0}">
+				<div class="gonggo-box">
+					<input type="hidden" name="num" value="${dto.num}">
+					<div class="image" style="background-image: url('../gonggophoto/${dto.empimg }');">
+						<img alt="" src="../image/Platinum-Badge.png" style="max-width: 45px; margin-left: 150px;">
+					</div>
+					 <div class="gonggo" num="${dto.num}">
+						<h4 class="subject">${dto.jobgroup}</h4>
+						<h5 class="empname" style="color: #021B80">${dto.empname }</h6>
+						<h5 class="job">${dto.job }</h5>
+					<c:set var="endday1" value="${end_plan_date.substring(0,4)}" />
+					<c:set var="endday2" value="${end_plan_date.substring(5,7)}" />
+					<c:set var="endday3" value="${end_plan_date.substring(8,10)}" />
+					<h5 style="color: gray">마감일 : ${endday1}-${endday2}-${endday3}</h5>
+					</div>
+				</div>
+			</c:if>
+		</c:if>
+	</c:forEach>
+</div>
 
-<h2>전체 </h2>
-<hr>
+<h2>전체</h2><br>
+<!-- 북마크  -->
+	 <div class="bookmark-button" style="float: right; margin-right: 70px;">
+			<button data-attribute-id="explore__bookmarkPage__click" type="button" style="background-color: white; border: none;" onclick="location.href='/bookmark'">
+			<svg width="13" height="17" viewBox="0 0 13 17" style="color:#36f"><defs>
+			<path id="bookmarkIconFill" d="M6.25 13.21L.905 16.22c-.403.228-.905-.06-.905-.517V.596C0 .267.27 0 .605 0h11.29c.334 0 .605.267.605.596v15.107c0 .458-.502.745-.905.518L6.25 13.209z">
+			</path></defs>
+			<g fill="none" fill-rule="evenodd" transform="translate(.188)">
+			<use fill="currentColor" xlink:href="#bookmarkIconFill"></use></g></svg>
+			<span>북마크 모아보기</span><svg width="12" height="12" viewBox="0 0 12 12">
+			<path fill="currentColor" d="M4.22 9.72a.75.75 0 001.06 1.06l4.25-4.25a.75.75 0 000-1.06L5.28 1.22a.75.75 0 00-1.06 1.06L7.94 6 4.22 9.72z">
+			</path></svg></button>
+	 </div><br>
+
 	 
 	 <!-- 직무로 검색 -->
 		
@@ -90,7 +169,7 @@ ul.tabs li.current{
 		<li class="tab-link" data-tab="tab-2">직군/직무▼</li>
 	</ul>
 		<form id=reset_searcharea>	
-		<div id="tab-1" class="tab-content current" style="border: 1px solid #D2D4D6;">
+		<div id="tab-1" class="tab-content current" style="border: 1px solid #D2D4D6; width: 900px;">
 		 <h5 style="margin-left: 50px;">지역　　　　　　　　　　　　　　 　　　　　　　　　　　　　상세지역</h5>
       		<select name="sido1" id="sido1"  size="3" style="width:400px;height:100px;margin-left: 50px;"></select>
 			<select name="gugun1" id="gugun1" size="3" style="width:400px;height:100px;"></select>
@@ -103,7 +182,7 @@ ul.tabs li.current{
 		</form>
 		
 		<form id=reset_searchjob>	
-			<div id="tab-2" class="tab-content">
+			<div id="tab-2" class="tab-content" style="width:900px;">
 				<fieldset style="width:850px;">
 					<h5 style="margin-left: 50px;">직군　　　　　　　　　 　　　　　　　　　　　　　　　　　　직무</h5>
 						<select name="job" id="job" class="col-sm-3" size="3" style="width: 400px; height: 100px; margin-left: 50px;"
@@ -116,7 +195,7 @@ ul.tabs li.current{
 									<option value="유통/무역">유통/무역</option>
 									<option value="서비스/고객지원">서비스/고객지원</option>
 						</select>
-						<select name="jobgroup" id="jobgroup" class="col-sm-3" size="3" style="width: 400px; height: 100px;"></select>
+						<select name="jobgroup" id="jobgroup" class="col-sm-3" size="3" style="width: 400px; height: 100px; "></select>
 						<br/>
 						<button type="button" class="searchjob btn btn-default btn-ms" id="job_reset" style="margin-left:680px; margin-top: 10px;">
 						선택 초기화 <i class="fa fa-refresh"></i></button>
@@ -192,18 +271,7 @@ ul.tabs li.current{
 <div class="showtaglist"></div>
 
 <br/>
-<!-- 북마크  -->
-	 <div class="bookmark-button">
-			<button data-attribute-id="explore__bookmarkPage__click" type="button" style="background-color: white; border: none;" onclick="location.href='/bookmark'">
-			<svg width="13" height="17" viewBox="0 0 13 17" style="color:#36f"><defs>
-			<path id="bookmarkIconFill" d="M6.25 13.21L.905 16.22c-.403.228-.905-.06-.905-.517V.596C0 .267.27 0 .605 0h11.29c.334 0 .605.267.605.596v15.107c0 .458-.502.745-.905.518L6.25 13.209z">
-			</path></defs>
-			<g fill="none" fill-rule="evenodd" transform="translate(.188)">
-			<use fill="currentColor" xlink:href="#bookmarkIconFill"></use></g></svg>
-			<span>북마크 모아보기</span><svg width="12" height="12" viewBox="0 0 12 12">
-			<path fill="currentColor" d="M4.22 9.72a.75.75 0 001.06 1.06l4.25-4.25a.75.75 0 000-1.06L5.28 1.22a.75.75 0 00-1.06 1.06L7.94 6 4.22 9.72z">
-			</path></svg></button>
-	 </div>	 
+
 
 
 
@@ -318,7 +386,10 @@ $(document).ready(function(){
 		        	//$( 'div#output2' ).val("");
 					//alert( tag );
 		        	
-		        	var s="";
+		    		$("#wantemp").hide();
+	    
+	        		var s="";
+	        		s+="<h3><b>#"+tag+"</b> 속한 채용공고</h3><br>";
 		        	
 		        	if(data==""){
 		        		s+="<br><br><br>";
@@ -326,12 +397,17 @@ $(document).ready(function(){
 		        	}else{
 			       		//반복문으로 값 출력
 			        	$.each(data, function(idx, val) {
-			        		s+='<div class="gonggo-box2 form-control" num="'+val.num+'">';
+			        		s+='<div class="gonggo-box" num="'+val.num+'">';
+			        		s+='<div class="image">';
+			        		s+='<img src="../gonggophoto/'+val.empimg+'" style="width: 200px; height: 150px; border-radius:10px;">';
+			        		s+='</div>';
 			        		s+='<input type="hidden" name="num" value="'+val.num+'">';
-				        	s+='<h4>'+val.jobgroup+'</h4></br>';
+			        		s+='<div class="gonggo" num="'+val.num+'">';
+				        	s+='<h4>'+val.jobgroup+'</h4>';
 				        	s+='<h5>'+val.empname+'</h5>';
 				        	s+='<h5 class="job">'+val.job+'</h5>';
 				        	s+='<h5 style="color: gray"> 마감 '+val.deadline+'</h5>';
+				        	s+='</div>';
 				        	s+='</div>';
 				        	
 			        	});		
@@ -425,7 +501,10 @@ $( document ).ready( function() {
 		    	//console.log(data); //list 데이터 확인 
 	        	//alert(data);
 		    	
+		    	$("#wantemp").hide();
+	    
 	        	var s="";
+	        	s+="<h3>["+addr+"] 지역 채용공고</h3><br>";
 	        	
 	        	if(data==""){
 	        		s+="<br><br><br>";
@@ -434,12 +513,17 @@ $( document ).ready( function() {
 		       		//반복문으로 값 출력
 		        	$.each(data, function(idx, val) {
 		        		//alert(val.num);
-		        		s+='<div class="gonggo-box2 form-control" num="'+val.num+'">';
+		        		s+='<div class="gonggo-box" num="'+val.num+'">';
+		        		s+='<div class="image">';
+		        		s+='<img src="../gonggophoto/'+val.empimg+'" style="width: 200px; height: 150px; border-radius:10px;">';
+		        		s+='</div>';  
 		        		s+='<input type="hidden" name="num" value="'+val.num+'">';
+		        		s+='<div class="gonggo" num="'+val.num+'">';
 			        	s+='<h4>'+val.jobgroup+'</h4></br>';
 			        	s+='<h5>'+val.empname+'</h5>';
 			        	s+='<h5 class="job">'+val.job+'</h5>';
 			        	s+='<h5 style="color: gray"> 마감 '+val.deadline+'</h5>';
+			        	s+='</div>';
 			        	s+='</div>';
 			        	
 		        	});		
@@ -523,22 +607,30 @@ $( document ).ready( function() {
 	    	//console.log(data); //list 데이터 확인 
         	//alert(data);
 	    	
+	    	$("#wantemp").hide();
 	    	
         	var s="";
-        	
+        	s+="<h3>["+jobgroup+"] 채용공고</h3><br>";
+        
         	if(data==""){
         		s+="<br><br><br>";
         		s+="<h3 style='margin-left: 300px;'>["+jobgroup+"] 검색 결과가 없습니다.</h3><br><br>";
 	    	}else{
        		//반복문으로 값 출력
         	$.each(data, function(idx, val) {
+        		
         		//alert(val);
-        		s+='<div class="gonggo-box2 form-control" num="'+val.num+'">';
+        		s+='<div class="gonggo-box" num="'+val.num+'">';
+        		s+='<div class="image">';
+        		s+='<img src="../gonggophoto/'+val.empimg+'" style="width: 200px; height: 150px; border-radius:10px;">';
+        		s+='</div>';    		
         		s+='<input type="hidden" name="num" value="'+val.num+'">';
+        		s+='<div class="gonggo" num="'+val.num+'">';
 	        	s+='<h4>'+val.jobgroup+'</h4></br>';
 	        	s+='<h5>'+val.empname+'</h5>';
 	        	s+='<h5 class="job">'+val.job+'</h5>';
 	        	s+='<h5 style="color: gray"> 마감 '+val.deadline+'</h5>';
+	        	s+='</div>';
 	        	s+='</div>';
 	        	
         	});		
@@ -570,39 +662,10 @@ $(document).ready(function(){
 <!-- <input type="hidden" name="empname" value="${dto.empname}"> -->
 <br>
 
-<h3>프리미엄 채용관</h3>
-<br/>
-<c:set var="strPlanDate" value="${date}" />
-	<div class="premiumlist">
-	<c:forEach var="dto" items="${gonggolist}" varStatus="n">
-	<c:if test="${dto.amount ne null}">
-		<c:set var="end_plan_date" value="${dto.deadline}" />
-			<fmt:parseNumber value="${strPlanDate.time/ (1000*60*60*24)}"
-				integerOnly="true" var="strDate" />
-			<fmt:parseDate value="${end_plan_date}" var="endPlanDate"
-				pattern="yyyy-MM-dd" />
-			<fmt:parseNumber value="${endPlanDate.time/ (1000*60*60*24)+1}"
-				integerOnly="true" var="endDate" />
-			
-			<c:if test="${(endDate - strDate)>=0}">
-				<div class="gonggo-box form-control">
-					<input type="hidden" name="num" value="${dto.num}">
-					 <div OnClick="location.href='gonggodetail?num=${dto.num}'">
-						<h4 class="subject">${dto.jobgroup}</h4>
-						<h6 class="empname" style="color: #021B80">${dto.empname }</h6>
-						<h5 class="job">${dto.job }</h5>
-					<c:set var="endday1" value="${end_plan_date.substring(0,4)}" />
-					<c:set var="endday2" value="${end_plan_date.substring(5,7)}" />
-					<c:set var="endday3" value="${end_plan_date.substring(8,10)}" />
-					<h5 style="color: gray">마감 ${endday1}-${endday2}-${endday3}</h5>
-					</div>
-				</div>
-			</c:if>
-		</c:if>
-	</c:forEach>
-</div>
-<h3>채용공고</h3>
-<br> 
+
+
+<h3 id="wantemp">적극 채용 중인 회사</h3>
+<br>
 <c:set var="strPlanDate" value="${date}" />
 	<div class="pjlist">
 			<c:forEach var="dto" items="${gonggolist}" varStatus="n">
@@ -615,9 +678,11 @@ $(document).ready(function(){
 					integerOnly="true" var="endDate" />
 	
 				<c:if test="${(endDate - strDate)>=0}">
-					<div class="gonggo-box form-control">
-						  <div OnClick="location.href='gonggodetail?num=${dto.num}'">
+					<div class="gonggo-box">
+						  
+						  <div class="image" style="background-image: url('../gonggophoto/${dto.empimg }');"></div>
 							<input type="hidden" name="num" value="${dto.num}">
+							<div class="gonggo" num="${dto.num}">
 								<h4 class="subject">${dto.jobgroup}</h4>
 								<h6 class="empname" style="color: #021B80">${dto.empname }</h6>
 								<h5 class="job">${dto.job }</h5>
@@ -637,6 +702,16 @@ $(document).ready(function(){
 
 //gonggo 클릭 이벤트(상세페이지 이동)
 $(document).on('click', '.gonggo-box2', function() {
+	//num값 저장
+	var num=$(this).attr("num");
+	//alert(num);
+	
+	//num값을 컨트롤러로 전달
+	location.href="/gonggodetail?num="+num;
+})
+
+//테이블 클릭 이벤트(상세페이지 이동)
+$(document).on('click', '.gonggo', function() {
 	//num값 저장
 	var num=$(this).attr("num");
 	//alert(num);

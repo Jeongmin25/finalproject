@@ -99,29 +99,7 @@ div.nodata{
 <c:forEach var="dto" items="${data}" varStatus="n">
 	<div class="gonggo-box">
 		<input type="hidden" name="num" value="${dto.num}">
-			<div class="image" style="background-image: url('../gonggophoto/${dto.empimg }');">
-	
-				<c:forEach var="book" items="${bookdata }">
-				<c:set var="bnum" value="${book.num }"/>
-				<c:set var="dnum" value="${dto.num }"/>
-					<c:if test="${bnum==dnum}">
-						<span class="bookmark fas fa-bookmark" 
-						style="float: right; margin: 10px 10px 10px 10px; font-size: 1.3em; color: blue;"
-						num="${dto.num }" id=${id }></span>	
-					</c:if>
-				</c:forEach>
-					<c:if test="${not fn:contains(bnum, dnum)}">
-						<span class="bookmark far fa-bookmark" 
-						style="float: right; margin: 10px 10px 10px 10px; font-size: 1.3em;"
-						num="${dto.num }" id=${id }></span>	
-					</c:if>
-						<c:if test="${bnum==null}">
-						<span class="bookmark far fa-bookmark" 
-						style="float: right; margin: 10px 10px 10px 10px; font-size: 1.3em;"
-						num="${dto.num }" id=${id }></span>	
-					</c:if>
-
-			</div>		
+			<div class="image" style="background-image: url('../gonggophoto/${dto.empimg }');"></div>		
 			<div class="gonggo" OnClick="location.href='gonggodetail?num=${dto.num}'">	
 				<h4 class="subject">${dto.jobgroup}</h5>
 				<h5>${dto.empname }</h4>		
