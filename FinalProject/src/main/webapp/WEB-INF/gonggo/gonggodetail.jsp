@@ -26,13 +26,13 @@ hr.seon{
 border: solid 2px gray;
 }
 div.one{
- border: 2px solid #021B80;
+ 	border: none;
     border-radius: 20px 20px;
-    font-size: 1.2em;
     color: gray;
     max-width: 200px;
     width: 100px;
     padding-left: 10px;
+    background-color: #eee;
 }
 
 button.bookmark_btn{
@@ -72,6 +72,7 @@ button.bookmark_btn{
 		text-align: center;
 		position: relative;
 		border-radius: 5px;
+		margin-left: 140px;
 	}
 	aside.bookmarkBox{
 		position: absolute;
@@ -87,12 +88,14 @@ button.bookmark_btn{
 		min-height: 200px;
 		border: 1px solid #ccc;
 		z-index: 100;
-		top: 0px;
+		top: 210px;
+		left:140px;
 		display: none;
 		background-color: white;
 		border-radius: 5px;
 		overflow-y: scroll;
-		padding-left: 5px;
+		padding-left: 3px;
+		
 	}
 	div.apply_resumelist{
 		border: 1px solid #ccc;
@@ -143,12 +146,13 @@ button.bookmark_btn{
 	
 	pre.content{
 	border: none;
-	font-size: 1.3em;
+	font-size: 1.1em;
 	font-family: 'ELAND_Choice_M';
+	background-color: white;
 	}
-	.btn{
-	float: right;
-	margin-left: 10px;
+	.btnlist{
+	
+	margin-left: 400px;
 	margin-bottom: 300px;
 	}
 	form{margin-bottom: 300px;
@@ -213,21 +217,21 @@ function submit2(frm){
 </head>
 <body>
 <form action="#" class="gonggodetail form-inline" method="post">
-<div class="header">
-<img src="../gonggophoto/${dto.empimg}" class="emplogo"><br>
-<h2>${dto.jobgroup}</h2>
-<h3>${dto.empname}</h3>
+<div class="header" >
+<img src="../gonggophoto/${dto.empimg}" width="800px;" class="emplogo"><br>
+<h3>${dto.jobgroup}</h3>
+<h4>${dto.empname}</h4><br>
 <c:forEach var="cdto" items="${cdto}">
-<div class="one form-control">${cdto.tag}</div>
+<div class="one form-control">#${cdto.tag} </div>
 </c:forEach>
 </div>
-<hr class="seon">
+<br><br>
 <pre class="content">${dto.empcontent}</pre><br>
-<hr class="seon">
-<h4>마감일&nbsp; ${dto.deadline}</h4>
-<h4>근무지역 &nbsp; ${edto}</h4>
-<input type="hidden" name="edto" id="edto" value="${edto}">
-<div id="map" style="width:400px;height:300px;"></div>
+<hr>
+<h5>마감일&nbsp;&nbsp;&nbsp; <b>${dto.deadline}</b></h5><br>
+<h5>근무지역 &nbsp; <b>${edto}</b></h5>
+<input type="hidden" name="edto" id="edto" value="${edto}"><br>
+<div id="map" style="width:900px;height:300px;"></div>
 <c:if test="${authok =='ok' }">
 <aside class="bookmarkBox">
 <c:set var="id"><sec:authentication property="principal.user.id"/></c:set>
@@ -313,9 +317,10 @@ function submit2(frm){
 
 </aside>
 </c:if>
-<button type="button" class="btn" onclick="location.href='gonggolist'">목록</button>
+<br>
+<button type="button" class="btn" style="margin-left: 400px;" onclick="location.href='gonggolist'">목록</button>
 <c:if test="${dto.empname==loginname}">
-<button type="button" class="btn" onclick="location.href='updategonggo?num=${dto.num}'">공고 수정</button>
+<button type="button" class="btn" style="margin-left: 270px;" onclick="location.href='updategonggo?num=${dto.num}'">공고 수정</button>&nbsp;
 <button type="button" class="btn" onclick="location.href='delete?num=${dto.num}'">공고 삭제</button>
 </c:if>
 
