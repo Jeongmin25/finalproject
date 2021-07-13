@@ -295,7 +295,9 @@ public class GonggoContoroller {
 	  { ModelAndView mview =new ModelAndView(); 
 	  String email=(String)session.getAttribute("myemail");
 	  String empname=emapper.searchEmpName(email); 
+	  int count = mapper.getnullamount(empname);
 	  List<CompanyDto>gonggolist=mapper.getmygonggo(empname);
+	  mview.addObject("count",count);
 	  mview.addObject("gonggolist",gonggolist);
 	  mview.setViewName("/gonggo/orderComplete"); return mview; }
 	  

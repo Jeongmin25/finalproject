@@ -81,32 +81,10 @@ div.gonggo{
 <c:forEach var="dto" items="${joblist}" varStatus="n">
 	<div class="gonggo-box">
 		<input type="hidden" name="num" value="${dto.num}">
-			<div class="image" style="background-image: url('../gonggophoto/${dto.empimg }');">
-	
-				<c:forEach var="book" items="${bookdata }">
-				<c:set var="bnum" value="${book.num }"/>
-				<c:set var="dnum" value="${dto.num }"/>
-					<c:if test="${bnum==dnum}">
-						<span class="bookmark fas fa-bookmark" 
-						style="float: right; margin: 10px 10px 10px 10px; font-size: 1.3em; color: blue;"
-						num="${dto.num }" id=${id }></span>	
-					</c:if>
-				</c:forEach>
-					<c:if test="${not fn:contains(bnum, dnum)}">
-						<span class="bookmark far fa-bookmark" 
-						style="float: right; margin: 10px 10px 10px 10px; font-size: 1.3em;"
-						num="${dto.num }" id=${id }></span>	
-					</c:if>
-						<c:if test="${bnum==null}">
-						<span class="bookmark far fa-bookmark" 
-						style="float: right; margin: 10px 10px 10px 10px; font-size: 1.3em;"
-						num="${dto.num }" id=${id }></span>	
-					</c:if>
-
-			</div>		
+			<div class="image" style="background-image: url('../gonggophoto/${dto.empimg }');"></div>		
 			<div class="gonggo" OnClick="location.href='gonggodetail?num=${dto.num}'">	
-				<h4 class="subject">${dto.jobgroup}</h5>
-				<h5>${dto.empname }</h4>		
+				<h4 class="subject">${dto.jobgroup}</h4>		
+				<h5>${dto.empname }</h5>
 				<h5 style="color:gray">마감일 : ${dto.deadline }</h5>
 			</div>
 	</div>
@@ -115,7 +93,7 @@ div.gonggo{
 <!-- 전문분야 변경 -->
 
 <div class="totaljob">
-	<a data-toggle="collapse" data-target="#demo" >아직 전문문야가 설정되지 않았어요!</a><br>
+	<a data-toggle="collapse" data-target="#demo" >아직 전문분야가 설정되지 않았어요!</a><br>
   	<div id="demo" class="collapse">
   		<div class="statement">
 			<button type="button" class="btn btn-default"

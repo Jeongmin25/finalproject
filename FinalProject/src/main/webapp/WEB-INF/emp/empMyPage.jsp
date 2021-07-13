@@ -58,6 +58,11 @@ max-height: 100px;
 <c:set var="strPlanDate" value="${date}" />
 <h3><i class="fas fa-medal"></i>게시 중인 프리미엄 공고</h3>
 <a style="float:right;" href="orderComplete">결제내역</a><br>
+<hr>
+<c:if test="${count==0}">
+<h4 style="color:gray;">결제 내역이 없습니다.</h4>
+
+</c:if>
 <c:forEach var="cdto" items="${cdto}">
 <c:if test="${cdto.amount ne null}">
 <hr>

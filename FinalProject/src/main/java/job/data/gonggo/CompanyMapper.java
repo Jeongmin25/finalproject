@@ -12,6 +12,7 @@ public interface CompanyMapper {
 	public List<CompanyDto> getmygonggo(String empname);
 	public CompanyDto getData(String num);
 	public EmpAccountDto searchaddr(String empname);
+	public int getnullamount(String empname);
 	
 	public void insertGonggo(CompanyDto dto);
 	public int getInsertNum();

@@ -128,12 +128,14 @@ public class EmpAccountController {
 	     String empname=mapper.searchEmpName(email);
 	     String addr=mapper.searchAddr(empname);
 	     String num=mapper.searchEmpNum(email);
+	     int count=cmapper.getnullamount(empname);
 	     
 	     List<CompanyDto> cdto=cmapper.getmygonggo(empname);
 	     mview.addObject("num",num);
 		mview.addObject("addr",addr);
 		mview.addObject("email",email);
 		mview.addObject("empname",empname);
+		mview.addObject("count",count);
 		mview.addObject("cdto",cdto);
 		mview.setViewName("/emp/empMyPage");
 		return mview;

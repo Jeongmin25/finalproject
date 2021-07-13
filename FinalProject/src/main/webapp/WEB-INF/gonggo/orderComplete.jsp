@@ -10,17 +10,22 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<style type="text/css">
+.btn{
+float: right;
+width: 80px;
+}
+</style>
 </head>
 <body>
 <h2>결제내역</h2>
 <hr>
-
-<c:forEach var="dto" items="${gonggolist}" varStatus="n">
-<c:if test="${dto.amount eq null}">
+<c:if test="${count==0}">
 <h4 style="color:gray;">결제 내역이 없습니다.</h4>
 <hr>
-
 </c:if>
+<c:forEach var="dto" items="${gonggolist}" varStatus="0">
+
 <c:if test="${dto.amount ne null}">
 <input type="hidden" name="num" value="${dto.num}">
 <h3 class="premium" OnClick="location.href='gonggodetail?num=${dto.num}'"><i class="fas fa-medal"></i>
@@ -29,5 +34,6 @@
 <hr>
 </c:if>
 </c:forEach>
+<button type="button" class="btn" onclick="location.href='gonggolist'">목록</button>
 </body>
 </html>
