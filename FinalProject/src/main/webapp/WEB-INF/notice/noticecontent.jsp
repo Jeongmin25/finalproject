@@ -48,32 +48,28 @@
 <body>
 	<div class="content">
 	<h2>공지사항</h2>
-	
-	<hr style="border: solid 1px black;">
+	<br>
 
-	<b style="font-size: 2em;">${dto.subject}</b>
- 
-	 	<span style="float: right;font-size: 1.2em;"> 등록일: <fmt:formatDate
-										value="${dto.writeday}" pattern="yyyy-MM-dd" />
-							&nbsp; &nbsp; 조회수: ${dto.viewcount}</span>
+	<h2 style="margin-left: 20px;">${dto.subject}</h2>
+		
 
-			<br><br>
-			<div class="text">카테고리:${dto.category}&nbsp; &nbsp;작성자:${dto.writer}</div>
+	 	<span style="margin-left: 20px; color: gray;">
+	 		<fmt:formatDate value="${dto.writeday}" pattern="yyyy-MM-dd" /> | &nbsp;
+	 		<span class="glyphicon glyphicon-eye-open" >${dto.viewcount}</span>
+		</span> 
+ 		<Br>
+ 		<hr>
 			
 				
-				<br><br>
+			<br>
 			<pre class="content">${dto.content}</pre><br> 
 		
-					<img src="/noticephoto/${dto.photo}" style="max-width: 600px;"onerror="this.src='/noticephoto/+job.png'">
+					<img src="/noticephoto/${dto.photo}" style="max-width: 600px; margin-bottom: 50px;"onerror="this.src='/noticephoto/+job.png'">
+		<hr>		
 
-		
 				
-		<hr style="border: solid 1px black;">		
-
-			<button type="button" id="btnlist" style="float: right;"
-				
-				onclick="location.href='notice'">목록</button>
-				
-				</div>
+	</div>
+			<button type="button" id="btnlist" style="margin-left: 400px;"
+				onclick="location.href='notice'">목록</button><BR>
 </body>
 </html>
