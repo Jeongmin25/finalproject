@@ -14,7 +14,7 @@
 <style>
 	div.profile_title{
 		border: 0px solid gray;
-		width: 100px;
+		width: 200px;
 		height: 50px;
 		margin-bottom: 20px;
 	}
@@ -107,6 +107,10 @@
 		margin-left: 110px;
 		text-align: center;
 	}
+	
+	button.profile_update:hover{
+		border:2px solid #021B80;
+	}
 </style>
 <script type="text/javascript">
 	function selresume(val){
@@ -117,7 +121,7 @@
 <body>
 <div class="profile_entire">
 	<div class="profile_title">
-		<h4>MY JOB</h4>
+		<h2>MY JOB</h2>
 	</div>
 	<div class="profile_personW">
 		<div class="profile_img">
