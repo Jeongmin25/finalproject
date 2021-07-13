@@ -29,19 +29,23 @@ div.btn {
 	border: 1px solid #e6e6e6;
 	background-color: #e6e6e6;
 	line-height: 35px;
-	margin-top: 100px;
+	margin-top: 50px;
 }
 
 div.img {
-	background-image: url('/image/faqimg.png');
-	width: 1080px;
+	background-image:url('/image/faqimg.png');
+	background-size: 900px 400px;
+	width: 900px;
 	height: 400px;
+	margin-left: 60px;
+	margin-bottom: 50px;
 }
 
 div.content {
 	margin-left: 50px;
 	border: 2px solid #e6e6e6;
 	padding: 20px 75px 20px 40px;
+	
 	
 }
 </style>
@@ -59,12 +63,11 @@ div.content {
 		</form>
 	</div>
 	<div class="content">
-		<h3 style="font-weight: bold;">${dto.subject}</h3>
+		<h4 style="font-weight: bold;">${dto.subject}</h4>
 		<p>&nbsp;</p>
-		<h4 style="font-size: 1.5em; line-height:30px;">${dto.content}</h4>
+		<h5 style="line-height:30px;">${dto.content}</h5>
 	</div>
-
-	<div class="btn" onClick="location.href='Faq'">FAQ 목록</div>
+	<div class="btn" onClick="location.href='Faq'" style="margin-left: 400px;">FAQ 목록</div>
 	<div class="btn" onClick="history.back();">이전 페이지</div>
 </body>
 </html>
