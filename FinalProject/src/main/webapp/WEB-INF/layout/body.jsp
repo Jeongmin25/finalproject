@@ -13,7 +13,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-<link rel="stylesheet" type="text/css" href="css/gonggo.css" />
+
 <style type="text/css">
 div#myCarousel img {
 	height: 300px;
@@ -56,28 +56,44 @@ div.loginnull button {
  div.gonggo-box{
  	max-width: 200px;
  	min-width: 200px;
-	height: 150px;
+	height: 200px;
 	cursor: pointer;
 	margin-left:30px;
-	margin-bottom: 20px;
-	text-align:center;
+	margin-bottom: 100px;
 	padding-top: 10px;
+	float: left;
+	border: none;
  }
  
 div.newgonggo{
 	margin-top: 80px;
 	margin-bottom: 40px;
+	height: 600px;
 }
 
 div.news-box {
-max-width: 570px; 
+float: left;
+max-width: 540px; 
 height: 300px;
 border: none;
+margin-right: 20px;
 }
 
-div.news{
-margin-bottom: 200px;
+div.news:hover{
+	cursor: pointer;
+}
 
+div.image{
+	width: 200px;
+	height: 150px;
+	background-size: 200px 150px;
+	border-radius: 10px;
+	margin-right: 20px;
+}
+
+div.gonggo{
+	margin-left: 10px;
+	margin-top: 10px;
 }
 </style>
 </head>
@@ -133,8 +149,9 @@ margin-bottom: 200px;
 					pattern="yyyy-MM-dd" />
 		<fmt:parseNumber value="${endPlanDate.time/ (1000*60*60*24)+1}" integerOnly="true" var="endDate" />		
 		<c:if test="${(endDate - strDate)>=0}"> 
-		<div class="gonggo-box form-control">
-			<div OnClick="location.href='gonggodetail?num=${dto.num}'">
+		<div class="gonggo-box">
+		<div class="image" style="background-image: url('../gonggophoto/${dto.empimg }');"></div>
+			<div class="gonggo" OnClick="location.href='gonggodetail?num=${dto.num}'">
 				<input type="hidden" name="num" value="${dto.num}">
 				<h4 class="subject">${dto.jobgroup}</h4>
 				<h6 class="empname" style="color: #021B80">${dto.empname }</h6>
@@ -149,18 +166,19 @@ margin-bottom: 200px;
 	  </div>
 		 </c:if>
 		</c:forEach>
-</div>
-	<div class="news">
-		<h2>기업 최신뉴스</h2>
+</div><br>
+	<div class="news"><br>
+		<h2>기업 최신뉴스</h2><br>
 		<c:forEach var="nto" items="${newslist}" end="1">
-		<div class="news-box form-control"OnClick="location.href='newsdetail?num=${nto.num}'">
+		<div class="news-box" OnClick="location.href='newsdetail?num=${nto.num}'">
 		<input type="hidden" name="num" value="${nto.num}">
 		<img src="../newsImage/${nto.image}" style="width: 450px; max-height: 270px;">
-		<h4>${nto.title}</h4>
+		<h4 >${nto.title}</h4>
 		</div>
+		
 		</c:forEach>
 	</div>
-<hr>
+
 </form>
 </body>
 </html>

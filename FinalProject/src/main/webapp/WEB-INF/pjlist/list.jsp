@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style type="text/css">
 
 body{
@@ -60,7 +60,7 @@ ul.tabs li.current{
 }
 
 div.premiumlist{
-	width: 900px;
+	width: 1000px;
 	height:350px;
 }
 
@@ -112,40 +112,6 @@ div.gonggo{
 
 
 <body>
-<h3>프리미엄 채용관</h3><br>
-<c:set var="strPlanDate" value="${date}" />
-	<div class="premiumlist">
-	<c:forEach var="dto" items="${gonggolist}" varStatus="n">
-	<c:if test="${dto.amount ne null}">
-		<c:set var="end_plan_date" value="${dto.deadline}" />
-			<fmt:parseNumber value="${strPlanDate.time/ (1000*60*60*24)}"
-				integerOnly="true" var="strDate" />
-			<fmt:parseDate value="${end_plan_date}" var="endPlanDate"
-				pattern="yyyy-MM-dd" />
-			<fmt:parseNumber value="${endPlanDate.time/ (1000*60*60*24)+1}"
-				integerOnly="true" var="endDate" />
-			
-			<c:if test="${(endDate - strDate)>=0}">
-				<div class="gonggo-box">
-					<input type="hidden" name="num" value="${dto.num}">
-					<div class="image" style="background-image: url('../gonggophoto/${dto.empimg }');">
-						<img alt="" src="../image/Platinum-Badge.png" style="max-width: 45px; margin-left: 150px;">
-					</div>
-					 <div class="gonggo" num="${dto.num}">
-						<h4 class="subject">${dto.jobgroup}</h4>
-						<h5 class="empname" style="color: #021B80">${dto.empname }</h6>
-						<h5 class="job">${dto.job }</h5>
-					<c:set var="endday1" value="${end_plan_date.substring(0,4)}" />
-					<c:set var="endday2" value="${end_plan_date.substring(5,7)}" />
-					<c:set var="endday3" value="${end_plan_date.substring(8,10)}" />
-					<h5 style="color: gray">마감일 : ${endday1}-${endday2}-${endday3}</h5>
-					</div>
-				</div>
-			</c:if>
-		</c:if>
-	</c:forEach>
-</div>
-
 <h2>전체</h2><br>
 <!-- 북마크  -->
 	 <div class="bookmark-button" style="float: right; margin-right: 70px;">
@@ -271,7 +237,40 @@ div.gonggo{
 <div class="showtaglist"></div>
 
 <br/>
-
+<h3><i class="fas fa-medal"></i>프리미엄</h3>
+<c:set var="strPlanDate" value="${date}" />
+	<div class="premiumlist" >
+	<c:forEach var="dto" items="${gonggolist}" varStatus="n">
+	<c:if test="${dto.amount ne null}">
+		<c:set var="end_plan_date" value="${dto.deadline}" />
+			<fmt:parseNumber value="${strPlanDate.time/ (1000*60*60*24)}"
+				integerOnly="true" var="strDate" />
+			<fmt:parseDate value="${end_plan_date}" var="endPlanDate"
+				pattern="yyyy-MM-dd" />
+			<fmt:parseNumber value="${endPlanDate.time/ (1000*60*60*24)+1}"
+				integerOnly="true" var="endDate" />
+			
+			<c:if test="${(endDate - strDate)>=0}">
+			
+				<div class="gonggo-box">
+					<input type="hidden" name="num" value="${dto.num}">
+					<div class="image" style="background-image: url('../gonggophoto/${dto.empimg }');">
+						<img alt="" src="../image/Platinum-Badge.png" style="max-width: 50px; margin-left: 150px;">
+					</div>
+					 <div class="gonggo" num="${dto.num}">
+						<h4 class="subject">${dto.jobgroup}</h4>
+						<h5 class="empname" style="color: #021B80">${dto.empname }</h6>
+						<h5 class="job">${dto.job }</h5>
+					<c:set var="endday1" value="${end_plan_date.substring(0,4)}" />
+					<c:set var="endday2" value="${end_plan_date.substring(5,7)}" />
+					<c:set var="endday3" value="${end_plan_date.substring(8,10)}" />
+					<h5 style="color: gray">마감일 : ${endday1}-${endday2}-${endday3}</h5>
+					</div>
+				</div>			
+			</c:if>
+		</c:if>
+	</c:forEach>
+</div>
 
 
 
