@@ -44,7 +44,7 @@
 	
 		<!-- 관리자페이지에 출력--> 
 	<select id="getAllEmpAccount" resultType="empAccount">
-		select * from emp_account order by email desc
+		select * from emp_account order by num desc
 	</select>
 	
 	<delete id="deleteEmpAccount" parameterType="String">
