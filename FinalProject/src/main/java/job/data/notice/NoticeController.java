@@ -9,6 +9,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
-
-
+import job.data.userlogin.auth.PrincipalDetails;
 
 @Controller
 public class NoticeController {
@@ -169,17 +169,36 @@ public class NoticeController {
 			
 			//메인페이지 공지사항
 			@GetMapping("/notice")
-			public ModelAndView noticelist()
+			public ModelAndView noticelist( Authentication authentication,
+					@AuthenticationPrincipal PrincipalDetails userDetails,
+					@AuthenticationPrincipal OAuth2User oauth)
 			{
 				ModelAndView mview=new ModelAndView();
 				//총갯수
 				int totalCount=mapper.getTotalCount();
 				mview.addObject("totalCount",totalCount);
-				//목록 가져오기
+				
+			 //로그인이 안되있을 시 그냥 이동
+			 if(authentication==null) {
+				
+			//목록 가져오기
 				List<NoticeDto> list=mapper.getAllDatas();
 				mview.addObject("list",list);
 				mview.setViewName("/notice/noticelist");
 				return mview;
+			 }else {//로그인 되어있을 때
+				 
+				 PrincipalDetails principalDetails = (PrincipalDetails)
+				 authentication.getPrincipal(); 
+				 OAuth2User oauth2User =(OAuth2User)authentication.getPrincipal();
+				 String user_id=Long.toString(userDetails.getUser().getId());
+				 mview.addObject("auth",userDetails.getUsername());
+				 
+				 List<NoticeDto> list=mapper.getAllDatas();
+				mview.addObject("list",list);
+				mview.setViewName("/notice/noticelist");
+				return mview;
+			 }
 			}
 			
 			@GetMapping("/noticecontent")

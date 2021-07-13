@@ -569,8 +569,39 @@ $(document).ready(function(){
  <div class=list>
 <!-- <input type="hidden" name="empname" value="${dto.empname}"> -->
 <br>
+
+<h3>프리미엄 채용관</h3>
+<c:set var="strPlanDate" value="${date}" />
+	<div class="premiumlist">
+	<c:forEach var="dto" items="${gonggolist}" varStatus="n">
+	<c:if test="${dto.amount ne null}">
+		<c:set var="end_plan_date" value="${dto.deadline}" />
+			<fmt:parseNumber value="${strPlanDate.time/ (1000*60*60*24)}"
+				integerOnly="true" var="strDate" />
+			<fmt:parseDate value="${end_plan_date}" var="endPlanDate"
+				pattern="yyyy-MM-dd" />
+			<fmt:parseNumber value="${endPlanDate.time/ (1000*60*60*24)+1}"
+				integerOnly="true" var="endDate" />
+			
+			<c:if test="${(endDate - strDate)>=0}">
+				<div class="gonggo-box form-control">
+					<input type="hidden" name="num" value="${dto.num}">
+					 <div OnClick="location.href='gonggodetail?num=${dto.num}'">
+						<h4 class="subject">${dto.jobgroup}</h4>
+						<h6 class="empname" style="color: #021B80">${dto.empname }</h6>
+						<h5 class="job">${dto.job }</h5>
+					<c:set var="endday1" value="${end_plan_date.substring(0,4)}" />
+					<c:set var="endday2" value="${end_plan_date.substring(5,7)}" />
+					<c:set var="endday3" value="${end_plan_date.substring(8,10)}" />
+					<h5 style="color: gray">마감 ${endday1}-${endday2}-${endday3}</h5>
+					</div>
+				</div>
+			</c:if>
+		</c:if>
+	</c:forEach>
+</div>
+
 <h3>적극 채용 중인 회사</h3>
-<hr>
 <br>
 <c:set var="strPlanDate" value="${date}" />
 	<div class="pjlist">

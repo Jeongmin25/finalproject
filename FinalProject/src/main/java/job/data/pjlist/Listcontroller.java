@@ -3,6 +3,8 @@ package job.data.pjlist;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -47,7 +49,9 @@ public class Listcontroller {
 	   public ModelAndView pjlist(@ModelAttribute listCategotyDto dto,String num,
 			   Authentication authentication,
 				@AuthenticationPrincipal PrincipalDetails userDetails,
-				@AuthenticationPrincipal OAuth2User oauth) {
+				@AuthenticationPrincipal OAuth2User oauth) 
+	 {
+		 
 	    ModelAndView mview =new ModelAndView();
 	
 	    //로그인이 안되있을 시 그냥 이동
@@ -95,31 +99,31 @@ public class Listcontroller {
 	      
 	    for(CompanyDto d:gonggolist)
 	      
-	      mview.setViewName("/pjlist/list");
-	      return mview;
+	    mview.setViewName("/pjlist/list");
+	    return mview;
+	    
 		 }
 	   }
 	 
-		
-//	  @GetMapping({"/pjlist/gonggodetail"}) 
-//	  public ModelAndView gonggo(@RequestParam String num,String empname) 
-//	  { 
-//		  ModelAndView mview=new ModelAndView(); 
-//		  CompanyDto dto=new CompanyDto(); 
-//		  dto=datamapper.getData(num);
-//		  System.out.println("getnum:"+num);
-//		  empname=dto.getEmpname(); 
-//		  String edto=empmapper.searchAddr(empname); 
-//		  System.out.println(edto);
-//		  mview.addObject("dto",dto); mview.addObject("edto",edto);
-//		  
-//		  List<CategoryDto>cdto=dto.getCategory(); 
-//		  mview.addObject("cdto",cdto);
-//		  mview.addObject("num",dto.getNum());
-//		  
-//		  mview.setViewName("gonggo/gonggodetail"); 
-//		  return mview; 
+//	 @ResponseBody
+//		@GetMapping("/gonggo/premiumlist")
+//		public String buypremium(@RequestParam String amount, @RequestParam String num, @ModelAttribute CompanyDto dto) {
+//			String success;
+//			datamapper.insertmoney(dto);
+//			success = "성공";
+//
+//			return success;
 //		}
+		
+	 @GetMapping({"/premiumlist"}) 
+	  public ModelAndView success(HttpSession session) 
+	  { 
+		  ModelAndView mview =new ModelAndView(); 
+		  String email=(String)session.getAttribute("myemail");
+		  String empname=empmapper.searchEmpName(email); 
+		  List<CompanyDto>gonggolist=datamapper.getmygonggo(empname);
+		  return mview;
+	  }
 		 
 	 
 	 @ResponseBody
@@ -162,6 +166,9 @@ public class Listcontroller {
 		  	return listByArea; 
 	 
 	 }
+	  
+	  
+	  
 		 
 	 
 	 
