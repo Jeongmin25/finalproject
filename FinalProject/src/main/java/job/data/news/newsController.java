@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import job.data.review.reviewDto;
+import job.data.userlogin.auth.PrincipalDetails;
 
 @Controller
 public class newsController {
@@ -21,9 +26,21 @@ public class newsController {
 	
 	@GetMapping("/news")
 	public ModelAndView news(
-			@RequestParam(value = "pageNum",defaultValue = "1") int currentPage
+			@RequestParam(value = "pageNum",defaultValue = "1") int currentPage,
+			Authentication authentication,
+			@AuthenticationPrincipal PrincipalDetails userDetails,
+			@AuthenticationPrincipal OAuth2User oauth
 			) {
 		ModelAndView mview=new ModelAndView();
+		
+		//로그인할 시 정보를 전달
+		if(authentication!=null) {
+		  PrincipalDetails principalDetails = (PrincipalDetails)
+		  authentication.getPrincipal(); OAuth2User oauth2User =
+		  (OAuth2User)authentication.getPrincipal();
+		  mview.addObject("auth",userDetails.getUsername());
+		}	      
+		
 		
 		//총 개수
 		int totalCount=mapper.getTotalCount();
@@ -80,8 +97,20 @@ public class newsController {
 	}
 	
 	@GetMapping("/newsdetail")
-	public ModelAndView newsdetail(@RequestParam String num) {
+	public ModelAndView newsdetail(@RequestParam String num,
+			Authentication authentication,
+			@AuthenticationPrincipal PrincipalDetails userDetails,
+			@AuthenticationPrincipal OAuth2User oauth) {
 		ModelAndView mview=new ModelAndView();
+		
+		
+		//로그인할 시 정보를 전달
+		if(authentication!=null) {
+		  PrincipalDetails principalDetails = (PrincipalDetails)
+		  authentication.getPrincipal(); OAuth2User oauth2User =
+		  (OAuth2User)authentication.getPrincipal();
+		  mview.addObject("auth",userDetails.getUsername());
+		}	      
 		
 		//num에 해당하는 데이터
 		List<newsDto> list=mapper.getDataOfNum(num);
@@ -101,7 +130,20 @@ public class newsController {
 	
 	@ResponseBody
 	@PostMapping("/searchNews")
-	public List<newsDto> searchNews(@RequestParam String title){
+	public List<newsDto> searchNews(@RequestParam String title,
+			Authentication authentication,
+			@AuthenticationPrincipal PrincipalDetails userDetails,
+			@AuthenticationPrincipal OAuth2User oauth,
+			Model model){
+		
+		//로그인할 시 정보를 전달
+		if(authentication!=null) {
+		  PrincipalDetails principalDetails = (PrincipalDetails)
+		  authentication.getPrincipal(); OAuth2User oauth2User =
+		  (OAuth2User)authentication.getPrincipal();
+		  model.addAttribute("auth",userDetails.getUsername());
+		}	      
+		
 		
 		//title이 들어간 news데이터 전체 출력
 		List<newsDto> list=mapper.searchNews(title);
