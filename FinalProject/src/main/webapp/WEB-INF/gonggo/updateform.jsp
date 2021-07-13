@@ -42,7 +42,7 @@ width: 150px;
 <h3>직군/직무</h3>
 <select name="job" id="job" class="form-inline" style="width: 200px; height: 30px;"
 			onchange="selectjob(this)">
-			<option value="${dto.job}" disabled>${dto.job}</option>
+			<option value="${dto.job}">${dto.job}</option>
 			<option value="IT/인터넷">IT/인터넷</option>
 			<option value="경영/기획/컨설팅">경영/기획/컨설팅</option>
 			<option value="디자인">디자인</option>
