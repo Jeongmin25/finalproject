@@ -249,7 +249,7 @@ table tbody td {
 											value="${dto.writeday}" pattern="yyyy-MM-dd" /></td>
 
 									<td >
-										<button type="button" id="btndel" onclick="location.href='reviewdelete?num=${dto.num}'">삭제</button>
+										<button type="button" id="btndel" onclick="javascript:delConfirm(${dto.num})" ">삭제</button>
 									</td>
 									
 									
@@ -262,6 +262,17 @@ table tbody td {
 
 
 				</div>
+					<script type="text/javascript">
+				function delConfirm(num){
+					var isDelete=confirm("삭제하시겠습니까?");
+					//var id=$("#btndel").attr("num"); 
+					if(isDelete){
+						location.href='reviewdelete?num='+num;
+					
+							alert("삭제되었습니다")
+						}
+					}
+				</script>
 				
 		
 			

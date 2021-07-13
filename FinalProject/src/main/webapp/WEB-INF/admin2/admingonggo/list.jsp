@@ -117,7 +117,7 @@ ul.pagination { /* 페이징 */
 	border-radius: 5px;
 }
 
-#btndel {
+.btndel {
 	width: 100%;
 	float: right;
 	background-color: #021B80;
@@ -281,10 +281,10 @@ table tbody td {
 									<td align="center">${dto.amount}</td>
 
 									<td colspan="2">
-									<button type="button" class="btndel" onclick="location.href='gonggodelete?num=${dto.num}'">삭제</button>
+									<button type="button" class="btndel" onclick="javascript:delConfirm(${dto.num})" ">삭제</button>
 									</td>
 
-
+	
 								</tr>
 							</c:forEach>
 
@@ -295,6 +295,17 @@ table tbody td {
 
 
 				</div>
+				<script type="text/javascript">
+				function delConfirm(num){
+					var isDelete=confirm("삭제하시겠습니까?");
+					//var id=$("#btndel").attr("num"); 
+					if(isDelete){
+						location.href='gonggodelete?num='+num;
+					
+							alert("삭제되었습니다")
+						}
+					}
+				</script>
 				
 
 

@@ -279,8 +279,8 @@ table tbody td {
 
 								
 										<td colspan="2">
-										<button type="button" id="btndel" onclick="location.href='empdelete?num=${dto.num}'">삭제</button>
-									
+										<button type="button" id="btndel" 	onclick="javascript:delConfirm(${dto.num})" ">삭제</button>
+								
 										</td>
 									</div>
 
@@ -293,6 +293,17 @@ table tbody td {
 
 
 				</div>
+				<script type="text/javascript">
+				function delConfirm(num){
+					var isDelete=confirm("삭제하시겠습니까?");
+					//var id=$("#btndel").attr("num");  // 이렇게 하면  btndel 중에 첫번째꺼의  num을 가져온다
+					if(isDelete){
+						location.href='empdelete?num='+num;
+							//alert(id);
+							alert("삭제되었습니다")
+						}
+					}
+				</script>
 				
 
 
