@@ -105,16 +105,6 @@ public class Listcontroller {
        }
       }
     
-    
-//    @ResponseBody
-//	@GetMapping("/gonggo/premiumlist")
-//	public String buypremium(@RequestParam String amount, @RequestParam String num, @ModelAttribute CompanyDto dto) {
-//		String success;
-//		datamapper.insertmoney(dto);
-//		success = "성공";
-//
-//		return success;
-//	}
 
     @GetMapping({"/premiumlist"}) 
      public ModelAndView success(HttpSession session) 

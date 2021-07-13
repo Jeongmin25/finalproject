@@ -678,7 +678,7 @@ $(document).ready(function(){
 <br>
 <c:set var="strPlanDate" value="${date}" />
 	<div class="pjlist">
-			<c:forEach var="dto" items="${gonggolist}" varStatus="n">
+			<c:forEach var="dto" items="${gonggolist}" end="7">
 				<c:set var="end_plan_date" value="${dto.deadline}" />
 				<fmt:parseNumber value="${strPlanDate.time/ (1000*60*60*24)}"
 					integerOnly="true" var="strDate" />
