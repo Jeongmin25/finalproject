@@ -118,13 +118,13 @@ window.onload=function(){
 				<li>
 				<div class="gonggo-box">
 					<input type="hidden" name="num" value="${cdto.num}">
-						<div class="image" style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url('gonggophoto/${cdto.empimg}');">
+						<div class="image" style="background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ),url('gonggophoto/${cdto.empimg}');">
 							<span class="bookmark fas fa-bookmark" 
 								style="float: right; margin: 10px 10px 10px 10px; font-size: 1.3em; color: blue;"
 								 onclick="location.href='delBookmark?num=${cdto.num }&pageNum=${currentPage}'"></span>	
 								<p style="color: #fff;text-align: center;padding-top: 30%;font-size: 1.1em;">마감</p>
 						</div>		
-						<div class="gonggo" OnClick="location.href='gonggodetail?num=${cdto.num}'">	
+						<div class="gonggo" >	
 							<h4 class="subject">${cdto.jobgroup}</h5>
 							<h5>${cdto.empname }</h4>		
 							<h5 style="color:gray">마감일 : ${cdto.deadline }</h5>
@@ -153,34 +153,35 @@ window.onload=function(){
 			</li>
 			</c:if>
 		</c:forEach>
+		<!-- 페이지 번호 -->
+		<div style="width:850px; text-align: center;position: absolute;top: 850px;margin: auto;">
+			<ul class="pagination">
+				<!-- 이전페이지 -->
+				<c:if test="${startPage>1 }">
+					<li><a href="bookmark?pageNum=${startPage-1}">이전</a></li>
+				</c:if>
+				
+				<!-- 페이지번호 -->
+				<c:forEach var="pp" begin="${startPage }" end="${endPage }">
+					<!-- currentPage==pp -->
+					<c:if test="${currentPage==pp }">
+						<li class="active"><a href="bookmark?pageNum=${pp }">${pp }</a></li>
+					</c:if>
+					<!-- currentPage!=pp -->
+					<c:if test="${currentPage!=pp }">
+						<li><a href="bookmark?pageNum=${pp }">${pp }</a></li>
+					</c:if>
+				</c:forEach>
+				
+				<!-- 다음페이지 -->
+				<c:if test="${endPage<totalPage }">
+					<li><a href="bookmark?pageNum=${endPage+1}">다음</a></li>
+				</c:if>
+			</ul>
+		</div>
 	</c:if>
 	
 </ul>
-<!-- 페이지 번호 -->
-<div style="width:850px; text-align: center;position: absolute;top: 850px;margin: auto;">
-	<ul class="pagination">
-		<!-- 이전페이지 -->
-		<c:if test="${startPage>1 }">
-			<li><a href="bookmark?pageNum=${startPage-1}">이전</a></li>
-		</c:if>
-		
-		<!-- 페이지번호 -->
-		<c:forEach var="pp" begin="${startPage }" end="${endPage }">
-			<!-- currentPage==pp -->
-			<c:if test="${currentPage==pp }">
-				<li class="active"><a href="bookmark?pageNum=${pp }">${pp }</a></li>
-			</c:if>
-			<!-- currentPage!=pp -->
-			<c:if test="${currentPage!=pp }">
-				<li><a href="bookmark?pageNum=${pp }">${pp }</a></li>
-			</c:if>
-		</c:forEach>
-		
-		<!-- 다음페이지 -->
-		<c:if test="${endPage<totalPage }">
-			<li><a href="bookmark?pageNum=${endPage+1}">다음</a></li>
-		</c:if>
-	</ul>
-</div>
+
 </body>
 </html>

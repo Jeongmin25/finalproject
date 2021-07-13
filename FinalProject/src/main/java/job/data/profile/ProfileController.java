@@ -181,7 +181,7 @@ public class ProfileController {
 					long diffSec = (getToday.getTimeInMillis() - cmpDate.getTimeInMillis()) / 1000;
 					long diffDays = diffSec / (24*60*60); //일자수 차이
 					
-					if(diffDays <0) 
+					if(diffDays >0) 
 						++failCnt;
 					
 					

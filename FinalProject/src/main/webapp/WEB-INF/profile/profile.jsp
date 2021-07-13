@@ -104,7 +104,7 @@
 	}
 	
 	.textarea{
-		border:none;width: 300px;height: 100px;
+		border:none;width: 500px;height: 100px;
 	}
 	.textarea:focus {
 		outline: none;
@@ -162,7 +162,7 @@
 							<option value="${rdto.num_r }" selected>이력서(${n.count })</option>
 						</c:if>
 						<c:if test="${rdto.num_r!=num_r }">
-							<option value="${rdto.num_r }">${n.count }번 이력서</option>
+							<option value="${rdto.num_r }">이력서(${n.count })</option>
 						</c:if>
 					</c:forEach>
 				</select>

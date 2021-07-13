@@ -3,7 +3,7 @@
 <mapper namespace="job.data.resume.ResumeMapper">
 	<!-- 로그인한 회원의 이력서 출력 -->
 	<select id="getDataOfResume" parameterType="String" resultType="resume">
-		select * from resume where user_id=#{user_id}
+		select * from resume where user_id=#{user_id} order by num_r desc
 	</select>
 	
 	<!-- 이력서 출력을 위한 resultMap 선언 -->

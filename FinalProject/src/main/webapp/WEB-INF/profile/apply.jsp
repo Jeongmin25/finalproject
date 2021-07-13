@@ -148,11 +148,11 @@ function delapply(num,pageNum){
 		<c:if test="${(endDate - strDate)<0}">	
 			<li>
 				<div class="gonggo-box">
-					<div class="image" style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url('gonggophoto/${cdto.empimg}');">
+					<div class="image" style="background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ),url('gonggophoto/${cdto.empimg}');">
 						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-left: 180px;" onclick="delapply(${cdto.num},${currentPage })"></span>
-						<p style="color: #fff;text-align: center;padding-top: 30%;font-size: 1.1em;">마감</p>
+						<p style="color: #fff;text-align: center;padding-top: 25%;font-size: 1.1em;">지원 마감</p>
 					</div>	
-					<div class="gonggo" OnClick="location.href='gonggodetail?num=${cdto.num}'">	
+					<div class="gonggo" >	
 						<h4 class="subject">${cdto.jobgroup}</h5>
 						<h5>${cdto.empname }</h4>		
 						<h5 style="color:gray">마감일 : ${cdto.deadline }</h5>

@@ -154,18 +154,7 @@ input[type=submit] {
   color: #ffffff;
 }
 progress::-webkit-progress-value { background: #010D26; }
-div.resume-toolbar{
-	position: fixed;
-    top: auto;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: 0;
-    padding: 0 50px;
-    background-color: white;
-    border-top: 1px solid #e0e0e0;
-    border: none;
-}
+
 </style>
 <script type="text/javascript">
 window.onload = function() {

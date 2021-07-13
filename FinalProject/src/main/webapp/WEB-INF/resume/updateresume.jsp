@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+    <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -158,7 +161,7 @@ input[type=submit] {
 </style>
 <script type="text/javascript">
 window.onload = function() {
-	
+	calc();
 	skills=[];
 	
 
@@ -784,6 +787,7 @@ document.addEventListener("click", function (e) {
 </table>
 </div>
 <div class="resume-toolbar" style="position: fixed; bottom: 10px;left: 1300px;">
+		
 		<progress max="1000" value="0" id="result" style="height: 20px;"></progress>
 		<br>
 		<i class="fab fa-angellist" style="color: #7AACBF;font-size: 1.2em;"></i>
