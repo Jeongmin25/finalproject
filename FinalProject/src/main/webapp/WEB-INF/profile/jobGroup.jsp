@@ -215,7 +215,7 @@ window.onload=function(){
 <input value="${user_id }" name="id" type="hidden">
 <div class="profile_entire">
 	<div class="profile_title">
-		<h4>프로필</h4>
+		<h2>프로필</h2>
 	</div>
 	<div class="profile_personW">
 		<div class="profile_img">
@@ -238,7 +238,7 @@ window.onload=function(){
 				<tr>
 					<td style="max-width: 50px;width: 50px;">직군</td>
 					<td>
-						<select class="jobGroup" name="job_group" onchange="selectJob(this.value)" id="selectJobGroup">
+						<select class="jobGroup" name="job_group" onchange="selectJob(this.value)" id="selectJobGroup" style="width: 160px;">
 							<c:forEach var="JobG" items="${jobGroup }">
 								<c:if test="${JobG == match }">
 									<option value="${JobG}" selected>${JobG }</option>
@@ -269,7 +269,7 @@ window.onload=function(){
 				<tr>
 					<td>경력</td>
 					<td>
-						<select class="jobGroup" name="career">
+						<select class="jobGroup" name="career" style="width: 160px;">
 							<option hidden disabled>선택하기</option>
 							<option value="0">신입</option>
 							<option value="1">1 년</option>
