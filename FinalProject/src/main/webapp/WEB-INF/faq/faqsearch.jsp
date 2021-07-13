@@ -22,8 +22,19 @@
 }
 div.img{
 	background-image:url('/image/faqimg.png');
-	width: 1080px;
+	background-size: 900px 400px;
+	width: 900px;
 	height: 400px;
+	margin-left: 60px;
+	margin-bottom: 50px;
+}
+
+div.result {
+	cursor: pointer;
+}
+
+div.result :hover{
+	color: #021B80;
 }
 </style>
 </head>
@@ -36,20 +47,20 @@ div.img{
 	<button style="background-color: #fff; border: none;"><i class="fas fa-search"  style="font-size: 1.6em;"></i></button>
 	</form>
 </div>
-<div>
-<h3>자주하는 질문 검색결과</h3><br>
+<div style="margin-left: 50px;">
+<h3 >자주하는 질문 검색결과</h3><br>
 <c:forEach items="${faqsearch}" var="faq">
 <c:if test="${faq.member=='개인'}">
-<div onclick="location.href='faqcontent?num=${faq.num}'">
-<span style="float:right;">개인</span>
-<h4>${faq.subject}</h4><hr>
-</div>
+	<div onclick="location.href='faqcontent?num=${faq.num}'" class="result" >
+		<span style="float:right;">개인</span>
+		<h4 >${faq.subject}</h4><hr>
+	</div>
 </c:if>
 <c:if test="${faq.member=='기업'}">
-<span style="float:right;">기업</span>
-<div onclick="location.href='faqcontent?num=${faq.num}'">
-<h4>${faq.subject}</h4><hr>
-</div>
+	<span style="float:right;">기업</span>
+	<div onclick="location.href='faqcontent?num=${faq.num}'" class="result" >
+		<h4  >${faq.subject}</h4><hr>
+	</div>
 </c:if>
 </c:forEach>
 </div>

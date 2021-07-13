@@ -23,11 +23,13 @@
 }
 div.img{
 	background-image:url('/image/faqimg.png');
-	width: 1120px;
+	background-size: 900px 400px;
+	width: 900px;
 	height: 400px;
+	margin-left: 60px;
 }
 div.gaein{
- 	margin-left: 50px;
+ 	margin-left: 60px;
 	width: 450px;
 	height: 700px;
 	float:left;
