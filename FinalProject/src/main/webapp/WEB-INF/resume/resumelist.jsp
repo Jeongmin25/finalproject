@@ -124,7 +124,7 @@ function godel(e){
 <body>
 <div class="resume-entire">
 <div>
-	<h4>최근 문서</h4>
+	<h2>최근 문서</h2>
 </div>
 <br><br>
 <div class="explanation" style="margin-top: 10px;margin-left: 10px;">
@@ -145,7 +145,7 @@ function godel(e){
 <c:forEach var="dto" items="${list }" varStatus="n">
 	<table class="resumelist" id="resumelist">
 		<tr onclick="location.href='resumedetail?num_r=${dto.num_r}'">
-			<td align="left" style="width: 170px;height: 120px;">
+			<td align="left" style="width: 170px;height: 120px; cursor: pointer;">
 				<h4 style="color:#868e96;"><sec:authentication property="principal.username"/></h4>
 				<h5 style="color:#adb5bd;"><fmt:formatDate value="${dto.nowdate }" pattern="yyyy.MM.dd"/></h5><br><br>
 			</td>
