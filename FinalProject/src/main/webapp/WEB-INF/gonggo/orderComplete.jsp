@@ -16,6 +16,11 @@
 <hr>
 
 <c:forEach var="dto" items="${gonggolist}" varStatus="n">
+<c:if test="${dto.amount eq null}">
+<h4 style="color:gray;">결제 내역이 없습니다.</h4>
+<hr>
+
+</c:if>
 <c:if test="${dto.amount ne null}">
 <input type="hidden" name="num" value="${dto.num}">
 <h3 class="premium" OnClick="location.href='gonggodetail?num=${dto.num}'"><i class="fas fa-medal"></i>
