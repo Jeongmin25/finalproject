@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
+<h2>공고 목록</h2>
 	<form class="gonggolist form-inline">
 		<!-- <input type="hidden" name="empname" value="${dto.empname}"> -->
 		<br>

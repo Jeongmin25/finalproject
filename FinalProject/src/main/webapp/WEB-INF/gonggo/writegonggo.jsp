@@ -34,12 +34,12 @@ width: 150px;
 <div class="write" style="width: 800px; height: 50px;">
 <h2>채용공고 작성</h2><br>
 
-<h3>회사 이름<br><!-- account 연결 필요 -->
-<input value="${empname}" readonly="readonly" name="empname" class="form-control"></h3>
+<h4>회사 이름<br><!-- account 연결 필요 -->
+<input value="${empname}" readonly="readonly" name="empname" class="form-control"></h4>
 
-<h3>직군/직무<br></h3>
-<select name="job" id="job" class="form-control" style="width: 200px; height: 35px;"
-			onchange="selectjob(this)">
+<h4>직군/직무<br></h4>
+<select name="job" id="job" class="form-control" style="width: 150px; height: 35px;"
+			onchange="selectjob(this)" required="required">
 			<option>직군</option>
 			<option value="IT/인터넷" selected="selected">IT/인터넷</option>
 			<option value="경영/기획/컨설팅">경영/기획/컨설팅</option>
@@ -48,19 +48,19 @@ width: 150px;
 			<option value="생산/제조">생산/제조</option>
 			<option value="유통/무역">유통/무역</option>
 			<option value="서비스/고객지원">서비스/고객지원</option>
-		</select>
-<select name="jobgroup" id="jobgroup" class="form-control" style="width: 200px; height: 35px;">
+		</select>&nbsp;
+<select name="jobgroup" id="jobgroup" class="form-control" style="width: 150px; height: 35px;" required="required">
 			<option selected="selected">직무</option>
 			<option  value="웹개발자">웹개발자</option>
 			<option value="프론트엔드개발자">프론트엔드개발자</option>
 			<option value="Node.js개발자">Node.js개발자</option>
 			<option value="빅데이터엔지니어">빅데이터엔지니어</option>
 </select>
-<h3>회사 로고</h3>
+<h4>회사 로고</h4>
 <input type="file" name="upload" class="form-control">
 <div class="category">
-<h3>태그</h3>
-			<select style="width: 200px; height: 35px;" name="cctg" id="cctg" class="sel form-control" 
+<h4>태그</h4>
+			<select style="width: 150px; height: 35px;" name="cctg" id="cctg" class="sel form-control" 
 			onchange="selectctg(this.value)">
 				<option selected="selected" disabled="disabled">카테고리</option>
 					<option value="업계연봉수준">업계연봉수준</option>
@@ -69,8 +69,8 @@ width: 150px;
 					<option value="식사/간식">식사/간식</option>
 					<option value="기업문화">기업문화</option>
 					
-			</select>
-			<select style="width: 200px; height: 35px;" name="hashtag" id="hashtag" 
+			</select>&nbsp;
+			<select style="width: 150px; height: 35px;" name="hashtag" id="hashtag" 
 			class="sel form-control" onchange="selecttag(this.value)">
 				<option selected="selected" >해시태그</option>
 			</select>
@@ -78,10 +78,10 @@ width: 150px;
 			<div id="output"></div>
 </div>
 <br><br>
-<h3>공고 내용</h3>
+<h4>공고 내용</h4>
 <textarea rows="20" cols="100" class="form-control" name="empcontent" ></textarea>
 
-<h3>마감일</h3>
+<h4 style="margin-top: 50px;">마감일</h4>
 <input type="date" name="deadline" value="2021-07-14" class="form-control">
 <br>
 <br>

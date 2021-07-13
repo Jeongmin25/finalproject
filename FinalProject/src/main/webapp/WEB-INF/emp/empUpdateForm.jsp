@@ -16,7 +16,7 @@
 	<div class="main-container">
 		<input type="hidden" name="num" value="${dto.num}">
 		<section class="intro-ment1-section-wrap">
-			<h3><b>관리자 계정 수정하기</b></h3>
+			<h2>관리자 계정 수정</h2>
 		</section>
 		<br/>
 			담당자성함*<br/>
@@ -130,7 +130,7 @@
 				
 				<br/><br/>
 				<div class="w3-container w3-cardd-4">
-				  <button type="submit" class="btn btn-default" style="width: 150px; float: right;">수정하기</button>
+				  <button type="submit" class="btn btn-default" style="width: 150px; float: right; margin-right: 150px;">수정하기</button>
 				</div>
 				<br/>
 				<hr>
