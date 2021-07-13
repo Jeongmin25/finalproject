@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %> --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,7 +125,14 @@ margin-bottom: 200px;
 	</c:if>
 	<div class="newgonggo">
 		<h2>신규 채용공고</h2>
-		<c:forEach var="dto" items="${gonggolist}" end="7">
+		<c:set var="strPlanDate" value="${date}" />
+		<c:forEach var="dto" items="${gonggolist}" end="8">
+		<c:set var="end_plan_date" value="${dto.deadline}" />
+		<fmt:parseNumber value="${strPlanDate.time/ (1000*60*60*24)}" integerOnly="true" var="strDate" />
+		<fmt:parseDate value="${end_plan_date}" var="endPlanDate"
+					pattern="yyyy-MM-dd" />
+		<fmt:parseNumber value="${endPlanDate.time/ (1000*60*60*24)+1}" integerOnly="true" var="endDate" />		
+		<c:if test="${(endDate - strDate)>=0}"> 
 		<div class="gonggo-box form-control">
 			<div OnClick="location.href='gonggodetail?num=${dto.num}'">
 				<input type="hidden" name="num" value="${dto.num}">
@@ -138,9 +146,10 @@ margin-bottom: 200px;
 				<h5 style="color: gray">마감일 : ${endday1}년 ${endday2}월
 							${endday3}일</h5>
 			</div>
-		</div>
+	  </div>
+		 </c:if>
 		</c:forEach>
-	</div>
+</div>
 	<div class="news">
 		<h2>기업 최신뉴스</h2>
 		<c:forEach var="nto" items="${newslist}" end="1">
