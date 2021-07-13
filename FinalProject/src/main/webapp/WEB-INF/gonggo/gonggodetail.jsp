@@ -151,6 +151,8 @@ button.bookmark_btn{
 	margin-left: 10px;
 	margin-bottom: 300px;
 	}
+	form{margin-bottom: 300px;
+	}
 </style>
 <script type="text/javascript">
 window.onload=function(){

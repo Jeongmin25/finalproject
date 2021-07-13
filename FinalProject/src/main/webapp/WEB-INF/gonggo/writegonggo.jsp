@@ -30,7 +30,7 @@ width: 150px;
 </style>
 </head>
 <body>
-<form action="insert" method="post" enctype="multipart/form-data" class="form form-inline">
+<form action="insert" id="frm" method="post" enctype="multipart/form-data" class="form form-inline">
 <div class="write" style="width: 800px; height: 50px;">
 <h2>채용공고 작성</h2><br>
 
@@ -39,9 +39,9 @@ width: 150px;
 
 <h4>직군/직무<br></h4>
 <select name="job" id="job" class="form-control" style="width: 150px; height: 35px;"
-			onchange="selectjob(this)" required="required">
-			<option>직군</option>
-			<option value="IT/인터넷" selected="selected">IT/인터넷</option>
+			onchange="selectjob(this)" >
+			<option selected="selected" value="직군">직군</option>
+			<option value="IT/인터넷">IT/인터넷</option>
 			<option value="경영/기획/컨설팅">경영/기획/컨설팅</option>
 			<option value="디자인">디자인</option>
 			<option value="미디어/홍보/마케팅">미디어/홍보/마케팅</option>
@@ -49,9 +49,9 @@ width: 150px;
 			<option value="유통/무역">유통/무역</option>
 			<option value="서비스/고객지원">서비스/고객지원</option>
 		</select>&nbsp;
-<select name="jobgroup" id="jobgroup" class="form-control" style="width: 150px; height: 35px;" required="required">
-			<option selected="selected">직무</option>
-			<option  value="웹개발자">웹개발자</option>
+<select name="jobgroup" id="jobgroup" class="form-control" style="width: 150px; height: 35px;">
+			<option selected="selected" value="직무">직무</option>
+			<option value="웹개발자">웹개발자</option>
 			<option value="프론트엔드개발자">프론트엔드개발자</option>
 			<option value="Node.js개발자">Node.js개발자</option>
 			<option value="빅데이터엔지니어">빅데이터엔지니어</option>
@@ -62,7 +62,7 @@ width: 150px;
 <h4>태그</h4>
 			<select style="width: 150px; height: 35px;" name="cctg" id="cctg" class="sel form-control" 
 			onchange="selectctg(this.value)">
-				<option selected="selected" disabled="disabled">카테고리</option>
+				<option selected="selected" value="카테고리">카테고리</option>
 					<option value="업계연봉수준">업계연봉수준</option>
 					<option value="보상">보상</option>
 					<option value="출퇴근">출퇴근</option>
@@ -72,21 +72,21 @@ width: 150px;
 			</select>&nbsp;
 			<select style="width: 150px; height: 35px;" name="hashtag" id="hashtag" 
 			class="sel form-control" onchange="selecttag(this.value)">
-				<option selected="selected" >해시태그</option>
+				<option selected="selected"  value="해시태그">해시태그</option>
 			</select>
 			<!-- <button type="button" class="add" id="btnaddctg">+ 추가</button>-->
 			<div id="output"></div>
 </div>
 <br><br>
 <h4>공고 내용</h4>
-<textarea rows="20" cols="100" class="form-control" name="empcontent" ></textarea>
+<textarea rows="20" cols="100" class="form-control" name="empcontent" id="empcontent" ></textarea>
 
 <h4 style="margin-top: 50px;">마감일</h4>
 <input type="date" name="deadline" value="2021-07-14" class="form-control">
 <br>
 <br>
 
-<button type="submit" class="btn btn-info">업로드</button>
+<button type="submit" class="btn btn-info" id="btn">업로드</button>
 <button type="button" class="btn btn-info" onclick="location.href='gonggolist'">목록</button>
 </div>
 </form>
@@ -168,5 +168,49 @@ $(document).on("click",".remove",function(e){
 	var r2= r1.parentNode;
 	r2.parentNode.removeChild(r2);
 });
+
+window.onload=function() {
+	var job1=document.getElementById("job");
+	console.log(job1.value);
+	var jobgroup1=document.getElementById("jobgroup");
+	console.log(jobgroup1.value);
+	var cctg1=document.getElementById("cctg");
+	console.log(cctg1.value);
+	var tag1=document.getElementById("hashtag");
+	console.log(tag1.value);
+	
+	document.getElementById('btn').onclick=function(){
+		var job=document.getElementById("job");
+		if(job.value==="직군"){
+			alert("직군을 입력해주세요");
+			return false;
+		}
+		var jobgroup=document.getElementById("jobgroup");
+		if(jobgroup.value==="직무"){
+			//document.getElementById('frm').submit;
+			alert("직무를 입력해주세요");
+			return false;
+		}
+		var cctg=document.getElementById("cctg");
+		if(cctg.value==="카테고리"){
+			//document.getElementById('frm').submit;
+			alert("카테고리를 입력해주세요");
+			return false;
+		}
+		var tag=document.getElementById("hashtag");
+		if(tag.value==="해시태그"){
+			//document.getElementById('frm').submit;
+			alert("해시태그를 입력해주세요");
+			return false;
+		}
+		var content=document.getElementById("empcontent");
+		if(content.value==="" || content.value==null){
+			//document.getElementById('frm').submit;
+			alert("공고 내용을 입력해주세요");
+			return false;
+		}
+		console.log("submit");
+		document.getElementById('frm').submit();
+	}}
 </script>
 </html>

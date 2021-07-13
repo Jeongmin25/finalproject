@@ -178,6 +178,7 @@ public class GonggoContoroller {
 	@PostMapping("/insert")
 	public String insertgonggo(@ModelAttribute CompanyDto dto, @ModelAttribute CategoryDto category,
 			HttpServletRequest request) {
+		
 		String path = request.getSession().getServletContext().getRealPath("/gonggophoto");
 		System.out.println(path);
 
@@ -191,10 +192,13 @@ public class GonggoContoroller {
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 		}
-
+		
+		
 		// db insert
 		mapper.insertGonggo(dto);
 		int num = mapper.getInsertNum();
+		System.out.println("num="+num);
+		
 		category.setNum(num);
 
 		String tag[] = category.getTag().split(",", -1);
