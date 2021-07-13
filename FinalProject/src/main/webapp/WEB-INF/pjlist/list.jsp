@@ -296,65 +296,76 @@ $(document).ready(function(){
 <!-- 태그 딱맞는 기업찾기 기능  -->
 <script type="text/javascript">
 
-	function selectctg(c) {
-		
+function selectctg(c) {
+	
+	var ipt = document.createElement("input");
+	ipt.setAttribute("type","button");
+	ipt.setAttribute("class","form-control");
+	ipt.setAttribute("name","ctg");
+	ipt.setAttribute("id","ctg");
+	ipt.setAttribute("value",c);
+	var space= document.getElementById("output1");
+	var spanx=document.createElement("span");
+	spanx.setAttribute("class","remove glyphicon glyphicon-remove");
+	//space.appendChild(ipt);
+	//space.appendChild(spanx);	
+	
+    var pay = ["연봉업계평균이상","연봉상위1%","연봉상위2~5%","연봉상위6~10%","연봉상위11~20%"];
+    var com = ["성과급", "상여금", "연말보너스","스톡옵션"];
+    var work = ["택시비", "차량지원", "재택근무", "원격근무"];
+    var eat = ["조식제공", "중식제공", "석식제공", "식비","커피","간식"];
+    var culture = ["수평적조직", "스타트업", "자율복장", "워크샵", "스톡옵션"];
+    var hashtag = document.getElementById("hashtag");
+   
+    if(c == "업계연봉수준") var t = pay;
+    else if(c == "보상") var t = com;
+    else if(c == "출퇴근") var t = work;
+    else if(c == "식사/간식") var t = eat;
+    else if(c == "기업문화") var t = culture;
+
+    hashtag.options.length = 0;
+
+    for (x in t) {
+        var opt = document.createElement("option");
+       	opt.setAttribute("type","button");
+        opt.value = t[x];
+        opt.innerHTML = t[x];
+        hashtag.appendChild(opt);
+    }
+}
+
+function selecttag(t) {
 		var ipt = document.createElement("input");
+		var div = document.createElement("div");
+		div.setAttribute("class","form-control");
 		ipt.setAttribute("type","button");
 		ipt.setAttribute("class","form-control");
-		ipt.setAttribute("name","ctg");
-		ipt.setAttribute("id","ctg");
-		ipt.setAttribute("value",c);
-		var space= document.getElementById("output1");
+		ipt.setAttribute("name","tag");
+		ipt.setAttribute("id","tag");
+		ipt.setAttribute("value",t);
+		var space= document.getElementById("output2");
 		var spanx=document.createElement("span");
 		spanx.setAttribute("class","remove glyphicon glyphicon-remove");
-		//space.appendChild(ipt);
-		//space.appendChild(spanx);	
+		space.appendChild(ipt);	
+		space.appendChild(spanx);
 		
-	    var pay = ["연봉업계평균이상","연봉상위1%","연봉상위2~5%","연봉상위6~10%","연봉상위11~20%"];
-	    var com = ["성과급", "상여금", "연말보너스","스톡옵션"];
-	    var work = ["택시비", "차량지원", "재택근무", "원격근무"];
-	    var eat = ["조식제공", "중식제공", "석식제공", "식비","커피","간식"];
-	    var culture = ["수평적조직", "스타트업", "자율복장", "워크샵", "스톡옵션"];
-	    var hashtag = document.getElementById("hashtag");
-	   
-	    if(c == "업계연봉수준") var t = pay;
-	    else if(c == "보상") var t = com;
-	    else if(c == "출퇴근") var t = work;
-	    else if(c == "식사/간식") var t = eat;
-	    else if(c == "기업문화") var t = culture;
-	
-	    hashtag.options.length = 0;
-	
-	    for (x in t) {
-	        var opt = document.createElement("option");
-	       	opt.setAttribute("type","button");
-	        opt.value = t[x];
-	        opt.innerHTML = t[x];
-	        hashtag.appendChild(opt);
-	    }
-	}
+}
 
-	function selecttag(t) {
-			var ipt = document.createElement("input");
-			ipt.setAttribute("type","button");
-			ipt.setAttribute("class","form-control");
-			ipt.setAttribute("name","tag");
-			ipt.setAttribute("id","tag");
-			ipt.setAttribute("value",t);
-			var space= document.getElementById("output2");
-			var spanx=document.createElement("span");
-			spanx.setAttribute("class","remove glyphicon glyphicon-remove");
-			space.appendChild(ipt);	
-			space.appendChild(spanx);	
-		
-	}
+/* $(document).on("click",".remove1",function(e){
+	var r1 = e.target;
+	var r2= r1.parentNode;
+	r2.parentNode.removeChild(r2);
 	
-	$(document).on("click",".remove1",function(e){
-		var r1 = e.target;
-		var r2= r1.parentNode;
-		r2.parentNode.removeChild(r2);
-		
-	});
+}); */
+
+
+$(document).on("click",".remove",function(e){
+	var inputtag = document.getElementById("#ctg");
+	//console.log(inputtag);
+	var r1 = e.target;
+	var r2= r1.parentNode;
+	r2.parentNode.removeChild(r2);
+});
 	
 	/* 태그 검색 시 리스트 재출력 */
 	$( document ).ready( function() {
