@@ -40,29 +40,32 @@
 table tbody td {
 	min-width: 110px;
 }
-
  
 </style>
 	
 </head>
 <body>
-	<h2>공지사항</h2>
-	<br><br>
+	<h2>+JOB 공지사항</h2>
+	<br>
 
 	<!-- DataTales Example -->
 	<div class="noticelist">
 		<table class="table table-bordered" id="dataTable"
 			style="width: 1000px;">
 			<thead>
-				<tr>
-					<th bgcolor="#021B80" style="color: white;width:50px;">번호</th>
-					<th bgcolor="#021B80" style="color: white;width:70px;align:center;">카테고리</th>
-					<th bgcolor="#021B80" style="color: white;">제목</th>
-					<th bgcolor="#021B80" style="color: white;width:80px;">작성일</th>
-
-
-
-
+				<tr align="center" >
+					<th bgcolor="#021B80" style="color: white;width:30px; height: 25px;">
+						<h5>번호</h5>
+					</th>
+					<th bgcolor="#021B80" style="color: white;width:70px;align:center;">
+						<h5>카테고리</h5>
+					</th>
+					<th bgcolor="#021B80" style="color: white;" >
+						<h5 id="title">제목</h5>
+					</th>
+					<th bgcolor="#021B80" style="color: white;width:80px;">
+						<h5>작성일</h5>
+					</th>
 				</tr>
 			</thead>
 			<tfoot>
@@ -71,12 +74,20 @@ table tbody td {
 			<tbody>
 				<c:forEach var="dto" items="${list}" varStatus="a">
 					<tr>
-						<td align="center">${a.count}</td>
-						<td align="center">${dto.category}</td>
-						<td align="center"><a href="noticecontent?num_n=${dto.num_n}&key=list"
-							style="color: black;">${dto.subject}</a></td> 
-                        <td align="center"><fmt:formatDate value="${dto.writeday}"
-										pattern="yyyy-MM-dd" /></td>
+						<td align="center">
+							<h5>${a.count}</h5>
+						</td>
+						<td align="center">
+							<h5>${dto.category}</h5>
+						</td>
+						<td align="center">
+							<a href="noticecontent?num_n=${dto.num_n}&key=list"style="color: black;">
+								<h5>${dto.subject}</h5>
+							</a>
+						</td> 
+                        <td align="center">
+                        	<h5><fmt:formatDate value="${dto.writeday}" pattern="MM-dd" /></h5>
+                        </td>
 					</tr>
 				</c:forEach>
 

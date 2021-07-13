@@ -216,10 +216,10 @@ ul.pagination { /* 페이징 */
 
 				<div class="notice">
 					<!-- DataTales Example -->
-					<h2 style="margin-left: 200px; margin-top: 50px;">공지관리</h2>
+					<h2 style="margin-left: 200px; margin-top: 50px; color: black;">공지관리</h2>
 					<button type="button" id="btnnotice"
 						onclick="location.href='/admin2/adminnotice/addform'">
-						공지글쓰기<i class="fas fa-pencil-alt"></i>
+						공지글쓰기 <i class="fas fa-pencil-alt"></i>
 					</button>
 
 

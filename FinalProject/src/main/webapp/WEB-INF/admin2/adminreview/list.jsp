@@ -51,6 +51,7 @@
 <style type="text/css">
 div.dataTables_length { /* 몇개씩보여줄지결정 */
 	font-size: 1.5em;
+	margin-left: 20px;
 }
 
 div.dataTables_filter { /* 검색창 */
@@ -198,10 +199,10 @@ table tbody td {
 
 
 				<!-- DataTales Example -->
-				<h2 style="margin-left: 200px; margin-top: 50px;">기업 리뷰 관리</h2>
+				<h2 style="margin-left: 20px; margin-top: 50px;">기업 리뷰 관리</h2>
 				<br><br>
 				<div class="review">
-					<table class="table table-bordered" id="dataTable">
+					<table class="table table-bordered" id="dataTable" style="margin-left: 20px;">
 						<thead>
 							<tr>
 								<th bgcolor="#021B80" style="color: white;">번호</th>
