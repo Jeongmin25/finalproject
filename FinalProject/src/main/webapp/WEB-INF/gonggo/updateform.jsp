@@ -65,6 +65,7 @@ width: 150px;
 			<select style="width: 200px; height: 35px;" name="cctg" id="cctg" class="sel form-control" 
 			onchange="selectctg(this.value)">
 				<option selected="selected" disabled="disabled">카테고리</option>
+					<option value="업계연봉수준">업계연봉수준</option>
 					<option value="보상">보상</option>
 					<option value="출퇴근">출퇴근</option>
 					<option value="식사/간식">식사/간식</option>
