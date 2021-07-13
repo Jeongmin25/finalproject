@@ -318,7 +318,12 @@ function submit2(frm){
 </aside>
 </c:if>
 <br>
-<button type="button" class="btn" style="margin-left: 400px;" onclick="location.href='gonggolist'">목록</button>
+<c:if test="${dto.empname ne null}">
+<button type="button" class="btn" onclick="history.back()">목록</button>
+</c:if>
+<c:if test="${dto.empname eq null}">
+<button type="button" class="btn" onclick="location.href='gonggolist'">목록</button>
+</c:if>
 <c:if test="${dto.empname==loginname}">
 <button type="button" class="btn" style="margin-left: 270px;" onclick="location.href='updategonggo?num=${dto.num}'">공고 수정</button>&nbsp;
 <button type="button" class="btn" onclick="location.href='delete?num=${dto.num}'">공고 삭제</button>
