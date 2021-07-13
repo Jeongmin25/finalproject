@@ -240,7 +240,7 @@ div.gonggo{
 <h3><i class="fas fa-medal"></i>프리미엄</h3>
 <c:set var="strPlanDate" value="${date}" />
 	<div class="premiumlist" >
-	<c:forEach var="dto" items="${gonggolist}" end="3">
+	<c:forEach var="dto" items="${gonggolist}" varStatus="n">
 	<c:if test="${dto.amount ne null}">
 		<c:set var="end_plan_date" value="${dto.deadline}" />
 			<fmt:parseNumber value="${strPlanDate.time/ (1000*60*60*24)}"
