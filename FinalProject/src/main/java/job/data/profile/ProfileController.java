@@ -302,8 +302,9 @@ public class ProfileController {
 	    						
 	    						long diffSec = (getToday.getTimeInMillis() - cmpDate.getTimeInMillis()) / 1000;
 	    						long diffDays = diffSec / (24*60*60); //일자수 차이
+	    						System.out.println(diffDays);
 	    						
-	    						if(diffDays <0) 
+	    						if(diffDays >0) 
 	    							failAdto.add(a);
 	    						
 	    						
@@ -479,7 +480,7 @@ public class ProfileController {
      		int endPage;//각 블럭의 마지막페이지
      		int start;//각 페이지의 시작번호
      		int no;//각 페이지에서 출력을 시작할 번호
-     		int perPage=10;//한페이지에 보여질 글의 개수
+     		int perPage=8;//한페이지에 보여질 글의 개수
      		int perBlock=5;//한 블럭에 보여질 페이지의 개수
     		
     		//북마크한 기업 보내기

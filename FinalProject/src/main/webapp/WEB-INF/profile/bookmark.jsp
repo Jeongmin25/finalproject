@@ -55,6 +55,29 @@
 	input.searchBookmark_keyword:focus {
 		outline: none;
 	}
+	div.image{
+	width: 200px;
+	height: 150px;
+	background-size: 200px 150px;
+	border-radius: 10px;
+}
+
+div.gonggo{
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+ div.gonggo-box{
+ 	max-width: 200px;
+ 	min-width: 200px;
+	height: 200px;
+	cursor: pointer;
+	margin-left:30px;
+	margin-bottom: 100px;
+	padding-top: 10px;
+	float: left;
+	border: none;
+ }
 </style>
 </head>
 <script type="text/javascript">
@@ -93,31 +116,39 @@ window.onload=function(){
 
 			<c:if test="${(endDate - strDate)<0}">
 				<li>
-				<div style="float: left;margin-left: 10px;">
-					<header class="bookmark_bookmarkul_header" style="background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('gonggophoto/${cdto.empimg}');">
-						<i class="fas fa-bookmark" style="color: #021B80;padding-right: 5px;padding-top: 5px;cursor: pointer;" onclick="location.href='delBookmark?num=${cdto.num }&pageNum=${currentPage}'"></i>
-						<p style="color: #fff;text-align: center;padding-top: 25%;font-size: 1.1em;">마감</p>
-					</header>
-					<div>
-						<h4 style="color: black;">${cdto.jobgroup }</h4>
-						<h6 style="color: black;">${cdto.job }</h6>
-						<h5 style="color: gray">${cdto.empname }</h5>
-					</div>
+				<div class="gonggo-box">
+					<input type="hidden" name="num" value="${cdto.num}">
+						<div class="image" style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url('gonggophoto/${cdto.empimg}');">
+							<span class="bookmark fas fa-bookmark" 
+								style="float: right; margin: 10px 10px 10px 10px; font-size: 1.3em; color: blue;"
+								 onclick="location.href='delBookmark?num=${cdto.num }&pageNum=${currentPage}'"></span>	
+								<p style="color: #fff;text-align: center;padding-top: 30%;font-size: 1.1em;">마감</p>
+						</div>		
+						<div class="gonggo" OnClick="location.href='gonggodetail?num=${cdto.num}'">	
+							<h4 class="subject">${cdto.jobgroup}</h5>
+							<h5>${cdto.empname }</h4>		
+							<h5 style="color:gray">마감일 : ${cdto.deadline }</h5>
+						</div>
 				</div>
+							
 			</li>
 			</c:if>
 			
 			<c:if test="${(endDate - strDate)>=0}">
 			<li>
-				<div style="float: left;margin-left: 10px;">
-					<header class="bookmark_bookmarkul_header" style="background-image: url('gonggophoto/${cdto.empimg}');">
-						<i class="fas fa-bookmark" style="color: #021B80;padding-right: 5px;padding-top: 5px;cursor: pointer;" onclick="location.href='delBookmark?num=${cdto.num }&pageNum=${currentPage}'"></i>
-					</header>
-					<div onclick="location.href='gonggodetail?num=${cdto.num }'" style="cursor: pointer;">
-						<h4 style="color: black;">${cdto.jobgroup }</h4>
-						<h6 style="color: black;">${cdto.job }</h6>
-						<h5 style="color: gray">${cdto.empname }</h5>
-					</div>
+				<div class="gonggo-box">
+					<input type="hidden" name="num" value="${cdto.num}">
+						<div class="image" style="background-image:url('gonggophoto/${cdto.empimg}');">
+							<span class="bookmark fas fa-bookmark" 
+								style="float: right; margin: 10px 10px 10px 10px; font-size: 1.3em; color: blue;"
+								onclick="location.href='delBookmark?num=${cdto.num }&pageNum=${currentPage}'"></span>	
+			
+						</div>		
+						<div class="gonggo" OnClick="location.href='gonggodetail?num=${cdto.num}'">	
+							<h4 class="subject">${cdto.jobgroup}</h5>
+							<h5>${cdto.empname }</h4>		
+							<h5 style="color:gray">마감일 : ${cdto.deadline }</h5>
+						</div>
 				</div>
 			</li>
 			</c:if>
@@ -126,7 +157,7 @@ window.onload=function(){
 	
 </ul>
 <!-- 페이지 번호 -->
-<div style="width:850px; text-align: center;position: absolute;top: 750px;margin: auto;">
+<div style="width:850px; text-align: center;position: absolute;top: 850px;margin: auto;">
 	<ul class="pagination">
 		<!-- 이전페이지 -->
 		<c:if test="${startPage>1 }">

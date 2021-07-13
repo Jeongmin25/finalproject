@@ -15,17 +15,6 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
-	header.apply_applyul_header{
-		width: 150px;
-		height: 150px;
-		min-width: 150px;
-		min-height: 150px;
-		margin-right: 15px;
-		max-height: 150px;
-		max-width: 150px;
-		background-size: 150px 150px;
-		text-align: right;
-	}
 	i.fa-angle-right:hover {
 		color: #176fd8;
 	}
@@ -81,9 +70,32 @@
 		margin-left: 200px;
 	}
 	div.apply_default{
-		margin-left: 100px;
+		margin-left: 0px;
 		margin-top: 20px;
+		border: 0px solid gray;
 	}
+	div.gonggo{
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+ div.gonggo-box{
+ 	max-width: 200px;
+ 	min-width: 200px;
+	height: 200px;
+	cursor: pointer;
+	margin-left:30px;
+	margin-bottom: 100px;
+	padding-top: 10px;
+	float: left;
+	border: none;
+ }
+ div.image{
+	width: 200px;
+	height: 150px;
+	background-size: 200px 150px;
+	border-radius: 10px;
+}
 </style>
 <script type="text/javascript">
 function delapply(num,pageNum){
@@ -134,40 +146,34 @@ function delapply(num,pageNum){
 				integerOnly="true" var="endDate" />
 			
 		<c:if test="${(endDate - strDate)<0}">	
-		<li>
-			<a>
-				<div style="float: left;margin-left: 20px;min-width:200px;max-width: 200px; ">
-					<header class="apply_applyul_header" style="background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('gongophoto/${cdto.empimg}');">
-						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-right: 5px;" onclick="delapply(${cdto.num},${currentPage })"></span>
-						<p style="color: #fff;text-align: center;padding-top: 25%;font-size: 1.1em;">지원 마감</p>
-					</header>
-					<div>
-						<h4 style="color: black;">${cdto.jobgroup }</h4>
-						<h6 style="color: black;">${cdto.job }</h6>
-						<h5 style="color: gray">${cdto.empname }</h5>
-						
+			<li>
+				<div class="gonggo-box">
+					<div class="image" style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url('gonggophoto/${cdto.empimg}');">
+						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-left: 180px;" onclick="delapply(${cdto.num},${currentPage })"></span>
+						<p style="color: #fff;text-align: center;padding-top: 30%;font-size: 1.1em;">마감</p>
+					</div>	
+					<div class="gonggo" OnClick="location.href='gonggodetail?num=${cdto.num}'">	
+						<h4 class="subject">${cdto.jobgroup}</h5>
+						<h5>${cdto.empname }</h4>		
+						<h5 style="color:gray">마감일 : ${cdto.deadline }</h5>
 					</div>
 				</div>
-			</a>
-		</li>
+			</li>
 		</c:if>
 		
 		<c:if test="${(endDate - strDate)>=0}">
-		<li>
-			<a>
-				<div style="float: left;margin-left: 10px;min-width:170px;max-width: 170px;">
-				<header class="apply_applyul_header" style="background-image: url('../gonggophoto/${cdto.empimg }');">
-						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-right: 5px;" onclick="delapply(${cdto.num},${currentPage })"></span>
-					</header>
-					<div >
-						<h4 style="color: black;">${cdto.jobgroup }</h4>
-						<h6 style="color: black;">${cdto.job }</h6>
-						<h5 style="color: gray">${cdto.empname }<i class="fas fa-angle-right" onclick="location.href='gonggodetail?num=${cdto.num}'" style="margin-left: 90px;"></i></h5>
-						
+			<li>
+				<div class="gonggo-box">
+					<div class="image" style="background-image: url('gonggophoto/${cdto.empimg}');">
+						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-left: 180px" onclick="delapply(${cdto.num},${currentPage })"></span>
+					</div>	
+					<div class="gonggo" OnClick="location.href='gonggodetail?num=${cdto.num}'">	
+						<h4 class="subject">${cdto.jobgroup}</h5>
+						<h5>${cdto.empname }</h4>		
+						<h5 style="color:gray">마감일 : ${cdto.deadline }</h5>
 					</div>
 				</div>
-			</a>
-		</li>
+			</li>
 		</c:if>
 	</c:forEach>
 	</c:if>
@@ -175,7 +181,7 @@ function delapply(num,pageNum){
 </div>
 
   <!-- 페이지 번호 -->
-<div style="width:850px; text-align: center;position: absolute;top: 1000px;margin: auto;">
+<div style="width:850px; text-align: center;position: absolute;top: 1100px;margin: auto;">
 	<ul class="pagination">
 		<!-- 이전페이지 -->
 		<c:if test="${startPage>1 }">
@@ -222,8 +228,8 @@ function delapply(num,pageNum){
 		 			<tbody>
 		 				<c:forEach var="adto" items="${failAdto }">
 		 			
-		 					<tr align="center">
-		 						<td><img  src="gonggo/${adto.empimg }" class="applyFail_empimg">&nbsp;${adto.empname }</td>
+		 					<tr align="center" style="cursor: pointer;">
+		 						<td><img  src="gonggophoto/${adto.empimg }" class="applyFail_empimg">&nbsp;${adto.empname }</td>
 		 						<td>${adto.jobgroup }</td>
 		 						<td style="color: #bbb;">불합격</td>
 		 					</tr>
