@@ -104,7 +104,7 @@ public class EmpAccountController {
 	{
 		session.removeAttribute("loginok");
 		session.removeAttribute("myemail");
-		return "layout";
+		return "redirect:/";
 		
 	}
 	
