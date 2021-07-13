@@ -63,14 +63,14 @@
 div.dataTables_length { /* 몇개씩보여줄지결정 */
 	position: absolute;
 	top: 50px;
-	left: 200px;
+	left: 150px;
 	font-size: 1.5em;
 }
 
 div.dataTables_filter { /* 검색창 */
 	position: absolute;
 	top: 50px;
-	left: 400px;
+	left: 350px;
 	font-size: 1.5em;
 }
 
@@ -271,7 +271,8 @@ table tbody td {
 									<td align="center">${dto.empname}</td>
 									<td align="center">${dto.job}</td>
 									<td align="center">${dto.jobgroup}</td>
-									<td align="center">${dto.empcontent}</td>
+									<th align="center"><a href="gcontents?num=${dto.num}" style="color:black;">보기</a></th>
+									
 
 									<td align="center"><fmt:formatDate
 											value="${dto.writeday}" pattern="yyyy-MM-dd" /></td>
