@@ -25,8 +25,8 @@
 		values (#{empname},#{job},#{jobgroup},#{empcontent},#{empimg},STR_TO_DATE(#{deadline},'%Y-%m-%d'),now())
 	</insert>
 	<insert id="insertCategory" parameterType="category">
-		insert into category (ctg,tag,num) 
-		values (#{ctg, jdbcType=VARCHAR},#{tag, jdbcType=VARCHAR},#{num})
+		insert into category (tag,num) 
+		values (#{tag, jdbcType=VARCHAR},#{num} )
 	</insert>
 	<select id="getInsertNum" resultType="int">
 		select LAST_INSERT_ID()

@@ -3,8 +3,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
 
 @font-face {
-    font-family: 'Eoe_Zno_EB';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/Eoe_Zno_EB.woff') format('woff');
+     font-family: 'ELAND_Choice_M';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_M.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -18,7 +18,7 @@
 }
 
 body *{
-	  font-family: 'Eoe_Zno_EB';
+	  font-family: 'ELAND_Choice_M';
 }
 
 .main-container{

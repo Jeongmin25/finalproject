@@ -38,20 +38,21 @@ max-height: 100px;
 </head>
 <body>
 <form action="#" class="form-inline">
-<h2>My Company</h2>
+<h2>My Company</h2><br>
 <div class="giup">
 <c:forEach var="cdto" items="${cdto}" end="0">
 <img class="empimg" src="/gonggophoto/${cdto.empimg}">
 </c:forEach>
 <h3>${empname}</h3>
-<h4>(${email})</h4>
+<h4 style="color: #ddd;">(${email})</h4><br>
 
 <input type="hidden" name="num" value="${num}">
 <a style="float:right;" href="updateEmp?num=${num}">기업정보 수정</a><br>
 <hr>
-<h4>회사위치</h4><h5> ${addr}</h5>
+<h4>회사위치</h4><br>
 <input type="hidden" name="addr"id="addr"value="${addr}">
 <div id="map" style="width:200px;height:250px;"></div>
+<h6> ${addr}</h6>
 </div>
 <div class="premium">
 <c:set var="strPlanDate" value="${date}" />

@@ -761,6 +761,7 @@ document.addEventListener("click", function (e) {
 </div>
 <br><br>
 <button type="button" class="add" id="btnaddlink">+ 추가</button>
+<br><br>
 <table id="addlink"></table>
 </div>
 <div class="resume-toolbar" style="position: fixed; bottom: 10px;left: 1300px;">

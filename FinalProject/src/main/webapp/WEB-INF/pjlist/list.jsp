@@ -83,7 +83,6 @@ ul.tabs li.current{
 <hr>
 	 
 	 <!-- 직무로 검색 -->
-	<h3>직군/직무<br></h3>
 		
 	<div class="container" style="align-items: left;">
 	<ul class="tabs">
@@ -529,7 +528,7 @@ $( document ).ready( function() {
         	
         	if(data==""){
         		s+="<br><br><br>";
-        		s+="<h3 style='margin-left: 300px;'>["+tag+"] 검색 결과가 없습니다.</h3><br><br>";
+        		s+="<h3 style='margin-left: 300px;'>["+jobgroup+"] 검색 결과가 없습니다.</h3><br><br>";
 	    	}else{
        		//반복문으로 값 출력
         	$.each(data, function(idx, val) {

@@ -67,8 +67,8 @@ window.onload=function(){
 }
 </script>
 <body>
-<h3>북마크</h3>
-<div style="margin-left: 600px;margin-bottom: 30px;">
+<h2>북마크</h2>
+<div style="margin-left: 700px;margin-bottom: 30px;">
 	<input type="text" class="searchBookmark_keyword" name="keyword" value="" placeholder="키워드 입력" id="searchBookmark_keyword">
 	<i class="fas fa-search" style="cursor: pointer;" id="search_bookmark_icon"></i>
 </div>

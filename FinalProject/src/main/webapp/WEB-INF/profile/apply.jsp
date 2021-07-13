@@ -48,7 +48,10 @@
 		height: 130px;
 		margin-left: 230px;
 		border-radius: 5px;
-		padding: 10px 10px 10px 10px;
+		padding-top:30px;
+		padding-left:10px;
+		margin-top: 50px;
+		margin-bottom: 50px;
 	}
 		div.myjob_apply_div div{
 		float: left;
@@ -90,10 +93,9 @@ function delapply(num,pageNum){
 </script>
 </head>
 <body>
+<h2>지원 현황</h2>
 <div class="myjob_apply">
-		<div class="myjob_title">
-			<h4>지원 현황</h4>
-		</div>
+		<div class="myjob_title"></div>
 		<div class="myjob_apply_div">
 			<div>
 				<span style="font-size: 2em;cursor: pointer;" onclick="location.href='apply'" class="apply_status">${apply_cnt }</span>
@@ -134,8 +136,8 @@ function delapply(num,pageNum){
 		<c:if test="${(endDate - strDate)<0}">	
 		<li>
 			<a>
-				<div style="float: left;margin-left: 10px;min-width:170px;max-width: 170px; ">
-					<header class="apply_applyul_header" style="background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('gonggophoto/${cdto.empimg}');">
+				<div style="float: left;margin-left: 20px;min-width:200px;max-width: 200px; ">
+					<header class="apply_applyul_header" style="background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('gongophoto/${cdto.empimg}');">
 						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-right: 5px;" onclick="delapply(${cdto.num},${currentPage })"></span>
 						<p style="color: #fff;text-align: center;padding-top: 25%;font-size: 1.1em;">지원 마감</p>
 					</header>
@@ -154,13 +156,13 @@ function delapply(num,pageNum){
 		<li>
 			<a>
 				<div style="float: left;margin-left: 10px;min-width:170px;max-width: 170px;">
-					<header class="apply_applyul_header" style="background-image: url('gonggophoto/${cdto.empimg}');">
+				<header class="apply_applyul_header" style="background-image: url('../gonggophoto/${cdto.empimg }');">
 						<span class="glyphicon glyphicon-minus" style="color: #021B80;margin-right: 5px;" onclick="delapply(${cdto.num},${currentPage })"></span>
 					</header>
-					<div onclick="location.href='gonggodetail?num=${cdto.num}'" >
+					<div >
 						<h4 style="color: black;">${cdto.jobgroup }</h4>
 						<h6 style="color: black;">${cdto.job }</h6>
-						<h5 style="color: gray">${cdto.empname }</h5>
+						<h5 style="color: gray">${cdto.empname }<i class="fas fa-angle-right" onclick="location.href='gonggodetail?num=${cdto.num}'" style="margin-left: 90px;"></i></h5>
 						
 					</div>
 				</div>
@@ -173,7 +175,7 @@ function delapply(num,pageNum){
 </div>
 
   <!-- 페이지 번호 -->
-<div style="width:850px; text-align: center;position: absolute;top: 850px;margin: auto;">
+<div style="width:850px; text-align: center;position: absolute;top: 1000px;margin: auto;">
 	<ul class="pagination">
 		<!-- 이전페이지 -->
 		<c:if test="${startPage>1 }">

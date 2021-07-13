@@ -9,38 +9,24 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <style type="text/css">
-.btn {
+button.btn{
 width: 120px; 
 background-color: #021B80;
+color: white;
 border: none;
+float: right;
+margin: 50px 10px;
 }
-div.output{
-	width: 200px;
-	height: 200px;
-}
-div.output1{
-	border: 2px solid #021B80;
-    border-radius: 20px 20px;
+#output{
     font-size: 1.2em;
-    color: gray;
-    max-width: 200px;
-    width: 100px;
-    padding-left: 10px;
-}
-div.output2{
-	border: 2px solid #021B80;
-    border-radius: 20px 20px;
-    font-size: 1.2em;
-    color: gray;
-    max-width: 200px;
-    width: 100px;
-    padding-left: 10px;
-}
-#ctg{
-border: none;
+    max-width: 800px;
+
 }
 #tag{
 border: none;
+width: 150px;
+    color: gray;
+    max-width: 800px;
 }
 </style>
 </head>
@@ -78,7 +64,7 @@ border: none;
 		<td>
 			<select style="width: 200px; height: 35px;" name="cctg" id="cctg" class="sel form-control" 
 			onchange="selectctg(this.value)">
-				<option disabled>카테고리</option>
+				<option selected="selected" disabled="disabled">카테고리</option>
 					<option value="보상">보상</option>
 					<option value="출퇴근">출퇴근</option>
 					<option value="식사/간식">식사/간식</option>
@@ -87,26 +73,16 @@ border: none;
 			</select>
 			<select style="width: 200px; height: 35px;" name="hashtag" id="hashtag" 
 			class="sel form-control" onchange="selecttag(this.value)">
-				<option disabled>해시태그</option>
+				<option selected="selected" disabled="disabled">해시태그</option>
 			</select><br>
 			<!-- <button type="button" class="add" id="btnaddctg">+ 추가</button>-->
 			<div>
 			<c:forEach var="category" items="${category}">
-			<div class="form-control"><input type="text" name="ctg" id="ctg" value="${category.ctg}"> <span class="remove1 glyphicon glyphicon-remove"></span></div>
+			<div class="form-control"><input type="text" readonly="readonly" name="tag" id="tag" value="${category.tag}"> <span class="remove1 glyphicon glyphicon-remove"></span></div>
 			</c:forEach>
 			
 			</div>
-			
-			<div>
-			<c:forEach var="category" items="${category}">
-			<div class="form-control"><input type="text" name="tag" id="tag" value="${category.tag}"> <span class="remove1 glyphicon glyphicon-remove"></span></div>
-			</c:forEach>
-			
-			</div>
-			<div id="output">
-			<div id="output1">
-			<div id="inner"></div></div>
-			<div id="output2"></div></div>
+			<div id="output"></div>
 		</td>
 	</tr>
 </table>
@@ -156,23 +132,11 @@ function selectjob(e) {
 }
 function selectctg(c) {
 	
-	var ipt = document.createElement("input");
-	ipt.setAttribute("type","text");
-	ipt.setAttribute("class","form-control");
-	ipt.setAttribute("name","ctg");
-	ipt.setAttribute("id","ctg");
-	ipt.setAttribute("value",c);
-	var space= document.getElementById("output1");
-	var spanx=document.createElement("span");
-	spanx.setAttribute("class","remove glyphicon glyphicon-remove");
-	space.appendChild(ipt);	
-	space.appendChild(spanx);
-	
-    var pay = ["연봉업계평균이상","연봉상위1%","연봉상위2~5%","연봉상위6~10%","연봉상위11~20%"];
-    var com = ["성과급", "상여금", "연말보너스","스톡옵션"];
-    var work = ["택시비", "차량지원", "재택근무", "원격근무"];
-    var eat = ["조식제공", "중식제공", "석식제공", "식비","커피","간식"];
-    var culture = ["수평적조직", "스타트업", "자율복장", "워크샵"];
+    var pay = ["해시태그","연봉업계평균이상","연봉상위1%","연봉상위2~5%","연봉상위6~10%","연봉상위11~20%"];
+    var com = ["해시태그","성과급", "상여금", "연말보너스","스톡옵션"];
+    var work = ["해시태그","택시비", "차량지원", "재택근무", "원격근무"];
+    var eat = ["해시태그","조식제공", "중식제공", "석식제공", "식비","커피","간식"];
+    var culture = ["해시태그","수평적조직", "스타트업", "자율복장", "워크샵"];
     var hashtag = document.getElementById("hashtag");
    
     if(c == "업계연봉수준") var t = pay;
@@ -193,16 +157,19 @@ function selectctg(c) {
 }	
 function selecttag(t) {
 		var ipt = document.createElement("input");
+		var div = document.createElement("div");
+		div.setAttribute("class","form-control");
+		ipt.setAttribute("readonly","readonly");
 		ipt.setAttribute("type","text");
-		ipt.setAttribute("class","form-control");
 		ipt.setAttribute("name","tag");
 		ipt.setAttribute("id","tag");
 		ipt.setAttribute("value",t);
-		var space= document.getElementById("output2");
+		var space= document.getElementById("output");
 		var spanx=document.createElement("span");
 		spanx.setAttribute("class","remove glyphicon glyphicon-remove");
-		space.appendChild(ipt);	
-		space.appendChild(spanx);
+		div.appendChild(ipt);	
+		div.appendChild(spanx);
+		space.appendChild(div);
 }
 
 $(document).on("click",".remove1",function(e){

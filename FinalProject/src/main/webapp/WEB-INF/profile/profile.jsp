@@ -118,6 +118,10 @@
 		text-decoration: none;
 	}
 	
+	button.profile_update:hover{
+		border:2px solid #021B80;
+	}
+	
 </style>
 <script type="text/javascript">
 	function selresume(val){
@@ -129,7 +133,7 @@
 <c:set var="user_id"><sec:authentication property="principal.user.id"/></c:set>
 <div class="profile_entire">
 	<div class="profile_title">
-		<h4>프로필</h4>
+		<h2>프로필</h2>
 	</div>
 	<div class="profile_personW">
 		<div class="profile_img">
