@@ -21,7 +21,7 @@
 	select addr from company left outer join emp_account on company.empname=emp_account.empname
 	</select>
 	<select id="getnullamount"  parameterType="String" resultType="int">
-	select count(*) from company where amount is null and empname = #{empname}
+	select count(*) from company where amount is not null and empname = #{empname}
 	</select>
 	<insert id="insertGonggo" parameterType="company">
 		insert into company (empname,job,jobgroup,empcontent,empimg,deadline,writeday) 
